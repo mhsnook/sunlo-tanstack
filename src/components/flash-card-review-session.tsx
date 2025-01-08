@@ -31,7 +31,6 @@ interface ComponentProps {
 export function FlashCardReviewSession({ pids, cardsMap }: ComponentProps) {
 	const [currentCardIndex, setCurrentCardIndex] = useState(0)
 	const [showTranslation, setShowTranslation] = useState(false)
-	const [isReviewComplete, setIsReviewComplete] = useState(false)
 
 	const playAudio = (text: string) => {
 		toast(`Playing audio for: ${text}`)
@@ -39,13 +38,8 @@ export function FlashCardReviewSession({ pids, cardsMap }: ComponentProps) {
 	}
 
 	const navigateCards = (direction: 'forward' | 'back') => {
-		if (direction === 'forward' && currentCardIndex < flashCards.length) {
-			if (currentCardIndex === flashCards.length - 1) setIsReviewComplete(true)
-			setCurrentCardIndex(currentCardIndex + 1)
-		} else if (direction === 'back' && currentCardIndex > 0) {
-			if (currentCardIndex === flashCards.length) setIsReviewComplete(false)
-			setCurrentCardIndex(currentCardIndex - 1)
-		}
+		if (direction === 'forward') setCurrentCardIndex(currentCardIndex + 1)
+		if (direction === 'back') setCurrentCardIndex(currentCardIndex - 1)
 		setShowTranslation(false)
 	}
 	const handleDifficultySelect = (difficulty: string) => {
@@ -55,36 +49,51 @@ export function FlashCardReviewSession({ pids, cardsMap }: ComponentProps) {
 		navigateCards('forward')
 	}
 
+	const isComplete = currentCardIndex === flashCards.length
 	const currentCard = flashCards[currentCardIndex] ?? null
 
 	return (
 		<Card className="w-full mx-auto h-[80vh] flex flex-col justify-center">
 			<CardHeader>
-				<div className="flex justify-center items-center mb-4 gap-1">
-					<Button
-						size="icon-sm"
-						variant="ghost"
-						onClick={() => navigateCards('back')}
-						disabled={currentCardIndex === 0}
-						aria-label="Previous card"
-					>
-						<ChevronLeft className="h-4 w-4" />
-					</Button>
-					<div className="text-sm text-center">
-						Card {currentCardIndex + 1} of {flashCards.length}
+				{isComplete ?
+					<div className="mx-auto pt-[2px]">
+						<Button
+							size="sm"
+							variant="ghost"
+							aria-label="back to cards"
+							onClick={() => navigateCards('back')}
+							className="ps-2 pe-4"
+						>
+							<ChevronLeft className="h-4 w-4 me-1" /> Cack to cards
+						</Button>
 					</div>
-					<Button
-						size="icon-sm"
-						variant="ghost"
-						onClick={() => navigateCards('forward')}
-						disabled={currentCardIndex === flashCards.length}
-						aria-label="Next card"
-					>
-						<ChevronRight className="h-4 w-4" />
-					</Button>
-				</div>
+				:	<div className="flex justify-center items-center mb-4 gap-1 mt-2">
+						<Button
+							size="icon-sm"
+							variant="ghost"
+							onClick={() => navigateCards('back')}
+							disabled={currentCardIndex === 0}
+							aria-label="Previous card"
+						>
+							<ChevronLeft className="h-4 w-4" />
+						</Button>
+
+						<div className="text-sm text-center">
+							Card {currentCardIndex + 1} of {flashCards.length}
+						</div>
+						<Button
+							size="icon-sm"
+							variant="ghost"
+							onClick={() => navigateCards('forward')}
+							disabled={currentCardIndex === flashCards.length}
+							aria-label="Next card"
+						>
+							<ChevronRight className="h-4 w-4" />
+						</Button>
+					</div>
+				}
 			</CardHeader>
-			{isReviewComplete ?
+			{isComplete ?
 				<CardContent className="flex flex-grow flex-col items-center justify-center gap-4 pb-16">
 					<h2 className="text-2xl font-bold">Good work!</h2>
 					<p className="text-lg">You've completed your review for today.</p>
@@ -107,7 +116,7 @@ export function FlashCardReviewSession({ pids, cardsMap }: ComponentProps) {
 						</div>
 						{showTranslation && (
 							<div className="flex items-center justify-center mt-4">
-								<div className="text-xl text-center mr-2">
+								<div className="text-xl text-center me-2">
 									{currentCard.translation}
 								</div>
 								<Button
