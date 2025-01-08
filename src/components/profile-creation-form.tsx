@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from '@/components/ui/button'
@@ -56,7 +56,11 @@ export default function ProfileCreationForm({ userId }: { userId: string }) {
 
 	return (
 		<div className="max-w-sm space-y-8 mx-auto">
-			<form onSubmit={handleSubmit(mainForm.mutate)} className="space-y-6">
+			<form
+				noValidate
+				onSubmit={void handleSubmit(mainForm.mutate as SubmitHandler<FormData>)}
+				className="space-y-6"
+			>
 				<UsernameField register={register} error={errors.username} />
 				<LanguagePrimaryField
 					control={control}

@@ -2,7 +2,7 @@ import type { uuid } from '@/types/main'
 
 import { Navigate } from '@tanstack/react-router'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { toast } from 'react-hot-toast'
@@ -94,11 +94,13 @@ function PrefilledForm({ initialData, uid }: PrefilledFormProps) {
 
 	return (
 		<form
-			className="space-y-4"
-			onSubmit={handleSubmit(
-				updateProfile.mutate as SubmitHandler<ProfileEditFormInputs>
-			)}
 			noValidate
+			className="space-y-4"
+			onSubmit={
+				void handleSubmit(
+					updateProfile.mutate as SubmitHandler<ProfileEditFormInputs>
+				)
+			}
 		>
 			<fieldset
 				className="grid grid-cols-1 gap-4 @xl:grid-cols-2"

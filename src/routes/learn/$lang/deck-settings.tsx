@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PostgrestError } from '@supabase/supabase-js'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Controller, useForm } from 'react-hook-form'
+import { type SubmitHandler, Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
 
@@ -101,7 +101,12 @@ function GoalForm({ meta: { learning_goal, id, lang } }: { meta: DeckMeta }) {
 			</CardHeader>
 			<CardContent>
 				<form
-					onSubmit={handleSubmit(updateDeckGoalMutation.mutate)}
+					noValidate
+					onSubmit={
+						void handleSubmit(
+							updateDeckGoalMutation.mutate as SubmitHandler<DeckGoalFormInputs>
+						)
+					}
 					className="space-y-4"
 				>
 					<Controller

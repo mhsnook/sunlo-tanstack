@@ -75,7 +75,7 @@ function SearchTab() {
 			</CardHeader>
 			<CardContent>
 				<form
-					onSubmit={handleSubmit((values) => onSearchSubmit(values))}
+					onSubmit={void handleSubmit(onSearchSubmit)}
 					className="space-y-4"
 				>
 					<div>
