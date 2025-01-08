@@ -4,10 +4,10 @@ import {
 	useState,
 	useEffect,
 } from 'react'
+import type { uuid } from '@/types/main'
+import type { Session } from '@supabase/supabase-js'
 import { useQueryClient } from '@tanstack/react-query'
 import supabase from '@/lib/supabase-client'
-import type { uuid } from '@/types/main'
-import { Session } from '@supabase/supabase-js'
 
 type RolesEnum = 'learner' | 'helper' | 'both' | null
 

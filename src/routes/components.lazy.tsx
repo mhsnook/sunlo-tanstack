@@ -126,12 +126,13 @@ function ComponentsPage() {
 						<CardTitle>Button</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<div className="flex space-x-2">
+						<div className="flex flex-wrap gap-2">
 							<Button>Default</Button>
 							<Button variant="secondary">Secondary</Button>
 							<Button variant="ghost">Ghost</Button>
 							<Button variant="outline">Outline</Button>
 							<Button variant="destructive">Destructive</Button>
+							<Button variant="destructive-outline">Dest Outl</Button>
 							<Button variant="white">White</Button>
 						</div>
 					</CardContent>
@@ -141,15 +142,26 @@ function ComponentsPage() {
 				<Card>
 					<CardHeader>
 						<CardTitle>Card Title</CardTitle>
-						<CardDescription>
-							Card Description (CardHeader: [CardTitle, CardDescription],
-							CardContent, CardFooter)
-						</CardDescription>
+						<CardDescription>Card Description here</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<p>Card content goes here.</p>
+						<p>Markup structure goes:</p>
+						<ul className="list-disc ml-4">
+							<li>CardHeader</li>
+
+							<ul className="list-disc ml-4">
+								<li>CardTitle</li>
+							</ul>
+
+							<li>CardContent</li>
+
+							<ul className="list-disc ml-4">
+								<li>CardFooter</li>
+							</ul>
+						</ul>
 					</CardContent>
-					<CardFooter className="flex space-x-2">
+					<CardFooter className="flex gap-2">
 						<Button>Submit</Button>
 						<Button variant="outline">Cancel</Button>
 					</CardFooter>
@@ -161,7 +173,7 @@ function ComponentsPage() {
 						<CardTitle>Checkbox</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<div className="flex items-center space-x-2">
+						<div className="flex items-center gap-2">
 							<Checkbox id="terms" />
 							<label
 								htmlFor="terms"
@@ -323,18 +335,28 @@ function ComponentsPage() {
 				</Card>
 
 				{/* Scroll Area */}
-				<Card>
+				<Card className="col-span-2">
 					<CardHeader>
 						<CardTitle>Scroll Area</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
-							Jokester began sneaking into the castle in the middle of the night
-							and leaving jokes all over the place: under the king's pillow, in
-							his soup, even in the royal toilet. The king was furious, but he
-							couldn't seem to stop Jokester. And then, one day, the king
-							realized that the jokes were actually pretty funny. He laughed so
-							hard that he fell off his throne!
+						<ScrollArea className="h-[200px] rounded-md border p-4">
+							<p className="mb-4">
+								Jokester began sneaking into the castle in the middle of the
+								night and leaving jokes all over the place: under the king's
+								pillow, in his soup, even in the royal toilet. The king was
+								furious, but he couldn't seem to stop Jokester. And then, one
+								day, the king realized that the jokes were actually pretty
+								funny. He laughed so hard that he fell off his throne!
+							</p>
+							<p>
+								Jokester began sneaking into the castle in the middle of the
+								night and leaving jokes all over the place: under the king's
+								pillow, in his soup, even in the royal toilet. The king was
+								furious, but he couldn't seem to stop Jokester. And then, one
+								day, the king realized that the jokes were actually pretty
+								funny. He laughed so hard that he fell off his throne!
+							</p>
 						</ScrollArea>
 					</CardContent>
 				</Card>

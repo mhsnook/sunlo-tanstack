@@ -53,7 +53,7 @@ export default function LoginForm() {
 			if (email) {
 				toast.success(`Logged in as ${email}`, { position: 'bottom-center' })
 			}
-			// we don't need to redirect here, because the useEffect will do that
+			// we don't need to redirect here, because the <Navigate> will do that
 		},
 	})
 
