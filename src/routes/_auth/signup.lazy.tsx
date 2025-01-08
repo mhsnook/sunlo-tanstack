@@ -1,6 +1,6 @@
 import { Link, createLazyFileRoute } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
-import { useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import toast from 'react-hot-toast'
@@ -100,7 +100,11 @@ function SignUp() {
 						role="form"
 						noValidate
 						className="space-y-4"
-						onSubmit={handleSubmit(signupMutation.mutate)}
+						onSubmit={
+							void handleSubmit(
+								signupMutation.mutate as SubmitHandler<FormInputs>
+							)
+						}
 					>
 						<fieldset className="flex flex-col gap-y-4" disabled={isSubmitting}>
 							<EmailField

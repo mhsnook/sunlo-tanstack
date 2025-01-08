@@ -1,15 +1,15 @@
+import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
+import toast from 'react-hot-toast'
 import supabase from '@/lib/supabase-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import toast from 'react-hot-toast'
 import { cn } from '@/lib/utils'
 import { PublicProfile } from '@/types/main'
 
@@ -88,9 +88,9 @@ export function SearchProfilesComponent() {
 		<div className="container mx-auto p-4">
 			<h1 className="text-2xl font-bold mb-4">Search Profiles</h1>
 			<form
-				onSubmit={handleSubmit((data) => search(data))}
-				className="mb-6"
 				noValidate
+				onSubmit={void handleSubmit(search as SubmitHandler<SearchFormData>)}
+				className="mb-6"
 			>
 				<div className="flex gap-2">
 					<Input

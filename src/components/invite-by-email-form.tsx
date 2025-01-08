@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Controller, useForm } from 'react-hook-form'
+import { type SubmitHandler, Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 import { Send } from 'lucide-react'
@@ -11,21 +11,25 @@ import { Label } from '@/components/ui/label'
 import { ShowError } from '@/components/errors'
 import supabase from '@/lib/supabase-client'
 
+/* NOTE: This component does not work and is not used. Using the "invite by email"
+ * capability in supabase requires using supabase.admin.auth, which we don't give
+ * to the client (or the Tauri app) */
+
 const inviteFriendSchema = z.object({
 	email: z.string().email('Please enter a valid email'),
 })
 
+type InviteFriendValues = z.infer<typeof inviteFriendSchema>
+
 export function InviteFriendForm() {
-	const { control, handleSubmit } = useForm<z.infer<typeof inviteFriendSchema>>(
-		{
-			resolver: zodResolver(inviteFriendSchema),
-		}
-	)
+	const { control, handleSubmit } = useForm<InviteFriendValues>({
+		resolver: zodResolver(inviteFriendSchema),
+	})
 	// const queryClient = useQueryClient()
 
 	const invite = useMutation({
 		mutationKey: ['user', 'invite_friend'],
-		mutationFn: async (values: z.infer<typeof inviteFriendSchema>) => {
+		mutationFn: async (values: InviteFriendValues) => {
 			const { data, error } = await supabase.auth.admin.inviteUserByEmail(
 				values.email
 			)
@@ -40,12 +44,12 @@ export function InviteFriendForm() {
 		},
 	})
 
-	const onSubmit = handleSubmit((data) => {
-		invite.mutate(data)
-	})
-
 	return (
-		<form onSubmit={onSubmit}>
+		<form
+			onSubmit={
+				void handleSubmit(invite.mutate as SubmitHandler<InviteFriendValues>)
+			}
+		>
 			<fieldset
 				className="flex flex-row gap-2 items-end"
 				disabled={invite.isPending}

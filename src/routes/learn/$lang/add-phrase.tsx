@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import toast from 'react-hot-toast'
@@ -36,6 +36,8 @@ const addPhraseSchema = z.object({
 	translation: z.string().min(1, 'Please enter the translation'),
 })
 
+type AddPhraseFormValues = z.infer<typeof addPhraseSchema>
+
 function AddPhraseTab() {
 	const navigate = Route.useNavigate()
 	const { lang } = Route.useParams()
@@ -43,13 +45,13 @@ function AddPhraseTab() {
 
 	const searchPhrase = text || ''
 	const { control: addPhraseControl, handleSubmit: handleAddPhraseSubmit } =
-		useForm<z.infer<typeof addPhraseSchema>>({
+		useForm<AddPhraseFormValues>({
 			resolver: zodResolver(addPhraseSchema),
 			defaultValues: { phrase: searchPhrase, translation: '' },
 		})
 
 	const addPhraseMutation = useMutation({
-		mutationFn: (data: z.infer<typeof addPhraseSchema>) => {
+		mutationFn: (data: AddPhraseFormValues) => {
 			return new Promise((resolve) => setTimeout(() => resolve(data), 1000))
 		},
 		onSuccess: () => {
@@ -62,10 +64,6 @@ function AddPhraseTab() {
 		},
 	})
 
-	const onAddPhraseSubmit = handleAddPhraseSubmit((data) => {
-		addPhraseMutation.mutate(data)
-	})
-
 	return (
 		<Card>
 			<CardHeader>
@@ -75,7 +73,15 @@ function AddPhraseTab() {
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<form onSubmit={onAddPhraseSubmit} className="space-y-4 mt-4">
+				<form
+					noValidate
+					onSubmit={
+						void handleAddPhraseSubmit(
+							addPhraseMutation.mutate as SubmitHandler<AddPhraseFormValues>
+						)
+					}
+					className="space-y-4 mt-4"
+				>
 					<div>
 						<Label htmlFor="newPhrase">New Phrase</Label>
 						<Controller
