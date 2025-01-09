@@ -1,5 +1,9 @@
 import supabase from '@/lib/supabase-client'
-import { type UseQueryResult, useQuery } from '@tanstack/react-query'
+import {
+	type UseQueryResult,
+	queryOptions,
+	useQuery,
+} from '@tanstack/react-query'
 
 import type {
 	CardsMap,
@@ -9,7 +13,6 @@ import type {
 	CardFull,
 	uuid,
 	pids,
-	ReviewsCollated,
 } from '@/types/main'
 import { mapArray } from '@/lib/utils'
 import { useAuth } from '@/lib/hooks'
@@ -36,59 +39,51 @@ async function fetchDeck(lang: string): Promise<DeckLoaded> {
 	}
 }
 
-// Inputs for any kind of deck query we want to construct
-type DeckQuery = {
-	lang: string
-	select?: (
-		data: DeckLoaded
-	) =>
-		| DeckLoaded
-		| DeckMeta
-		| CardsMap
-		| CardFull
-		| Array<CardFull>
-		| pids
-		| { [key: string]: pids }
-		| ReviewsCollated
-}
-
-function useDeckQuery({ select = undefined, lang }: DeckQuery) {
-	const { userId } = useAuth()
-	return useQuery({
+export const deckQueryOptions = (lang: string, userId: uuid) =>
+	queryOptions({
 		queryKey: ['user', lang],
 		queryFn: async ({ queryKey }) => fetchDeck(queryKey[1]),
-		select,
 		enabled: !!userId && !!lang,
 		gcTime: 1_200_000,
 		staleTime: 120_000,
 		refetchOnWindowFocus: false,
 	})
+export const useDeck = (lang: string) => {
+	const { userId } = useAuth()
+	return useQuery({
+		...deckQueryOptions(lang, userId),
+	}) as UseQueryResult<DeckLoaded>
 }
 
-export const useDeck = (lang: string) =>
-	useDeckQuery({ lang }) as UseQueryResult<DeckLoaded>
-
-export const useDeckMeta = (lang: string) =>
-	useDeckQuery({
-		lang,
+export const useDeckMeta = (lang: string) => {
+	const { userId } = useAuth()
+	return useQuery({
+		...deckQueryOptions(lang, userId),
 		select: (data: DeckLoaded) => data.meta,
 	}) as UseQueryResult<DeckMeta>
+}
 
 // @TODO replace this with a memoized select on data.cards
-export const useDeckPids = (lang: string) =>
-	useDeckQuery({
-		lang,
+export const useDeckPids = (lang: string) => {
+	const { userId } = useAuth()
+	return useQuery({
+		...deckQueryOptions(lang, userId),
 		select: (data: DeckLoaded) => data.pids,
 	}) as UseQueryResult<pids>
+}
 
-export const useDeckCardsMap = (lang: string) =>
-	useDeckQuery({
-		lang,
+export const useDeckCardsMap = (lang: string) => {
+	const { userId } = useAuth()
+	return useQuery({
+		...deckQueryOptions(lang, userId),
 		select: (data: DeckLoaded) => data.cardsMap,
 	}) as UseQueryResult<CardsMap>
+}
 
-export const useDeckCard = (pid: uuid, lang: string) =>
-	useDeckQuery({
-		lang,
+export const useDeckCard = (pid: uuid, lang: string) => {
+	const { userId } = useAuth()
+	return useQuery({
+		...deckQueryOptions(lang, userId),
 		select: (data: DeckLoaded) => data.cardsMap[pid],
 	}) as UseQueryResult<CardFull>
+}

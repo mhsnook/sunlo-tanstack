@@ -100,7 +100,7 @@ function FriendsSection({ lang }: LangOnlyComponentProps) {
 }
 
 function DeckSettings({ lang }: LangOnlyComponentProps) {
-	const { data, isPending } = useDeckMeta(lang)
+	const { data } = useDeckMeta(lang)
 
 	return (
 		<Card>
@@ -111,28 +111,25 @@ function DeckSettings({ lang }: LangOnlyComponentProps) {
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="space-y-4">
-				{isPending ?
-					<Loader2 />
-				:	<ul className="list-disc ms-4">
-						<li>
-							Your deck is currently:{' '}
-							<strong>{data?.archived ? 'Inactive' : 'Active'}</strong>
-						</li>
-						<li>
-							Your learning motivation is:{' '}
-							<strong>
-								{data?.learning_goal === 'family' ?
-									'To connect with family'
-								: data?.learning_goal === 'visiting' ?
-									'Preparing to visit'
-								:	'Living in a new place'}
-							</strong>
-						</li>
-						<li>
-							Your learning goals are: <strong>lorem upside downum</strong>
-						</li>
-					</ul>
-				}
+				<ul className="list-disc ms-4">
+					<li>
+						Your deck is currently:{' '}
+						<strong>{data.archived ? 'Inactive' : 'Active'}</strong>
+					</li>
+					<li>
+						Your learning motivation is:{' '}
+						<strong>
+							{data?.learning_goal === 'family' ?
+								'To connect with family'
+							: data?.learning_goal === 'visiting' ?
+								'Preparing to visit'
+							:	'Living in a new place'}
+						</strong>
+					</li>
+					<li>
+						Your learning goals are: <strong>lorem upside downum</strong>
+					</li>
+				</ul>
 				<Link
 					to="/learn/$lang/deck-settings"
 					params={{ lang }}
@@ -165,7 +162,7 @@ function DeckFullContents({ lang }: LangOnlyComponentProps) {
 							title="Deck Details"
 							description="A bunch of JSON actually, not really good for humans."
 						>
-							{JSON.stringify(deck.data?.meta, null, 2)}
+							{JSON.stringify(deck.data.meta, null, 2)}
 						</ModalWithOpener>
 					</div>
 					<div>
@@ -178,11 +175,11 @@ function DeckFullContents({ lang }: LangOnlyComponentProps) {
 						</ModalWithOpener>
 					</div>
 				</div>
-				{deck.data?.pids.length > 0 ?
+				{deck.data.pids.length > 0 ?
 					<div className="flex-basis-[20rem] flex flex-shrink flex-row flex-wrap gap-4">
 						<LanguagePhrasesAccordionComponent
 							lang={lang}
-							pids={deck.data?.pids}
+							pids={deck.data.pids}
 							phrasesMap={language.data.phrasesMap}
 						/>
 					</div>

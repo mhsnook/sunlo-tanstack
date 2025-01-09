@@ -2,11 +2,25 @@ import { createFileRoute, Outlet } from '@tanstack/react-router'
 import { NavbarData } from '@/types/main'
 import languages from '@/lib/languages'
 import { languageQueryOptions } from '@/lib/use-language'
+import { deckQueryOptions } from '@/lib/use-deck'
 
 export const Route = createFileRoute('/learn/$lang')({
 	component: LanguageLayout,
-	loader: async ({ params: { lang }, context: { queryClient } }) => {
-		await queryClient.ensureQueryData(languageQueryOptions(lang))
+	loader: async ({
+		params: { lang },
+		context: {
+			queryClient,
+			auth: { userId },
+		},
+	}) => {
+		const languageLoader = queryClient.ensureQueryData(
+			languageQueryOptions(lang)
+		)
+		const deckLoader = queryClient.ensureQueryData(
+			deckQueryOptions(lang, userId)
+		)
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const both = { l: await languageLoader, d: await deckLoader }
 		return {
 			navbar: {
 				title: `Learning ${languages[lang]}`,
