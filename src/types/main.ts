@@ -102,7 +102,6 @@ export type UserCardInsert = CardInsert // @TODO remove
 
 export type ReviewMeta = Tables<'user_card_review_plus'>
 export type ReviewRow = Tables<'user_card_review'>
-export type Review = ReviewRow // @TODO remove
 export type ReviewInsert = TablesInsert<'user_card_review'>
 
 export type CardFull = CardMeta & {
@@ -192,7 +191,7 @@ export type Deck = DeckStub & {
 }
 
 export type ReviewsCollated = {
-	list: Array<Review>
+	list: Array<ReviewRow>
 	collated: object
 	keysInOrder: Array<string>
 }
