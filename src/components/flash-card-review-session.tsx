@@ -40,53 +40,35 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 
 	return (
 		<Card className="w-full mx-auto h-[80vh] flex flex-col">
-			<CardHeader>
-				{isComplete ?
-					<div className="mx-auto pt-[2px]">
-						<Button
-							size="sm"
-							variant="ghost"
-							aria-label="back to cards"
-							onClick={() => navigateCards('back')}
-							className="ps-2 pe-4"
-						>
-							<ChevronLeft className="h-4 w-4 me-1" /> Back to cards
-						</Button>
-					</div>
-				:	<div className="flex justify-center items-center mb-2 gap-1 mt-2">
-						<Button
-							size="icon-sm"
-							variant="ghost"
-							onClick={() => navigateCards('back')}
-							disabled={currentCardIndex === 0}
-							aria-label="Previous card"
-						>
-							<ChevronLeft className="h-4 w-4" />
-						</Button>
-
-						<div className="text-sm text-center">
-							Card {currentCardIndex + 1} of {cards.length}
-						</div>
-						<Button
-							size="icon-sm"
-							variant="ghost"
-							onClick={() => navigateCards('forward')}
-							disabled={currentCardIndex === cards.length}
-							aria-label="Next card"
-						>
-							<ChevronRight className="h-4 w-4" />
-						</Button>
-					</div>
-				}
-			</CardHeader>
 			{isComplete ?
-				<CardContent className="flex flex-grow flex-col items-center justify-center gap-4 pb-16 pt-0">
-					<h2 className="text-2xl font-bold">Good work!</h2>
-					<p className="text-lg">You've completed your review for today.</p>
-					<SuccessCheckmark />
-				</CardContent>
-			:	<CardContent className="flex flex-grow flex-col pt-0 px-[10%]">
-					<div className="flex-grow flex flex-col items-center justify-center">
+				<WhenComplete back={() => navigateCards('back')} />
+			:	<>
+					<CardHeader>
+						<div className="flex justify-center items-center mb-2 gap-1 mt-2">
+							<Button
+								size="icon-sm"
+								variant="ghost"
+								onClick={() => navigateCards('back')}
+								disabled={currentCardIndex === 0}
+								aria-label="Previous card"
+							>
+								<ChevronLeft className="h-4 w-4" />
+							</Button>
+							<div className="text-sm text-center">
+								Card {currentCardIndex + 1} of {cards.length}
+							</div>
+							<Button
+								size="icon-sm"
+								variant="ghost"
+								onClick={() => navigateCards('forward')}
+								disabled={currentCardIndex === cards.length}
+								aria-label="Next card"
+							>
+								<ChevronRight className="h-4 w-4" />
+							</Button>
+						</div>
+					</CardHeader>
+					<CardContent className="flex flex-grow flex-col pt-0 px-[10%]  items-center justify-center">
 						<div className="flex items-center justify-center mb-4">
 							<div className="text-2xl font-bold mr-2">
 								{currentPhrase.text}
@@ -120,49 +102,72 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 								))
 							)}
 						</div>
-					</div>
-				</CardContent>
+					</CardContent>
+					<CardFooter className="flex flex-col">
+						{!showTranslation ?
+							<Button
+								className="w-full mb-4"
+								onClick={() => setShowTranslation(true)}
+							>
+								Show Translation
+							</Button>
+						:	<div className="w-full grid grid-cols-4 gap-2">
+								<Button
+									variant="destructive"
+									onClick={() => handleDifficultySelect('again')}
+								>
+									Again
+								</Button>
+								<Button
+									variant="secondary"
+									onClick={() => handleDifficultySelect('hard')}
+								>
+									Hard
+								</Button>
+								<Button
+									variant="default"
+									className="bg-green-500 hover:bg-green-600"
+									onClick={() => handleDifficultySelect('good')}
+								>
+									Good
+								</Button>
+								<Button
+									variant="default"
+									className="bg-blue-500 hover:bg-blue-600"
+									onClick={() => handleDifficultySelect('easy')}
+								>
+									Easy
+								</Button>
+							</div>
+						}
+					</CardFooter>
+				</>
 			}
-			{currentCard === null ? null : (
-				<CardFooter className="flex flex-col">
-					{!showTranslation ?
-						<Button
-							className="w-full mb-4"
-							onClick={() => setShowTranslation(true)}
-						>
-							Show Translation
-						</Button>
-					:	<div className="w-full grid grid-cols-4 gap-2">
-							<Button
-								variant="destructive"
-								onClick={() => handleDifficultySelect('again')}
-							>
-								Again
-							</Button>
-							<Button
-								variant="secondary"
-								onClick={() => handleDifficultySelect('hard')}
-							>
-								Hard
-							</Button>
-							<Button
-								variant="default"
-								className="bg-green-500 hover:bg-green-600"
-								onClick={() => handleDifficultySelect('good')}
-							>
-								Good
-							</Button>
-							<Button
-								variant="default"
-								className="bg-blue-500 hover:bg-blue-600"
-								onClick={() => handleDifficultySelect('easy')}
-							>
-								Easy
-							</Button>
-						</div>
-					}
-				</CardFooter>
-			)}
 		</Card>
+	)
+}
+
+function WhenComplete({ back }: { back: () => void }) {
+	return (
+		<>
+			<CardHeader>
+				<div className="mx-auto pt-[2px]">
+					<Button
+						size="sm"
+						variant="ghost"
+						aria-label="back to cards"
+						onClick={back}
+						className="ps-2 pe-4"
+					>
+						<ChevronLeft className="h-4 w-4 me-1" /> Back to cards
+					</Button>
+				</div>
+			</CardHeader>
+			<CardContent className="flex flex-grow flex-col items-center justify-center gap-4 pb-16 pt-0">
+				<h2 className="text-2xl font-bold">Good work!</h2>
+				<p className="text-lg">You've completed your review for today.</p>
+				<SuccessCheckmark />
+			</CardContent>
+		</>
 	)
 }
