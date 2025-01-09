@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { Play, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
+import { Play, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
@@ -19,8 +19,7 @@ const playAudio = (text: string) => {
 export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 	const [currentCardIndex, setCurrentCardIndex] = useState(0)
 	const [showTranslation, setShowTranslation] = useState(false)
-	const { data: phrasesMap, isPending } = useLanguagePhrasesMap(lang)
-	if (isPending) return <Loader2 />
+	const { data: phrasesMap } = useLanguagePhrasesMap(lang)
 	console.log(`Phrases Map`, phrasesMap)
 
 	const navigateCards = (direction: 'forward' | 'back') => {
@@ -91,7 +90,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 					<div className="flex-grow flex flex-col items-center justify-center">
 						<div className="flex items-center justify-center mb-4">
 							<div className="text-2xl font-bold text-center mr-2">
-								{currentPhrase?.text}
+								{currentPhrase.text}
 							</div>
 							<Button
 								size="icon"

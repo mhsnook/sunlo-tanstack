@@ -174,7 +174,7 @@ function DeckFullContents({ lang }: LangOnlyComponentProps) {
 							title="Language Details"
 							description="A bunch of JSON actually, not really good for humans."
 						>
-							{JSON.stringify(language.data?.meta, null, 2)}
+							{JSON.stringify(language.data.meta, null, 2)}
 						</ModalWithOpener>
 					</div>
 				</div>
@@ -183,7 +183,7 @@ function DeckFullContents({ lang }: LangOnlyComponentProps) {
 						<LanguagePhrasesAccordionComponent
 							lang={lang}
 							pids={deck.data?.pids}
-							phrasesMap={language.data?.phrasesMap}
+							phrasesMap={language.data.phrasesMap}
 						/>
 					</div>
 				:	null}
@@ -217,8 +217,7 @@ function Empty({ lang }: LangOnlyComponentProps) {
 						</Link>
 
 						<Link
-							to="/learn/$lang/friend-request"
-							params={{ lang }}
+							to="/friends"
 							className={buttonVariants({ variant: 'secondary' })}
 						>
 							Invite a friend
