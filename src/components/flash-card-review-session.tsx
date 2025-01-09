@@ -85,15 +85,15 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 					<p className="text-lg">You've completed your review for today.</p>
 					<SuccessCheckmark />
 				</CardContent>
-			:	<CardContent className="flex flex-grow flex-col pt-0">
+			:	<CardContent className="flex flex-grow flex-col pt-0 px-[10%]">
 					<div className="flex-grow flex flex-col items-center justify-center">
 						<div className="flex items-center justify-center mb-4">
-							<div className="text-2xl font-bold text-center mr-2">
+							<div className="text-2xl font-bold mr-2">
 								{currentPhrase.text}
 							</div>
 							<Button
 								size="icon"
-								variant="ghost"
+								variant="secondary"
 								onClick={() => playAudio(currentPhrase.text)}
 								aria-label="Play original phrase"
 							>
@@ -107,10 +107,10 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 										<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
 											{trans.lang}
 										</span>
-										<div className="text-xl text-center me-2">{trans.text}</div>
+										<div className="text-xl me-2">{trans.text}</div>
 										<Button
-											size="icon"
-											variant="ghost"
+											size="icon-sm"
+											variant="secondary"
 											onClick={() => playAudio(trans.text)}
 											aria-label="Play translation"
 										>
