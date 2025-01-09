@@ -1,41 +1,27 @@
 import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { Play, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Play, ChevronLeft, ChevronRight } from 'lucide-react'
-import SuccessCheckmark from './SuccessCheckmark'
-import toast from 'react-hot-toast'
-import { CardsMap, uuid } from '@/types/main'
-
-interface FlashCard {
-	originalPhrase: string
-	translation: string
-}
-
-const flashCards: FlashCard[] = [
-	{
-		originalPhrase: 'Bonjour, comment allez-vous?',
-		translation: 'Hello, how are you?',
-	},
-	{ originalPhrase: "Je m'appelle Jean", translation: 'My name is John' },
-	{
-		originalPhrase: 'Où est la bibliothèque?',
-		translation: 'Where is the library?',
-	},
-]
+import SuccessCheckmark from '@/components/SuccessCheckmark'
+import { CardFull } from '@/types/main'
+import { useLanguagePhrasesMap } from '@/lib/use-language'
 
 interface ComponentProps {
-	pids: Array<uuid>
-	cardsMap: CardsMap
+	cards: Array<CardFull>
+	lang: string
+}
+const playAudio = (text: string) => {
+	toast(`Playing audio for: ${text}`)
+	// In a real application, you would trigger audio playback here
 }
 
-export function FlashCardReviewSession({ pids, cardsMap }: ComponentProps) {
+export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 	const [currentCardIndex, setCurrentCardIndex] = useState(0)
 	const [showTranslation, setShowTranslation] = useState(false)
-
-	const playAudio = (text: string) => {
-		toast(`Playing audio for: ${text}`)
-		// In a real application, you would trigger audio playback here
-	}
+	const { data: phrasesMap, isPending } = useLanguagePhrasesMap(lang)
+	if (isPending) return <Loader2 />
+	console.log(`Phrases Map`, phrasesMap)
 
 	const navigateCards = (direction: 'forward' | 'back') => {
 		if (direction === 'forward') setCurrentCardIndex(currentCardIndex + 1)
@@ -49,11 +35,13 @@ export function FlashCardReviewSession({ pids, cardsMap }: ComponentProps) {
 		navigateCards('forward')
 	}
 
-	const isComplete = currentCardIndex === flashCards.length
-	const currentCard = flashCards[currentCardIndex] ?? null
+	const isComplete = currentCardIndex === cards.length
+	const currentCard = cards[currentCardIndex] ?? null
+
+	const currentPhrase = phrasesMap[currentCard?.phrase_id] ?? null
 
 	return (
-		<Card className="w-full mx-auto h-[80vh] flex flex-col justify-center">
+		<Card className="w-full mx-auto h-[80vh] flex flex-col">
 			<CardHeader>
 				{isComplete ?
 					<div className="mx-auto pt-[2px]">
@@ -64,10 +52,10 @@ export function FlashCardReviewSession({ pids, cardsMap }: ComponentProps) {
 							onClick={() => navigateCards('back')}
 							className="ps-2 pe-4"
 						>
-							<ChevronLeft className="h-4 w-4 me-1" /> Cack to cards
+							<ChevronLeft className="h-4 w-4 me-1" /> Back to cards
 						</Button>
 					</div>
-				:	<div className="flex justify-center items-center mb-4 gap-1 mt-2">
+				:	<div className="flex justify-center items-center mb-2 gap-1 mt-2">
 						<Button
 							size="icon-sm"
 							variant="ghost"
@@ -79,13 +67,13 @@ export function FlashCardReviewSession({ pids, cardsMap }: ComponentProps) {
 						</Button>
 
 						<div className="text-sm text-center">
-							Card {currentCardIndex + 1} of {flashCards.length}
+							Card {currentCardIndex + 1} of {cards.length}
 						</div>
 						<Button
 							size="icon-sm"
 							variant="ghost"
 							onClick={() => navigateCards('forward')}
-							disabled={currentCardIndex === flashCards.length}
+							disabled={currentCardIndex === cards.length}
 							aria-label="Next card"
 						>
 							<ChevronRight className="h-4 w-4" />
@@ -94,41 +82,46 @@ export function FlashCardReviewSession({ pids, cardsMap }: ComponentProps) {
 				}
 			</CardHeader>
 			{isComplete ?
-				<CardContent className="flex flex-grow flex-col items-center justify-center gap-4 pb-16">
+				<CardContent className="flex flex-grow flex-col items-center justify-center gap-4 pb-16 pt-0">
 					<h2 className="text-2xl font-bold">Good work!</h2>
 					<p className="text-lg">You've completed your review for today.</p>
 					<SuccessCheckmark />
 				</CardContent>
-			:	<CardContent className="flex flex-grow flex-col pt-6">
+			:	<CardContent className="flex flex-grow flex-col pt-0">
 					<div className="flex-grow flex flex-col items-center justify-center">
 						<div className="flex items-center justify-center mb-4">
 							<div className="text-2xl font-bold text-center mr-2">
-								{currentCard.originalPhrase}
+								{currentPhrase?.text}
 							</div>
 							<Button
 								size="icon"
 								variant="ghost"
-								onClick={() => playAudio(currentCard.originalPhrase)}
+								onClick={() => playAudio(currentPhrase.text)}
 								aria-label="Play original phrase"
 							>
 								<Play className="h-4 w-4" />
 							</Button>
 						</div>
-						{showTranslation && (
-							<div className="flex items-center justify-center mt-4">
-								<div className="text-xl text-center me-2">
-									{currentCard.translation}
-								</div>
-								<Button
-									size="icon"
-									variant="ghost"
-									onClick={() => playAudio(currentCard.translation)}
-									aria-label="Play translation"
-								>
-									<Play className="h-4 w-4" />
-								</Button>
-							</div>
-						)}
+						<div>
+							{!showTranslation ? null : (
+								currentPhrase.translations.map((trans) => (
+									<div key={trans.id} className="flex items-center mt-4">
+										<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
+											{trans.lang}
+										</span>
+										<div className="text-xl text-center me-2">{trans.text}</div>
+										<Button
+											size="icon"
+											variant="ghost"
+											onClick={() => playAudio(trans.text)}
+											aria-label="Play translation"
+										>
+											<Play className="h-4 w-4" />
+										</Button>
+									</div>
+								))
+							)}
+						</div>
 					</div>
 				</CardContent>
 			}
