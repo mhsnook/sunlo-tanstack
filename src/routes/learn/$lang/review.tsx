@@ -5,7 +5,6 @@ import { NavbarData } from '@/types/main'
 import { FlashCardReviewSession } from '@/components/flash-card-review-session'
 import languages from '@/lib/languages'
 import { useDeck } from '@/lib/use-deck'
-import { Loader2 } from 'lucide-react'
 
 export const Route = createFileRoute('/learn/$lang/review')({
 	component: ReviewPage,
@@ -41,8 +40,7 @@ export const Route = createFileRoute('/learn/$lang/review')({
 
 function ReviewPage() {
 	const { lang } = Route.useParams()
-	const { data, isPending } = useDeck(lang)
-	if (isPending) return <Loader2 />
+	const { data } = useDeck(lang)
 	const cards = shuffle(
 		data.pids.filter((pid) => data.cardsMap[pid].status === 'active')
 	).map((pid) => data.cardsMap[pid])

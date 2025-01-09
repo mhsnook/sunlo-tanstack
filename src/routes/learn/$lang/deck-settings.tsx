@@ -25,7 +25,6 @@ import { useDeckMeta } from '@/lib/use-deck'
 import { DeckMeta, DeckRow } from '@/types/main'
 import { LearningGoalField } from '@/components/fields/learning-goal-field'
 import supabase from '@/lib/supabase-client'
-import { Loader2 } from 'lucide-react'
 
 export const Route = createFileRoute('/learn/$lang/deck-settings')({
 	component: DeckSettingsPage,
@@ -33,18 +32,18 @@ export const Route = createFileRoute('/learn/$lang/deck-settings')({
 
 function DeckSettingsPage() {
 	const { lang } = Route.useParams()
-	const { data: meta, isPending } = useDeckMeta(lang)
-	return isPending ?
-			<Loader2 />
-		:	<Card>
-				<CardHeader>
-					<CardTitle>Deck Settings</CardTitle>
-				</CardHeader>
-				<CardContent className="space-y-6">
-					<GoalForm meta={meta} />
-					<ArchiveForm meta={meta} />
-				</CardContent>
-			</Card>
+	const { data: meta } = useDeckMeta(lang)
+	return (
+		<Card>
+			<CardHeader>
+				<CardTitle>Deck Settings</CardTitle>
+			</CardHeader>
+			<CardContent className="space-y-6">
+				<GoalForm meta={meta} />
+				<ArchiveForm meta={meta} />
+			</CardContent>
+		</Card>
+	)
 }
 
 const DeckGoalSchema = z.object({

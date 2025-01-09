@@ -20,7 +20,6 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 	const [currentCardIndex, setCurrentCardIndex] = useState(0)
 	const [showTranslation, setShowTranslation] = useState(false)
 	const { data: phrasesMap } = useLanguagePhrasesMap(lang)
-	console.log(`Phrases Map`, phrasesMap)
 
 	const navigateCards = (direction: 'forward' | 'back') => {
 		if (direction === 'forward') setCurrentCardIndex(currentCardIndex + 1)
