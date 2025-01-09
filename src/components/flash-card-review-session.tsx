@@ -4,13 +4,16 @@ import { Play, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
-import { CardFull, ReviewInsert, ReviewRow, uuid, Tables, TablesInsert } from '@/types/main'
+import { CardFull, ReviewInsert, ReviewRow, uuid } from '@/types/main'
 import { useLanguagePhrasesMap } from '@/lib/use-language'
+import { useMutation } from '@tanstack/react-query'
+import supabase from '@/lib/supabase-client'
 
 interface ComponentProps {
 	cards: Array<CardFull>
 	lang: string
 }
+
 const playAudio = (text: string) => {
 	toast(`Playing audio for: ${text}`)
 	// In a real application, you would trigger audio playback here
@@ -25,12 +28,6 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 		if (direction === 'forward') setCurrentCardIndex(currentCardIndex + 1)
 		if (direction === 'back') setCurrentCardIndex(currentCardIndex - 1)
 		setShowTranslation(false)
-	}
-	const handleDifficultySelect = (difficulty: string) => {
-		console.log(
-			`Selected difficulty for card ${currentCardIndex + 1}: ${difficulty}`
-		)
-		navigateCards('forward')
 	}
 
 	const isComplete = currentCardIndex === cards.length
@@ -103,48 +100,125 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 							)}
 						</div>
 					</CardContent>
-					<CardFooter className="flex flex-col">
-						{!showTranslation ?
-							<Button
-								className="w-full mb-4"
-								onClick={() => setShowTranslation(true)}
-							>
-								Show Translation
-							</Button>
-						:	<div className="w-full grid grid-cols-4 gap-2">
-								<Button
-									variant="destructive"
-									onClick={() => handleDifficultySelect('again')}
-								>
-									Again
-								</Button>
-								<Button
-									variant="secondary"
-									onClick={() => handleDifficultySelect('hard')}
-								>
-									Hard
-								</Button>
-								<Button
-									variant="default"
-									className="bg-green-500 hover:bg-green-600"
-									onClick={() => handleDifficultySelect('good')}
-								>
-									Good
-								</Button>
-								<Button
-									variant="default"
-									className="bg-blue-500 hover:bg-blue-600"
-									onClick={() => handleDifficultySelect('easy')}
-								>
-									Easy
-								</Button>
-							</div>
-						}
-					</CardFooter>
+					{cards.map((card) => (
+						<UserCardReviewScoreButtonsRow
+							key={card.phrase_id}
+							phrase_id={card.phrase_id}
+							isButtonsShown={showTranslation}
+							showTheButtons={() => setShowTranslation(true)}
+							dontShowThisRowRightNow={currentCard.id !== card.id}
+							proceed={() => {
+								setShowTranslation(false)
+								navigateCards('forward')
+							}}
+						/>
+					))}
 				</>
 			}
 		</Card>
 	)
+}
+
+const postReview = async ({ phrase_id, score, id: prevId }: ReviewInsert) => {
+	if (!phrase_id || !score) throw new Error('Invalid review; cannot log')
+
+	let submitData: ReviewInsert = {
+		score,
+		phrase_id,
+	}
+	if (prevId) submitData['id'] = prevId
+
+	// console.log(`About to post the review,`, submitData, prevId)
+
+	const { data } = await supabase
+		.from('user_card_review')
+		.upsert(submitData)
+		.select()
+		.throwOnError()
+
+	// console.log(`We posted the review,`, data, error)
+	return data[0]
+}
+
+interface CardInnerProps {
+	phrase_id: uuid
+	isButtonsShown: boolean
+	showTheButtons: () => void
+	dontShowThisRowRightNow: boolean
+	proceed: () => void
+}
+
+function UserCardReviewScoreButtonsRow({
+	phrase_id,
+	isButtonsShown,
+	dontShowThisRowRightNow,
+	showTheButtons,
+	proceed,
+}: CardInnerProps) {
+	const { data, mutate, isPending } = useMutation({
+		mutationFn: ({ score, prevId }: { score: number; prevId?: string }) =>
+			postReview({ score, phrase_id, id: prevId }),
+		onSuccess: (result: ReviewRow) => {
+			console.log(`onSuccess firing with`, result)
+			if (result.score === 1)
+				toast('okay', { icon: '🤔', position: 'bottom-center' })
+			if (result.score === 2)
+				toast('okay', { icon: '🤷', position: 'bottom-center' })
+			if (result.score === 3)
+				toast('got it', { icon: '👍️', position: 'bottom-center' })
+			if (result.score === 4)
+				toast.success('nice', { position: 'bottom-center' })
+			setTimeout(proceed, 1500)
+		},
+		onError: (error) => {
+			toast.error(`There was some kind of error idk: ${error.message}`)
+			console.log(`Error posting review:`, error)
+		},
+	})
+
+	const prevId: uuid = data?.id || ''
+
+	return dontShowThisRowRightNow ? null : (
+			<CardFooter className="flex flex-col">
+				{!isButtonsShown ?
+					<Button className="w-full mb-4" onClick={showTheButtons}>
+						Show Translation
+					</Button>
+				:	<div className="w-full grid grid-cols-4 gap-2">
+						<Button
+							variant="destructive"
+							onClick={() => mutate({ score: 1, prevId })}
+							disabled={isPending || data?.score === 1}
+						>
+							Again
+						</Button>
+						<Button
+							variant="secondary"
+							onClick={() => mutate({ score: 2, prevId })}
+							disabled={isPending || data?.score === 2}
+						>
+							Hard
+						</Button>
+						<Button
+							variant="default"
+							className="bg-green-500 hover:bg-green-600"
+							onClick={() => mutate({ score: 3, prevId })}
+							disabled={isPending || data?.score === 3}
+						>
+							Good
+						</Button>
+						<Button
+							variant="default"
+							className="bg-blue-500 hover:bg-blue-600"
+							onClick={() => mutate({ score: 4, prevId })}
+							disabled={isPending || data?.score === 4}
+						>
+							Easy
+						</Button>
+					</div>
+				}
+			</CardFooter>
+		)
 }
 
 function WhenComplete({ back }: { back: () => void }) {
