@@ -1,4 +1,8 @@
-import { type UseQueryResult, useQuery } from '@tanstack/react-query'
+import {
+	type UseQueryResult,
+	queryOptions,
+	useQuery,
+} from '@tanstack/react-query'
 import type {
 	LanguageFetched,
 	LanguageLoaded,
@@ -33,55 +37,39 @@ export async function fetchLanguage(lang: string): Promise<LanguageLoaded> {
 	}
 }
 
-// Inputs for any kind of deck query we want to construct
-type LanguageQuery = {
-	lang: string
-	select?: (
-		data: LanguageLoaded
-	) =>
-		| LanguageLoaded
-		| PhraseFull
-		| Array<PhraseFull>
-		| PhrasesMap
-		| LanguageMeta
-		| pids
-}
-
-function useLanguageQuery({ select = undefined, lang }: LanguageQuery) {
-	return useQuery({
+export const languageQueryOptions = (lang: string) =>
+	queryOptions({
 		queryKey: ['language', lang],
 		queryFn: async ({ queryKey }) => fetchLanguage(queryKey[1]),
-		select,
 		enabled: lang.length === 3,
 		gcTime: 1_200_000,
 		staleTime: 120_000,
 		refetchOnWindowFocus: false,
 	})
-}
 
 export const useLanguage = (lang: string) =>
-	useLanguageQuery({ lang }) as UseQueryResult<LanguageLoaded>
+	useQuery({ ...languageQueryOptions(lang) }) as UseQueryResult<LanguageLoaded>
 
 export const useLanguageMeta = (lang: string) =>
-	useLanguageQuery({
-		lang,
+	useQuery({
+		...languageQueryOptions(lang),
 		select: (data: LanguageLoaded) => data.meta,
 	}) as UseQueryResult<LanguageMeta>
 
 export const useLanguagePids = (lang: string) =>
-	useLanguageQuery({
-		lang,
+	useQuery({
+		...languageQueryOptions(lang),
 		select: (data: LanguageLoaded) => data.pids,
 	}) as UseQueryResult<pids>
 
 export const useLanguagePhrasesMap = (lang: string) =>
-	useLanguageQuery({
-		lang,
+	useQuery({
+		...languageQueryOptions(lang),
 		select: (data: LanguageLoaded) => data.phrasesMap,
 	}) as UseQueryResult<PhrasesMap>
 
 export const useLanguagePhrase = (pid: uuid, lang: string) =>
-	useLanguageQuery({
-		lang,
+	useQuery({
+		...languageQueryOptions(lang),
 		select: (data: LanguageLoaded) => data.phrasesMap[pid],
 	}) as UseQueryResult<PhraseFull>
