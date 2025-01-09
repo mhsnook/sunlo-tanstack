@@ -4,7 +4,7 @@ import { Play, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
-import { CardFull } from '@/types/main'
+import { CardFull, ReviewInsert, ReviewRow, uuid, Tables, TablesInsert } from '@/types/main'
 import { useLanguagePhrasesMap } from '@/lib/use-language'
 
 interface ComponentProps {

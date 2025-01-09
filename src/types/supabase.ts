@@ -382,42 +382,42 @@ export type Database = {
       }
       user_card_review: {
         Row: {
-          card_id: string
           created_at: string
           id: string
+          phrase_id: string
           score: number | null
           uid: string
           updated_at: string
         }
         Insert: {
-          card_id?: string
           created_at?: string
           id?: string
+          phrase_id: string
           score?: number | null
           uid?: string
           updated_at?: string
         }
         Update: {
-          card_id?: string
           created_at?: string
           id?: string
+          phrase_id?: string
           score?: number | null
           uid?: string
           updated_at?: string
         }
         Relationships: [
           {
-            foreignKeyName: "user_card_review_card_id_fkey"
-            columns: ["card_id"]
+            foreignKeyName: "user_card_review_phrase_id_fkey"
+            columns: ["phrase_id"]
             isOneToOne: false
-            referencedRelation: "user_card"
+            referencedRelation: "phrase"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_card_review_card_id_fkey"
-            columns: ["card_id"]
+            foreignKeyName: "user_card_review_phrase_id_fkey"
+            columns: ["phrase_id"]
             isOneToOne: false
-            referencedRelation: "user_card_plus"
+            referencedRelation: "phrase_plus"
             referencedColumns: ["id"]
           },
           {
@@ -753,25 +753,25 @@ export type Database = {
       }
       user_card_review_plus: {
         Row: {
-          card_id: string | null
           created_at: string | null
           id: string | null
           lang: string | null
+          phrase_id: string | null
           score: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "user_card_review_card_id_fkey"
-            columns: ["card_id"]
+            foreignKeyName: "user_card_review_phrase_id_fkey"
+            columns: ["phrase_id"]
             isOneToOne: false
-            referencedRelation: "user_card"
+            referencedRelation: "phrase"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_card_review_card_id_fkey"
-            columns: ["card_id"]
+            foreignKeyName: "user_card_review_phrase_id_fkey"
+            columns: ["phrase_id"]
             isOneToOne: false
-            referencedRelation: "user_card_plus"
+            referencedRelation: "phrase_plus"
             referencedColumns: ["id"]
           },
           {
