@@ -43,10 +43,12 @@ function ReviewPage() {
 	const { lang } = Route.useParams()
 	const { data, isPending } = useDeck(lang)
 	if (isPending) return <Loader2 />
-	const pidsForReview = shuffle(data.pids)
-	return pidsForReview.length === 0 ?
+	const cards = shuffle(
+		data.pids.filter((pid) => data.cardsMap[pid].status === 'active')
+	).map((pid) => data.cardsMap[pid])
+	return cards.length === 0 ?
 			<Empty lang={lang} />
-		:	<FlashCardReviewSession pids={pidsForReview} cardsMap={data.cardsMap} />
+		:	<FlashCardReviewSession cards={cards} lang={lang} />
 }
 
 function shuffle<T>(array: Array<T> | null | undefined): Array<T> {
