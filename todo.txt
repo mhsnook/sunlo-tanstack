@@ -70,11 +70,11 @@ JOURNEYS TO MOCK
 
 
 MOCKS / Incompletes
-1. The $lang/review workflow is a mock only; wire it up
+1. ✅ The $lang/review workflow is a mock only; wire it up
 		✅ we're collecting and passing in the data
 		✅ we have an "empty" state and a "complete" state
-		we have the component taking the correct data for its loop
-		we have the component submitting mutations
+		✅ we have the component taking the correct data for its loop
+		✅ we have the component submitting mutations
 1. Invite-A-Friend is a whole feature-set that needs to be built!
 	1. ✅ Accept invite from your friend page is built; the mutation is kind of real and there are success/error states build, 
 		1. ✅ We can't really test it yet, till we have actual invites

@@ -8,6 +8,7 @@ import { CardFull, ReviewInsert, ReviewRow, uuid } from '@/types/main'
 import { useLanguagePhrasesMap } from '@/lib/use-language'
 import { useMutation } from '@tanstack/react-query'
 import supabase from '@/lib/supabase-client'
+import { cn } from '@/lib/utils'
 
 interface ComponentProps {
 	cards: Array<CardFull>
@@ -156,8 +157,16 @@ function UserCardReviewScoreButtonsRow({
 	proceed,
 }: CardInnerProps) {
 	const { data, mutate, isPending } = useMutation({
-		mutationFn: ({ score, prevId }: { score: number; prevId?: string }) =>
-			postReview({ score, phrase_id, id: prevId }),
+		mutationFn: async ({
+			score,
+			data,
+		}: {
+			score: number
+			data?: ReviewRow
+		}) => {
+			if (data?.score === score) return data
+			return await postReview({ score, phrase_id, id: data?.id })
+		},
 		onSuccess: (result: ReviewRow) => {
 			console.log(`onSuccess firing with`, result)
 			if (result.score === 1)
@@ -187,31 +196,39 @@ function UserCardReviewScoreButtonsRow({
 				:	<div className="w-full grid grid-cols-4 gap-2">
 						<Button
 							variant="destructive"
-							onClick={() => mutate({ score: 1, prevId })}
-							disabled={isPending || data?.score === 1}
+							onClick={() => mutate({ score: 1, data })}
+							disabled={isPending}
+							className={data?.score === 1 ? 'ring ring-offset-1' : ''}
 						>
 							Again
 						</Button>
 						<Button
 							variant="secondary"
-							onClick={() => mutate({ score: 2, prevId })}
-							disabled={isPending || data?.score === 2}
+							onClick={() => mutate({ score: 2, data })}
+							disabled={isPending}
+							className={data?.score === 2 ? 'ring ring-offset-1' : ''}
 						>
 							Hard
 						</Button>
 						<Button
 							variant="default"
-							className="bg-green-500 hover:bg-green-600"
-							onClick={() => mutate({ score: 3, prevId })}
-							disabled={isPending || data?.score === 3}
+							onClick={() => mutate({ score: 3, data })}
+							disabled={isPending}
+							className={cn(
+								'bg-green-500 hover:bg-green-600',
+								data?.score === 3 ? 'ring ring-offset-1' : ''
+							)}
 						>
 							Good
 						</Button>
 						<Button
 							variant="default"
-							className="bg-blue-500 hover:bg-blue-600"
-							onClick={() => mutate({ score: 4, prevId })}
-							disabled={isPending || data?.score === 4}
+							className={cn(
+								'bg-blue-500 hover:bg-blue-600',
+								data?.score === 4 ? 'ring ring-offset-1' : ''
+							)}
+							onClick={() => mutate({ score: 4, data })}
+							disabled={isPending}
 						>
 							Easy
 						</Button>
