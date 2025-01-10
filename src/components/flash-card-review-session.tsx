@@ -38,84 +38,85 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 
 	return (
 		<Card className="w-full mx-auto h-[80vh] flex flex-col">
+			<WhenComplete
+				shouldShow={isComplete}
+				back={() => navigateCards('back')}
+			/>
+
+			<CardHeader className={isComplete ? 'hidden' : ''}>
+				<div className="flex justify-center items-center mb-2 gap-1 mt-2">
+					<Button
+						size="icon-sm"
+						variant="ghost"
+						onClick={() => navigateCards('back')}
+						disabled={currentCardIndex === 0}
+						aria-label="Previous card"
+					>
+						<ChevronLeft className="h-4 w-4" />
+					</Button>
+					<div className="text-sm text-center">
+						Card {currentCardIndex + 1} of {cards.length}
+					</div>
+					<Button
+						size="icon-sm"
+						variant="ghost"
+						onClick={() => navigateCards('forward')}
+						disabled={currentCardIndex === cards.length}
+						aria-label="Next card"
+					>
+						<ChevronRight className="h-4 w-4" />
+					</Button>
+				</div>
+			</CardHeader>
 			{isComplete ?
-				<WhenComplete back={() => navigateCards('back')} />
-			:	<>
-					<CardHeader>
-						<div className="flex justify-center items-center mb-2 gap-1 mt-2">
-							<Button
-								size="icon-sm"
-								variant="ghost"
-								onClick={() => navigateCards('back')}
-								disabled={currentCardIndex === 0}
-								aria-label="Previous card"
-							>
-								<ChevronLeft className="h-4 w-4" />
-							</Button>
-							<div className="text-sm text-center">
-								Card {currentCardIndex + 1} of {cards.length}
-							</div>
-							<Button
-								size="icon-sm"
-								variant="ghost"
-								onClick={() => navigateCards('forward')}
-								disabled={currentCardIndex === cards.length}
-								aria-label="Next card"
-							>
-								<ChevronRight className="h-4 w-4" />
-							</Button>
-						</div>
-					</CardHeader>
-					<CardContent className="flex flex-grow flex-col pt-0 px-[10%]  items-center justify-center">
-						<div className="flex items-center justify-center mb-4">
-							<div className="text-2xl font-bold mr-2">
-								{currentPhrase.text}
-							</div>
-							<Button
-								size="icon"
-								variant="secondary"
-								onClick={() => playAudio(currentPhrase.text)}
-								aria-label="Play original phrase"
-							>
-								<Play className="h-4 w-4" />
-							</Button>
-						</div>
-						<div>
-							{!showTranslation ? null : (
-								currentPhrase.translations.map((trans) => (
-									<div key={trans.id} className="flex items-center mt-4">
-										<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
-											{trans.lang}
-										</span>
-										<div className="text-xl me-2">{trans.text}</div>
-										<Button
-											size="icon-sm"
-											variant="secondary"
-											onClick={() => playAudio(trans.text)}
-											aria-label="Play translation"
-										>
-											<Play className="h-4 w-4" />
-										</Button>
-									</div>
-								))
-							)}
-						</div>
-					</CardContent>
-					{cards.map((card) => (
-						<UserCardReviewScoreButtonsRow
-							key={card.phrase_id}
-							phrase_id={card.phrase_id}
-							isButtonsShown={showTranslation}
-							showTheButtons={() => setShowTranslation(true)}
-							dontShowThisRowRightNow={currentCard.id !== card.id}
-							proceed={() => {
-								setShowTranslation(false)
-								navigateCards('forward')
-							}}
-						/>
-					))}
-				</>
+				<></>
+			:	<CardContent className="flex flex-grow flex-col pt-0 px-[10%] items-center justify-center">
+					<div className="flex items-center justify-center mb-4">
+						<div className="text-2xl font-bold mr-2">{currentPhrase.text}</div>
+						<Button
+							size="icon"
+							variant="secondary"
+							onClick={() => playAudio(currentPhrase.text)}
+							aria-label="Play original phrase"
+						>
+							<Play className="h-4 w-4" />
+						</Button>
+					</div>
+					<div>
+						{!showTranslation ? null : (
+							currentPhrase.translations.map((trans) => (
+								<div key={trans.id} className="flex items-center mt-4">
+									<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
+										{trans.lang}
+									</span>
+									<div className="text-xl me-2">{trans.text}</div>
+									<Button
+										size="icon-sm"
+										variant="secondary"
+										onClick={() => playAudio(trans.text)}
+										aria-label="Play translation"
+									>
+										<Play className="h-4 w-4" />
+									</Button>
+								</div>
+							))
+						)}
+					</div>
+				</CardContent>
 			}
+			{cards.map((card) => (
+				<UserCardReviewScoreButtonsRow
+					key={card.phrase_id}
+					phrase_id={card.phrase_id}
+					isButtonsShown={showTranslation}
+					showTheButtons={() => setShowTranslation(true)}
+					dontShowThisRowRightNow={isComplete || currentCard.id !== card.id}
+					proceed={() => {
+						setShowTranslation(false)
+						navigateCards('forward')
+					}}
+				/>
+			))}
 		</Card>
 	)
 }
@@ -185,8 +186,6 @@ function UserCardReviewScoreButtonsRow({
 		},
 	})
 
-	const prevId: uuid = data?.id || ''
-
 	return dontShowThisRowRightNow ? null : (
 			<CardFooter className="flex flex-col">
 				{!isButtonsShown ?
@@ -238,10 +237,16 @@ function UserCardReviewScoreButtonsRow({
 		)
 }
 
-function WhenComplete({ back }: { back: () => void }) {
+function WhenComplete({
+	shouldShow,
+	back,
+}: {
+	shouldShow: boolean
+	back: () => void
+}) {
 	return (
 		<>
-			<CardHeader>
+			<CardHeader className={shouldShow ? '' : 'hidden'}>
 				<div className="mx-auto pt-[2px]">
 					<Button
 						size="sm"
@@ -254,7 +259,12 @@ function WhenComplete({ back }: { back: () => void }) {
 					</Button>
 				</div>
 			</CardHeader>
-			<CardContent className="flex flex-grow flex-col items-center justify-center gap-4 pb-16 pt-0">
+			<CardContent
+				className={cn(
+					`flex flex-grow flex-col items-center justify-center gap-4 pb-16 pt-0`,
+					shouldShow ? '' : 'hidden'
+				)}
+			>
 				<h2 className="text-2xl font-bold">Good work!</h2>
 				<p className="text-lg">You've completed your review for today.</p>
 				<SuccessCheckmark />
