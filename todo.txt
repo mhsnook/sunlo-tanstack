@@ -39,6 +39,7 @@ EPIC OF SIGNUPS AND GETTING STARTED AND CONNECTING FRIENDS
 1.	✅ destructive buttons like "unfriend" and "cancel invite" and "decline invitation" should all have dialog confirmations
 
 ISSUES
+1. phrase search is broken; idk when that happened
 1. malformed link like /learn/undefined should 404, or at least say 'do you wanna start learning this?'
 1. When you try to sign up using existing creds you get an error and then get logged in. We
 	should handle this. (inspect and special-case the error before throwing, and toast accordingly)
@@ -91,13 +92,13 @@ MOCKS / Incompletes
 	1. How does the friend mode sidebar look? is it the same? are some people Learners _and_ Helpers?
 			(ideally, yes?) should we be switching "modes" like one context switcher that has options for
 			each deck we're learning and each deck we're helping with...
-	1. Public Library is a special browsing experience that needs to be built!
-	1. ✅ Deck Settings: replace with the nicer radio: https://v0.dev/chat/PNg3tT-DSoC, 
-			✅ and wire up the mutation
-			✅ add the `learning_goal` field on user_deck
-			✅ add the "archive" form, and field on user_deck
-			✅ wire up the mutation
-	1. Add-a-card needs form wiring
+1. Public Library is a special browsing experience that needs to be built!
+1. ✅ Deck Settings: replace with the nicer radio: https://v0.dev/chat/PNg3tT-DSoC, 
+		✅ and wire up the mutation
+		✅ add the `learning_goal` field on user_deck
+		✅ add the "archive" form, and field on user_deck
+		✅ wire up the mutation
+1. Add-a-card needs form wiring
 
 COMPONENTS (ShadCN/Radix)
 1. ✅ Add a Components page to keep track of / showcase all components
