@@ -4,12 +4,23 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { NavbarData } from '@/types/main'
 import { FlashCardReviewSession } from '@/components/flash-card-review-session'
 import languages from '@/lib/languages'
-import { useDeck } from '@/lib/use-deck'
+import { deckQueryOptions } from '@/lib/use-deck'
 
 export const Route = createFileRoute('/learn/$lang/review')({
 	component: ReviewPage,
-	loader: ({ params: { lang } }) => {
+	loader: async ({
+		params: { lang },
+		context: {
+			queryClient,
+			auth: { userId },
+		},
+	}) => {
+		const data = await queryClient.fetchQuery(deckQueryOptions(lang, userId))
+
 		return {
+			reviewableCards: shuffle(
+				data.pids.filter((pid) => data.cardsMap[pid].status === 'active')
+			).map((pid) => data.cardsMap[pid]),
 			navbar: {
 				title: `Review ${languages[lang]} cards`,
 				icon: 'book-heart',
@@ -40,13 +51,10 @@ export const Route = createFileRoute('/learn/$lang/review')({
 
 function ReviewPage() {
 	const { lang } = Route.useParams()
-	const { data } = useDeck(lang)
-	const cards = shuffle(
-		data.pids.filter((pid) => data.cardsMap[pid].status === 'active')
-	).map((pid) => data.cardsMap[pid])
-	return cards.length === 0 ?
+	const { reviewableCards } = Route.useLoaderData()
+	return reviewableCards.length === 0 ?
 			<Empty lang={lang} />
-		:	<FlashCardReviewSession cards={cards} lang={lang} />
+		:	<FlashCardReviewSession cards={reviewableCards} lang={lang} />
 }
 
 function shuffle<T>(array: Array<T> | null | undefined): Array<T> {
