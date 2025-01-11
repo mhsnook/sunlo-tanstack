@@ -27,6 +27,12 @@ export const Route = createFileRoute('/learn/$lang')({
 				icon: 'book-heart',
 				contextMenu: [
 					{
+						name: 'Quick search',
+						to: '/learn/$lang/search',
+						params: { lang },
+						icon: 'search',
+					},
+					{
 						name: 'Start a review',
 						to: '/learn/$lang/review',
 						params: { lang },
@@ -36,7 +42,7 @@ export const Route = createFileRoute('/learn/$lang')({
 						name: `Browse ${languages[lang]} library`,
 						to: '/learn/$lang/library',
 						params: { lang },
-						icon: 'search',
+						icon: 'book-copy',
 					},
 					{
 						name: 'Add a phrase',

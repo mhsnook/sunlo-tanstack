@@ -11,10 +11,20 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { Book, NotebookPen, Search } from 'lucide-react'
+import {
+	BookCopy,
+	Contact,
+	Dumbbell,
+	Library,
+	NotebookPen,
+	Search,
+	Send,
+} from 'lucide-react'
 import languages from '@/lib/languages'
 import { ago } from '@/lib/dayjs'
 import { useDeckMeta } from '@/lib/use-deck'
+import { cn } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
 
 export const Route = createFileRoute('/learn/$lang/')({
 	component: WelcomePage,
@@ -23,39 +33,18 @@ export const Route = createFileRoute('/learn/$lang/')({
 function WelcomePage() {
 	const { lang } = Route.useParams()
 	const deckIsNew = false
-	return deckIsNew ?
-			<Empty lang={lang} />
-		:	<div className="space-y-4 px-2">
-				<div className="flex gap-2 flex-row flex-wrap dark">
-					<Link
-						to="/learn/$lang/review"
-						params={{ lang }}
-						from={Route.fullPath}
-						className={buttonVariants({ variant: 'default' })}
-					>
-						<Book /> Today&apos;s Deck Review
-					</Link>
-					<Link
-						to="/learn/$lang/search"
-						params={{ lang }}
-						from={Route.fullPath}
-						className={buttonVariants({ variant: 'secondary' })}
-					>
-						<Search /> Quick search
-					</Link>
-					<Link
-						to="/learn/$lang/add-phrase"
-						params={{ lang }}
-						from={Route.fullPath}
-						className={buttonVariants({ variant: 'secondary' })}
-					>
-						<NotebookPen /> Add a phrase
-					</Link>
-				</div>
-				<DeckOverview lang={lang} />
-				<FriendsSection lang={lang} />
-				<DeckSettings lang={lang} />
-			</div>
+	return (
+		<div className="space-y-4 px-2">
+			{deckIsNew ?
+				<Empty lang={lang} />
+			:	<>
+					<DeckOverview lang={lang} />
+					<FriendsSection lang={lang} />
+					<DeckSettings lang={lang} />
+				</>
+			}
+		</div>
+	)
 }
 
 // TODO the database doesn't have friendships yet so this is all mockup-y
@@ -86,14 +75,24 @@ function FriendsSection({ lang }: LangOnlyComponentProps) {
 					<li>a-money (you have a new phrase from them)</li>
 					<li>j-bhai (nothing special actually)</li>
 				</ul>
-				<Link
-					to="/friends/search"
-					search={{ lang }}
-					from={Route.fullPath}
-					className={buttonVariants({ variant: 'secondary' })}
-				>
-					Invite friends
-				</Link>
+				<div className="flex flex-row gap-2 flex-wrap">
+					<Link
+						to="/friends/search"
+						search={{ lang }}
+						from={Route.fullPath}
+						className={buttonVariants({ variant: 'secondary' })}
+					>
+						<Search /> Find friends on Sunlo
+					</Link>
+					<Link
+						to="/friends/search"
+						search={{ lang }}
+						from={Route.fullPath}
+						className={buttonVariants({ variant: 'secondary' })}
+					>
+						<Send /> Invite new friends
+					</Link>
+				</div>
 			</CardContent>
 		</Card>
 	)
@@ -104,37 +103,67 @@ function DeckOverview({ lang }: LangOnlyComponentProps) {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Deck Overview</CardTitle>
-				<CardDescription>
-					Quick stats on your deck and learning progress.
+				<CardTitle>
+					<div className="flex flex-row justify-between items-center">
+						<span>Deck Overview</span>
+						<Link
+							to="/learn/$lang/search"
+							params={{ lang }}
+							aria-disabled="true"
+							className={buttonVariants({
+								size: 'badge',
+								variant: 'outline',
+							})}
+						>
+							<Search className="h-3 w-3" />
+							<span className="me-1">quick search</span>
+						</Link>
+					</div>
+				</CardTitle>
+				<CardDescription className="flex flex-row flex-wrap gap-2">
+					<Badge variant="outline">
+						{data.lang_total_phrases} phrases total
+					</Badge>
+					<Badge variant="outline">
+						{data.cards_active} cards in your deck
+					</Badge>
+					<Badge variant="outline">
+						{data.count_reviews_7d} reviews last 7d
+					</Badge>
 				</CardDescription>
 			</CardHeader>
-			<CardContent>Last review: {ago(data.most_recent_review_at)}</CardContent>
+			<CardContent className="text-sm">
+				<p>Your last review was {ago(data.most_recent_review_at)}</p>
+				<p>You've kept up with your routine 4 out of 5 days this week</p>
+				<p>34 active cards are scheduled for today, along with 15 new ones</p>
+			</CardContent>
 			<CardFooter>
-				<div className="flex flex-row gap-2">
+				<div className="flex flex-row flex-wrap gap-2">
 					<Link
 						to="/learn/$lang/review"
 						params={{ lang }}
 						from={Route.fullPath}
-						className={buttonVariants({ variant: 'default' })}
+						className={cn(buttonVariants({ variant: 'default' }), 'flex-1')}
 					>
-						Review my cards
+						<Dumbbell /> Review my {languages[lang]} flashcards
 					</Link>
 					<Link
 						to="/learn/$lang/library"
 						params={{ lang }}
 						from={Route.fullPath}
-						className={buttonVariants({ variant: 'secondary' })}
+						className={cn(buttonVariants({ variant: 'secondary' }), 'flex-0')}
 					>
-						Find more {languages[lang]} phrases
+						<BookCopy />
+						Browse the {languages[lang]} library
 					</Link>
 					<Link
 						to="/learn/$lang/add-phrase"
 						params={{ lang }}
 						from={Route.fullPath}
-						className={buttonVariants({ variant: 'secondary' })}
+						className={cn(buttonVariants({ variant: 'secondary' }), 'flex-0')}
 					>
-						Add a phrase
+						<NotebookPen />
+						Add a new phrase
 					</Link>
 				</div>
 			</CardFooter>
@@ -186,7 +215,6 @@ function DeckSettings({ lang }: LangOnlyComponentProps) {
 	)
 }
 
-
 function Empty({ lang }: LangOnlyComponentProps) {
 	return (
 		<Card className="py-10">
@@ -196,28 +224,37 @@ function Empty({ lang }: LangOnlyComponentProps) {
 						Welcome to Your New Language Journey!
 					</h1>
 				</CardTitle>
-				<CardContent>
-					<p className="text-lg mb-8">
+				<CardContent className="space-y-6">
+					<p className="text-lg">
 						Let's get started by setting up your learning experience. Do you
 						want to start by browsing the public deck of flash cards, or invite
 						a friend to help you out?
 					</p>
 					<div className="flex flex-col gap-2 @lg:flex-row">
 						<Link
-							to="/learn/$lang/search"
+							to="/learn/$lang/library"
 							params={{ lang }}
 							className={buttonVariants({ variant: 'secondary' })}
 						>
-							Search Cards
+							<Library /> Browse the {languages[lang]} library
 						</Link>
-
 						<Link
 							to="/friends"
 							className={buttonVariants({ variant: 'secondary' })}
 						>
-							Invite a friend
+							<Contact /> Invite a friend
 						</Link>
 					</div>
+					<p className="text-lg">
+						Or, do you already have a phrase in mind you'd like to add?
+					</p>
+					<Link
+						to="/learn/$lang/add-phrase"
+						params={{ lang }}
+						className={buttonVariants({ variant: 'secondary' })}
+					>
+						<NotebookPen /> Add a phrase
+					</Link>
 				</CardContent>
 			</CardHeader>
 		</Card>
