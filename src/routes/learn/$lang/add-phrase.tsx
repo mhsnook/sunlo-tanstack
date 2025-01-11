@@ -75,11 +75,10 @@ function AddPhraseTab() {
 			<CardContent>
 				<form
 					noValidate
-					onSubmit={
-						void handleAddPhraseSubmit(
-							addPhraseMutation.mutate as SubmitHandler<AddPhraseFormValues>
-						)
-					}
+					// eslint-disable-next-line @typescript-eslint/no-misused-promises
+					onSubmit={handleAddPhraseSubmit(
+						addPhraseMutation.mutate as SubmitHandler<AddPhraseFormValues>
+					)}
 					className="space-y-4 mt-4"
 				>
 					<div>

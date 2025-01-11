@@ -58,7 +58,8 @@ export default function ProfileCreationForm({ userId }: { userId: string }) {
 		<div className="max-w-sm space-y-8 mx-auto">
 			<form
 				noValidate
-				onSubmit={void handleSubmit(mainForm.mutate as SubmitHandler<FormData>)}
+				// eslint-disable-next-line @typescript-eslint/no-misused-promises
+				onSubmit={handleSubmit(mainForm.mutate as SubmitHandler<FormData>)}
 				className="space-y-6"
 			>
 				<UsernameField register={register} error={errors.username} />

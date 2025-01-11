@@ -96,11 +96,10 @@ function PrefilledForm({ initialData, uid }: PrefilledFormProps) {
 		<form
 			noValidate
 			className="space-y-4"
-			onSubmit={
-				void handleSubmit(
-					updateProfile.mutate as SubmitHandler<ProfileEditFormInputs>
-				)
-			}
+			// eslint-disable-next-line @typescript-eslint/no-misused-promises
+			onSubmit={handleSubmit(
+				updateProfile.mutate as SubmitHandler<ProfileEditFormInputs>
+			)}
 		>
 			<fieldset
 				className="grid grid-cols-1 gap-4 @xl:grid-cols-2"

@@ -75,7 +75,8 @@ function SearchTab() {
 			</CardHeader>
 			<CardContent>
 				<form
-					onSubmit={void handleSubmit(onSearchSubmit)}
+					// eslint-disable-next-line @typescript-eslint/no-misused-promises
+					onSubmit={handleSubmit(onSearchSubmit)}
 					className="space-y-4"
 				>
 					<div>

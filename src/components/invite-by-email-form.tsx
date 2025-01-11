@@ -46,9 +46,10 @@ export function InviteFriendForm() {
 
 	return (
 		<form
-			onSubmit={
-				void handleSubmit(invite.mutate as SubmitHandler<InviteFriendValues>)
-			}
+			// eslint-disable-next-line @typescript-eslint/no-misused-promises
+			onSubmit={handleSubmit(
+				invite.mutate as SubmitHandler<InviteFriendValues>
+			)}
 		>
 			<fieldset
 				className="flex flex-row gap-2 items-end"

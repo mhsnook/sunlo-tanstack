@@ -93,6 +93,7 @@ MOCKS / Incompletes
 			(ideally, yes?) should we be switching "modes" like one context switcher that has options for
 			each deck we're learning and each deck we're helping with...
 1. Public Library is a special browsing experience that needs to be built!
+	1. $lang/search needs the mutation written
 1. ✅ Deck Settings: replace with the nicer radio: https://v0.dev/chat/PNg3tT-DSoC, 
 		✅ and wire up the mutation
 		✅ add the `learning_goal` field on user_deck
