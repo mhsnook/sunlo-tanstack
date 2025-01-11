@@ -82,7 +82,7 @@ type LearningStatus = 'active' | 'skipped' | 'learned'
 function StatusIcon({ status }: { status: LearningStatus }) {
 	return (
 		status === 'active' ?
-			<Zap className="h-4 w-4 me-1 text-yellow-500" aria-label="Active" />
+			<Zap className="h-4 w-4 text-yellow-500" aria-label="Active" />
 		: status === 'skipped' ?
 			<SkipForward className="h-4 w-4 text-gray-500" aria-label="Skipped" />
 		: status === 'learned' ?
@@ -103,7 +103,7 @@ function StatusBadge({
 			{justAdded ?
 				<CheckCircle className="h-4 w-4 text-green-500" aria-label="Learned" />
 			:	<StatusIcon status={status} />}
-			<span>{status}</span>
+			<span className="ms-1">{status}</span>
 		</Badge>
 	)
 }
