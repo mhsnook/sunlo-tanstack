@@ -7,11 +7,15 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import languages from '@/lib/languages'
-import { LangOnlyComponentProps } from '@/types/main'
+import { LangOnlyComponentProps, pids } from '@/types/main'
 import { useDeck } from '@/lib/use-deck'
 import { useLanguage } from '@/lib/use-language'
 import { LanguagePhrasesAccordionComponent } from '@/components/language-phrases-accordion'
 import Callout from '@/components/ui/callout'
+import { Badge } from '@/components/ui/badge'
+import { Checkbox } from '@/components/ui/checkbox'
+import { useState } from 'react'
+import { inLastWeek } from '@/lib/dayjs'
 
 export const Route = createFileRoute('/learn/$lang/library')({
 	component: DeckLibraryPage,
@@ -58,18 +62,55 @@ function PopularPhrases({ lang }: LangOnlyComponentProps) {
 function DeckContents({ lang }: LangOnlyComponentProps) {
 	const deck = useDeck(lang)
 	const language = useLanguage(lang)
+
+	const [filter, setFilter] = useState<'all' | 'inDeck' | 'recentlyViewed'>(
+		'all'
+	)
+
+	const pids: { all: pids; inDeck: pids; recentlyViewed: pids } = {
+		all: language.data.pids,
+		inDeck: deck.data.pids,
+		recentlyViewed: deck.data.pids.filter(
+			(p) =>
+				deck.data.cardsMap[p].phrase.reviews &&
+				inLastWeek(deck.data.cardsMap[p].phrase.reviews?.[0].created_at)
+		),
+	}
+
+	const filteredPids = pids[filter]
 	return (
 		<Card>
 			<CardHeader>
 				<CardTitle>{languages[lang]} Library</CardTitle>
-				<CardDescription>
-					(an excrutiating level of detail actually)
+				<CardDescription className="flex flex-row flex-wrap gap-2">
+					<Badge variant="outline">
+						<Checkbox
+							onClick={() => setFilter('all')}
+							checked={filter === 'all'}
+						/>{' '}
+						all phrases ({pids.all.length})
+					</Badge>
+					<Badge variant="outline">
+						<Checkbox
+							onClick={() => setFilter('inDeck')}
+							checked={filter === 'inDeck'}
+						/>{' '}
+						in your deck ({pids.inDeck.length})
+					</Badge>
+					<Badge variant="outline">
+						<Checkbox
+							onClick={() => setFilter('recentlyViewed')}
+							checked={filter === 'recentlyViewed'}
+						/>{' '}
+						reviewed recently ({pids.recentlyViewed.length})
+					</Badge>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
 				{language.data.pids.length > 0 ?
 					<div className="flex-basis-[20rem] flex flex-shrink flex-row flex-wrap gap-4">
 						<LanguagePhrasesAccordionComponent
+							pids={filteredPids}
 							languagePids={language.data.pids}
 							phrasesMap={language.data.phrasesMap}
 							cardsMap={deck.data.cardsMap}

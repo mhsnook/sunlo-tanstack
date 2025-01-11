@@ -105,7 +105,9 @@ export type ReviewRow = Tables<'user_card_review'>
 export type ReviewInsert = TablesInsert<'user_card_review'>
 
 export type CardFull = CardMeta & {
-	reviews?: Array<ReviewMeta>
+	phrase: {
+		reviews?: Array<ReviewMeta>
+	}
 }
 
 export type PublicProfile = Tables<'public_profile'>
