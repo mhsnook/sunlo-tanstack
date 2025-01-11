@@ -203,13 +203,15 @@ export default function SearchProfiles() {
 										</p>
 									</div>
 								</Callout>
-							:	resultsToShow.map((profile) => (
-									<ProfileWithRelationship
-										key={profile.uid}
-										uid={profile.uid}
-										profile={profile}
-									/>
-								))
+							:	<div className="my-6 space-y-2">
+									{resultsToShow.map((profile) => (
+										<ProfileWithRelationship
+											key={profile.uid}
+											uid={profile.uid}
+											profile={profile}
+										/>
+									))}
+								</div>
 							}
 						</div>
 					}
