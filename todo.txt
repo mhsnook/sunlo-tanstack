@@ -103,6 +103,7 @@ MOCKS / Incompletes
 1. Public Library is a special browsing experience that needs to be built!
 	1. $lang/search needs the mutation written
 	1. $lang/library needs the "trending/popular" section built
+	1. ✅ $lang/library needs some quick filters
 	1. $lang/library needs a search bar added to filter in realtime
 	1. $lang/library has this "recently reviewed" filter which probably should be a field on the user_card_plus view
 
