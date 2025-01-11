@@ -85,31 +85,38 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 		<Card>
 			<CardHeader>
 				<CardTitle>{languages[lang]} Library</CardTitle>
-				<CardDescription className="flex flex-row flex-wrap gap-2">
-					<Badge variant="outline">
-						<Checkbox
-							onClick={() => setFilter('all')}
-							checked={filter === 'all'}
-						/>{' '}
-						all phrases ({pids.all.length})
-					</Badge>
-					<Badge variant="outline">
-						<Checkbox
-							onClick={() => setFilter('inDeck')}
-							checked={filter === 'inDeck'}
-						/>{' '}
-						in your deck ({pids.inDeck.length})
-					</Badge>
-					<Badge variant="outline">
-						<Checkbox
-							onClick={() => setFilter('recentlyViewed')}
-							checked={filter === 'recentlyViewed'}
-						/>{' '}
-						reviewed recently ({pids.recentlyViewed.length})
-					</Badge>
-				</CardDescription>
 			</CardHeader>
 			<CardContent>
+				<div className="flex flex-row flex-wrap gap-2 text-muted-foreground">
+					<span className="text-sm ">Filters:</span>
+					<Badge variant="outline">
+						<label className="cursor-pointer flex gap-1">
+							<Checkbox
+								onClick={() => setFilter('all')}
+								checked={filter === 'all'}
+							/>{' '}
+							all phrases ({pids.all.length})
+						</label>
+					</Badge>
+					<Badge variant="outline">
+						<label className="cursor-pointer flex gap-1">
+							<Checkbox
+								onClick={() => setFilter('inDeck')}
+								checked={filter === 'inDeck'}
+							/>{' '}
+							in your deck ({pids.inDeck.length})
+						</label>
+					</Badge>
+					<Badge variant="outline">
+						<label className="cursor-pointer flex gap-1">
+							<Checkbox
+								onClick={() => setFilter('recentlyViewed')}
+								checked={filter === 'recentlyViewed'}
+							/>{' '}
+							reviewed recently ({pids.recentlyViewed.length})
+						</label>
+					</Badge>
+				</div>
 				{language.pids.length > 0 ?
 					<div className="flex-basis-[20rem] flex flex-shrink flex-row flex-wrap gap-4">
 						<LanguagePhrasesAccordionComponent
