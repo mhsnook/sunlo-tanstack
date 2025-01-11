@@ -11,10 +11,14 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
 import { Book, NotebookPen, Search } from 'lucide-react'
+import Callout from '@/components/ui/callout'
+import languages from '@/lib/languages'
+import { ago } from '@/lib/dayjs'
 
 export const Route = createFileRoute('/learn/$lang/')({
 	component: WelcomePage,
@@ -52,6 +56,7 @@ function WelcomePage() {
 						<NotebookPen /> Add a phrase
 					</Link>
 				</div>
+				<DeckOverview lang={lang} />
 				<FriendsSection lang={lang} />
 				<DeckSettings lang={lang} />
 				<DeckFullContents lang={lang} />
@@ -99,6 +104,49 @@ function FriendsSection({ lang }: LangOnlyComponentProps) {
 	)
 }
 
+function DeckOverview({ lang }: LangOnlyComponentProps) {
+	const { data } = useDeckMeta(lang)
+	return (
+		<Card>
+			<CardHeader>
+				<CardTitle>Deck Overview</CardTitle>
+				<CardDescription>
+					Quick stats on your deck and learning progress.
+				</CardDescription>
+			</CardHeader>
+			<CardContent>Last review: {ago(data.most_recent_review_at)}</CardContent>
+			<CardFooter>
+				<div className="flex flex-row gap-2">
+					<Link
+						to="/learn/$lang/review"
+						params={{ lang }}
+						from={Route.fullPath}
+						className={buttonVariants({ variant: 'default' })}
+					>
+						Review my cards
+					</Link>
+					<Link
+						to="/learn/$lang/library"
+						params={{ lang }}
+						from={Route.fullPath}
+						className={buttonVariants({ variant: 'secondary' })}
+					>
+						Find more {languages[lang]} phrases
+					</Link>
+					<Link
+						to="/learn/$lang/add-phrase"
+						params={{ lang }}
+						from={Route.fullPath}
+						className={buttonVariants({ variant: 'secondary' })}
+					>
+						Add a phrase
+					</Link>
+				</div>
+			</CardFooter>
+		</Card>
+	)
+}
+
 function DeckSettings({ lang }: LangOnlyComponentProps) {
 	const { data } = useDeckMeta(lang)
 
@@ -136,7 +184,7 @@ function DeckSettings({ lang }: LangOnlyComponentProps) {
 					from={Route.fullPath}
 					className={buttonVariants({ variant: 'secondary' })}
 				>
-					Manage Deck
+					Update Settings
 				</Link>
 			</CardContent>
 		</Card>
@@ -184,7 +232,12 @@ function DeckFullContents({ lang }: LangOnlyComponentProps) {
 							deckId={deck.data.meta.id}
 						/>
 					</div>
-				:	null}
+				:	<Callout className="mt-4" variant="ghost">
+						This language is fully empty! We should have a good pitch here for
+						you, user. To say "come check out some starter phrases and
+						contribute to the community" or somesuch.
+					</Callout>
+				}
 			</CardContent>
 		</Card>
 	)
