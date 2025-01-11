@@ -1,117 +1,175 @@
-import type { ReactNode } from '@tanstack/react-router'
-import { useMutation } from '@tanstack/react-query'
-import { Zap, SkipForward, CheckCircle, PlusCircle } from 'lucide-react'
+import { useMutation, UseMutationResult } from '@tanstack/react-query'
+import {
+	Zap,
+	SkipForward,
+	CheckCircle,
+	PlusCircle,
+	Loader2,
+} from 'lucide-react'
 
-import { PhraseFull, PhrasesMap, pids, uuid } from '@/types/main'
+import {
+	CardFull,
+	CardRow,
+	CardsMap,
+	PhraseFull,
+	PhrasesMap,
+	pids,
+	uuid,
+} from '@/types/main'
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from '@/components/ui/accordion'
-import { useDeck } from '@/lib/use-deck'
 import { Button } from '@/components/ui/button'
 import supabase from '@/lib/supabase-client'
-
-// TODO check if we can get this from the supabase types?
-type LearningStatus = 'active' | 'skipped' | 'learned'
-
-const getStatusIcon = (
-	status: LearningStatus | undefined,
-	addToDeck: () => void
-): ReactNode => {
-	console.log(`status`, status)
-	switch (status) {
-		case 'active':
-			return <Zap className="h-4 w-4 text-yellow-500" aria-label="Active" />
-		case 'skipped':
-			return (
-				<SkipForward className="h-4 w-4 text-gray-500" aria-label="Skipped" />
-			)
-		case 'learned':
-			return (
-				<CheckCircle className="h-4 w-4 text-green-500" aria-label="Learned" />
-			)
-		case null:
-			return (
-				<Button
-					variant="default"
-					size="sm"
-					onClick={addToDeck}
-					className="p-0 h-auto"
-					aria-label="Add to deck"
-				>
-					<PlusCircle className="h-4 w-4 text-gray-500" />
-				</Button>
-			)
-	}
-}
+import toast from 'react-hot-toast'
+import { PostgrestError } from '@supabase/supabase-js'
+import { Badge } from './ui/badge'
 
 interface PhrasesWithOptionalOrder {
-	lang: string
-	phrasesMap: PhrasesMap
 	pids?: pids
+	phrasesMap: PhrasesMap
+	languagePids: pids
+	cardsMap: CardsMap
+	deckId: uuid
 }
 
 export function LanguagePhrasesAccordionComponent({
-	lang,
-	phrasesMap,
 	pids = null,
+	phrasesMap,
+	languagePids = null,
+	cardsMap,
+	deckId,
 }: PhrasesWithOptionalOrder) {
-	const set = pids || Object.keys(phrasesMap || {})
+	const pidsToUse = pids ?? languagePids ?? Object.keys(phrasesMap)
+	return (
+		<Accordion type="single" collapsible className="w-full p-2">
+			{pidsToUse.map((pid) => (
+				<PhraseAccordionItem
+					key={pid}
+					phrase={phrasesMap[pid]}
+					card={cardsMap[pid] ?? null}
+					deckId={deckId}
+				/>
+			))}
+		</Accordion>
+	)
+}
 
-	// now do UI
-	// if called in a no-auth place the statuses should simply not show
-
-	const deckQuery = useDeck(lang)
-	const deckId = deckQuery.data?.meta.id
-	const cardsMap = deckQuery.data?.cardsMap
-
-	const addToDeck = useMutation({
-		mutationFn: async (pid: uuid) => {
-			if (!deckId) throw new Error('No deck ID loaded')
+function PhraseAccordionItem({
+	phrase,
+	card,
+	deckId,
+}: {
+	phrase: PhraseFull
+	card: CardFull | null
+	deckId: uuid
+}) {
+	const addToDeck = useMutation<CardRow, PostgrestError>({
+		mutationKey: ['add-card-to-deck', phrase?.id],
+		mutationFn: async () => {
+			if (!deckId || !phrase?.id)
+				throw new Error('No deck ID or phrase ID provided')
 			const { data } = await supabase
 				.from('user_card')
-				.insert({ user_deck_id: deckId, phrase_id: pid })
+				.insert({
+					user_deck_id: deckId,
+					phrase_id: phrase.id,
+				})
 				.select()
 				.throwOnError()
 			return data[0]
 		},
+		onSuccess: () => {
+			toast.success('Added this phrase to your deck')
+		},
 	})
-	if (!set || !set.length || !phrasesMap) return <></>
+
 	return (
-		<Accordion type="single" collapsible className="w-full p-2">
-			{set.map((pid) => {
-				const phrase: PhraseFull = phrasesMap[pid]
-				// if there's no deck, leave it undefined so the button doesn't even show
-				const status = cardsMap[pid].status || (deckId ? null : undefined)
-				// console.log(`map inner`, pid, phrase, status, deckId)
-				return (
-					<AccordionItem key={pid} value={pid}>
-						<AccordionTrigger className="flex items-center">
-							<div className="flex items-center space-x-2">
-								{deckId && getStatusIcon(status, () => addToDeck.mutate(pid))}
-								<span className="">{phrase.text}</span>
-							</div>
-						</AccordionTrigger>
-						<AccordionContent>
-							<div className="pl-6 pt-2">
-								<p className="text-sm text-gray-500 mb-1">Translations</p>
-								<ul className="space-y-1">
-									{phrase.translations.map((translation, index) => (
-										<li key={index} className="flex items-center">
-											<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
-												{translation.lang}
-											</span>
-											<span className="text-sm">{translation.text}</span>
-										</li>
-									))}
-								</ul>
-							</div>
-						</AccordionContent>
-					</AccordionItem>
-				)
-			})}
-		</Accordion>
+		<AccordionItem value={phrase.id}>
+			<div className="flex flex-row gap-2 items-center">
+				{!deckId ?
+					null
+				: card === null ?
+					<AddToDeckIcon addToDeck={addToDeck} />
+				:	<StatusBadge status={card?.status} />}
+
+				<AccordionTrigger className="flex flex-row justify-between gap-2">
+					<span>{phrase.text}</span>
+				</AccordionTrigger>
+			</div>
+			<AccordionContent>
+				<div className="pl-6 pt-2">
+					<p className="text-sm text-gray-500 mb-1">Translations</p>
+					<ul className="space-y-1">
+						{phrase.translations.map((translation, index) => (
+							<li key={index} className="flex items-center">
+								<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
+									{translation.lang}
+								</span>
+								<span className="text-sm">{translation.text}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			</AccordionContent>
+		</AccordionItem>
+	)
+}
+
+function AddToDeckIcon({
+	addToDeck,
+}: {
+	addToDeck: UseMutationResult<CardRow>
+}) {
+	return addToDeck.data ?
+			<StatusBadge status={addToDeck.data.status} justAdded />
+		:	<Button
+				variant="ghost"
+				size="icon-sm"
+				onClick={addToDeck.mutate}
+				className="p-0"
+				aria-label="Add to deck"
+				disabled={addToDeck.isPending}
+			>
+				{addToDeck.isPending ?
+					<Loader2 />
+				: addToDeck.isSuccess ?
+					<CheckCircle />
+				:	<PlusCircle className="text-gray-500" />}
+			</Button>
+}
+
+// TODO check if we can get this from the supabase types?
+type LearningStatus = 'active' | 'skipped' | 'learned'
+
+function StatusIcon({ status }: { status: LearningStatus }) {
+	return (
+		status === 'active' ?
+			<Zap className="h-4 w-4 me-1 text-yellow-500" aria-label="Active" />
+		: status === 'skipped' ?
+			<SkipForward className="h-4 w-4 text-gray-500" aria-label="Skipped" />
+		: status === 'learned' ?
+			<CheckCircle className="h-4 w-4 text-green-500" aria-label="Learned" />
+		:	null
+	)
+}
+
+function StatusBadge({
+	status,
+	justAdded = false,
+}: {
+	status: LearningStatus
+	justAdded?: boolean
+}) {
+	return (
+		<Badge variant="outline">
+			{justAdded ?
+				<CheckCircle className="h-4 w-4 text-green-500" aria-label="Learned" />
+			:	<StatusIcon status={status} />}
+			<span>{status}</span>
+		</Badge>
 	)
 }
