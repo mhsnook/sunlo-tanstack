@@ -86,15 +86,28 @@ MOCKS / Incompletes
 			1. ✅ Maybe don't use one mutation: use 1 per item so you can disable just that button and show that isSuccess checkmark icon instead of sharing state across all records. see example: 
 		1. ✅ ISBAT see in the search results if I've already requested this person, or if we're already friends, and show that in the UI
 		1. ✅ type-as-you-search, debounce it, make sure it's smooth
-	1. Invite a new user (by email) is a separate screen to add (split off from the find-friend route)
+	1. Invite a new user /friends/invite hasn't been tested through
+		- may need the email and whatsapp links wired up to have the referring user id?
+		- 
+
 1. ✅ The "Deck Home" screen or Welcome Screen
+		✅ Deck overview section, recent reviews and such
+			- wire it up
+		✅ Friends activity ?? (maybe doesn't belong here)
+			- wire it up
+		- move the Quick Search link into the navbar??
 1. ✅ The "new friend signup" screens -- what are we doing here? selecting which deck(s) we're helping with... and then what?
 	1. How does the friend mode sidebar look? is it the same? are some people Learners _and_ Helpers?
 			(ideally, yes?) should we be switching "modes" like one context switcher that has options for
 			each deck we're learning and each deck we're helping with...
 1. Public Library is a special browsing experience that needs to be built!
 	1. $lang/search needs the mutation written
-1. ✅ Deck Settings: replace with the nicer radio: https://v0.dev/chat/PNg3tT-DSoC, 
+	1. $lang/library needs the "trending/popular" section built
+	1. $lang/library needs a search bar added to filter in realtime
+	1. $lang/library has this "recently reviewed" filter which probably should be a field on the user_card_plus view
+
+	1. $lang/index needs the review overview graph thing made
+1. ✅ Deck Settings: replace with the nicer radio: https://v0.dev/chat/PNg3tT-DSoC,
 		✅ and wire up the mutation
 		✅ add the `learning_goal` field on user_deck
 		✅ add the "archive" form, and field on user_deck
@@ -108,6 +121,10 @@ COMPONENTS (ShadCN/Radix)
 		1. ✅ fix color codes (text-base) in SelectOneLanguage
 		1. fix accent color
 	1. find-replace all these colors: text-base text-base-content etc
+1. turn the contents of card-status-dropdown.tsx into a standard dropdown that works for all card statuses
+		- also support no status (add to deck, skip, already learned it)
+		- or no deck (start learning this language)
+		- or not logged in (login)
 1. use <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> for loading buttons
 1. Add the "suggest edits to this card"
 1. replace my multi-language select with https://craft.mxkaske.dev/post/fancy-multi-select
@@ -128,6 +145,7 @@ AUTH
 NAVIGATION
 1. ✅ get back the "active/inactive" link style in sidebar.tsx
 1. properly use the disabled option on the nav links
+1. add an optional quicksearch component to the navbar, perhaps it immediately opens a search like a dialog and just accepts the component that fills the dialog 🤔
 1. ✅ probably set it to only active-match exact route matches
 1. ✅ don't forget to add the Navbar
 1. ✅ add context menus (links) to all the pages and scaffold pages

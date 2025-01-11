@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import {
 	type LucideProps,
+	BookCopy,
 	BookHeart,
 	ChevronLeft,
 	Contact,
@@ -99,6 +100,8 @@ function renderIcon(icon: string, props: LucideProps = { size: 20 }) {
 	props.strokeWidth ??=
 		typeof props.size === 'string' ? 1.5 : (props.size / 20) * 1.5
 	switch (icon) {
+		case 'book-copy': // for your /$lang/library page
+			return <BookCopy {...props} />
 		case 'book-heart': // for your /learn page
 			return <BookHeart {...props} />
 		case 'contact':
