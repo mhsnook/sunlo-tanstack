@@ -23,7 +23,7 @@ export const Route = createFileRoute('/learn/$lang')({
 		const both = { l: await languageLoader, d: await deckLoader }
 		return {
 			navbar: {
-				title: `Learning ${languages[lang]}`,
+				title: `${languages[lang]} Deck`,
 				icon: 'book-heart',
 				contextMenu: [
 					{
