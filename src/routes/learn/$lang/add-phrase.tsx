@@ -90,6 +90,7 @@ function AddPhraseTab() {
 								<Input
 									{...field}
 									placeholder="The text of the phrase to learn"
+									autoFocus
 									onChange={(e) => {
 										field.onChange(e)
 										void navigate({

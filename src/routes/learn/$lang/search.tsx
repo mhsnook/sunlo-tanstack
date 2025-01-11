@@ -75,6 +75,7 @@ function SearchTab() {
 			</CardHeader>
 			<CardContent>
 				<form
+					noValidate
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
 					onSubmit={handleSubmit(onSearchSubmit)}
 					className="space-y-4"
@@ -88,6 +89,7 @@ function SearchTab() {
 								<Input
 									{...field}
 									placeholder="Enter a phrase to search or add"
+									autoFocus
 									onChange={(e) => {
 										field.onChange(e)
 										void navigate({
