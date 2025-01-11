@@ -14,7 +14,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { Book, Loader2, NotebookPen, Search } from 'lucide-react'
+import { Book, NotebookPen, Search } from 'lucide-react'
 
 export const Route = createFileRoute('/learn/$lang/')({
 	component: WelcomePage,
@@ -175,12 +175,13 @@ function DeckFullContents({ lang }: LangOnlyComponentProps) {
 						</ModalWithOpener>
 					</div>
 				</div>
-				{deck.data.pids.length > 0 ?
+				{language.data.pids.length > 0 ?
 					<div className="flex-basis-[20rem] flex flex-shrink flex-row flex-wrap gap-4">
 						<LanguagePhrasesAccordionComponent
-							lang={lang}
-							pids={deck.data.pids}
+							languagePids={language.data.pids}
 							phrasesMap={language.data.phrasesMap}
+							cardsMap={deck.data.cardsMap}
+							deckId={deck.data.meta.id}
 						/>
 					</div>
 				:	null}
