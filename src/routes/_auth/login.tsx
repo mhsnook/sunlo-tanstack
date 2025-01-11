@@ -80,9 +80,10 @@ export default function LoginForm() {
 					role="form"
 					noValidate
 					className="space-y-4"
-					onSubmit={
-						void handleSubmit(loginMutation.mutate as SubmitHandler<FormInputs>)
-					}
+					// eslint-disable-next-line @typescript-eslint/no-misused-promises
+					onSubmit={handleSubmit(
+						loginMutation.mutate as SubmitHandler<FormInputs>
+					)}
 				>
 					<fieldset className="flex flex-col gap-y-4" disabled={isSubmitting}>
 						<EmailField

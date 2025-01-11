@@ -102,11 +102,10 @@ function GoalForm({ meta: { learning_goal, id, lang } }: { meta: DeckMeta }) {
 			<CardContent>
 				<form
 					noValidate
-					onSubmit={
-						void handleSubmit(
-							updateDeckGoalMutation.mutate as SubmitHandler<DeckGoalFormInputs>
-						)
-					}
+					// eslint-disable-next-line @typescript-eslint/no-misused-promises
+					onSubmit={handleSubmit(
+						updateDeckGoalMutation.mutate as SubmitHandler<DeckGoalFormInputs>
+					)}
 					className="space-y-4"
 				>
 					<Controller
