@@ -2,11 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { buttonVariants } from '@/components/ui/button'
 import type { FriendshipRow, LangOnlyComponentProps } from '@/types/main'
-import { useDeck, useDeckMeta } from '@/lib/use-deck'
-import { useLanguage } from '@/lib/use-language'
 import { useProfile } from '@/lib/use-profile'
-import ModalWithOpener from '@/components/modal-with-opener'
-import { LanguagePhrasesAccordionComponent } from '@/components/language-phrases-accordion'
 import {
 	Card,
 	CardContent,
@@ -16,9 +12,9 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { Book, NotebookPen, Search } from 'lucide-react'
-import Callout from '@/components/ui/callout'
 import languages from '@/lib/languages'
 import { ago } from '@/lib/dayjs'
+import { useDeckMeta } from '@/lib/use-deck'
 
 export const Route = createFileRoute('/learn/$lang/')({
 	component: WelcomePage,
@@ -59,7 +55,6 @@ function WelcomePage() {
 				<DeckOverview lang={lang} />
 				<FriendsSection lang={lang} />
 				<DeckSettings lang={lang} />
-				<DeckFullContents lang={lang} />
 			</div>
 }
 
@@ -191,57 +186,6 @@ function DeckSettings({ lang }: LangOnlyComponentProps) {
 	)
 }
 
-function DeckFullContents({ lang }: LangOnlyComponentProps) {
-	const deck = useDeck(lang)
-	const language = useLanguage(lang)
-	return (
-		<Card>
-			<CardHeader>
-				<CardTitle>Deck Details</CardTitle>
-				<CardDescription>
-					(an excrutiating level of detail actually)
-				</CardDescription>
-			</CardHeader>
-			<CardContent>
-				<div>
-					<div>
-						deck is{' '}
-						<ModalWithOpener
-							title="Deck Details"
-							description="A bunch of JSON actually, not really good for humans."
-						>
-							{JSON.stringify(deck.data.meta, null, 2)}
-						</ModalWithOpener>
-					</div>
-					<div>
-						language is{' '}
-						<ModalWithOpener
-							title="Language Details"
-							description="A bunch of JSON actually, not really good for humans."
-						>
-							{JSON.stringify(language.data.meta, null, 2)}
-						</ModalWithOpener>
-					</div>
-				</div>
-				{language.data.pids.length > 0 ?
-					<div className="flex-basis-[20rem] flex flex-shrink flex-row flex-wrap gap-4">
-						<LanguagePhrasesAccordionComponent
-							languagePids={language.data.pids}
-							phrasesMap={language.data.phrasesMap}
-							cardsMap={deck.data.cardsMap}
-							deckId={deck.data.meta.id}
-						/>
-					</div>
-				:	<Callout className="mt-4" variant="ghost">
-						This language is fully empty! We should have a good pitch here for
-						you, user. To say "come check out some starter phrases and
-						contribute to the community" or somesuch.
-					</Callout>
-				}
-			</CardContent>
-		</Card>
-	)
-}
 
 function Empty({ lang }: LangOnlyComponentProps) {
 	return (

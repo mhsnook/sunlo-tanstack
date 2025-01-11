@@ -33,8 +33,8 @@ export const Route = createFileRoute('/learn/$lang')({
 						icon: 'rocket',
 					},
 					{
-						name: `Search ${languages[lang]}`,
-						to: '/learn/$lang/search',
+						name: `Browse ${languages[lang]} library`,
+						to: '/learn/$lang/library',
 						params: { lang },
 						icon: 'search',
 					},
@@ -43,12 +43,6 @@ export const Route = createFileRoute('/learn/$lang')({
 						to: '/learn/$lang/add-phrase',
 						params: { lang },
 						icon: 'notebook-pen',
-					},
-					{
-						name: 'Browse your cards',
-						to: '/learn/$lang/browse',
-						params: { lang },
-						icon: 'wallet-cards',
 					},
 					{
 						name: 'Deck settings',
@@ -69,7 +63,7 @@ export const Route = createFileRoute('/learn/$lang')({
 
 function LanguageLayout() {
 	return (
-		<main className="mx-auto">
+		<main className="mx-auto pb-6">
 			<Outlet />
 		</main>
 	)

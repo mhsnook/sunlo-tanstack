@@ -31,7 +31,7 @@ import { Route as UserProfileIndexImport } from './routes/_user/profile.index'
 import { Route as UserFriendsIndexImport } from './routes/_user/friends.index'
 import { Route as LearnLangSearchImport } from './routes/learn/$lang/search'
 import { Route as LearnLangReviewImport } from './routes/learn/$lang/review'
-import { Route as LearnLangPublicLibraryImport } from './routes/learn/$lang/public-library'
+import { Route as LearnLangLibraryImport } from './routes/learn/$lang/library'
 import { Route as LearnLangDeckSettingsImport } from './routes/learn/$lang/deck-settings'
 import { Route as LearnLangAddPhraseImport } from './routes/learn/$lang/add-phrase'
 import { Route as UserProfileChangePasswordImport } from './routes/_user/profile.change-password'
@@ -180,8 +180,8 @@ const LearnLangReviewRoute = LearnLangReviewImport.update({
   getParentRoute: () => LearnLangRoute,
 } as any)
 
-const LearnLangPublicLibraryRoute = LearnLangPublicLibraryImport.update({
-  path: '/public-library',
+const LearnLangLibraryRoute = LearnLangLibraryImport.update({
+  path: '/library',
   getParentRoute: () => LearnLangRoute,
 } as any)
 
@@ -411,11 +411,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnLangDeckSettingsImport
       parentRoute: typeof LearnLangImport
     }
-    '/learn/$lang/public-library': {
-      id: '/learn/$lang/public-library'
-      path: '/public-library'
-      fullPath: '/learn/$lang/public-library'
-      preLoaderRoute: typeof LearnLangPublicLibraryImport
+    '/learn/$lang/library': {
+      id: '/learn/$lang/library'
+      path: '/library'
+      fullPath: '/learn/$lang/library'
+      preLoaderRoute: typeof LearnLangLibraryImport
       parentRoute: typeof LearnLangImport
     }
     '/learn/$lang/review': {
@@ -495,7 +495,7 @@ export const routeTree = rootRoute.addChildren({
     LearnLangRoute: LearnLangRoute.addChildren({
       LearnLangAddPhraseRoute,
       LearnLangDeckSettingsRoute,
-      LearnLangPublicLibraryRoute,
+      LearnLangLibraryRoute,
       LearnLangReviewRoute,
       LearnLangSearchRoute,
       LearnLangIndexRoute,
@@ -602,7 +602,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/learn/$lang/add-phrase",
         "/learn/$lang/deck-settings",
-        "/learn/$lang/public-library",
+        "/learn/$lang/library",
         "/learn/$lang/review",
         "/learn/$lang/search",
         "/learn/$lang/"
@@ -663,8 +663,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "learn/$lang/deck-settings.tsx",
       "parent": "/learn/$lang"
     },
-    "/learn/$lang/public-library": {
-      "filePath": "learn/$lang/public-library.tsx",
+    "/learn/$lang/library": {
+      "filePath": "learn/$lang/library.tsx",
       "parent": "/learn/$lang"
     },
     "/learn/$lang/review": {
