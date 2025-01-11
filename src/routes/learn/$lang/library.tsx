@@ -1,14 +1,8 @@
 import { useMemo, useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import languages from '@/lib/languages'
-import type { LangOnlyComponentProps } from '@/types/main'
+import type { LangOnlyComponentProps, PhraseFull } from '@/types/main'
 import { useDeck } from '@/lib/use-deck'
 import { useLanguage } from '@/lib/use-language'
 import { LanguagePhrasesAccordionComponent } from '@/components/language-phrases-accordion'
@@ -16,6 +10,9 @@ import Callout from '@/components/ui/callout'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { inLastWeek } from '@/lib/dayjs'
+import { PhraseCard } from '@/components/phrase-card'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Brain, Carrot, LucideIcon, TrendingUp } from 'lucide-react'
 
 export const Route = createFileRoute('/learn/$lang/library')({
 	component: DeckLibraryPage,
@@ -31,29 +28,96 @@ function DeckLibraryPage() {
 	)
 }
 
+type PhraseSectionProps = {
+	description: string
+	phrases: PhraseFull[] | undefined
+	isLoading: boolean
+	Icon: LucideIcon
+}
+
+const PhraseSection = ({
+	description,
+	phrases,
+	isLoading,
+	Icon,
+}: PhraseSectionProps) => (
+	<div>
+		<p className="text-sm my-1">
+			<Icon className="w-4 h-4 inline" /> {description}
+		</p>
+		{isLoading ?
+			<div className="flex flex-row gap-2 overflow-x-auto">
+				{[...Array(2 + Math.round(Math.random() * 3))].map((_, i) => (
+					<Skeleton
+						key={i}
+						style={{ width: 100 + Math.round(Math.random() * 80) }}
+						className={`h-[60px] flex-shrink-0`}
+					/>
+				))}
+			</div>
+		: phrases && phrases.length > 0 ?
+			<div className="flex flex-row gap-2 overflow-x-auto">
+				{phrases.map((phrase) => (
+					<PhraseCard key={phrase.id} phrase={phrase} />
+				))}
+			</div>
+		:	<p className="text-center text-muted-foreground">No phrases available</p>}
+	</div>
+)
+
+type Phrase = {
+	id: string
+	text: string
+	literal: string
+}
+
+const samplePhrases: Record<string, Phrase[]> = {
+	trending: [
+		{ id: '1', text: 'vanakkam', literal: 'Hello' },
+		{ id: '2', text: 'நன்றி', literal: 'Thank you' },
+		{ id: '3', text: 'en peyar?', literal: 'What is your name?' },
+	],
+	challenging: [
+		{
+			id: '4',
+			text: 'Tamil teriyum',
+			literal: 'I am learning Tamil',
+		},
+		{ id: '5', text: 'Unga peyar enna?', literal: 'What is your name?' },
+	],
+	easy: [
+		{ id: '6', text: 'Sari', literal: 'Yes' },
+		{ id: '7', text: 'Illai', literal: 'No' },
+		{ id: '8', text: 'Sari', literal: 'Okay' },
+	],
+}
+
 function PopularPhrases({ lang }: LangOnlyComponentProps) {
+	console.log(`Pretend I'm fetching recommendations for ${lang}`)
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Trending / Recommended Phrases</CardTitle>
-				<CardDescription>
-					Don't you want to add just a few more {languages[lang]} phrases to
-					your deck?
-				</CardDescription>
+				<CardTitle>Recommended Phrases For You</CardTitle>
 			</CardHeader>
-			<CardContent>
-				<ul className="list-disc ms-4">
-					<li>Popular phrases from across the network.</li>
-					<li>
-						Reaching new heights: phrases similar to ones you know, but higher
-						difficulty.
-					</li>
-					<li>
-						Covering bases: phrases that are much less complex than your current
-						level, but you don't have them yet, and don't have many related
-						phrases (i.e. they're unlikely to feed repetetive).
-					</li>
-				</ul>
+			<CardContent className="space-y-4">
+				<PhraseSection
+					description="Popular phrases among all Tamil learners"
+					phrases={samplePhrases.trending}
+					isLoading={false}
+					Icon={TrendingUp}
+				/>
+				<PhraseSection
+					description="More advanced, but in reach"
+					phrases={samplePhrases.challenging}
+					isLoading={false}
+					Icon={Brain}
+				/>
+				<PhraseSection
+					description="Broaden your vocabulary"
+					phrases={samplePhrases.easy}
+					isLoading={false}
+					Icon={Carrot}
+				/>
 			</CardContent>
 		</Card>
 	)
@@ -84,7 +148,7 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>{languages[lang]} Library</CardTitle>
+				<CardTitle>Explore the {languages[lang]} Library</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<div className="flex flex-row flex-wrap gap-2 text-muted-foreground">

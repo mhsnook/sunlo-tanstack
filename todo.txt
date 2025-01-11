@@ -88,8 +88,7 @@ MOCKS / Incompletes
 		1. ✅ type-as-you-search, debounce it, make sure it's smooth
 	1. Invite a new user /friends/invite hasn't been tested through
 		- may need the email and whatsapp links wired up to have the referring user id?
-		- 
-
+		- may need a "copy to clipboard" link (for desktop or both?)
 1. ✅ The "Deck Home" screen or Welcome Screen
 		✅ Deck overview section, recent reviews and such
 			- wire it up
@@ -102,9 +101,15 @@ MOCKS / Incompletes
 			each deck we're learning and each deck we're helping with...
 1. Public Library is a special browsing experience that needs to be built!
 	1. $lang/search needs the mutation written
-	1. $lang/library needs the "trending/popular" section built
+	1. ✅ $lang/library needs the "trending/popular" section built
+			- wire it up to real data
 	1. ✅ $lang/library needs some quick filters
 	1. $lang/library needs a search bar added to filter in realtime
+	1. deeper interactions with cards:
+			- when we open these accordion things, should we open a whole dialog? or have a button that opens the whole dialog?
+			- $lang/library/phrase/$pid perhaps should be built which permalinks to the same thing as goes in the dialog
+			- add translations button must work
+			- add related phrase?
 	1. $lang/library has this "recently reviewed" filter which probably should be a field on the user_card_plus view
 
 	1. $lang/index needs the review overview graph thing made
@@ -133,7 +138,6 @@ COMPONENTS (ShadCN/Radix)
 PRIMARY CARD INTERACTIONS
 1. bring over the new structure for relations
 1. make the "add to deck" function work
-1. bring over the "edit status"
 
 AUTH
 1. ✅ add AuthContext -- so far I've just mocked it with useQuery
