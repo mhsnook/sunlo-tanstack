@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import {
 	Card,
@@ -7,14 +8,13 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import languages from '@/lib/languages'
-import { LangOnlyComponentProps, pids } from '@/types/main'
+import type { LangOnlyComponentProps } from '@/types/main'
 import { useDeck } from '@/lib/use-deck'
 import { useLanguage } from '@/lib/use-language'
 import { LanguagePhrasesAccordionComponent } from '@/components/language-phrases-accordion'
 import Callout from '@/components/ui/callout'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
-import { useState } from 'react'
 import { inLastWeek } from '@/lib/dayjs'
 
 export const Route = createFileRoute('/learn/$lang/library')({
@@ -60,22 +60,25 @@ function PopularPhrases({ lang }: LangOnlyComponentProps) {
 }
 
 function DeckContents({ lang }: LangOnlyComponentProps) {
-	const deck = useDeck(lang)
-	const language = useLanguage(lang)
+	const { data: deck } = useDeck(lang)
+	const { data: language } = useLanguage(lang)
 
 	const [filter, setFilter] = useState<'all' | 'inDeck' | 'recentlyViewed'>(
 		'all'
 	)
 
-	const pids: { all: pids; inDeck: pids; recentlyViewed: pids } = {
-		all: language.data.pids,
-		inDeck: deck.data.pids,
-		recentlyViewed: deck.data.pids.filter(
-			(p) =>
-				deck.data.cardsMap[p].phrase.reviews &&
-				inLastWeek(deck.data.cardsMap[p].phrase.reviews?.[0].created_at)
-		),
-	}
+	const pids = useMemo(
+		() => ({
+			all: language.pids,
+			inDeck: deck.pids,
+			recentlyViewed: deck.pids.filter(
+				(p) =>
+					deck.cardsMap[p].phrase.reviews?.[0]?.created_at &&
+					inLastWeek(deck.cardsMap[p].phrase.reviews[0].created_at)
+			),
+		}),
+		[language.pids, deck.pids, deck.cardsMap]
+	)
 
 	const filteredPids = pids[filter]
 	return (
@@ -107,14 +110,14 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				{language.data.pids.length > 0 ?
+				{language.pids.length > 0 ?
 					<div className="flex-basis-[20rem] flex flex-shrink flex-row flex-wrap gap-4">
 						<LanguagePhrasesAccordionComponent
 							pids={filteredPids}
-							languagePids={language.data.pids}
-							phrasesMap={language.data.phrasesMap}
-							cardsMap={deck.data.cardsMap}
-							deckId={deck.data.meta.id}
+							languagePids={language.pids}
+							phrasesMap={language.phrasesMap}
+							cardsMap={deck.cardsMap}
+							deckId={deck.meta.id}
 						/>
 					</div>
 				:	<Callout className="mt-4" variant="ghost">
