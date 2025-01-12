@@ -17,12 +17,14 @@ interface CardStatusDropdownProps {
 	deckId: uuid
 	pid: uuid
 	card: CardRow | null
+	className?: string
 }
 
 export function CardStatusDropdown({
 	deckId,
 	pid,
 	card,
+	className,
 }: CardStatusDropdownProps) {
 	const addToDeck = useMutation<CardRow, PostgrestError>({
 		mutationKey: ['add-card-to-deck', pid],
@@ -43,13 +45,13 @@ export function CardStatusDropdown({
 		},
 	})
 	return (
-		<>
+		<div className={className}>
 			{!deckId ?
 				null
 			: card === null ?
 				<AddToDeckIcon addToDeck={addToDeck} />
 			:	<StatusBadge status={card?.status} />}
-		</>
+		</div>
 	)
 }
 
