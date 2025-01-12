@@ -151,7 +151,7 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 				<CardTitle>Explore the {languages[lang]} Library</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<div className="flex flex-row flex-wrap gap-2 text-muted-foreground">
+				<div className="flex flex-row flex-wrap gap-2 text-muted-foreground mb-4">
 					<span className="text-sm ">Filters:</span>
 					<Badge variant="outline">
 						<label className="cursor-pointer flex gap-1">

@@ -31,7 +31,7 @@ export function LanguagePhrasesAccordionComponent({
 }: PhrasesWithOptionalOrder) {
 	const pidsToUse = pids ?? languagePids ?? Object.keys(phrasesMap)
 	return (
-		<Accordion type="single" collapsible className="w-full p-2">
+		<Accordion type="single" collapsible className="w-full">
 			{pidsToUse.map((pid) => (
 				<PhraseAccordionItem
 					key={pid}
@@ -54,12 +54,10 @@ function PhraseAccordionItem({
 	deckId: uuid
 }) {
 	return (
-		<AccordionItem value={phrase.id}>
+		<AccordionItem value={phrase.id} className="border rounded mb-2 px-2">
 			<div className="flex flex-row gap-2 items-center">
 				<CardStatusDropdown deckId={deckId} pid={phrase.id} card={card} />
-				<AccordionTrigger className="flex flex-row justify-between gap-2">
-					<span>{phrase.text}</span>
-				</AccordionTrigger>
+				<AccordionTrigger>{phrase.text}</AccordionTrigger>
 			</div>
 			<AccordionContent>
 				<div className="pl-6 pt-2">
