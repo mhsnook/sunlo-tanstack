@@ -13,6 +13,8 @@ import LanguagesSpokenField from './languages-spoken-field'
 import PasswordField from './password-field'
 import UsernameField from './username-field'
 import UserRoleField from './user-role-field'
+import TranslationLanguageField from './translation-language-field'
+import TranslationTextField from './translation-text-field'
 
 type AnyFieldType = {
 	error: FieldError
@@ -36,4 +38,6 @@ export {
 	PasswordField,
 	UsernameField,
 	UserRoleField,
+	TranslationLanguageField,
+	TranslationTextField,
 }
