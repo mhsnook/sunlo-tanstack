@@ -13,6 +13,7 @@ import {
 	AccordionTrigger,
 } from '@/components/ui/accordion'
 import { CardStatusDropdown } from './card-status-dropdown'
+import { AddTranslationsDialog } from './add-translations-dialog'
 
 interface PhrasesWithOptionalOrder {
 	pids?: pids
@@ -60,8 +61,8 @@ function PhraseAccordionItem({
 				<AccordionTrigger>{phrase.text}</AccordionTrigger>
 			</div>
 			<AccordionContent>
-				<div className="pl-6 pt-2">
-					<p className="text-sm text-gray-500 mb-1">Translations</p>
+				<div className="pl-6 pt-2 space-y-1">
+					<p className="text-sm text-gray-500">Translations</p>
 					<ul className="space-y-1">
 						{phrase.translations.map((translation, index) => (
 							<li key={index} className="flex items-center">
@@ -72,6 +73,12 @@ function PhraseAccordionItem({
 							</li>
 						))}
 					</ul>
+					<AddTranslationsDialog
+						phrase={phrase}
+						size="badge"
+						variant="link"
+						className="text-xs"
+					/>
 				</div>
 			</AccordionContent>
 		</AccordionItem>
