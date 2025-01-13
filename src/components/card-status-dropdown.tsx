@@ -1,17 +1,16 @@
 import supabase from '@/lib/supabase-client'
-import { CardRow, uuid } from '@/types/main'
+import { CardInsert, CardRow, uuid } from '@/types/main'
 import { PostgrestError } from '@supabase/supabase-js'
-import { useMutation, UseMutationResult } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
-import { Button } from './ui/button'
-import {
-	CheckCircle,
-	Loader2,
-	PlusCircle,
-	SkipForward,
-	Zap,
-} from 'lucide-react'
+import { CheckCircle, CircleMinus, Plus, Sparkles, Zap } from 'lucide-react'
 import { Badge } from './ui/badge'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from './ui/dropdown-menu'
 
 interface CardStatusDropdownProps {
 	deckId: uuid
@@ -20,13 +19,75 @@ interface CardStatusDropdownProps {
 	className?: string
 }
 
+// TODO check if we can get this from the supabase types?
+type LearningStatus = 'active' | 'skipped' | 'learned'
+type ShowableActions = LearningStatus | 'nodeck' | 'nocard'
+
+const statusStrings = {
+	active: {
+		short: 'active',
+		action: 'Activate card',
+		actionSecond: 'Add it to your active learning deck',
+		done: 'Card activated',
+		icon: () => <Zap className="size-4 text-yellow-500" aria-label="Active" />,
+	},
+	learned: {
+		short: 'learned',
+		action: 'Set "learned"',
+		actionSecond: 'This will remove the card from your daily rotation',
+		done: 'Marked "&ldquo;"learned"',
+		icon: () => (
+			<Sparkles className="size-4 text-green-500" aria-label="Learned" />
+		),
+	},
+	skipped: {
+		short: 'skipped',
+		action: 'Ignore card',
+		actionSecond: 'This will remove the card from your daily rotation',
+		done: 'Ignoring card',
+		icon: () => (
+			<CircleMinus className="size-4 text-gray-500" aria-label="Skipped" />
+		),
+	},
+	nocard: {
+		short: 'add',
+		action: 'Add to deck',
+		actionSecond: 'This will add the card to your deck with status "active"',
+		done: 'Card removed',
+		icon: () => <Plus className="size-4 text-gray-500" aria-label="Add card" />,
+	},
+	nodeck: {
+		short: '...',
+		action: 'Add deck',
+		actionSecond: 'Create a new deck to learn this phrase and more',
+		done: 'Deck archived',
+		icon: () => (
+			<Plus className="size-4 text-gray-500" aria-label="Start learning" />
+		),
+	},
+}
+
+function StatusSpan({ choice }: { choice: ShowableActions }) {
+	return (
+		<div className="flex flex-row gap-2 items-center pe-2 py-1">
+			{statusStrings[choice].icon()}
+			<div>
+				<p className="font-bold">{statusStrings[choice].action}</p>
+				<p className="text-muted-foreground text-sm">
+					{statusStrings[choice].actionSecond}
+				</p>
+			</div>
+		</div>
+	)
+}
+
 export function CardStatusDropdown({
 	deckId,
 	pid,
 	card,
 	className,
 }: CardStatusDropdownProps) {
-	const addToDeck = useMutation<CardRow, PostgrestError>({
+	const addToDeck = useMutation<CardInsert, PostgrestError, CardRow>({
 		mutationKey: ['add-card-to-deck', pid],
 		mutationFn: async () => {
 			if (!deckId || !pid) throw new Error('No deck ID or phrase ID provided')
@@ -44,68 +105,45 @@ export function CardStatusDropdown({
 			toast.success('Added this phrase to your deck')
 		},
 	})
+
+	const cardPresent = addToDeck.data ?? card
+	const choice =
+		!deckId ? 'nodeck'
+		: !cardPresent ? 'nocard'
+		: cardPresent?.status
+
 	return (
-		<div className={className}>
-			{!deckId ?
-				null
-			: card === null ?
-				<AddToDeckIcon addToDeck={addToDeck} />
-			:	<StatusBadge status={card?.status} />}
-		</div>
-	)
-}
-
-function AddToDeckIcon({
-	addToDeck,
-}: {
-	addToDeck: UseMutationResult<CardRow>
-}) {
-	return addToDeck.data ?
-			<StatusBadge status={addToDeck.data.status} justAdded />
-		:	<Button
-				variant="ghost"
-				size="icon-sm"
-				onClick={addToDeck.mutate}
-				className="p-0"
-				aria-label="Add to deck"
-				disabled={addToDeck.isPending}
-			>
-				{addToDeck.isPending ?
-					<Loader2 />
-				: addToDeck.isSuccess ?
-					<CheckCircle />
-				:	<PlusCircle className="text-gray-500" />}
-			</Button>
-}
-
-// TODO check if we can get this from the supabase types?
-type LearningStatus = 'active' | 'skipped' | 'learned'
-
-function StatusIcon({ status }: { status: LearningStatus }) {
-	return (
-		status === 'active' ?
-			<Zap className="h-4 w-4 text-yellow-500" aria-label="Active" />
-		: status === 'skipped' ?
-			<SkipForward className="h-4 w-4 text-gray-500" aria-label="Skipped" />
-		: status === 'learned' ?
-			<CheckCircle className="h-4 w-4 text-green-500" aria-label="Learned" />
-		:	null
-	)
-}
-
-function StatusBadge({
-	status,
-	justAdded = false,
-}: {
-	status: LearningStatus
-	justAdded?: boolean
-}) {
-	return (
-		<Badge variant="outline">
-			{justAdded ?
-				<CheckCircle className="h-4 w-4 text-green-500" aria-label="Learned" />
-			:	<StatusIcon status={status} />}
-			<span className="ms-1">{status}</span>
-		</Badge>
+		<DropdownMenu>
+			<DropdownMenuTrigger className={className}>
+				<Badge variant="outline" className="gap-1">
+					{addToDeck.isSuccess ?
+						<CheckCircle className="size-4 text-green-500" />
+					:	statusStrings[choice].icon()}{' '}
+					{statusStrings[choice].short}
+				</Badge>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="">
+				{!deckId ?
+					<DropdownMenuItem>
+						<StatusSpan choice="nodeck" />
+					</DropdownMenuItem>
+				: !cardPresent ?
+					<DropdownMenuItem>
+						<StatusSpan choice="nocard" />
+					</DropdownMenuItem>
+				:	<>
+						<DropdownMenuItem>
+							<StatusSpan choice="active" />
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<StatusSpan choice="learned" />
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<StatusSpan choice="skipped" />
+						</DropdownMenuItem>
+					</>
+				}
+			</DropdownMenuContent>
+		</DropdownMenu>
 	)
 }
