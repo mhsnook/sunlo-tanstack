@@ -21,8 +21,8 @@ import { TranslationLanguageField, TranslationTextField } from './fields'
 import { useRef } from 'react'
 
 const AddTranslationsInputs = z.object({
-	lang: z.string().length(3),
-	text: z.string().min(1),
+	translation_lang: z.string().length(3),
+	translation_text: z.string().min(1),
 })
 type AddTranslationsType = z.infer<typeof AddTranslationsInputs>
 
@@ -39,7 +39,7 @@ export function AddTranslationsDialog({
 		reset,
 		formState: { errors, isSubmitting },
 	} = useForm<AddTranslationsType>({
-		defaultValues: { text: '', lang: 'eng' },
+		defaultValues: { translation_text: '', translation_lang: 'eng' },
 		resolver: zodResolver(AddTranslationsInputs),
 	})
 	const closeRef = useRef<HTMLButtonElement>()
@@ -48,10 +48,17 @@ export function AddTranslationsDialog({
 
 	const addTranslation = useMutation({
 		mutationKey: ['add-translation', phrase.id, phrase.lang],
-		mutationFn: async ({ lang, text }: AddTranslationsType) => {
+		mutationFn: async ({
+			translation_lang,
+			translation_text,
+		}: AddTranslationsType) => {
 			const { data } = await supabase
 				.from('phrase_translation')
-				.insert({ lang, text, phrase_id: phrase.id })
+				.insert({
+					lang: translation_lang,
+					text: translation_text,
+					phrase_id: phrase.id,
+				})
 				.throwOnError()
 				.select()
 			return data[0]
@@ -109,7 +116,7 @@ export function AddTranslationsDialog({
 					>
 						<TranslationLanguageField
 							control={control}
-							error={errors.lang}
+							error={errors.translation_lang}
 							tabIndex={1}
 						/>
 						<TranslationTextField register={register} error={errors.text} />

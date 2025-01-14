@@ -7,7 +7,7 @@ export default function TranslationTextField({ register, error }: FieldProps) {
 	return (
 		<div>
 			<Label>Phrase meaning</Label>
-			<Textarea {...register('text')} />
+			<Textarea {...register('translation_text')} />
 			<ErrorLabel {...error} />
 		</div>
 	)

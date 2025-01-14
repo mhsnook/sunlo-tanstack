@@ -3,11 +3,8 @@ import { Label } from '@/components/ui/label'
 import { useController } from 'react-hook-form'
 import { ErrorLabel, type ControlledFieldProps } from '.'
 
-export default function TranslationLanguageField({
-	control,
-	error,
-}: ControlledFieldProps) {
-	const controller = useController({ name: 'lang', control })
+export default function ({ control, error }: ControlledFieldProps) {
+	const controller = useController({ name: 'translation_lang', control })
 	// console.log(`Controller is: `, controller)
 
 	return (
