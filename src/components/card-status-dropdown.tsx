@@ -1,7 +1,7 @@
 import supabase from '@/lib/supabase-client'
-import { CardInsert, CardRow, uuid } from '@/types/main'
+import { CardRow, uuid } from '@/types/main'
 import { PostgrestError } from '@supabase/supabase-js'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { CheckCircle, CircleMinus, Plus, Sparkles, Zap } from 'lucide-react'
 import { Badge } from './ui/badge'
@@ -11,10 +11,12 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from './ui/dropdown-menu'
+import { Link } from '@tanstack/react-router'
 
 interface CardStatusDropdownProps {
 	deckId: uuid
 	pid: uuid
+	lang: string
 	card: CardRow | null
 	className?: string
 }
@@ -84,29 +86,54 @@ function StatusSpan({ choice }: { choice: ShowableActions }) {
 export function CardStatusDropdown({
 	deckId,
 	pid,
+	lang,
 	card,
 	className,
 }: CardStatusDropdownProps) {
-	const addToDeck = useMutation<CardInsert, PostgrestError, CardRow>({
-		mutationKey: ['add-card-to-deck', pid],
-		mutationFn: async () => {
-			if (!deckId || !pid) throw new Error('No deck ID or phrase ID provided')
-			const { data } = await supabase
-				.from('user_card')
-				.insert({
-					user_deck_id: deckId,
-					phrase_id: pid,
-				})
-				.select()
-				.throwOnError()
+	const queryClient = useQueryClient()
+	const cardMutation = useMutation<
+		CardRow,
+		PostgrestError,
+		{ status: LearningStatus }
+	>({
+		mutationKey: ['upsert-card', pid],
+		mutationFn: async (variables: { status: LearningStatus }) => {
+			if (!deckId || !pid)
+				throw new Error('Some required input not provided: deck ID, phrase ID')
+
+			const { data } =
+				card?.id ?
+					await supabase
+						.from('user_card')
+						.update({
+							status: variables.status,
+						})
+						.eq('id', card.id)
+						.select()
+						.throwOnError()
+				:	await supabase
+						.from('user_card')
+						.insert({
+							user_deck_id: deckId,
+							phrase_id: pid,
+							status: variables.status,
+						})
+						.select()
+						.throwOnError()
 			return data[0]
 		},
 		onSuccess: () => {
-			toast.success('Added this phrase to your deck')
+			if (card) toast.success('Updated card status')
+			else toast.success('Added this phrase to your deck')
+			void queryClient.invalidateQueries({ queryKey: ['user', lang] })
+		},
+		onError: () => {
+			if (card) toast.error('There was an error updating this card')
+			else toast.error('There was an error adding this card to your deck')
 		},
 	})
 
-	const cardPresent = addToDeck.data ?? card
+	const cardPresent = cardMutation.data ?? card
 	const choice =
 		!deckId ? 'nodeck'
 		: !cardPresent ? 'nocard'
@@ -116,7 +143,7 @@ export function CardStatusDropdown({
 		<DropdownMenu>
 			<DropdownMenuTrigger className={className}>
 				<Badge variant="outline" className="gap-1">
-					{addToDeck.isSuccess ?
+					{cardMutation.isSuccess ?
 						<CheckCircle className="size-4 text-green-500" />
 					:	statusStrings[choice].icon()}{' '}
 					{statusStrings[choice].short}
@@ -125,20 +152,33 @@ export function CardStatusDropdown({
 			<DropdownMenuContent className="">
 				{!deckId ?
 					<DropdownMenuItem>
-						<StatusSpan choice="nodeck" />
+						<Link to="/learn/add-deck">
+							<StatusSpan choice="nodeck" />
+						</Link>
 					</DropdownMenuItem>
 				: !cardPresent ?
-					<DropdownMenuItem>
+					<DropdownMenuItem
+						onClick={() => cardMutation.mutate({ status: 'active' })}
+					>
 						<StatusSpan choice="nocard" />
 					</DropdownMenuItem>
 				:	<>
-						<DropdownMenuItem>
+						<DropdownMenuItem
+							disabled={cardPresent?.status === 'active'}
+							onClick={() => cardMutation.mutate({ status: 'active' })}
+						>
 							<StatusSpan choice="active" />
 						</DropdownMenuItem>
-						<DropdownMenuItem>
+						<DropdownMenuItem
+							disabled={cardPresent?.status === 'learned'}
+							onClick={() => cardMutation.mutate({ status: 'learned' })}
+						>
 							<StatusSpan choice="learned" />
 						</DropdownMenuItem>
-						<DropdownMenuItem>
+						<DropdownMenuItem
+							disabled={cardPresent?.status === 'skipped'}
+							onClick={() => cardMutation.mutate({ status: 'skipped' })}
+						>
 							<StatusSpan choice="skipped" />
 						</DropdownMenuItem>
 					</>
