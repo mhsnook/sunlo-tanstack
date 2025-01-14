@@ -12,6 +12,7 @@ import {
 	DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 import { Link } from '@tanstack/react-router'
+import { cn } from '@/lib/utils'
 
 interface CardStatusDropdownProps {
 	deckId: uuid
@@ -141,8 +142,8 @@ export function CardStatusDropdown({
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className={className}>
-				<Badge variant="outline" className="gap-1">
+			<DropdownMenuTrigger className={cn('flex rounded-full', className)}>
+				<Badge variant="outline" className="gap-1 m-0">
 					{cardMutation.isSuccess ?
 						<CheckCircle className="size-4 text-green-500" />
 					:	statusStrings[choice].icon()}{' '}
