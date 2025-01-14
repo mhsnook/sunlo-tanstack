@@ -24,7 +24,11 @@ const router = createRouter({
 	},
 	defaultPreload: 'intent',
 	defaultPreloadStaleTime: 300_000,
-	defaultPendingComponent: Loader2,
+	defaultPendingComponent: () => (
+		<div className="w-full h-full flex justify-center items-center animate-spin opacity-70">
+			<Loader2 className="size-12" />
+		</div>
+	),
 	defaultErrorComponent: ({ error }) => (
 		<ShowError show={!!error}>Error: {error?.message}</ShowError>
 	),

@@ -12,7 +12,6 @@ EPIC: Convert useQueries to usequery(someOptions) format
 	- Do the same for useProfile
 	- Do the same for useRelations
 
-
 EPIC OF SIGNUPS AND GETTING STARTED AND CONNECTING FRIENDS
 1.	✅ Got to actually build the signup workflow, for learners and friends
 	1.	✅ add a mock for the form input
@@ -131,7 +130,9 @@ COMPONENTS (ShadCN/Radix)
 		- also support no status (add to deck, skip, already learned it)
 		- or no deck (start learning this language)
 		- or not logged in (login)
-1. use <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> for loading buttons
+1. ✅ use <Loader2 className="animate-spin" /> for main loader spinner
+	- Replace all Loader2 with Loader
+	- Go to all the disabled buttons and add this spinner
 1. Add the "suggest edits to this card"
 1. replace my multi-language select with https://craft.mxkaske.dev/post/fancy-multi-select
 
