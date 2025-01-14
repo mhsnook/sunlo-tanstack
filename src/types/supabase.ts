@@ -840,7 +840,15 @@ export type Database = {
       }
     }
     Functions: {
-      [_ in never]: never
+      add_phrase_translation_card: {
+        Args: {
+          text: string
+          lang: string
+          translation_text: string
+          translation_lang: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       card_status: "active" | "learned" | "skipped"

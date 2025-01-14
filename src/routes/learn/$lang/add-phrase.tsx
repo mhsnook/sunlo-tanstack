@@ -13,10 +13,17 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { NotebookPen, Search } from 'lucide-react'
+import languages from '@/lib/languages'
+import { Loader } from '@/components/ui/loader'
+import supabase from '@/lib/supabase-client'
+import {
+	TranslationLanguageField,
+	TranslationTextField,
+} from '@/components/fields'
+import { useRef } from 'react'
 
 interface SearchParams {
 	text?: string
@@ -32,8 +39,11 @@ export const Route = createFileRoute('/learn/$lang/add-phrase')({
 })
 
 const addPhraseSchema = z.object({
-	phrase: z.string().min(1, 'Please enter a phrase'),
-	translation: z.string().min(1, 'Please enter the translation'),
+	text: z.string().min(1, 'Please enter a phrase'),
+	translation_lang: z
+		.string()
+		.length(3, 'Provide a language for the translation'),
+	translation_text: z.string().min(1, 'Please enter the translation'),
 })
 
 type AddPhraseFormValues = z.infer<typeof addPhraseSchema>
@@ -43,24 +53,42 @@ function AddPhraseTab() {
 	const { lang } = Route.useParams()
 	const { text } = Route.useSearch()
 
+	const refocusRef = useRef()
+
 	const searchPhrase = text || ''
-	const { control: addPhraseControl, handleSubmit: handleAddPhraseSubmit } =
-		useForm<AddPhraseFormValues>({
-			resolver: zodResolver(addPhraseSchema),
-			defaultValues: { phrase: searchPhrase, translation: '' },
-		})
+	const {
+		control,
+		register,
+		handleSubmit: handleAddPhraseSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<AddPhraseFormValues>({
+		resolver: zodResolver(addPhraseSchema),
+		defaultValues: { text: searchPhrase },
+	})
 
 	const addPhraseMutation = useMutation({
-		mutationFn: (data: AddPhraseFormValues) => {
-			return new Promise((resolve) => setTimeout(() => resolve(data), 1000))
+		mutationFn: async (variables: AddPhraseFormValues) => {
+			const { data, error } = await supabase.rpc(
+				'add_phrase_translation_card',
+				{ ...variables, lang }
+			)
+			if (error) throw error
+			return data
 		},
-		onSuccess: () => {
-			toast.success('Your phrase has been added to your deck.')
-			void navigate({
-				to: '/learn/$lang/add-phrase',
-				params: { lang },
-				search: { text: '' },
-			})
+		onSuccess: async (data) => {
+			toast.success(
+				'New phrase has been added to the public library and will appear in your next review'
+			)
+			console.log(`Success:`, data)
+			reset({ text: '', translation_text: '', translation_lang: '' })
+			refocusRef?.current?.focus()
+		},
+		onError: (error) => {
+			toast.error(
+				`There was an error submitting this new phrase: ${error.message}`
+			)
+			console.log(`Error:`, error)
 		},
 	})
 
@@ -82,15 +110,18 @@ function AddPhraseTab() {
 					className="space-y-4 mt-4"
 				>
 					<div>
-						<Label htmlFor="newPhrase">New Phrase</Label>
+						<Label htmlFor="newPhrase">
+							Text of the Phrase (in {languages[lang]})
+						</Label>
 						<Controller
-							name="phrase"
-							control={addPhraseControl}
+							name="text"
+							control={control}
 							render={({ field }) => (
-								<Input
+								<Textarea
 									{...field}
 									placeholder="The text of the phrase to learn"
 									autoFocus
+									ref={refocusRef}
 									onChange={(e) => {
 										field.onChange(e)
 										void navigate({
@@ -106,23 +137,20 @@ function AddPhraseTab() {
 							)}
 						/>
 					</div>
-					<div>
-						<Label htmlFor="translation">Translation</Label>
-						<Controller
-							name="translation"
-							control={addPhraseControl}
-							render={({ field }) => (
-								<Textarea
-									{...field}
-									placeholder="Enter the translation in your native language"
-								/>
-							)}
-						/>
-					</div>
+					<TranslationLanguageField
+						error={errors.translation_lang}
+						control={control}
+					/>
+					<TranslationTextField
+						error={errors.translation_text}
+						register={register}
+					/>
 					<div className="flex flex-row gap-2">
-						<Button type="submit">
-							<NotebookPen />
-							Add New Phrase
+						<Button type="submit" disabled={addPhraseMutation.isPending}>
+							{addPhraseMutation.isPending ?
+								<Loader />
+							:	<NotebookPen />}
+							Save and add another
 						</Button>
 						<Button variant="link" asChild>
 							<Link
