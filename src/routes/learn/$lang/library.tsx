@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import languages from '@/lib/languages'
 import type { LangOnlyComponentProps, PhraseFull } from '@/types/main'
@@ -12,7 +12,8 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { inLastWeek } from '@/lib/dayjs'
 import { PhraseCard } from '@/components/phrase-card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Brain, Carrot, LucideIcon, TrendingUp } from 'lucide-react'
+import { Brain, Carrot, LucideIcon, Plus, TrendingUp } from 'lucide-react'
+import { buttonVariants } from '@/components/ui/button'
 
 export const Route = createFileRoute('/learn/$lang/library')({
 	component: DeckLibraryPage,
@@ -148,7 +149,22 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Explore the {languages[lang]} Library</CardTitle>
+				<CardTitle>
+					<div className="flex flex-row gap-2 justify-between">
+						<span>Explore the {languages[lang]} Library</span>
+						<Link
+							to="/learn/$lang/add-phrase"
+							params={{ lang }}
+							className={buttonVariants({
+								size: 'badge',
+								variant: 'outline',
+							})}
+						>
+							<Plus className="h-3 w-3" />
+							<span className="me-1">new phrase</span>
+						</Link>
+					</div>
+				</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<div className="flex flex-row flex-wrap gap-2 text-muted-foreground mb-4">
