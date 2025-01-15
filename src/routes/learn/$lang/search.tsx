@@ -15,6 +15,7 @@ import languages from '@/lib/languages'
 import { uuid } from '@/types/main'
 import { useLanguage, useLanguagePhrasesMap } from '@/lib/use-language'
 import { useMemo } from 'react'
+import { LanguagePhrasesAccordionComponent } from '@/components/language-phrases-accordion'
 
 interface SearchParams {
 	text?: string
@@ -104,23 +105,7 @@ function SearchTab() {
 				</div>
 
 				{searchResults?.length > 0 ?
-					<ul className="space-y-2 mt-4">
-						{searchResults.map((pid) => (
-							<li
-								key={pid}
-								className="flex justify-between items-center bg-secondary p-2 rounded"
-							>
-								<span>
-									<strong>{phrasesMap[pid].text}</strong> -{' '}
-									{phrasesMap[pid].translations[0].text}
-								</span>
-								<Button size="sm" variant="ghost">
-									<Plus className="h-4 w-4" />
-									<span className="sr-only">Add to deck</span>
-								</Button>
-							</li>
-						))}
-					</ul>
+					<LanguagePhrasesAccordionComponent lang={lang} pids={searchResults} />
 				:	<p className="text-center text-muted-foreground mt-4">
 						No results found. Try searching for a phrase or add a new one.
 					</p>
