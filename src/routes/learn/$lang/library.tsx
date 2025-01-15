@@ -201,10 +201,7 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 					<div className="flex-basis-[20rem] flex flex-shrink flex-row flex-wrap gap-4">
 						<LanguagePhrasesAccordionComponent
 							pids={filteredPids}
-							languagePids={language.pids}
-							phrasesMap={language.phrasesMap}
-							cardsMap={deck.cardsMap}
-							deckId={deck.meta.id}
+							lang={lang}
 						/>
 					</div>
 				:	<Callout className="mt-4" variant="ghost">
