@@ -889,16 +889,47 @@ export type Database = {
       }
       user_card_review_today: {
         Row: {
+          lang: string | null
           last_scheduled_for: string | null
           last_scheduled_interval: number | null
           last_user_card_schedule_id: string | null
           overdue_days: number | null
           overdue_percent: number | null
+          phrase_id: string | null
           review_time_difficulty: number | null
           review_time_stability: number | null
           user_card_id: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "user_card_phrase_id_fkey"
+            columns: ["phrase_id"]
+            isOneToOne: false
+            referencedRelation: "phrase"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_card_phrase_id_fkey"
+            columns: ["phrase_id"]
+            isOneToOne: false
+            referencedRelation: "phrase_plus"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_deck_lang_fkey"
+            columns: ["lang"]
+            isOneToOne: false
+            referencedRelation: "language"
+            referencedColumns: ["lang"]
+          },
+          {
+            foreignKeyName: "user_deck_lang_fkey"
+            columns: ["lang"]
+            isOneToOne: false
+            referencedRelation: "language_plus"
+            referencedColumns: ["lang"]
+          },
+        ]
       }
       user_card_scheduled_today: {
         Row: {
