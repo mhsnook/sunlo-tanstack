@@ -436,6 +436,90 @@ export type Database = {
           },
         ]
       }
+      user_card_scheduled: {
+        Row: {
+          created_at: string
+          id: string
+          last_user_card_schedule_id: string | null
+          new_difficulty: number
+          new_interval_r90: number
+          new_stability: number | null
+          review_time_difficulty: number | null
+          review_time_retrievability: number | null
+          review_time_score: number | null
+          review_time_stability: number | null
+          scheduled_for: string
+          uid: string
+          user_card_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_user_card_schedule_id?: string | null
+          new_difficulty?: number
+          new_interval_r90?: number
+          new_stability?: number | null
+          review_time_difficulty?: number | null
+          review_time_retrievability?: number | null
+          review_time_score?: number | null
+          review_time_stability?: number | null
+          scheduled_for?: string
+          uid?: string
+          user_card_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_user_card_schedule_id?: string | null
+          new_difficulty?: number
+          new_interval_r90?: number
+          new_stability?: number | null
+          review_time_difficulty?: number | null
+          review_time_retrievability?: number | null
+          review_time_score?: number | null
+          review_time_stability?: number | null
+          scheduled_for?: string
+          uid?: string
+          user_card_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_card_scheduled_uid_fkey"
+            columns: ["uid"]
+            isOneToOne: false
+            referencedRelation: "public_profile"
+            referencedColumns: ["uid"]
+          },
+          {
+            foreignKeyName: "user_card_scheduled_uid_fkey"
+            columns: ["uid"]
+            isOneToOne: false
+            referencedRelation: "user_profile"
+            referencedColumns: ["uid"]
+          },
+          {
+            foreignKeyName: "user_card_scheduled_user_card_id_fkey"
+            columns: ["user_card_id"]
+            isOneToOne: false
+            referencedRelation: "user_card"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_card_scheduled_user_card_id_fkey"
+            columns: ["user_card_id"]
+            isOneToOne: false
+            referencedRelation: "user_card_pick_new_active"
+            referencedColumns: ["user_card_id"]
+          },
+          {
+            foreignKeyName: "user_card_scheduled_user_card_id_fkey"
+            columns: ["user_card_id"]
+            isOneToOne: false
+            referencedRelation: "user_card_plus"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_deck: {
         Row: {
           archived: boolean
@@ -681,6 +765,19 @@ export type Database = {
         }
         Relationships: []
       }
+      user_card_pick_new_active: {
+        Row: {
+          last_scheduled_for: string | null
+          last_scheduled_interval: number | null
+          last_user_card_schedule_id: string | null
+          overdue_days: number | null
+          overdue_percent: number | null
+          review_time_difficulty: number | null
+          review_time_stability: number | null
+          user_card_id: string | null
+        }
+        Relationships: []
+      }
       user_card_plus: {
         Row: {
           created_at: string | null
@@ -790,6 +887,54 @@ export type Database = {
           },
         ]
       }
+      user_card_review_today: {
+        Row: {
+          last_scheduled_for: string | null
+          last_scheduled_interval: number | null
+          last_user_card_schedule_id: string | null
+          overdue_days: number | null
+          overdue_percent: number | null
+          review_time_difficulty: number | null
+          review_time_stability: number | null
+          user_card_id: string | null
+        }
+        Relationships: []
+      }
+      user_card_scheduled_today: {
+        Row: {
+          last_scheduled_for: string | null
+          last_scheduled_interval: number | null
+          last_user_card_schedule_id: string | null
+          overdue_days: number | null
+          overdue_percent: number | null
+          review_time_difficulty: number | null
+          review_time_stability: number | null
+          user_card_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_card_scheduled_user_card_id_fkey"
+            columns: ["user_card_id"]
+            isOneToOne: false
+            referencedRelation: "user_card"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_card_scheduled_user_card_id_fkey"
+            columns: ["user_card_id"]
+            isOneToOne: false
+            referencedRelation: "user_card_pick_new_active"
+            referencedColumns: ["user_card_id"]
+          },
+          {
+            foreignKeyName: "user_card_scheduled_user_card_id_fkey"
+            columns: ["user_card_id"]
+            isOneToOne: false
+            referencedRelation: "user_card_plus"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_deck_plus: {
         Row: {
           archived: boolean | null
@@ -846,6 +991,132 @@ export type Database = {
           lang: string
           translation_text: string
           translation_lang: string
+        }
+        Returns: string
+      }
+      fsrs_clamp_d: {
+        Args: {
+          difficulty: number
+        }
+        Returns: number
+      }
+      fsrs_d_0: {
+        Args: {
+          score: number
+        }
+        Returns: number
+      }
+      fsrs_delta_d:
+        | {
+            Args: {
+              score: number
+            }
+            Returns: number
+          }
+        | {
+            Args: {
+              score: number
+            }
+            Returns: number
+          }
+      fsrs_difficulty:
+        | {
+            Args: {
+              difficulty: number
+              score: number
+            }
+            Returns: number
+          }
+        | {
+            Args: {
+              difficulty: number
+              score: number
+            }
+            Returns: number
+          }
+      fsrs_dp:
+        | {
+            Args: {
+              difficulty: number
+              score: number
+            }
+            Returns: number
+          }
+        | {
+            Args: {
+              difficulty: number
+              score: number
+            }
+            Returns: number
+          }
+      fsrs_interval: {
+        Args: {
+          desired_retrievability: number
+          stability: number
+        }
+        Returns: number
+      }
+      fsrs_retrievability: {
+        Args: {
+          time_in_days: number
+          stability: number
+        }
+        Returns: number
+      }
+      fsrs_s_0:
+        | {
+            Args: {
+              score: number
+            }
+            Returns: number
+          }
+        | {
+            Args: {
+              score: number
+            }
+            Returns: number
+          }
+      fsrs_s_fail: {
+        Args: {
+          difficulty: number
+          stability: number
+          review_time_retrievability: number
+        }
+        Returns: number
+      }
+      fsrs_s_success: {
+        Args: {
+          difficulty: number
+          stability: number
+          review_time_retrievability: number
+          score: number
+        }
+        Returns: number
+      }
+      fsrs_stability:
+        | {
+            Args: {
+              difficulty: number
+              stability: number
+              review_time_retrievability: number
+              score: number
+            }
+            Returns: number
+          }
+        | {
+            Args: {
+              difficulty: number
+              stability: number
+              review_time_retrievability: number
+              score: number
+            }
+            Returns: number
+          }
+      record_review_and_schedule: {
+        Args: {
+          user_card_id: string
+          review_time_retrievability: number
+          review_time_score: number
         }
         Returns: string
       }

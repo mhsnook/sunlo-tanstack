@@ -1,6 +1,15 @@
 
 
 
+EPIC: 
+1. ✅ FSRS helper functions (convert from Rust)
+1. ✅ FSRS scheduler RPC API
+1. ✅ View for fetching today's review
+	1. ✅ View for fetching cards "due" today
+	1. ✅ View for fetching 15 new cards
+1. Convert the /review page
+	1. implement the Interval function in JS
+
 EPIC: Convert useQueries to usequery(someOptions) format
 -	we're using { data, isPending, error } in most components, but may want to switch to 
 	queryClient.ensureQueryData(queryOptions) higher up in the route tree
@@ -194,3 +203,11 @@ CROSS-PLATFORM
 1. ✅ compile to android with tauri
  		Make Tauri work with HMR and Vite setup
 1. compile to ios with tauri
+
+DATABASE
+1. For the add_phrase_translation_card function we should set some permissions:
+    ```sql 
+    revoke execute on function public.hello_world from public;
+    revoke execute on function public.hello_world from anon;
+		-- grant execute on function public.hello_world from authenticated;
+		````
