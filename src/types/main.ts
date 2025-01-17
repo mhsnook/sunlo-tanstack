@@ -1,4 +1,4 @@
-import { Enums, Tables, TablesInsert } from './supabase'
+import { Enums, Tables, TablesInsert, Database } from './supabase'
 import { UseMutationResult, UseQueryResult } from '@tanstack/react-query'
 import {
 	PostgrestError,
@@ -102,7 +102,8 @@ export type UserCardInsert = CardInsert // @TODO remove
 
 export type ReviewMeta = Tables<'user_card_review_plus'>
 export type ReviewRow = Tables<'user_card_review'>
-export type ReviewInsert = TablesInsert<'user_card_review'>
+export type ReviewInsert =
+	Database['public']['Functions']['record_review_and_schedule']['Args']
 
 export type CardFull = CardMeta & {
 	phrase: {

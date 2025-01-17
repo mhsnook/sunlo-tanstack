@@ -5,6 +5,7 @@ import { NavbarData } from '@/types/main'
 import { FlashCardReviewSession } from '@/components/flash-card-review-session'
 import languages from '@/lib/languages'
 import { deckQueryOptions } from '@/lib/use-deck'
+import { reviewablesQueryOptions } from '@/lib/use-reviewables'
 
 export const Route = createFileRoute('/learn/$lang/review')({
 	component: ReviewPage,
@@ -15,12 +16,19 @@ export const Route = createFileRoute('/learn/$lang/review')({
 			auth: { userId },
 		},
 	}) => {
-		const data = await queryClient.fetchQuery(deckQueryOptions(lang, userId))
-
+		const promise1 = queryClient.fetchQuery(deckQueryOptions(lang, userId))
+		const promise2 = queryClient.fetchQuery(
+			reviewablesQueryOptions(lang, userId)
+		)
+		const data = {
+			deck: await promise1,
+			reviewables: await promise2,
+		}
+		console.log(`preparing today's review`, data)
 		return {
-			reviewableCards: shuffle(
-				data.pids.filter((pid) => data.cardsMap[pid].status === 'active')
-			).map((pid) => data.cardsMap[pid]),
+			reviewableCards: data.reviewables.map(
+				(r) => data.deck.cardsMap[r.phrase_id]
+			),
 			navbar: {
 				title: `Review ${languages[lang]} cards`,
 				icon: 'book-heart',
@@ -55,17 +63,6 @@ function ReviewPage() {
 	return reviewableCards.length === 0 ?
 			<Empty lang={lang} />
 		:	<FlashCardReviewSession cards={reviewableCards} lang={lang} />
-}
-
-function shuffle<T>(array: Array<T> | null | undefined): Array<T> {
-	if (!(array?.length > 0)) return []
-	for (let currentIndex = array.length - 1; currentIndex > 0; currentIndex--) {
-		const randomIndex = Math.floor(Math.random() * (currentIndex + 1))
-		let temp = array[currentIndex]
-		array[currentIndex] = array[randomIndex]
-		array[randomIndex] = temp
-	}
-	return array
 }
 
 const Empty = ({ lang }: { lang: string }) => (
