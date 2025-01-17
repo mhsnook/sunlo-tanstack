@@ -129,7 +129,7 @@ DECLARE
     W_5 numeric := 0.5345;
 BEGIN
     RETURN fsrs_clamp_d(
-			W_4 - exp(W_5 * (score::float - 1.0)) + 1.0
+			W_4 - exp(W_5 * (score::numeric - 1.0)) + 1.0
 		);
 END;
 $$ LANGUAGE plpgsql;
@@ -166,6 +166,6 @@ RETURNS numeric AS $$
 DECLARE
 	W_6 numeric := 1.4604;
 BEGIN
-    RETURN -W_6 * (score::float - 3.0);
+    RETURN -W_6 * (score::numeric - 3.0);
 END;
 $$ LANGUAGE plpgsql;

@@ -15,7 +15,7 @@
 CREATE OR REPLACE FUNCTION record_review_and_schedule(
 		user_card_id uuid,
 		review_time_retrievability numeric,
-    review_time_score numeric
+    review_time_score integer
 		-- , new_interval_r90 numeric
 ) RETURNS TIMESTAMP AS $$
 DECLARE
@@ -76,7 +76,7 @@ BEGIN
 
 		-- 3. calculate retention interval
 		new_interval_r90 := fsrs_interval(desired_retention, new_stability);
-		scheduled_for := NOW() + new_interval_r90;
+		scheduled_for := NOW() + (new_interval_r90 || ' days')::interval;
 
 	
   	-- properties of the scheduling record to create
