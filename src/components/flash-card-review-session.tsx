@@ -7,8 +7,9 @@ import SuccessCheckmark from '@/components/SuccessCheckmark'
 import { CardFull, ReviewInsert, ReviewRow, uuid } from '@/types/main'
 import { useLanguagePhrasesMap } from '@/lib/use-language'
 import { useMutation } from '@tanstack/react-query'
-import supabase from '@/lib/supabase-client'
 import { cn } from '@/lib/utils'
+import { postReview } from '@/lib/use-reviewables'
+import { PostgrestError } from '@supabase/supabase-js'
 
 interface ComponentProps {
 	cards: Array<CardFull>
@@ -107,7 +108,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 			{cards.map((card) => (
 				<UserCardReviewScoreButtonsRow
 					key={card.phrase_id}
-					phrase_id={card.phrase_id}
+					user_card_id={card.id}
 					isButtonsShown={showTranslation}
 					showTheButtons={() => setShowTranslation(true)}
 					dontShowThisRowRightNow={isComplete || currentCard.id !== card.id}
@@ -121,63 +122,50 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 	)
 }
 
-const postReview = async ({ phrase_id, score, id: prevId }: ReviewInsert) => {
-	if (!phrase_id || !score) throw new Error('Invalid review; cannot log')
-
-	let submitData: ReviewInsert = {
-		score,
-		phrase_id,
-	}
-	if (prevId) submitData['id'] = prevId
-
-	// console.log(`About to post the review,`, submitData, prevId)
-
-	const { data } = await supabase
-		.from('user_card_review')
-		.upsert(submitData)
-		.select()
-		.throwOnError()
-
-	// console.log(`We posted the review,`, data, error)
-	return data[0]
-}
-
 interface CardInnerProps {
-	phrase_id: uuid
+	user_card_id: uuid
 	isButtonsShown: boolean
 	showTheButtons: () => void
 	dontShowThisRowRightNow: boolean
 	proceed: () => void
 }
 
+type ReviewInsertedData = {
+	score: number
+	scheduled_for: string
+}
+
 function UserCardReviewScoreButtonsRow({
-	phrase_id,
+	user_card_id,
 	isButtonsShown,
 	dontShowThisRowRightNow,
 	showTheButtons,
 	proceed,
 }: CardInnerProps) {
-	const { data, mutate, isPending } = useMutation({
-		mutationFn: async ({
-			score,
-			data,
-		}: {
-			score: number
-			data?: ReviewRow
-		}) => {
-			if (data?.score === score) return data
-			return await postReview({ score, phrase_id, id: data?.id })
+	const { data, mutate, isPending } = useMutation<
+		ReviewInsertedData,
+		PostgrestError,
+		{ score: number }
+	>({
+		mutationFn: async ({ score }: { score: number }) => {
+			// if (data?.score === score) return data
+			const res = await postReview({
+				review_time_score: score,
+				user_card_id,
+				review_time_retrievability: null,
+			})
+			return { score, scheduled_for: res }
 		},
-		onSuccess: (result: ReviewRow) => {
-			console.log(`onSuccess firing with`, result)
-			if (result.score === 1)
-				toast('okay', { icon: '🤔', position: 'bottom-center' })
-			if (result.score === 2)
-				toast('okay', { icon: '🤷', position: 'bottom-center' })
-			if (result.score === 3)
+		onSuccess: ({ scheduled_for, score }, variables) => {
+			console.log(
+				`onSuccess firing for a review, net scheduld at ${scheduled_for}`,
+				variables
+			)
+			if (score === 1) toast('okay', { icon: '🤔', position: 'bottom-center' })
+			if (score === 2) toast('okay', { icon: '🤷', position: 'bottom-center' })
+			if (score === 3)
 				toast('got it', { icon: '👍️', position: 'bottom-center' })
-			if (result.score === 4)
-				toast.success('nice', { position: 'bottom-center' })
+			if (score === 4) toast.success('nice', { position: 'bottom-center' })
 			setTimeout(proceed, 1500)
 		},
 		onError: (error) => {
@@ -195,7 +183,7 @@ function UserCardReviewScoreButtonsRow({
 				:	<div className="w-full grid grid-cols-4 gap-2">
 						<Button
 							variant="destructive"
-							onClick={() => mutate({ score: 1, data })}
+							onClick={() => mutate({ score: 1 })}
 							disabled={isPending}
 							className={data?.score === 1 ? 'ring ring-offset-1' : ''}
 						>
@@ -203,7 +191,7 @@ function UserCardReviewScoreButtonsRow({
 						</Button>
 						<Button
 							variant="secondary"
-							onClick={() => mutate({ score: 2, data })}
+							onClick={() => mutate({ score: 2 })}
 							disabled={isPending}
 							className={data?.score === 2 ? 'ring ring-offset-1' : ''}
 						>
@@ -211,7 +199,7 @@ function UserCardReviewScoreButtonsRow({
 						</Button>
 						<Button
 							variant="default"
-							onClick={() => mutate({ score: 3, data })}
+							onClick={() => mutate({ score: 3 })}
 							disabled={isPending}
 							className={cn(
 								'bg-green-500 hover:bg-green-600',
@@ -226,7 +214,7 @@ function UserCardReviewScoreButtonsRow({
 								'bg-blue-500 hover:bg-blue-600',
 								data?.score === 4 ? 'ring ring-offset-1' : ''
 							)}
-							onClick={() => mutate({ score: 4, data })}
+							onClick={() => mutate({ score: 4 })}
 							disabled={isPending}
 						>
 							Easy
