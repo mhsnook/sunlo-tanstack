@@ -1,79 +1,28 @@
-# React + TypeScript + Vite + Tauri
+# Sunlo.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## A react SPA and a Supabase project
 
-Currently, two official plugins are available:
+## Running the SPA
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- `pnpm install`
+- `cp .env.example .env.local` and then enter database supabase URL and public key
+- `pnpm dev`
 
-## Expanding the ESLint configuration
+## Running the back-end
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Usually in development we are developing the UI against the production database.
+But when the current work requires breaking changes and we need to modify the database in tandem with the code branch,
+we'll run Supabase locally with Docker, sync our local copy using the Supabase CLI, and use migrations for any changes.
 
-- Configure the top-level `parserOptions` property like this:
+- Install [Docker Desktop](https://docs.docker.com/desktop/)
+- `supabase start`
+- The migrations are already here, but at the moment, since we're not launched yet, we're just syncing the production
+  database locally: `supabase db dump --data-only > supabase/seed.sql`
+- `supabase db reset` to run migrations and seeds
 
-```js
-export default tseslint.config({
-	languageOptions: {
-		// other options...
-		parserOptions: {
-			project: ['./tsconfig.node.json', './tsconfig.app.json'],
-			tsconfigRootDir: import.meta.dirname,
-		},
-	},
-})
-```
+The first time you run this it will download and build all the docker images for postgres, the postgrest server, the auth server, storage server, GraphQL API server, etc. After that, it will just start.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-	// Set the react version
-	settings: { react: { version: '18.3' } },
-	plugins: {
-		// Add the react plugin
-		react,
-	},
-	rules: {
-		// other rules...
-		// Enable its recommended rules
-		...react.configs.recommended.rules,
-		...react.configs['jsx-runtime'].rules,
-	},
-})
-```
-
-## Getting Started
-
-The first time you run the server, you'll need to make sure you're running a modern nodejs (18+) and install packages
-
-```bash
-pnpm install
-```
-
-Set the environment variables
-
-```bash
-cp .env.example .env.local
-```
-
-And then enter the supabase API url and public key.
-
-Then you can install npm packages and run the development server:
-
-```bash
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-This should be all you need to do to work with the interface.
+When your local supabase starts up it will spit out the environment variables you need for your environment file. You can either change your values in `.env.local` or add another file `.env.development.local` which overrides its values.
 
 ### Uncommitted
 
@@ -88,18 +37,6 @@ As a result, you should request access to the Supabase project in order to see w
   - The views that start with `user_` are all using the RLS of the requester, while the `language_plus` view uses full permissions, accessing the (private) table `user_decks` to see how many users are using a deck, but not exposing anything else.
 
 This naming convention of using `*_plus` views may want to change in the future. At the moment these are pretty 1-to-1 metadata enhancements so it's working fine but it may make sense to switch _all_ data access over to a separate schema or to separate things into public data and user data more explicitly, etc.
-
-### With Local Supabase
-
-If you are working with database migrations or sample data not suitable for the production database, you need to run Supabase locally, so you can follow [these instructions to run Supabase locally](https://supabase.com/docs/guides/getting-started/local-development#start-supabase-services) via Docker.
-
-```bash
-npx supabase start
-```
-
-The first time you run this it will download and build all the docker images for postgres, the postgrest server, the auth server, storage server, GraphQL API server, etc. After that, it will just start.
-
-When your local supabase starts up it will spit out the environment variables you need for your environment file. You can either change your values in `.env.local` or add another file `.env.development.local` which overrides its values.
 
 ### Using Tauri for Native Apps
 
