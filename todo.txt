@@ -1,14 +1,20 @@
 
 
 
-EPIC: 
+EPIC Spaced Repetition API: 
 1. ✅ FSRS helper functions (convert from Rust)
 1. ✅ FSRS scheduler RPC API
 1. ✅ View for fetching today's review
 	1. ✅ View for fetching cards "due" today
 	1. ✅ View for fetching 15 new cards
-1. Convert the /review page
-	1. implement the Interval function in JS
+1. ✅ Convert the /review page
+	1. implement the Interval function in JS?
+1. debug debug debug
+
+EPIC: Postgres DX / Run Supabase Locally
+1. run locally & document
+1. add migrations maybe? maybe just seeds or schema?
+1. set up testing / test the RPC functions
 
 EPIC: Convert useQueries to usequery(someOptions) format
 -	we're using { data, isPending, error } in most components, but may want to switch to 
