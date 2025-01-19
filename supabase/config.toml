@@ -80,7 +80,7 @@ port = 54324
 [storage]
 enabled = true
 # The maximum file size allowed (e.g. "5MB", "500KB").
-file_size_limit = "50MiB"
+file_size_limit = "5MiB"
 
 # Image transformation API is available to Supabase Pro plan.
 # [storage.image_transformation]
@@ -99,7 +99,7 @@ enabled = true
 # in emails.
 site_url = "https://sunlo.app"
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["https://sunlo-nextjs-*-michaelsnook.vercel.app/*", "https://sunlo-nextjs-*-michaelsnooks-projects.vercel.app/*", "https://www.sunlo.app/*", "http://localhost:5173/*"]
+additional_redirect_urls = ["https://sunlo-nextjs-*-michaelsnook.vercel.app/*", "https://sunlo-nextjs-*-michaelsnooks-projects.vercel.app/*", "https://www.sunlo.app/*", "http://localhost:5173/*", "https://www.sunlo.app/getting-started", "http://localhost:5173/getting-started"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # If disabled, the refresh token will never expire.
@@ -139,12 +139,12 @@ otp_expiry = 3600
 # Use a production-ready SMTP server
 # [auth.email.smtp]
 # enabled = true
-# host = "smtp.sendgrid.net"
+# host = "smtp.postmarkapp.com"
 # port = 587
-# user = "apikey"
-# pass = "env(SENDGRID_API_KEY)"
-# admin_email = "admin@email.com"
-# sender_name = "Admin"
+# user = "env(POSTMARK_API_USER)"
+# pass = "env(POSTMARK_API_KEY)"
+# admin_email = "team@sunlo.app"
+# sender_name = "Sunlo team"
 
 # Uncomment to customize email template
 # [auth.email.template.invite]
