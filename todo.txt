@@ -11,6 +11,8 @@ EPIC Spaced Repetition API:
 	1. implement the Interval function in JS?
 1. debug debug debug
 1. convert the other views that depend on reviews
+1. future:
+	- should there be a deck setting for "t/f when i've run out of new cards, pick more for me (automated)"
 
 EPIC: Postgres DX / Run Supabase Locally
 1. ✅ run locally & document
@@ -18,12 +20,15 @@ EPIC: Postgres DX / Run Supabase Locally
 	- organize seeds a bit more so they can be committed (no user data, phrases separated from sample user data)
 1. make the email stuff work with the local setup
 1. pgTap set up testing framework / run tests on the RPC functions: https://supabase.com/docs/guides/database/extensions/pgtap
+1. test out pglinter? or switch to v8?
+1. future:
+	- use postmark templates like [this](https://github.com/supabase/auth/issues/304#issuecomment-998029660)
 
 EPIC: User Testability
 1. when you sign in for the first time it redirects you to the home page not a confirmation/getting-started page
 1. when you sign in for the first time, the /learn screen is an error; actually anything accessing the profile
 	seems to be an error -- it should redirect you? we should put profile into context?
-
+1. when you go to the deck page and it's empty, we should get a prompt for the library, ya?
 
 
 EPIC: Convert useQueries to usequery(someOptions) format
@@ -169,8 +174,9 @@ UI POLISH
 1. When a loader awaits, this is a time to show blank shell and transition in
 1. Full multilingual text search:
 	- PGroonga: https://supabase.com/docs/guides/database/extensions/pgroonga
+	- fulltext search without accents: https://www.postgresql.org/docs/current/unaccent.html
+	- ⛔ fuzzy string match that only works well with american names: https://www.postgresql.org/docs/current/fuzzystrmatch.html
 1. Prettier URLs? with hashIDs (can hash the uuid): https://supabase.com/docs/guides/database/extensions/pg_hashids
-
 
 UPGRADE FORMS
 1. Some existing forms don't use react-hook-form: -- the add-deck form, for one.
