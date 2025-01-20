@@ -24,6 +24,7 @@ EPIC: Postgres DX / Run Supabase Locally
 1. ✅ run locally & document
 1. ✅ add migrations maybe? maybe just seeds or schema?
 	- organize seeds a bit more so they can be committed (no user data, phrases separated from sample user data)
+1. connect supabase and vercel env variables
 1. make the email stuff work with the local setup
 1. pgTap set up testing framework / run tests on the RPC functions: https://supabase.com/docs/guides/database/extensions/pgtap
 1. ✅ switch to v8?
