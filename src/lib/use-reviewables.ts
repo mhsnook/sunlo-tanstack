@@ -31,7 +31,7 @@ export const postReview = async (submitData: ReviewInsert) => {
 
 	// console.log(`About to post the review,`, submitData, prevId)
 
-	const { data, error } = await supabase
+	const { data } = await supabase
 		.rpc('record_review_and_schedule', submitData)
 		.throwOnError()
 
