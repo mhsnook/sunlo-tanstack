@@ -1203,7 +1203,7 @@ ALTER TABLE ONLY "public"."user_card_review"
 
 
 ALTER TABLE ONLY "public"."user_card_review"
-    ADD CONSTRAINT "user_card_review_uid_fkey" FOREIGN KEY ("uid") REFERENCES "public"."user_profile"("uid") ON DELETE CASCADE;
+    ADD CONSTRAINT "user_card_review_uid_fkey" FOREIGN KEY ("uid") REFERENCES "public"."user_profile"("uid") ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 
@@ -1218,7 +1218,7 @@ ALTER TABLE ONLY "public"."user_card_scheduled"
 
 
 ALTER TABLE ONLY "public"."user_card"
-    ADD CONSTRAINT "user_card_uid_fkey" FOREIGN KEY ("uid") REFERENCES "public"."user_profile"("uid") ON DELETE CASCADE;
+    ADD CONSTRAINT "user_card_uid_fkey" FOREIGN KEY ("uid") REFERENCES "public"."user_profile"("uid") ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 
@@ -1233,7 +1233,7 @@ ALTER TABLE ONLY "public"."user_deck"
 
 
 ALTER TABLE ONLY "public"."user_deck"
-    ADD CONSTRAINT "user_deck_uid_fkey" FOREIGN KEY ("uid") REFERENCES "public"."user_profile"("uid") ON DELETE CASCADE;
+    ADD CONSTRAINT "user_deck_uid_fkey" FOREIGN KEY ("uid") REFERENCES "public"."user_profile"("uid") ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 

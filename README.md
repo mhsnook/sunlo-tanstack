@@ -22,6 +22,10 @@ we'll run Supabase locally with Docker, sync our local copy using the Supabase C
 
 The first time you run this it will download and build all the docker images for postgres, the postgrest server, the auth server, storage server, GraphQL API server, etc. After that, it will just start.
 
+Details:
+
+- If you want to blow away migrations to recreate them you can directly modify the table `supabase_migrations.schema_migration`.
+
 When your local supabase starts up it will spit out the environment variables you need for your environment file. You can either change your values in `.env.local` or add another file `.env.development.local` which overrides its values.
 
 ### Uncommitted
