@@ -19,6 +19,7 @@ import {
 import { allLanguageOptions } from '@/lib/languages'
 
 interface SelectOneLanguageProps {
+	autoFocus?: boolean
 	hasError?: boolean
 	value: string
 	setValue: (value: string) => void
@@ -27,6 +28,7 @@ interface SelectOneLanguageProps {
 }
 
 export function SelectOneLanguage({
+	autoFocus = false,
 	hasError = false,
 	value,
 	setValue,
@@ -37,7 +39,7 @@ export function SelectOneLanguage({
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
-			<PopoverTrigger asChild className="w-full">
+			<PopoverTrigger autoFocus={autoFocus} asChild className="w-full">
 				<Button
 					variant="white"
 					tabIndex={tabIndex}

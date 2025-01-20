@@ -189,9 +189,6 @@ UI POLISH
 	- ⛔ fuzzy string match that only works well with american names: https://www.postgresql.org/docs/current/fuzzystrmatch.html
 1. Prettier URLs? with hashIDs (can hash the uuid): https://supabase.com/docs/guides/database/extensions/pg_hashids
 
-UPGRADE FORMS
-1. Some existing forms don't use react-hook-form: -- the add-deck form, for one.
-
 DATA LOADING
 1. ✅ replace useLang with router feature
 1. ✅ replace the old useProfile and ProfileFull
