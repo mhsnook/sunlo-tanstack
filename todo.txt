@@ -9,10 +9,16 @@ EPIC Spaced Repetition API:
 	1. ✅ View for fetching 15 new cards
 1. ✅ Convert the /review page
 	1. implement the Interval function in JS?
-1. debug debug debug
+1. ✅ debug debug debug
+1. ✅ rewrite it in plV8
 1. convert the other views that depend on reviews
 1. future:
 	- should there be a deck setting for "t/f when i've run out of new cards, pick more for me (automated)"
+
+EPIC: FSRS Round 2
+1. during a review, if you skip cards, they should be mentioned on the final page
+		(instead of just "congratulations; you're done")
+1. the "Again" option should make the card happen again
 
 EPIC: Postgres DX / Run Supabase Locally
 1. ✅ run locally & document
@@ -20,7 +26,8 @@ EPIC: Postgres DX / Run Supabase Locally
 	- organize seeds a bit more so they can be committed (no user data, phrases separated from sample user data)
 1. make the email stuff work with the local setup
 1. pgTap set up testing framework / run tests on the RPC functions: https://supabase.com/docs/guides/database/extensions/pgtap
-1. test out pglinter? or switch to v8?
+1. ✅ switch to v8?
+	- test out pglinter? 
 1. future:
 	- use postmark templates like [this](https://github.com/supabase/auth/issues/304#issuecomment-998029660)
 
@@ -29,6 +36,9 @@ EPIC: User Testability
 1. when you sign in for the first time, the /learn screen is an error; actually anything accessing the profile
 	seems to be an error -- it should redirect you? we should put profile into context?
 1. when you go to the deck page and it's empty, we should get a prompt for the library, ya?
+1. add a deck -- the "select one language" input should have a better type-to-search
+1. when you go to the library and add cards to your deck, and then go to the review page, it's still loaded the empty-set that was returned before
+
 
 
 EPIC: Convert useQueries to usequery(someOptions) format
