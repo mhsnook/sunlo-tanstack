@@ -1,20 +1,18 @@
 import { Check, Loader2, Send, ThumbsUp, UserCheck, X } from 'lucide-react'
 
-import type { PublicProfile, PublicProfileFull, uuid } from '@/types/main'
+import type { PublicProfile, PublicProfileFull } from '@/types/main'
 import { Button } from '@/components/ui/button'
 import { AvatarIconRow } from '@/components/ui/avatar-icon'
 import { ConfirmDestructiveActionDialog } from './confirm-destructive-action-dialog'
 import { useFriendRequestAction, useOneRelation } from '@/lib/friends'
 
 export function ProfileWithRelationship({
-	uid,
 	profile,
 }: {
-	uid: uuid
 	profile: PublicProfile | PublicProfileFull
 }) {
-	const { data: relationship } = useOneRelation(uid)
-	const inviteResponseMutation = useFriendRequestAction(uid)
+	const { data: relationship } = useOneRelation(profile.uid)
+	const inviteResponseMutation = useFriendRequestAction(profile.uid)
 
 	return (
 		<AvatarIconRow {...profile}>
@@ -62,7 +60,7 @@ export function ProfileWithRelationship({
 							</Button>
 							<Button
 								variant="destructive"
-								title="Confirm: Cancel friend request"
+								title="Confirm: Decline friend request"
 								onClick={() => inviteResponseMutation.mutate('decline')}
 							>
 								{inviteResponseMutation.isPending ?

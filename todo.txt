@@ -142,6 +142,8 @@ MOCKS / Incompletes
 		✅ wire up the mutation
 		- perhaps add a mode for how aggro to be (10, 15, 20 new cards per review)
 1. ✅ Add-a-card needs form wiring
+1. find-a-friend may be accessed without a login, so we should make sure the status buttons
+		can react to that scenario and trigger a signup/login when needed
 
 COMPONENTS (ShadCN/Radix)
 1. ✅ Add a Components page to keep track of / showcase all components

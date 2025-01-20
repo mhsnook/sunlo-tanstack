@@ -1,26 +1,18 @@
-import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
 import supabase from '@/lib/supabase-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
-import { PublicProfile } from '@/types/main'
+import { ProfileWithRelationship } from '@/components/profile-with-relationship'
 
 export const Route = createFileRoute('/_auth/find-a-friend')({
-	component: () => {
-		return (
-			<main>
-				<SearchProfilesComponent />
-			</main>
-		)
-	},
+	component: SearchProfilesComponent,
 })
 
 const SearchSchema = z.object({
@@ -41,8 +33,6 @@ const searchProfiles = async (query: string) => {
 }
 
 export function SearchProfilesComponent() {
-	const queryClient = useQueryClient()
-
 	const {
 		register,
 		handleSubmit,
@@ -60,34 +50,8 @@ export function SearchProfilesComponent() {
 		onError: () => toast.error('Failed to search profiles'),
 	})
 
-	const addFriend = async (friendId: string) => {
-		const {
-			data: { user },
-		} = await supabase.auth.getUser()
-		if (!user) throw new Error('User not authenticated')
-
-		const { error } = await supabase
-			.from('friendships')
-			.insert({ user_id: user.id, friend_id: friendId, status: 'pending' })
-
-		if (error) throw error
-	}
-
-	const { mutate: sendFriendRequest, isPending: isSendingRequest } =
-		useMutation({
-			mutationFn: addFriend,
-			onSuccess: () => {
-				toast.success('Friend request sent successfully')
-				void queryClient.invalidateQueries({ queryKey: ['friendships'] })
-			},
-			onError: (error) => {
-				toast.error('Failed to send friend request')
-				console.log(`Error:`, error)
-			},
-		})
-
 	return (
-		<div className="container mx-auto p-4">
+		<main className="container mx-auto p-4">
 			<h1 className="text-2xl font-bold mb-4">Search Profiles</h1>
 			<form
 				noValidate
@@ -110,27 +74,13 @@ export function SearchProfilesComponent() {
 				)}
 			</form>
 
-			<div className="grid gap-4 @3xl:grid-cols-2 @5xl:grid-cols-3">
+			<div className="flex flex-col gap-4">
 				{searchResults?.map((profile) => (
-					<Card key={profile.uid} className="text-center">
-						<CardHeader>
-							<CardTitle>{profile.username}</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<img
-								src={profile.avatar_url}
-								alt={`${profile.username}'s avatar`}
-							/>
-							<Button
-								onClick={() => sendFriendRequest(profile.uid)}
-								disabled={isSendingRequest}
-							>
-								{isSendingRequest ? 'Sending Request...' : 'Add as Friend'}
-							</Button>
-						</CardContent>
-					</Card>
+					<div key={profile.uid} className="border rounded p-4">
+						<ProfileWithRelationship profile={profile} />
+					</div>
 				))}
 			</div>
-		</div>
+		</main>
 	)
 }
