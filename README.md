@@ -16,15 +16,30 @@ we'll run Supabase locally with Docker, sync our local copy using the Supabase C
 
 - Install [Docker Desktop](https://docs.docker.com/desktop/)
 - `supabase start`
-- The migrations are already here, but at the moment, since we're not launched yet, we're just syncing the production
-  database locally: `supabase db dump --data-only > supabase/seed.sql`
 - `supabase db reset` to run migrations and seeds
 
 The first time you run this it will download and build all the docker images for postgres, the postgrest server, the auth server, storage server, GraphQL API server, etc. After that, it will just start.
 
-Details:
+### Working on the Seeds
 
-- If you want to blow away migrations to recreate them you can directly modify the table `supabase_migrations.schema_migration`.
+To work on the seeds, get your local database into the shape you want and then:
+
+- `supabase db dump --local --data-only > supabase/seed.sql`
+
+If you want to start over from the production database, since we're not launched yet, it's okay
+to dump the production database and use the interface to remove all the users except the sample
+user, along with their profiles. (Everything else will cascade and delete, at least, at the time
+of this writing.)
+
+- dump the db: `supabase db dump --data-only > supabase/seed.sql`
+- then run this locally and delete the users and profiles through the admin
+- Then when the local database is ready to be seed-ified, use the local data dump listed above
+
+### FAQ
+
+- If you want to blow away migrations to recreate them you can directly modify the table `supabase_migrations.schema_migration`
+- Write migrations by hand: `supabase migration new some_migration_name_here`
+- Generate a migration from the local database: `supabase db diff -f some_migration_name_here`
 
 When your local supabase starts up it will spit out the environment variables you need for your environment file. You can either change your values in `.env.local` or add another file `.env.development.local` which overrides its values.
 
