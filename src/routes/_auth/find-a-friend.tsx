@@ -29,8 +29,18 @@ const SearchSchema = z.object({
 
 type SearchFormData = z.infer<typeof SearchSchema>
 
+const searchProfiles = async (query: string) => {
+	const { data } = await supabase
+		.from('public_profile')
+		.select('uid, username, avatar_url')
+		.ilike('username', `%${query}%`)
+		.limit(10)
+		.throwOnError()
+
+	return data || []
+}
+
 export function SearchProfilesComponent() {
-	const [searchResults, setSearchResults] = useState<PublicProfile[]>([])
 	const queryClient = useQueryClient()
 
 	const {
@@ -41,20 +51,12 @@ export function SearchProfilesComponent() {
 		resolver: zodResolver(SearchSchema),
 	})
 
-	const searchProfiles = async (query: string): Promise<PublicProfile[]> => {
-		const { data } = await supabase
-			.from('public_profile')
-			.select('uid, username, avatar_url')
-			.ilike('username', `%${query}%`)
-			.limit(10)
-			.throwOnError()
-
-		return data || []
-	}
-
-	const { mutate: search, isPending: isSearching } = useMutation({
+	const {
+		data: searchResults,
+		mutate: search,
+		isPending: isSearching,
+	} = useMutation({
 		mutationFn: (data: SearchFormData) => searchProfiles(data.query),
-		onSuccess: setSearchResults,
 		onError: () => toast.error('Failed to search profiles'),
 	})
 
@@ -89,7 +91,8 @@ export function SearchProfilesComponent() {
 			<h1 className="text-2xl font-bold mb-4">Search Profiles</h1>
 			<form
 				noValidate
-				onSubmit={void handleSubmit(search as SubmitHandler<SearchFormData>)}
+				// eslint-disable-next-line @typescript-eslint/no-misused-promises
+				onSubmit={handleSubmit(search as SubmitHandler<SearchFormData>)}
 				className="mb-6"
 			>
 				<div className="flex gap-2">
@@ -108,15 +111,18 @@ export function SearchProfilesComponent() {
 			</form>
 
 			<div className="grid gap-4 @3xl:grid-cols-2 @5xl:grid-cols-3">
-				{searchResults.map((profile) => (
-					<Card key={profile.id}>
+				{searchResults?.map((profile) => (
+					<Card key={profile.uid} className="text-center">
 						<CardHeader>
 							<CardTitle>{profile.username}</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<p className="mb-4">{profile.bio}</p>
+							<img
+								src={profile.avatar_url}
+								alt={`${profile.username}'s avatar`}
+							/>
 							<Button
-								onClick={() => sendFriendRequest(profile.id)}
+								onClick={() => sendFriendRequest(profile.uid)}
 								disabled={isSendingRequest}
 							>
 								{isSendingRequest ? 'Sending Request...' : 'Add as Friend'}

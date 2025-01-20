@@ -59,7 +59,7 @@ function AddPhraseTab() {
 	const {
 		control,
 		register,
-		handleSubmit: handleAddPhraseSubmit,
+		handleSubmit,
 		reset,
 		formState: { errors },
 	} = useForm<AddPhraseFormValues>({
@@ -76,7 +76,7 @@ function AddPhraseTab() {
 			if (error) throw error
 			return data
 		},
-		onSuccess: async (data) => {
+		onSuccess: (data) => {
 			toast.success(
 				'New phrase has been added to the public library and will appear in your next review'
 			)
@@ -104,7 +104,7 @@ function AddPhraseTab() {
 				<form
 					noValidate
 					// eslint-disable-next-line @typescript-eslint/no-misused-promises
-					onSubmit={handleAddPhraseSubmit(
+					onSubmit={handleSubmit(
 						addPhraseMutation.mutate as SubmitHandler<AddPhraseFormValues>
 					)}
 					className="space-y-4 mt-4"
