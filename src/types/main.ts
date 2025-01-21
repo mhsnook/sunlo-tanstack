@@ -104,11 +104,12 @@ export type ReviewMeta = Tables<'user_card_review_plus'>
 export type ReviewRow = Tables<'user_card_review'>
 export type ReviewInsert =
 	Database['public']['Functions']['record_review_and_schedule']['Args']
+export type ReviewScheduled =
+	Database['public']['Functions']['record_review_and_schedule']['Returns']
+export type ReviewScheduledPlus = ReviewScheduled
 
 export type CardFull = CardMeta & {
-	phrase: {
-		reviews?: Array<ReviewMeta>
-	}
+	reviews: Array<ReviewScheduledPlus>
 }
 
 export type PublicProfile = Tables<'public_profile'>

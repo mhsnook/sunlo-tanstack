@@ -4,7 +4,7 @@ import { Play, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
-import { CardFull, ReviewInsert, ReviewRow, uuid } from '@/types/main'
+import { CardFull, ReviewScheduled, uuid } from '@/types/main'
 import { useLanguagePhrasesMap } from '@/lib/use-language'
 import { useMutation } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
@@ -130,11 +130,6 @@ interface CardInnerProps {
 	proceed: () => void
 }
 
-type ReviewInsertedData = {
-	score: number
-	scheduled_for: string
-}
-
 function UserCardReviewScoreButtonsRow({
 	user_card_id,
 	isButtonsShown,
@@ -143,7 +138,7 @@ function UserCardReviewScoreButtonsRow({
 	proceed,
 }: CardInnerProps) {
 	const { data, mutate, isPending } = useMutation<
-		ReviewInsertedData,
+		ReviewScheduled,
 		PostgrestError,
 		{ score: number }
 	>({
@@ -154,18 +149,21 @@ function UserCardReviewScoreButtonsRow({
 				user_card_id,
 				review_time_retrievability: null,
 			})
-			return { score, scheduled_for: res }
+			return res
 		},
-		onSuccess: ({ scheduled_for, score }, variables) => {
+		onSuccess: (data) => {
 			console.log(
-				`onSuccess firing for a review, net scheduld at ${scheduled_for}`,
-				variables
+				`onSuccess firing for a review, next scheduled at ${data.scheduled_for}`,
+				data
 			)
-			if (score === 1) toast('okay', { icon: '🤔', position: 'bottom-center' })
-			if (score === 2) toast('okay', { icon: '🤷', position: 'bottom-center' })
-			if (score === 3)
+			if (data.review_time_score === 1)
+				toast('okay', { icon: '🤔', position: 'bottom-center' })
+			if (data.review_time_score === 2)
+				toast('okay', { icon: '🤷', position: 'bottom-center' })
+			if (data.review_time_score === 3)
 				toast('got it', { icon: '👍️', position: 'bottom-center' })
-			if (score === 4) toast.success('nice', { position: 'bottom-center' })
+			if (data.review_time_score === 4)
+				toast.success('nice', { position: 'bottom-center' })
 			setTimeout(proceed, 1500)
 		},
 		onError: (error) => {
@@ -185,7 +183,9 @@ function UserCardReviewScoreButtonsRow({
 							variant="destructive"
 							onClick={() => mutate({ score: 1 })}
 							disabled={isPending}
-							className={data?.score === 1 ? 'ring ring-offset-1' : ''}
+							className={
+								data?.review_time_score === 1 ? 'ring ring-offset-1' : ''
+							}
 						>
 							Again
 						</Button>
@@ -193,7 +193,9 @@ function UserCardReviewScoreButtonsRow({
 							variant="secondary"
 							onClick={() => mutate({ score: 2 })}
 							disabled={isPending}
-							className={data?.score === 2 ? 'ring ring-offset-1' : ''}
+							className={
+								data?.review_time_score === 2 ? 'ring ring-offset-1' : ''
+							}
 						>
 							Hard
 						</Button>
@@ -203,7 +205,7 @@ function UserCardReviewScoreButtonsRow({
 							disabled={isPending}
 							className={cn(
 								'bg-green-500 hover:bg-green-600',
-								data?.score === 3 ? 'ring ring-offset-1' : ''
+								data?.review_time_score === 3 ? 'ring ring-offset-1' : ''
 							)}
 						>
 							Good
@@ -212,7 +214,7 @@ function UserCardReviewScoreButtonsRow({
 							variant="default"
 							className={cn(
 								'bg-blue-500 hover:bg-blue-600',
-								data?.score === 4 ? 'ring ring-offset-1' : ''
+								data?.review_time_score === 4 ? 'ring ring-offset-1' : ''
 							)}
 							onClick={() => mutate({ score: 4 })}
 							disabled={isPending}
