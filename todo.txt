@@ -1,6 +1,4 @@
 
-
-
 EPIC Spaced Repetition API: 
 1. ✅ FSRS helper functions (convert from Rust)
 1. ✅ FSRS scheduler RPC API
@@ -220,13 +218,13 @@ ROUTER
 
 CROSS-PLATFORM
 1. ✅ compile to android with tauri
- 		Make Tauri work with HMR and Vite setup
+		Make Tauri work with HMR and Vite setup
 1. compile to ios with tauri
 
 DATABASE
 1. For the add_phrase_translation_card function we should set some permissions:
-    ```sql 
-    revoke execute on function public.hello_world from public;
-    revoke execute on function public.hello_world from anon;
+		```sql
+		revoke execute on function public.hello_world from public;
+		revoke execute on function public.hello_world from anon;
 		-- grant execute on function public.hello_world from authenticated;
 		````
