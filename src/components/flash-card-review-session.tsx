@@ -105,13 +105,13 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 					</div>
 				</CardContent>
 			}
-			{cards.map((card) => (
+			{cards.map((card, i) => (
 				<UserCardReviewScoreButtonsRow
-					key={card.phrase_id}
+					key={i}
 					user_card_id={card.id}
 					isButtonsShown={showTranslation}
 					showTheButtons={() => setShowTranslation(true)}
-					dontShowThisRowRightNow={isComplete || currentCard.id !== card.id}
+					dontShowThisRowRightNow={isComplete || currentCardIndex !== i}
 					proceed={() => {
 						setShowTranslation(false)
 						navigateCards('forward')
