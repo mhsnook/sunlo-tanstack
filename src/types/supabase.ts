@@ -380,62 +380,6 @@ export type Database = {
           },
         ]
       }
-      user_card_review: {
-        Row: {
-          created_at: string
-          id: string
-          phrase_id: string
-          score: number | null
-          uid: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          phrase_id: string
-          score?: number | null
-          uid?: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          phrase_id?: string
-          score?: number | null
-          uid?: string
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_card_review_phrase_id_fkey"
-            columns: ["phrase_id"]
-            isOneToOne: false
-            referencedRelation: "phrase"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_card_review_phrase_id_fkey"
-            columns: ["phrase_id"]
-            isOneToOne: false
-            referencedRelation: "phrase_plus"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_card_review_uid_fkey"
-            columns: ["uid"]
-            isOneToOne: false
-            referencedRelation: "public_profile"
-            referencedColumns: ["uid"]
-          },
-          {
-            foreignKeyName: "user_card_review_uid_fkey"
-            columns: ["uid"]
-            isOneToOne: false
-            referencedRelation: "user_profile"
-            referencedColumns: ["uid"]
-          },
-        ]
-      }
       user_card_scheduled: {
         Row: {
           created_at: string
@@ -850,45 +794,6 @@ export type Database = {
             columns: ["user_deck_id"]
             isOneToOne: false
             referencedRelation: "user_deck_plus"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_deck_lang_fkey"
-            columns: ["lang"]
-            isOneToOne: false
-            referencedRelation: "language"
-            referencedColumns: ["lang"]
-          },
-          {
-            foreignKeyName: "user_deck_lang_fkey"
-            columns: ["lang"]
-            isOneToOne: false
-            referencedRelation: "language_plus"
-            referencedColumns: ["lang"]
-          },
-        ]
-      }
-      user_card_review_plus: {
-        Row: {
-          created_at: string | null
-          id: string | null
-          lang: string | null
-          phrase_id: string | null
-          score: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_card_review_phrase_id_fkey"
-            columns: ["phrase_id"]
-            isOneToOne: false
-            referencedRelation: "phrase"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_card_review_phrase_id_fkey"
-            columns: ["phrase_id"]
-            isOneToOne: false
-            referencedRelation: "phrase_plus"
             referencedColumns: ["id"]
           },
           {

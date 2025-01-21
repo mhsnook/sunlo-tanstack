@@ -11,8 +11,8 @@ EPIC Spaced Repetition API:
 1. ✅ rewrite it in plV8
 1. convert the other views that depend on reviews
 	- ✅ change view `user_deck_plus` to refer to `user_card_scheduled`
-	- [almost] delete view `user_card_review_plus`, replace with `user_card_scheduled_plus`
-	- delete table `user_card_review`
+	- ✅ delete view `user_card_review_plus`, replace with `user_card_scheduled`
+	- ✅ delete table `user_card_review`
 	- ⛔ view `user_card_plus` should incorporate data from the FSRS scores
 	- view `user_card_review_today` is returning duplicate cards
 		- ✅ the weird structure of FlashCardReviewSession is making multiple button-rows show
