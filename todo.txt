@@ -9,7 +9,7 @@ EPIC Spaced Repetition API:
 	1. implement the Interval function in JS?
 1. ✅ debug debug debug
 1. ✅ rewrite it in plV8
-1. convert the other views that depend on reviews
+1. ✅ convert the other views that depend on reviews
 	- ✅ change view `user_deck_plus` to refer to `user_card_scheduled`
 	- ✅ delete view `user_card_review_plus`, replace with `user_card_scheduled`
 	- ✅ delete table `user_card_review`
