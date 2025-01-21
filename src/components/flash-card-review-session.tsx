@@ -145,7 +145,7 @@ function UserCardReviewScoreButtonsRow({
 		mutationFn: async ({ score }: { score: number }) => {
 			// if (data?.score === score) return data
 			const res = await postReview({
-				review_time_score: score,
+				score,
 				user_card_id,
 				review_time_retrievability: null,
 			})
@@ -156,14 +156,13 @@ function UserCardReviewScoreButtonsRow({
 				`onSuccess firing for a review, next scheduled at ${data.scheduled_for}`,
 				data
 			)
-			if (data.review_time_score === 1)
+			if (data.score === 1)
 				toast('okay', { icon: '🤔', position: 'bottom-center' })
-			if (data.review_time_score === 2)
+			if (data.score === 2)
 				toast('okay', { icon: '🤷', position: 'bottom-center' })
-			if (data.review_time_score === 3)
+			if (data.score === 3)
 				toast('got it', { icon: '👍️', position: 'bottom-center' })
-			if (data.review_time_score === 4)
-				toast.success('nice', { position: 'bottom-center' })
+			if (data.score === 4) toast.success('nice', { position: 'bottom-center' })
 			setTimeout(proceed, 1500)
 		},
 		onError: (error) => {
@@ -183,9 +182,7 @@ function UserCardReviewScoreButtonsRow({
 							variant="destructive"
 							onClick={() => mutate({ score: 1 })}
 							disabled={isPending}
-							className={
-								data?.review_time_score === 1 ? 'ring ring-offset-1' : ''
-							}
+							className={data?.score === 1 ? 'ring ring-offset-1' : ''}
 						>
 							Again
 						</Button>
@@ -193,9 +190,7 @@ function UserCardReviewScoreButtonsRow({
 							variant="secondary"
 							onClick={() => mutate({ score: 2 })}
 							disabled={isPending}
-							className={
-								data?.review_time_score === 2 ? 'ring ring-offset-1' : ''
-							}
+							className={data?.score === 2 ? 'ring ring-offset-1' : ''}
 						>
 							Hard
 						</Button>
@@ -205,7 +200,7 @@ function UserCardReviewScoreButtonsRow({
 							disabled={isPending}
 							className={cn(
 								'bg-green-500 hover:bg-green-600',
-								data?.review_time_score === 3 ? 'ring ring-offset-1' : ''
+								data?.score === 3 ? 'ring ring-offset-1' : ''
 							)}
 						>
 							Good
@@ -214,7 +209,7 @@ function UserCardReviewScoreButtonsRow({
 							variant="default"
 							className={cn(
 								'bg-blue-500 hover:bg-blue-600',
-								data?.review_time_score === 4 ? 'ring ring-offset-1' : ''
+								data?.score === 4 ? 'ring ring-offset-1' : ''
 							)}
 							onClick={() => mutate({ score: 4 })}
 							disabled={isPending}

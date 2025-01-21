@@ -24,7 +24,7 @@ export const reviewablesQueryOptions = (lang: string, userId: uuid) => {
 }
 
 export const postReview = async (submitData: ReviewInsert) => {
-	if (!submitData?.user_card_id || !submitData?.review_time_score)
+	if (!submitData?.user_card_id || !submitData?.score)
 		throw new Error('Invalid review; cannot log')
 
 	// if (prevId) submitData['id'] = prevId

@@ -440,47 +440,53 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          last_user_card_schedule_id: string | null
           new_difficulty: number
           new_interval_r90: number
           new_stability: number
+          prev_id: string | null
           review_time_difficulty: number | null
           review_time_retrievability: number | null
-          review_time_score: number
           review_time_stability: number | null
           scheduled_for: string
+          score: number
           uid: string
+          updated_at: string
           user_card_id: string
+          user_deck_id: string | null
         }
         Insert: {
           created_at?: string
           id?: string
-          last_user_card_schedule_id?: string | null
           new_difficulty: number
           new_interval_r90?: number
           new_stability: number
+          prev_id?: string | null
           review_time_difficulty?: number | null
           review_time_retrievability?: number | null
-          review_time_score: number
           review_time_stability?: number | null
           scheduled_for?: string
+          score: number
           uid?: string
+          updated_at?: string
           user_card_id: string
+          user_deck_id?: string | null
         }
         Update: {
           created_at?: string
           id?: string
-          last_user_card_schedule_id?: string | null
           new_difficulty?: number
           new_interval_r90?: number
           new_stability?: number
+          prev_id?: string | null
           review_time_difficulty?: number | null
           review_time_retrievability?: number | null
-          review_time_score?: number
           review_time_stability?: number | null
           scheduled_for?: string
+          score?: number
           uid?: string
+          updated_at?: string
           user_card_id?: string
+          user_deck_id?: string | null
         }
         Relationships: [
           {
@@ -516,6 +522,20 @@ export type Database = {
             columns: ["user_card_id"]
             isOneToOne: false
             referencedRelation: "user_card_plus"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_card_scheduled_user_deck_id_fkey"
+            columns: ["user_deck_id"]
+            isOneToOne: false
+            referencedRelation: "user_deck"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_card_scheduled_user_deck_id_fkey"
+            columns: ["user_deck_id"]
+            isOneToOne: false
+            referencedRelation: "user_deck_plus"
             referencedColumns: ["id"]
           },
         ]
@@ -1112,17 +1132,19 @@ export type Database = {
         Returns: {
           created_at: string
           id: string
-          last_user_card_schedule_id: string | null
           new_difficulty: number
           new_interval_r90: number
           new_stability: number
+          prev_id: string | null
           review_time_difficulty: number | null
           review_time_retrievability: number | null
-          review_time_score: number
           review_time_stability: number | null
           scheduled_for: string
+          score: number
           uid: string
+          updated_at: string
           user_card_id: string
+          user_deck_id: string | null
         }
       }
     }

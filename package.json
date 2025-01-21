@@ -12,6 +12,7 @@
 		"check": "tsc -b",
 		"format:check": "prettier --check .",
 		"types": "supabase gen types typescript --project-id hepudeougzlgnuqvybrj > ./src/types/supabase.ts",
+		"types:local": "supabase gen types typescript --local > ./src/types/supabase.ts",
 		"prepare": "husky"
 	},
 	"dependencies": {
