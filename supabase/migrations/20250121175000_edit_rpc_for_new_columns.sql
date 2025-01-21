@@ -1,3 +1,5 @@
+alter table "public"."user_card_scheduled" add column "updated_at" timestamp with time zone not null default now();
+
 drop function if exists "public"."record_review_and_schedule"(user_card_id uuid, review_time_retrievability numeric, review_time_score integer);
 
 CREATE OR REPLACE FUNCTION public.record_review_and_schedule(user_card_id uuid, review_time_retrievability numeric, score integer)
