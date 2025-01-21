@@ -11,8 +11,9 @@
 		"format": "prettier --write .",
 		"check": "tsc -b",
 		"format:check": "prettier --check .",
-		"types": "supabase gen types typescript --project-id hepudeougzlgnuqvybrj > ./src/types/supabase.ts",
-		"types:local": "supabase gen types typescript --local > ./src/types/supabase.ts",
+		"migrate": "supabase db diff -f new_migration",
+		"types": "supabase gen types typescript --local > ./src/types/supabase.ts",
+		"types:production": "supabase gen types typescript --project-id hepudeougzlgnuqvybrj > ./src/types/supabase.ts",
 		"prepare": "husky"
 	},
 	"dependencies": {

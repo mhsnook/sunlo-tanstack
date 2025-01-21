@@ -735,6 +735,7 @@ export type Database = {
           last_scheduled_interval: number | null
           overdue_days: number | null
           overdue_percent: number | null
+          prev_created_at: string | null
           prev_id: string | null
           review_time_difficulty: number | null
           review_time_stability: number | null
@@ -820,6 +821,7 @@ export type Database = {
           overdue_days: number | null
           overdue_percent: number | null
           phrase_id: string | null
+          prev_created_at: string | null
           prev_id: string | null
           review_time_difficulty: number | null
           review_time_stability: number | null
@@ -862,6 +864,7 @@ export type Database = {
           last_scheduled_interval: number | null
           overdue_days: number | null
           overdue_percent: number | null
+          prev_created_at: string | null
           prev_id: string | null
           review_time_difficulty: number | null
           review_time_stability: number | null
