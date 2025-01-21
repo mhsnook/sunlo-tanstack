@@ -10,6 +10,8 @@ EPIC Spaced Repetition API:
 1. ✅ debug debug debug
 1. ✅ rewrite it in plV8
 1. convert the other views that depend on reviews
+	- view `user_card_review_today` is returning duplicate cards
+		- the weird structure of FlashCardReviewSession is making multiple button-rows show
 1. future:
 	- should there be a deck setting for "t/f when i've run out of new cards, pick more for me (automated)"
 
@@ -227,4 +229,7 @@ DATABASE
 		revoke execute on function public.hello_world from public;
 		revoke execute on function public.hello_world from anon;
 		-- grant execute on function public.hello_world from authenticated;
-		````
+		```
+1. Implement multi-column constraints for things like:
+		- ✅ user_deck should be unique on (language, uid)
+		- ✅ user_card should be unique on (phrase_id, uid)
