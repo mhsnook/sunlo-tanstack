@@ -138,8 +138,8 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 			inDeck: deck.pids,
 			recentlyViewed: deck.pids.filter(
 				(p) =>
-					deck.cardsMap[p].phrase.reviews?.[0]?.created_at &&
-					inLastWeek(deck.cardsMap[p].phrase.reviews[0].created_at)
+					deck.cardsMap[p].reviews?.[0]?.created_at &&
+					inLastWeek(deck.cardsMap[p].reviews[0].created_at)
 			),
 		}),
 		[language.pids, deck.pids, deck.cardsMap]

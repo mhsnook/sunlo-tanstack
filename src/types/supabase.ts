@@ -1127,7 +1127,7 @@ export type Database = {
         Args: {
           user_card_id: string
           review_time_retrievability: number
-          review_time_score: number
+          score: number
         }
         Returns: {
           created_at: string

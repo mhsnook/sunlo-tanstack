@@ -100,16 +100,14 @@ export type CardMeta = Tables<'user_card_plus'>
 export type CardInsert = TablesInsert<'user_card'>
 export type UserCardInsert = CardInsert // @TODO remove
 
-export type ReviewMeta = Tables<'user_card_review_plus'>
-export type ReviewRow = Tables<'user_card_review'>
 export type ReviewInsert =
 	Database['public']['Functions']['record_review_and_schedule']['Args']
 export type ReviewScheduled =
-	Database['public']['Functions']['record_review_and_schedule']['Returns']
-export type ReviewScheduledPlus = ReviewScheduled
+	| Tables<'user_card_scheduled'>
+	| Database['public']['Functions']['record_review_and_schedule']['Returns']
 
 export type CardFull = CardMeta & {
-	reviews: Array<ReviewScheduledPlus>
+	reviews: Array<ReviewScheduled>
 }
 
 export type PublicProfile = Tables<'public_profile'>
