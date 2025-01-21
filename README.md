@@ -20,11 +20,12 @@ we'll run Supabase locally with Docker, sync our local copy using the Supabase C
 
 The first time you run this it will download and build all the docker images for postgres, the postgrest server, the auth server, storage server, GraphQL API server, etc. After that, it will just start.
 
-When you make changes to your local database and want to commit changes, create migrations with:
+When you make changes to your local database and want to commit changes:
 
-- `supabase db diff -f migration_name`
+- `supabase db diff -f migration_name` to create migrations
+- `pnpm run types:local` to regenerate typescript types
 
-The migrations should run when the main branch deploys.
+The migrations should run when the main branch deploys. Or you can `supabase db push` to make it so.
 
 ### Working on the Seeds
 
