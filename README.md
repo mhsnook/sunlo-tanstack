@@ -39,7 +39,7 @@ user, along with their profiles. (Everything else will cascade and delete, at le
 of this writing.)
 
 - dump the db: `supabase db dump --data-only > supabase/seed.sql`
-- then run this locally and delete the users and profiles through the admin
+- then run the db locally and delete the users and profiles through the admin
 - Then when the local database is ready to be seed-ified, use the local data dump listed above
 
 ### FAQ
