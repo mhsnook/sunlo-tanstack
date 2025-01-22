@@ -14,15 +14,14 @@ EPIC Spaced Repetition API:
 	- ✅ delete view `user_card_review_plus`, replace with `user_card_scheduled`
 	- ✅ delete table `user_card_review`
 	- ⛔ view `user_card_plus` should incorporate data from the FSRS scores
-	- view `user_card_review_today` is returning duplicate cards
+	- ✅ view `user_card_review_today` is returning duplicate cards
 		- ✅ the weird structure of FlashCardReviewSession is making multiple button-rows show
-1. future:
-	- should there be a deck setting for "t/f when i've run out of new cards, pick more for me (automated)"
 
-EPIC: FSRS Round 2
+EPIC: FSRS Followup
 1. during a review, if you skip cards, they should be mentioned on the final page
 		(instead of just "congratulations; you're done")
 1. the "Again" option should make the card happen again
+1. should there be a deck setting for "t/f when i've run out of new cards, pick more for me (automated)"
 1. re-implement lost functionality:
 	-	undo and redo a review
 
@@ -30,7 +29,7 @@ EPIC: FSRS Round 2
 EPIC: Postgres DX / Run Supabase Locally
 1. ✅ run locally & document
 1. ✅ add migrations maybe? maybe just seeds or schema?
-	- organize seeds a bit more so they can be committed (no user data, phrases separated from sample user data)
+	- ✅ organize seeds a bit more so they can be committed (no user data, phrases separated from sample user data)
 1. ✅ connect supabase and vercel env variables
 1. make the email stuff work with the local setup
 1. pgTap set up testing framework / run tests on the RPC functions: https://supabase.com/docs/guides/database/extensions/pgtap
