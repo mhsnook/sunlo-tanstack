@@ -33,22 +33,34 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 	}
 
 	const isComplete = currentCardIndex === cards.length
-	const currentCard = cards[currentCardIndex] ?? null
-
-	const currentPhrase = phrasesMap[currentCard?.phrase_id] ?? null
 
 	return (
-		<Card className="w-full mx-auto h-[80vh] flex flex-col">
-			<WhenComplete
-				shouldShow={isComplete}
-				back={() => navigateCards('back')}
-			/>
-
-			<CardHeader className={isComplete ? 'hidden' : ''}>
-				<div className="flex justify-center items-center mb-2 gap-1 mt-2">
+		<>
+			<div
+				className={`${isComplete ? 'flex' : 'hidden'} flex-col justify-center items-center gap-4`}
+			>
+				<div className="flex flex-row justify-center items-center min-h-10">
+					<Button
+						size="sm"
+						variant="default"
+						aria-label="back to cards"
+						onClick={() => navigateCards('back')}
+						className="ps-2 pe-4"
+					>
+						<ChevronLeft className="h-4 w-4 me-1" /> Back to cards
+					</Button>
+				</div>
+				<Card className={`w-full mx-auto h-[80vh] flex flex-col`}>
+					<WhenComplete />
+				</Card>
+			</div>
+			<div
+				className={`${isComplete ? 'hidden' : 'flex'} flex-col justify-center items-center gap-4`}
+			>
+				<div className="flex flex-row justify-center items-center gap-4 min-h-10">
 					<Button
 						size="icon-sm"
-						variant="ghost"
+						variant="default"
 						onClick={() => navigateCards('back')}
 						disabled={currentCardIndex === 0}
 						aria-label="Previous card"
@@ -60,7 +72,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 					</div>
 					<Button
 						size="icon-sm"
-						variant="ghost"
+						variant="default"
 						onClick={() => navigateCards('forward')}
 						disabled={currentCardIndex === cards.length}
 						aria-label="Next card"
@@ -68,57 +80,64 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 						<ChevronRight className="h-4 w-4" />
 					</Button>
 				</div>
-			</CardHeader>
-			{isComplete ?
-				<></>
-			:	<CardContent className="flex flex-grow flex-col pt-0 px-[10%] items-center justify-center">
-					<div className="flex items-center justify-center mb-4">
-						<div className="text-2xl font-bold mr-2">{currentPhrase.text}</div>
-						<Button
-							size="icon"
-							variant="secondary"
-							onClick={() => playAudio(currentPhrase.text)}
-							aria-label="Play original phrase"
-						>
-							<Play className="h-4 w-4" />
-						</Button>
-					</div>
-					<div>
-						{!showTranslation ? null : (
-							currentPhrase.translations.map((trans) => (
-								<div key={trans.id} className="flex items-center mt-4">
-									<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
-										{trans.lang}
-									</span>
-									<div className="text-xl me-2">{trans.text}</div>
-									<Button
-										size="icon-sm"
-										variant="secondary"
-										onClick={() => playAudio(trans.text)}
-										aria-label="Play translation"
-									>
-										<Play className="h-4 w-4" />
-									</Button>
-								</div>
-							))
+				{cards.map((card, i) => (
+					<Card
+						className={cn(
+							`w-full mx-auto h-[80vh] flex-col`,
+							i === currentCardIndex ? 'flex' : 'hidden'
 						)}
-					</div>
-				</CardContent>
-			}
-			{cards.map((card, i) => (
-				<UserCardReviewScoreButtonsRow
-					key={i}
-					user_card_id={card.id}
-					isButtonsShown={showTranslation}
-					showTheButtons={() => setShowTranslation(true)}
-					dontShowThisRowRightNow={isComplete || currentCardIndex !== i}
-					proceed={() => {
-						setShowTranslation(false)
-						navigateCards('forward')
-					}}
-				/>
-			))}
-		</Card>
+					>
+						<CardContent
+							className={`flex flex-grow flex-col pt-0 px-[10%] items-center justify-center`}
+						>
+							<div className="flex items-center justify-center mb-4">
+								<div className="text-2xl font-bold mr-2">
+									{phrasesMap[card.phrase_id].text}
+								</div>
+								<Button
+									size="icon"
+									variant="secondary"
+									onClick={() => playAudio(phrasesMap[card.phrase_id].text)}
+									aria-label="Play original phrase"
+								>
+									<Play className="h-4 w-4" />
+								</Button>
+							</div>
+							<div>
+								{!showTranslation ? null : (
+									phrasesMap[card.phrase_id].translations.map((trans) => (
+										<div key={trans.id} className="flex items-center mt-4">
+											<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
+												{trans.lang}
+											</span>
+											<div className="text-xl me-2">{trans.text}</div>
+											<Button
+												size="icon-sm"
+												variant="secondary"
+												onClick={() => playAudio(trans.text)}
+												aria-label="Play translation"
+											>
+												<Play className="h-4 w-4" />
+											</Button>
+										</div>
+									))
+								)}
+							</div>
+						</CardContent>
+						<UserCardReviewScoreButtonsRow
+							key={i}
+							user_card_id={card.id}
+							isButtonsShown={showTranslation}
+							showTheButtons={() => setShowTranslation(true)}
+							proceed={() => {
+								setShowTranslation(false)
+								navigateCards('forward')
+							}}
+						/>
+					</Card>
+				))}
+			</div>
+		</>
 	)
 }
 
@@ -126,14 +145,12 @@ interface CardInnerProps {
 	user_card_id: uuid
 	isButtonsShown: boolean
 	showTheButtons: () => void
-	dontShowThisRowRightNow: boolean
 	proceed: () => void
 }
 
 function UserCardReviewScoreButtonsRow({
 	user_card_id,
 	isButtonsShown,
-	dontShowThisRowRightNow,
 	showTheButtons,
 	proceed,
 }: CardInnerProps) {
@@ -171,85 +188,61 @@ function UserCardReviewScoreButtonsRow({
 		},
 	})
 
-	return dontShowThisRowRightNow ? null : (
-			<CardFooter className="flex flex-col">
-				{!isButtonsShown ?
-					<Button className="w-full mb-4" onClick={showTheButtons}>
-						Show Translation
-					</Button>
-				:	<div className="w-full grid grid-cols-4 gap-2">
-						<Button
-							variant="destructive"
-							onClick={() => mutate({ score: 1 })}
-							disabled={isPending}
-							className={data?.score === 1 ? 'ring ring-offset-1' : ''}
-						>
-							Again
-						</Button>
-						<Button
-							variant="secondary"
-							onClick={() => mutate({ score: 2 })}
-							disabled={isPending}
-							className={data?.score === 2 ? 'ring ring-offset-1' : ''}
-						>
-							Hard
-						</Button>
-						<Button
-							variant="default"
-							onClick={() => mutate({ score: 3 })}
-							disabled={isPending}
-							className={cn(
-								'bg-green-500 hover:bg-green-600',
-								data?.score === 3 ? 'ring ring-offset-1' : ''
-							)}
-						>
-							Good
-						</Button>
-						<Button
-							variant="default"
-							className={cn(
-								'bg-blue-500 hover:bg-blue-600',
-								data?.score === 4 ? 'ring ring-offset-1' : ''
-							)}
-							onClick={() => mutate({ score: 4 })}
-							disabled={isPending}
-						>
-							Easy
-						</Button>
-					</div>
-				}
-			</CardFooter>
-		)
-}
-
-function WhenComplete({
-	shouldShow,
-	back,
-}: {
-	shouldShow: boolean
-	back: () => void
-}) {
 	return (
-		<>
-			<CardHeader className={shouldShow ? '' : 'hidden'}>
-				<div className="mx-auto pt-[2px]">
+		<CardFooter className="flex flex-col">
+			{!isButtonsShown ?
+				<Button className="w-full mb-3" onClick={showTheButtons}>
+					Show Translation
+				</Button>
+			:	<div className="w-full mb-3 grid grid-cols-4 gap-2">
 					<Button
-						size="sm"
-						variant="ghost"
-						aria-label="back to cards"
-						onClick={back}
-						className="ps-2 pe-4"
+						variant="destructive"
+						onClick={() => mutate({ score: 1 })}
+						disabled={isPending}
+						className={data?.score === 1 ? 'ring ring-offset-1' : ''}
 					>
-						<ChevronLeft className="h-4 w-4 me-1" /> Back to cards
+						Again
+					</Button>
+					<Button
+						variant="secondary"
+						onClick={() => mutate({ score: 2 })}
+						disabled={isPending}
+						className={data?.score === 2 ? 'ring ring-offset-1' : ''}
+					>
+						Hard
+					</Button>
+					<Button
+						variant="default"
+						onClick={() => mutate({ score: 3 })}
+						disabled={isPending}
+						className={cn(
+							'bg-green-500 hover:bg-green-600',
+							data?.score === 3 ? 'ring ring-offset-1' : ''
+						)}
+					>
+						Good
+					</Button>
+					<Button
+						variant="default"
+						className={cn(
+							'bg-blue-500 hover:bg-blue-600',
+							data?.score === 4 ? 'ring ring-offset-1' : ''
+						)}
+						onClick={() => mutate({ score: 4 })}
+						disabled={isPending}
+					>
+						Easy
 					</Button>
 				</div>
-			</CardHeader>
-			<CardContent
-				className={cn(
-					`flex flex-grow flex-col items-center justify-center gap-4 pb-16 pt-0`,
-					shouldShow ? '' : 'hidden'
-				)}
-			>
+			}
+		</CardFooter>
+	)
+}
+
+function WhenComplete() {
+	return (
+		<>
+			<CardContent className="flex flex-grow flex-col items-center justify-center gap-4 pb-16 pt-0">
 				<h2 className="text-2xl font-bold">Good work!</h2>
 				<p className="text-lg">You've completed your review for today.</p>
 				<SuccessCheckmark />
