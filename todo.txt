@@ -6,7 +6,9 @@ EPIC Spaced Repetition API:
 	1. ✅ View for fetching cards "due" today
 	1. ✅ View for fetching 15 new cards
 1. ✅ Convert the /review page
-	1. implement the Interval function in JS?
+	- ✅ implement the Retrievability function in JS
+	- implement the Intervals function in JS
+	- ✅ add a little "details" modal where we can see and tinker with all these variables
 1. ✅ debug debug debug
 1. ✅ rewrite it in plV8
 1. ✅ convert the other views that depend on reviews
@@ -45,7 +47,6 @@ EPIC: User Testability
 1. when you go to the deck page and it's empty, we should get a prompt for the library, ya?
 1. add a deck -- the "select one language" input should have a better type-to-search
 1. when you go to the library and add cards to your deck, and then go to the review page, it's still loaded the empty-set that was returned before
-
 
 
 EPIC: Convert useQueries to usequery(someOptions) format
@@ -196,6 +197,7 @@ UI POLISH
 	- fulltext search without accents: https://www.postgresql.org/docs/current/unaccent.html
 	- ⛔ fuzzy string match that only works well with american names: https://www.postgresql.org/docs/current/fuzzystrmatch.html
 1. Prettier URLs? with hashIDs (can hash the uuid): https://supabase.com/docs/guides/database/extensions/pg_hashids
+1. slide the cards in and out like so https://v0.dev/chat/animated-card-interface-MHacnAB0fOp
 
 DATA LOADING
 1. ✅ replace useLang with router feature

@@ -9,6 +9,7 @@ import { CardStatusDropdown } from './card-status-dropdown'
 import { AddTranslationsDialog } from './add-translations-dialog'
 import { useLanguage } from '@/lib/use-language'
 import { useDeck } from '@/lib/use-deck'
+import PhraseExtraInfo from './phrase-extra-info'
 
 interface PhrasesWithOptionalOrder {
 	lang: string
@@ -81,6 +82,11 @@ function PhraseAccordionItem({
 						size="badge"
 						variant="link"
 						className="text-xs"
+					/>
+					<PhraseExtraInfo
+						lang={phrase.lang}
+						pid={phrase.id}
+						className="ms-auto"
 					/>
 				</div>
 			</AccordionContent>

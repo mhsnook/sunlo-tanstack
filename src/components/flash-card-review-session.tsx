@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Play, ChevronLeft, ChevronRight } from 'lucide-react'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
 import { CardFull, ReviewScheduled, uuid } from '@/types/main'
@@ -10,6 +10,7 @@ import { useMutation } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
 import { postReview } from '@/lib/use-reviewables'
 import { PostgrestError } from '@supabase/supabase-js'
+import PhraseExtraInfo from './phrase-extra-info'
 
 interface ComponentProps {
 	cards: Array<CardFull>
@@ -80,62 +81,64 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 						<ChevronRight className="h-4 w-4" />
 					</Button>
 				</div>
-				{cards.map((card, i) => (
-					<Card
-						className={cn(
-							`w-full mx-auto h-[80vh] flex-col`,
-							i === currentCardIndex ? 'flex' : 'hidden'
-						)}
-					>
-						<CardContent
-							className={`flex flex-grow flex-col pt-0 px-[10%] items-center justify-center`}
+				{cards.map((card, i) => {
+					const phrase = phrasesMap[card.phrase_id]
+					return (
+						<Card
+							className={cn(
+								`w-full mx-auto h-[80vh] flex-col`,
+								i === currentCardIndex ? 'flex' : 'hidden'
+							)}
 						>
-							<div className="flex items-center justify-center mb-4">
-								<div className="text-2xl font-bold mr-2">
-									{phrasesMap[card.phrase_id].text}
+							<CardContent
+								className={`flex flex-grow flex-col pt-0 px-[10%] items-center justify-center`}
+							>
+								<PhraseExtraInfo lang={phrase.lang} pid={phrase.id} />
+								<div className="flex items-center justify-center mb-4">
+									<div className="text-2xl font-bold mr-2">{phrase.text}</div>
+									<Button
+										size="icon"
+										variant="secondary"
+										onClick={() => playAudio(phrase.text)}
+										aria-label="Play original phrase"
+									>
+										<Play className="h-4 w-4" />
+									</Button>
 								</div>
-								<Button
-									size="icon"
-									variant="secondary"
-									onClick={() => playAudio(phrasesMap[card.phrase_id].text)}
-									aria-label="Play original phrase"
-								>
-									<Play className="h-4 w-4" />
-								</Button>
-							</div>
-							<div>
-								{!showTranslation ? null : (
-									phrasesMap[card.phrase_id].translations.map((trans) => (
-										<div key={trans.id} className="flex items-center mt-4">
-											<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
-												{trans.lang}
-											</span>
-											<div className="text-xl me-2">{trans.text}</div>
-											<Button
-												size="icon-sm"
-												variant="secondary"
-												onClick={() => playAudio(trans.text)}
-												aria-label="Play translation"
-											>
-												<Play className="h-4 w-4" />
-											</Button>
-										</div>
-									))
-								)}
-							</div>
-						</CardContent>
-						<UserCardReviewScoreButtonsRow
-							key={i}
-							user_card_id={card.id}
-							isButtonsShown={showTranslation}
-							showTheButtons={() => setShowTranslation(true)}
-							proceed={() => {
-								setShowTranslation(false)
-								navigateCards('forward')
-							}}
-						/>
-					</Card>
-				))}
+								<div>
+									{!showTranslation ? null : (
+										phrase.translations.map((trans) => (
+											<div key={trans.id} className="flex items-center mt-4">
+												<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
+													{trans.lang}
+												</span>
+												<div className="text-xl me-2">{trans.text}</div>
+												<Button
+													size="icon-sm"
+													variant="secondary"
+													onClick={() => playAudio(trans.text)}
+													aria-label="Play translation"
+												>
+													<Play className="h-4 w-4" />
+												</Button>
+											</div>
+										))
+									)}
+								</div>
+							</CardContent>
+							<UserCardReviewScoreButtonsRow
+								key={i}
+								user_card_id={card.id}
+								isButtonsShown={showTranslation}
+								showTheButtons={() => setShowTranslation(true)}
+								proceed={() => {
+									setShowTranslation(false)
+									navigateCards('forward')
+								}}
+							/>
+						</Card>
+					)
+				})}
 			</div>
 		</>
 	)
