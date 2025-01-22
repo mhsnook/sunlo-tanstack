@@ -775,7 +775,7 @@ INSERT INTO "public"."user_card" ("uid", "id", "phrase_id", "user_deck_id", "upd
 -- Data for Name: user_card_scheduled; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "public"."user_card_scheduled" ("id", "created_at", "scheduled_for", "user_card_id", "uid", "new_difficulty", "new_stability", "review_time_difficulty", "review_time_stability", "review_time_score", "new_interval_r90", "review_time_retrievability", "last_user_card_schedule_id") VALUES
+INSERT INTO "public"."user_card_scheduled" ("id", "created_at", "scheduled_for", "user_card_id", "uid", "new_difficulty", "new_stability", "review_time_difficulty", "review_time_stability", "score", "new_interval_r90", "review_time_retrievability", "prev_id") VALUES
 	('c617faff-e3da-4782-a50f-bb3639d059d0', '2025-01-20 12:52:53.340487+00', '2025-01-21 17:17:37.980487+00', '0e379159-9bc3-4781-ab61-4d4c96f472b0', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 6.48830526847145, 1.18385, NULL, NULL, 2, 1.183849999999999993791309291747888239, NULL, NULL),
 	('e721b8c6-8317-45e9-b271-b5e725faa3b3', '2025-01-20 14:55:34.961324+00', '2025-01-21 00:35:15.281324+00', 'ec8836e2-d1a7-4c44-ad30-0ba16f1903bf', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 7.1949, 0.40255, NULL, NULL, 1, 0.40255, NULL, NULL),
 	('3051ea19-ff2e-45d4-a73a-84ac74a981e5', '2025-01-20 15:06:57.075502+00', '2025-01-21 00:46:37.395502+00', 'df82c504-993d-4fe0-b363-edad3b9cc50a', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 7.1949, 0.40255, NULL, NULL, 1, 0.40255, NULL, NULL),

@@ -22,8 +22,8 @@ The first time you run this it will download and build all the docker images for
 
 When you make changes to your local database and want to commit changes:
 
-- `supabase db diff -f migration_name` to create migrations
-- `pnpm run types:local` to regenerate typescript types
+- `pnpm run migrate` to create migrations
+- `pnpm run types` to regenerate typescript types
 
 The migrations should run when the main branch deploys. Or you can `supabase db push` to make it so.
 
