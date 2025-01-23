@@ -85,6 +85,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 					const phrase = phrasesMap[card.phrase_id]
 					return (
 						<Card
+							key={i}
 							className={cn(
 								`w-full mx-auto h-[80vh] flex-col`,
 								i === currentCardIndex ? 'flex' : 'hidden'
@@ -127,7 +128,6 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 								</div>
 							</CardContent>
 							<UserCardReviewScoreButtonsRow
-								key={i}
 								user_card_id={card.id}
 								isButtonsShown={showTranslation}
 								showTheButtons={() => setShowTranslation(true)}
@@ -167,7 +167,6 @@ function UserCardReviewScoreButtonsRow({
 			const res = await postReview({
 				score,
 				user_card_id,
-				review_time_retrievability: null,
 			})
 			return res
 		},

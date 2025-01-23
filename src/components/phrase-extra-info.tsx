@@ -12,7 +12,7 @@ import { useLanguagePhrase } from '@/lib/use-language'
 import { Button } from './ui/button'
 import { Ellipsis } from 'lucide-react'
 import { useDeckCard } from '@/lib/use-deck'
-import dayjs from 'dayjs'
+import { dateDiff, intervals, retrievability, round } from '@/lib/utils'
 
 export default function PhraseExtraInfo({
 	pid,
@@ -44,40 +44,21 @@ export default function PhraseExtraInfo({
 					</AlertDialogHeader>
 					<div className="block space-y-4">
 						<div className="flex flex-col">
+							<span className="font-semibold">Phrase ID</span>
+							<span>{phrase.data.id}</span>
+						</div>
+						<div className="flex flex-col">
 							<span className="font-semibold">Phrase created at</span>
 							<span>{ago(phrase.data.created_at)}</span>
 						</div>
 					</div>
-					{!card.data ? null : <CardSection card={card.data} />}
+					{!card.data ?
+						<p>Phrase has no card in your deck</p>
+					:	<CardSection card={card.data} />}
 				</AlertDialogContent>
 			)}
 		</AlertDialog>
 	)
-}
-
-function round(num: number, pow: number = 2) {
-	return num === undefined || num === null ?
-			'null'
-		:	Math.pow(10, -pow) * Math.round(Math.pow(10, pow) * num)
-}
-function dateDiff(prev_at: string, later_at: string = '') {
-	const later = later_at ? dayjs(later_at) : dayjs()
-	const prev = dayjs(prev_at)
-	return later.diff(prev, 'day', true)
-}
-function retrievability(
-	prev_at: string,
-	stability: number,
-	later_at: string = ''
-) {
-	const F = 19 / 81,
-		C = -0.5
-	const diff = dateDiff(prev_at, later_at)
-	return Math.pow(1.0 + F * (diff / stability), C)
-}
-
-function intervals() {
-	return [1, 2, 3, 4]
 }
 
 function CardSection({ card }: { card: CardFull }) {
@@ -90,6 +71,10 @@ function CardSection({ card }: { card: CardFull }) {
 	const retr = !rev ? null : retrievability(rev.created_at, rev.new_stability)
 	return (
 		<div className="block space-y-4">
+			<div className="flex flex-col">
+				<span className="font-semibold">Card ID</span>
+				<span>{card.id}</span>
+			</div>
 			<div className="flex flex-col">
 				<span className="font-semibold">Card created at</span>
 				<span>{ago(card.created_at)}</span>
