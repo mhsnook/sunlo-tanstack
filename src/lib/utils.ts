@@ -26,3 +26,33 @@ export function mapArray<T extends Record<string, any>, K extends keyof T>(
 		{} as Record<string, T>
 	)
 }
+
+export function round(num: number, pow: number = 2) {
+	return num === undefined || num === null ?
+			'null'
+		:	Math.pow(10, -pow) * Math.round(Math.pow(10, pow) * num)
+}
+
+export function dateDiff(prev_at: string | Date, later_at?: string | Date) {
+	const later: Date =
+		!later_at ? new Date()
+		: typeof later_at === 'string' ? new Date(later_at)
+		: later_at
+	const prev: Date = typeof prev_at === 'string' ? new Date(prev_at) : prev_at
+	return (later - prev) / 1000 / 24 / 60 / 60
+}
+
+export function retrievability(
+	prev_at: string | Date,
+	stability: number,
+	later_at?: string | Date
+) {
+	const F = 19.0 / 81.0,
+		C = -0.5
+	const diff = dateDiff(prev_at, later_at)
+	return Math.pow(1.0 + F * (diff / stability), C)
+}
+
+export function intervals() {
+	return [1, 2, 3, 4]
+}

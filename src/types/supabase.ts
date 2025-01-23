@@ -391,6 +391,7 @@ export type Database = {
           review_time_difficulty: number | null
           review_time_retrievability: number | null
           review_time_stability: number | null
+          reviewed_at: string | null
           scheduled_for: string
           score: number
           uid: string
@@ -408,6 +409,7 @@ export type Database = {
           review_time_difficulty?: number | null
           review_time_retrievability?: number | null
           review_time_stability?: number | null
+          reviewed_at?: string | null
           scheduled_for?: string
           score: number
           uid?: string
@@ -425,6 +427,7 @@ export type Database = {
           review_time_difficulty?: number | null
           review_time_retrievability?: number | null
           review_time_stability?: number | null
+          reviewed_at?: string | null
           scheduled_for?: string
           score?: number
           uid?: string
@@ -965,6 +968,13 @@ export type Database = {
         }
         Returns: number
       }
+      fsrs_days_between: {
+        Args: {
+          date_before: string
+          date_after: string
+        }
+        Returns: number
+      }
       fsrs_delta_d: {
         Args: {
           score: number
@@ -1034,7 +1044,6 @@ export type Database = {
       record_review_and_schedule: {
         Args: {
           user_card_id: string
-          review_time_retrievability: number
           score: number
         }
         Returns: {
@@ -1047,6 +1056,7 @@ export type Database = {
           review_time_difficulty: number | null
           review_time_retrievability: number | null
           review_time_stability: number | null
+          reviewed_at: string | null
           scheduled_for: string
           score: number
           uid: string
