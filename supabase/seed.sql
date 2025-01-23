@@ -34,9 +34,6 @@ SET row_security = off;
 -- Data for Name: users; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
 --
 
-INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at", "is_anonymous") VALUES
-	('00000000-0000-0000-0000-000000000000', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 'authenticated', 'authenticated', 'sunloapp@gmail.com', '$2a$10$nbkbcyoLi.buagd2DyyT0u4kpYoV.VZh6fSqRWvNxmZkea0XUcybG', '2025-01-20 07:29:08.707402+00', NULL, '', '2025-01-20 07:27:21.005514+00', '', NULL, '', '', NULL, '2025-01-22 09:02:39.616746+00', '{"provider": "email", "providers": ["email"]}', '{"sub": "cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18", "role": "learner", "email": "sunloapp@gmail.com", "email_verified": true, "phone_verified": false}', NULL, '2025-01-20 07:27:20.992634+00', '2025-01-22 09:02:39.619825+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false);
-
 
 --
 -- Data for Name: identities; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
@@ -777,14 +774,12 @@ INSERT INTO "public"."user_card" ("uid", "id", "phrase_id", "user_deck_id", "upd
 -- Data for Name: user_card_scheduled; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "public"."user_card_scheduled" ("id", "created_at", "scheduled_for", "user_card_id", "uid", "new_difficulty", "new_stability", "review_time_difficulty", "review_time_stability", "score", "new_interval_r90", "review_time_retrievability", "prev_id", "user_deck_id", "updated_at") VALUES
-	('c7de8fe2-0821-4513-a28b-1a0381aea391', '2025-01-22 09:04:12.380389+00', '2025-01-25 13:13:19.635+00', 'd71741f6-2e9d-4c09-b685-ddb369a1f574', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 5.282434422319, 3.173, NULL, NULL, 3, 3.173, NULL, NULL, 'e0b23bba-fe8c-4dfb-bdd6-65b2c60644f0', '2025-01-22 09:04:12.380389+00'),
-	('03ccdb34-5421-4f93-98fa-d20813eabdb9', '2025-01-22 09:04:20.12355+00', '2025-01-25 13:13:27.367+00', '1bcaf19a-3596-4723-9fab-14d2fe97e3df', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 5.282434422319, 3.173, NULL, NULL, 3, 3.173, NULL, NULL, 'e0b23bba-fe8c-4dfb-bdd6-65b2c60644f0', '2025-01-22 09:04:20.12355+00'),
-	('b2449dd5-4fe7-4844-9899-32de1dfac9d9', '2025-01-22 09:04:24.336853+00', '2025-02-07 01:39:31.099+00', 'ec8836e2-d1a7-4c44-ad30-0ba16f1903bf', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 3.22450158937137, 15.69105, NULL, NULL, 4, 15.69105, NULL, NULL, 'e0b23bba-fe8c-4dfb-bdd6-65b2c60644f0', '2025-01-22 09:04:24.336853+00'),
-	('be05d798-b910-49e9-a7c5-1a11c289c0db', '2025-01-22 09:04:38.697738+00', '2025-07-26 02:24:49.85+00', 'ec8836e2-d1a7-4c44-ad30-0ba16f1903bf', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 4.31888171877573, 184.722351275062, 3.22450158937137, 15.69105, 2, 184.722351275062, NULL, 'b2449dd5-4fe7-4844-9899-32de1dfac9d9', 'e0b23bba-fe8c-4dfb-bdd6-65b2c60644f0', '2025-01-22 09:04:38.697738+00'),
-	('0b2789e8-6e99-4f3a-8e84-55983603d9e0', '2025-01-22 09:04:42.705945+00', '2025-01-25 13:13:49.908+00', '9096824e-4aee-49d7-9d18-ca14a89127c2', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 5.282434422319, 3.173, NULL, NULL, 3, 3.173, NULL, NULL, 'e0b23bba-fe8c-4dfb-bdd6-65b2c60644f0', '2025-01-22 09:04:42.705945+00'),
-	('9c1ed27c-c96e-4f72-b69c-887622f1de53', '2025-01-22 09:05:09.591308+00', '2025-01-25 13:14:16.793+00', '3e26c6bd-37af-45c4-ac37-d0e9c0ee99de', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 5.282434422319, 3.173, NULL, NULL, 3, 3.173, NULL, NULL, '02be6d52-2f23-498d-ab24-a7cc0975c075', '2025-01-22 09:05:09.591308+00'),
-	('5f0378d6-3206-4929-825a-51dbd7b34d04', '2025-01-22 09:05:13.766847+00', '2025-01-25 13:14:20.968+00', '9df1baf5-e5d6-46b7-bfcc-33c7c593ef53', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 5.282434422319, 3.173, NULL, NULL, 3, 3.173, NULL, NULL, '02be6d52-2f23-498d-ab24-a7cc0975c075', '2025-01-22 09:05:13.766847+00');
+INSERT INTO "public"."user_card_scheduled" ("id", "created_at", "scheduled_for", "user_card_id", "uid", "new_difficulty", "new_stability", "review_time_difficulty", "review_time_stability", "score", "new_interval_r90", "review_time_retrievability", "prev_id", "user_deck_id", "updated_at", "reviewed_at") VALUES
+	('2feda41f-12db-4087-ad39-2dff67409b4e', '2025-01-23 11:05:18.189922+00', '2025-02-03 11:05:18.231+00', '4396f3d7-4d63-41ae-bae1-dfa57862f9b5', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 5.27296793128744, 10.7412059217368, 5.282434422319, 3.173, 3, 11, 0.904670841821817, '5313a015-64b2-4cd5-a06c-792bbf83c3de', '02be6d52-2f23-498d-ab24-a7cc0975c075', '2025-01-23 11:05:18.189922+00', '2025-01-23 11:05:18.231+00'),
+	('b39c80ce-936e-4ef6-88ec-edd4e5bfe278', '2025-01-23 11:05:38.255751+00', '2025-01-24 11:05:38.256+00', '5d01f16c-d980-4aee-85f7-06acb124977d', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 7.1949, 0.40255, NULL, NULL, 1, 1, NULL, NULL, '02be6d52-2f23-498d-ab24-a7cc0975c075', '2025-01-23 11:05:38.255751+00', '2025-01-23 11:05:38.256+00'),
+	('91e15535-179e-4dbd-82c8-329dd80eb1a2', '2025-01-23 11:03:59.665897+00', '2025-01-26 11:03:59.707+00', 'b211a041-abbc-4beb-a886-25042d053351', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 5.282434422319, 3.173, NULL, NULL, 3, 3, NULL, NULL, '02be6d52-2f23-498d-ab24-a7cc0975c075', '2025-01-23 11:03:59.665897+00', '2025-01-23 11:03:59.707+00'),
+	('74fd4a9f-3333-4ab6-8753-7edce819d958', '2025-01-23 11:04:12.011471+00', '2025-01-26 11:04:12.012+00', 'b211a041-abbc-4beb-a886-25042d053351', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 4.51098560696467, 3.173, 5.282434422319, 3.173, 4, 3, 1, '91e15535-179e-4dbd-82c8-329dd80eb1a2', '02be6d52-2f23-498d-ab24-a7cc0975c075', '2025-01-23 11:04:12.011471+00', '2025-01-23 11:04:12.012+00'),
+	('5313a015-64b2-4cd5-a06c-792bbf83c3de', '2025-01-20 11:04:32.241664+00', '2025-01-23 11:04:32.242+00', '4396f3d7-4d63-41ae-bae1-dfa57862f9b5', 'cf1f69ce-10fa-4059-8fd4-3c6dcef9ba18', 5.282434422319, 3.173, NULL, NULL, 3, 3, NULL, NULL, '02be6d52-2f23-498d-ab24-a7cc0975c075', '2025-01-20 11:04:32.241664+00', '2025-01-20 11:04:32.242+00');
 
 
 --
@@ -831,7 +826,7 @@ INSERT INTO "storage"."objects" ("id", "bucket_id", "name", "owner", "created_at
 -- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
 --
 
-SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 2788, true);
+SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 2801, true);
 
 
 --
