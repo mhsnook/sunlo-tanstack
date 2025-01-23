@@ -186,7 +186,7 @@ function DeckSettings({ lang }: LangOnlyComponentProps) {
 				<ul className="list-disc ms-4">
 					<li>
 						Your deck is currently:{' '}
-						<strong>{data.archived ? 'Inactive' : 'Active'}</strong>
+						<strong>{data?.archived ? 'Inactive' : 'Active'}</strong>
 					</li>
 					<li>
 						Your learning motivation is:{' '}
