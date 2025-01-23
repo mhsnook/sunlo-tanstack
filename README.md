@@ -18,7 +18,7 @@ we'll run Supabase locally with Docker, sync our local copy using the Supabase C
 - `supabase start`
 - `supabase db reset` to run migrations and seeds
 
-The first time you run this it will download and build all the docker images for postgres, the postgrest server, the auth server, storage server, GraphQL API server, etc. After that, it will just start.
+The first time you run this it will download and build all the docker images for postgres, the postgrest server, the auth server, storage server, etc. After that, it will just start.
 
 When you make changes to your local database and want to commit changes:
 
