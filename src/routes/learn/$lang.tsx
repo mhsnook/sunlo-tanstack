@@ -3,6 +3,15 @@ import { NavbarData } from '@/types/main'
 import languages from '@/lib/languages'
 import { languageQueryOptions } from '@/lib/use-language'
 import { deckQueryOptions } from '@/lib/use-deck'
+import {
+	BookCopy,
+	BookHeart,
+	Contact,
+	NotebookPen,
+	Rocket,
+	Search,
+	Settings,
+} from 'lucide-react'
 
 export const Route = createFileRoute('/learn/$lang')({
 	component: LanguageLayout,
@@ -24,42 +33,42 @@ export const Route = createFileRoute('/learn/$lang')({
 		return {
 			navbar: {
 				title: `${languages[lang]} Deck`,
-				icon: 'book-heart',
+				Icon: BookHeart,
 				contextMenu: [
 					{
 						name: 'Quick search',
 						to: '/learn/$lang/search',
 						params: { lang },
-						icon: 'search',
+						Icon: Search,
 					},
 					{
 						name: 'Start a review',
 						to: '/learn/$lang/review',
 						params: { lang },
-						icon: 'rocket',
+						Icon: Rocket,
 					},
 					{
 						name: `Browse ${languages[lang]} library`,
 						to: '/learn/$lang/library',
 						params: { lang },
-						icon: 'book-copy',
+						Icon: BookCopy,
 					},
 					{
 						name: 'Add a phrase',
 						to: '/learn/$lang/add-phrase',
 						params: { lang },
-						icon: 'notebook-pen',
+						Icon: NotebookPen,
 					},
 					{
 						name: 'Deck settings',
 						to: '/learn/$lang/deck-settings',
 						params: { lang },
-						icon: 'settings',
+						Icon: Settings,
 					},
 					{
 						name: 'Friends and contacts',
 						to: '/friends',
-						icon: 'contact',
+						Icon: Contact,
 					},
 				],
 			} as NavbarData,

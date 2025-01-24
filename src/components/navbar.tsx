@@ -1,24 +1,5 @@
 import { useCallback, useState } from 'react'
-import {
-	type LucideProps,
-	BookCopy,
-	BookHeart,
-	ChevronLeft,
-	Contact,
-	FolderPlus,
-	Handshake,
-	Home,
-	Lock,
-	Mail,
-	MoreVertical,
-	NotebookPen,
-	Rocket,
-	Search,
-	Send,
-	Settings,
-	SquarePlus,
-	WalletCards,
-} from 'lucide-react'
+import { ChevronLeft, MoreVertical } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
 	DropdownMenu,
@@ -27,7 +8,6 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Link, useMatches, useNavigate } from '@tanstack/react-router'
-import type { NavbarData } from '@/types/main'
 
 export default function Navbar() {
 	const [isOpen, setIsOpen] = useState(false)
@@ -40,10 +20,14 @@ export default function Navbar() {
 	const matchesArray = matches.filter((m) => m?.loaderData !== undefined)
 	// console.log(`matches`, matchesArray, matches)
 	const lastMatch = matchesArray.at(-1)
-	const data = lastMatch?.loaderData?.['navbar'] as NavbarData
-	const onBackClick = data?.onBackClick ?? goBack
-
+	const data =
+		lastMatch && 'navbar' in lastMatch.loaderData ?
+			lastMatch.loaderData.navbar
+		:	null
 	if (!data) return null
+
+	const Icon = !data ? null : data.Icon
+	const onBackClick = data?.onBackClick ?? goBack
 
 	return (
 		<nav className="flex items-center justify-between py-3 px-[1cqw] shadow-xl mb-4 bg-white/10">
@@ -53,9 +37,9 @@ export default function Navbar() {
 					<span className="sr-only">Back</span>
 				</Button>
 				<div className="flex flex-row items-center gap-[1cqw]">
-					{data?.icon ?
+					{Icon ?
 						<span className="rounded bg-white/20 p-2">
-							{renderIcon(data?.icon, { size: 24 })}
+							<Icon size="24" />
 						</span>
 					:	<>&nbsp;</>}
 					<div>
@@ -74,14 +58,14 @@ export default function Navbar() {
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end" className="w-56">
-						{data?.contextMenu.map(({ to, params, name, icon }, index) => (
+						{data?.contextMenu.map(({ to, params, name, Icon }, index) => (
 							<DropdownMenuItem key={index}>
 								<Link
 									to={to as string}
 									params={params}
 									className="w-full flex flex-row gap-2 justify-content-center"
 								>
-									{renderIcon(icon)}
+									<Icon className="size-[1.25rem]" />
 									{name}
 								</Link>
 							</DropdownMenuItem>
@@ -93,46 +77,4 @@ export default function Navbar() {
 			)}
 		</nav>
 	)
-}
-
-// TODO move this to utils?
-function renderIcon(icon: string, props: LucideProps = { size: 20 }) {
-	props.strokeWidth ??=
-		typeof props.size === 'string' ? 1.5 : (props.size / 20) * 1.5
-	switch (icon) {
-		case 'book-copy': // for your /$lang/library page
-			return <BookCopy {...props} />
-		case 'book-heart': // for your /learn page
-			return <BookHeart {...props} />
-		case 'contact':
-			return <Contact {...props} />
-		case 'email': // for change-email page
-			return <Mail {...props} />
-		case 'folder-plus': // for a new deck
-			return <FolderPlus {...props} />
-		case 'friend':
-			return <Contact {...props} />
-		case 'handshake':
-			return <Handshake {...props} />
-		case 'home': // for your /learn page
-			return <Home {...props} />
-		case 'invite': // for adding friends
-			return <Send {...props} />
-		case 'notebook-pen':
-			return <NotebookPen {...props} />
-		case 'password':
-			return <Lock {...props} />
-		case 'search':
-			return <Search {...props} />
-		case 'settings':
-			return <Settings {...props} />
-		case 'square-plus': // for a new card
-			return <SquarePlus {...props} />
-		case 'rocket': // for GOAL actions (start a review)
-			return <Rocket {...props} />
-		case 'wallet-cards': // browse your own cards
-			return <WalletCards {...props} />
-		default:
-			return null
-	}
 }

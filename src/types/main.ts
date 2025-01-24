@@ -6,6 +6,7 @@ import {
 	PostgrestResponse,
 } from '@supabase/supabase-js'
 import { Route } from '@tanstack/react-router'
+import { LucideIcon } from 'lucide-react'
 
 export type uuid = string
 export type pids = Array<uuid>
@@ -21,7 +22,7 @@ export type LinkType = {
 	to: Route['types']['to']
 	params?: Route['types']['params']
 	// TODO enum these for the caller
-	icon?: string
+	Icon?: LucideIcon
 }
 export type MenuType = LinkType & {
 	links: Array<LinkType>
@@ -30,7 +31,7 @@ export type MenuType = LinkType & {
 export type NavbarData = {
 	title: string
 	subtitle?: string
-	icon?: string
+	Icon?: LucideIcon
 	onBackClick?: () => void
 	contextMenu?: Array<LinkType>
 }

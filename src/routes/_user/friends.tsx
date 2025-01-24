@@ -2,6 +2,14 @@ import Navbar from '@/components/navbar'
 import { NavbarData } from '@/types/main'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 import { relationsQuery } from '@/lib/friends'
+import {
+	Contact,
+	FolderPlus,
+	Handshake,
+	HeartHandshake,
+	NotebookPen,
+	Send,
+} from 'lucide-react'
 
 export const Route = createFileRoute('/_user/friends')({
 	component: FriendsPage,
@@ -11,32 +19,32 @@ export const Route = createFileRoute('/_user/friends')({
 		return {
 			navbar: {
 				title: `Manage Friends and Contacts`,
-				icon: '',
+				Icon: HeartHandshake,
 				contextMenu: [
 					{
 						name: 'Friends and contacts',
 						to: '/friends',
-						icon: 'friend',
+						Icon: Contact,
 					},
 					{
 						name: 'Search profiles',
 						to: '/friends/search',
-						icon: 'handshake',
+						Icon: Handshake,
 					},
 					{
 						name: 'Invite to Sunlo',
 						to: '/friends/invite',
-						icon: 'invite',
+						Icon: Send,
 					},
 					{
 						name: 'Edit profile',
 						to: '/profile',
-						icon: 'notebook-pen',
+						Icon: NotebookPen,
 					},
 					{
 						name: 'Start a new language',
 						to: '/learn/add-deck',
-						icon: 'folder-plus',
+						Icon: FolderPlus,
 					},
 				],
 			} as NavbarData,

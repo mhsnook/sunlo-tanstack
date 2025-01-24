@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Loader2, Star, Users } from 'lucide-react'
+import { FolderPlus, Home, Loader2, Search, Star, Users } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import type { NavbarData } from '@/types/main'
@@ -15,17 +15,17 @@ export const Route = createFileRoute('/learn/')({
 			navbar: {
 				title: `Learning Home`,
 				subtitle: `Which deck are we studying today?`,
-				icon: 'home',
+				Icon: Home,
 				contextMenu: [
 					{
 						name: 'New Deck',
 						to: '/learn/add-deck',
-						icon: 'folder-plus',
+						Icon: FolderPlus,
 					},
 					{
 						name: 'Quick search',
 						to: '/learn/quick-search',
-						icon: 'search',
+						Icon: Search,
 					},
 				],
 			} as NavbarData,

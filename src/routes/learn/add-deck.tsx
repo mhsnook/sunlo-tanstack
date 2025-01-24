@@ -12,11 +12,13 @@ import { Badge } from '@/components/ui/badge'
 import languages from '@/lib/languages'
 import Callout from '@/components/ui/callout'
 import { ErrorLabel } from '@/components/fields'
+import { RouteIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/learn/add-deck')({
 	loader: () => ({
 		navbar: {
 			title: `Start Learning a New Language`,
+			Icon: RouteIcon,
 		} as NavbarData,
 	}),
 	component: NewDeckForm,

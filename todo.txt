@@ -52,6 +52,8 @@ EPIC: User Testability
 1. when you go to the deck page and it's empty, we should get a prompt for the library, ya?
 1. add a deck -- the "select one language" input should have a better type-to-search
 1. when you go to the library and add cards to your deck, and then go to the review page, it's still loaded the empty-set that was returned before
+1. Remove routes that don't go anywhere? or make them go places. search `@@BLANKROUTE` in code.
+		- Remove links that don't go anywhere: /languages
 
 
 EPIC: Convert useQueries to usequery(someOptions) format

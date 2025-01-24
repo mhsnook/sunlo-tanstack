@@ -6,6 +6,7 @@ import { FlashCardReviewSession } from '@/components/flash-card-review-session'
 import languages from '@/lib/languages'
 import { deckQueryOptions } from '@/lib/use-deck'
 import { reviewablesQueryOptions } from '@/lib/use-reviewables'
+import { BookHeart, Search, Settings, SquarePlus } from 'lucide-react'
 
 export const Route = createFileRoute('/learn/$lang/review')({
 	component: ReviewPage,
@@ -31,25 +32,25 @@ export const Route = createFileRoute('/learn/$lang/review')({
 			),
 			navbar: {
 				title: `Review ${languages[lang]} cards`,
-				icon: 'book-heart',
+				Icon: BookHeart,
 				contextMenu: [
 					{
 						name: `Search ${languages[lang]}`,
 						to: '/learn/$lang/search',
 						params: { lang },
-						icon: 'search',
+						Icon: Search,
 					},
 					{
 						name: 'Add a phrase',
 						to: '/learn/$lang/add-phrase',
 						params: { lang },
-						icon: 'square-plus',
+						Icon: SquarePlus,
 					},
 					{
 						name: 'Deck settings',
 						to: '/learn/$lang/settings',
 						params: { lang },
-						icon: 'settings',
+						Icon: Settings,
 					},
 				],
 			} as NavbarData,
