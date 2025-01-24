@@ -48,7 +48,7 @@ export const Route = createFileRoute('/learn/$lang/review')({
 					},
 					{
 						name: 'Deck settings',
-						to: '/learn/$lang/settings',
+						to: '/learn/$lang/deck-settings',
 						params: { lang },
 						Icon: Settings,
 					},
