@@ -192,9 +192,3 @@ export type Deck = DeckStub & {
 		skipped: pids
 	}
 }
-
-export type ReviewsCollated = {
-	list: Array<ReviewRow>
-	collated: object
-	keysInOrder: Array<string>
-}

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button-variants'
 import { HeartHandshake, Loader2, Search } from 'lucide-react'
 import { useRelations } from '@/lib/friends'
 import { ShowError } from '@/components/errors'
@@ -38,7 +38,6 @@ function PendingRequestsSection() {
 				:	data.uids.invited.map((uid) => (
 						<ProfileWithRelationship
 							key={uid}
-							uid={uid}
 							profile={data?.relationsMap[uid].profile}
 						/>
 					))

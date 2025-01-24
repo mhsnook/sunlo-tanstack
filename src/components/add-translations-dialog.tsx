@@ -119,7 +119,10 @@ export function AddTranslationsDialog({
 							error={errors.translation_lang}
 							tabIndex={1}
 						/>
-						<TranslationTextField register={register} error={errors.text} />
+						<TranslationTextField
+							register={register}
+							error={errors.translation_text}
+						/>
 					</fieldset>
 					<DialogFooter className="flex flex-row justify-between">
 						<Button disabled={isSubmitting} variant="secondary">
