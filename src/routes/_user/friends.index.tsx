@@ -51,7 +51,7 @@ function FriendProfiles() {
 	const { data, isPending, error } = useRelations()
 	return (
 		<>
-			<div className="flex gap-2 flex-row flex-wrap dark">
+			<div className="flex gap-2 flex-row flex-wrap">
 				<Link
 					to="/friends/search"
 					from={Route.fullPath}

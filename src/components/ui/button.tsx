@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 
 import { cn } from '@/lib/utils'
-import { ButtonProps, buttonVariants } from './button-variants'
+import { type ButtonProps, buttonVariants } from './button-variants'
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 	({ className, variant, size, asChild = false, ...props }, ref) => {
