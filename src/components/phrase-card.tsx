@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import { uuid } from '@/types/main'
-import { buttonVariants } from './ui/button'
+import { buttonVariants } from '@/components/ui/button-variants'
 
 type PhraseCardProps = {
 	phrase: {

@@ -7,7 +7,8 @@ import { type SubmitHandler, Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
 
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button-variants'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	AlertDialog,

@@ -13,7 +13,7 @@ import { inLastWeek } from '@/lib/dayjs'
 import { PhraseCard } from '@/components/phrase-card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Brain, Carrot, LucideIcon, Plus, TrendingUp } from 'lucide-react'
-import { buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button-variants'
 
 export const Route = createFileRoute('/learn/$lang/library')({
 	component: DeckLibraryPage,

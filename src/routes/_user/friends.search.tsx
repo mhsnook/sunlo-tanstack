@@ -10,7 +10,8 @@ import { z } from 'zod'
 import { useDebounce, usePrevious } from '@uidotdev/usehooks'
 import { Contact, Loader2, Mail, Search } from 'lucide-react'
 
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button-variants'
 import {
 	Card,
 	CardContent,
