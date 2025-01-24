@@ -11,8 +11,13 @@ import {
 import {
 	Code,
 	FileText,
+	Heart,
 	LogIn,
+	MessageSquareText,
+	PlaneLanding,
+	Sparkles,
 	UserPlus,
+	Users,
 	UsersIcon,
 	WandSparkles,
 } from 'lucide-react'
@@ -80,7 +85,7 @@ function Index() {
 					<Card className="basis-80 flex-grow">
 						<CardHeader>
 							<CardTitle className="flex-row gap-2 flex">
-								<PhraseIcon /> Phrase Based
+								<MessageSquareText /> Phrase Based
 							</CardTitle>
 						</CardHeader>
 						<CardContent className="space-y-2">
@@ -119,7 +124,7 @@ function Index() {
 					<Card className="basis-80 flex-grow">
 						<CardHeader>
 							<CardTitle className="flex-row gap-2 flex">
-								<CuriosityIcon /> Driven by Curiosity
+								<Sparkles /> Driven by Curiosity
 							</CardTitle>
 						</CardHeader>
 						<CardContent className="space-y-2">
@@ -143,7 +148,7 @@ function Index() {
 					<Card className="basis-80 flex-grow">
 						<CardHeader>
 							<CardTitle className="flex-row gap-2 flex">
-								<PlaneIcon /> Moving To a New Place
+								<PlaneLanding /> Moving To a New Place
 							</CardTitle>
 						</CardHeader>
 						<CardContent className="space-y-2">
@@ -161,7 +166,7 @@ function Index() {
 					<Card className="basis-80 flex-grow">
 						<CardHeader>
 							<CardTitle className="flex-row gap-2 flex">
-								<FriendIcon /> The Friend / Guide
+								<Users /> The Friend / Guide
 							</CardTitle>
 						</CardHeader>
 						<CardContent className="space-y-2">
@@ -181,7 +186,7 @@ function Index() {
 					<Card className="basis-80 flex-grow">
 						<CardHeader>
 							<CardTitle className="flex-row gap-2 flex">
-								<HeartIcon /> Extended Family
+								<Heart /> Extended Family
 							</CardTitle>
 						</CardHeader>
 						<CardContent className="space-y-2">
@@ -357,88 +362,3 @@ function Index() {
 		</>
 	)
 }
-
-const PhraseIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		strokeWidth={1.5}
-		stroke="currentColor"
-		className="size-6"
-	>
-		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
-		/>
-	</svg>
-)
-
-const CuriosityIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		strokeWidth={1.5}
-		stroke="currentColor"
-		className="size-6"
-	>
-		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-		/>
-	</svg>
-)
-
-const PlaneIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		strokeWidth={1.5}
-		stroke="currentColor"
-		className="size-6"
-	>
-		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-		/>
-	</svg>
-)
-
-const HeartIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		strokeWidth={1.5}
-		stroke="currentColor"
-		className="size-6"
-	>
-		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-		/>
-	</svg>
-)
-
-const FriendIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		strokeWidth={1.5}
-		stroke="currentColor"
-		className="size-6"
-	>
-		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"
-		/>
-	</svg>
-)

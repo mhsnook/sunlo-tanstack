@@ -20,12 +20,17 @@ EPIC Spaced Repetition API:
 		- ✅ the weird structure of FlashCardReviewSession is making multiple button-rows show
 
 EPIC: FSRS Followup
+1. Reviewables list should be _fully static_ so we can invalidate the cache and it won't change mid-session
 1. during a review, if you skip cards, they should be mentioned on the final page
 		(instead of just "congratulations; you're done")
 1. the "Again" option should make the card happen again
 1. should there be a deck setting for "t/f when i've run out of new cards, pick more for me (automated)"
 1. re-implement lost functionality:
 	-	undo and redo a review
+1. instead of scheduling at the time of review, retrieval function should be dynamic
+		to allow for different desired retrievability to be sent from the client (so we
+		can have an "easy" day sometimes, or retrieve cards so mostly they're 0.9 but
+		some easy ones are there to start)
 
 
 EPIC: Postgres DX / Run Supabase Locally
