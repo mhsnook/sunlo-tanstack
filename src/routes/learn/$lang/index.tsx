@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 
-import { buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button-variants'
 import type { FriendshipRow, LangOnlyComponentProps } from '@/types/main'
 import { useProfile } from '@/lib/use-profile'
 import {

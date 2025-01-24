@@ -1,6 +1,7 @@
 import { ShowError } from '@/components/errors'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button-variants'
 import Callout from '@/components/ui/callout'
 import {
 	Card,
