@@ -86,8 +86,8 @@ export default function AvatarEditor({ url, onUpload }: AvatarEditorProps) {
 					onChange={sendImage.mutate}
 					disabled={sendImage.isPending}
 				/>
-				<div className="absolute flex h-full flex-col justify-center bg-base-100/50 opacity-0 backdrop-blur hover:opacity-100">
-					<p className="text-base-content place-content-center">
+				<div className="absolute flex h-full flex-col justify-center bg-muted-foreground/10 opacity-0 backdrop-blur hover:opacity-100">
+					<p className="place-content-center">
 						{sendImage.isPending ?
 							<>Uploading ...</>
 						:	<>

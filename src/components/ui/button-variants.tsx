@@ -7,28 +7,26 @@ const buttonVariants = cva(
 		variants: {
 			variant: {
 				default:
-					'bg-primary text-primary-foreground hover:bg-primary/90 aria-expanded:bg-primary',
-				secondary:
-					'bg-foreground/10 hover:bg-primary/30 dark:hover:bg-primary/40 text-foreground',
+					'bg-primary text-primary-foreground hover:bg-primary/90 aria-expanded:bg-primary/60',
+				secondary: 'bg-secondary text-secondary-foreground hover:bg-accent/30',
 				destructive:
 					'bg-destructive text-destructive-foreground hover:bg-destructive/90',
 				'destructive-outline':
 					'border border-destructive text-destructive bg-destructive/10 hover:bg-destructive hover:text-destructive-foreground',
-				ghost:
-					'hover:bg-foreground/10 dark:hover:bg-background/20 text-muted-foreground',
+				ghost: 'hover:bg-primary/30 hover:text-accent-foreground',
 				outline:
-					'border border-primary text-primary bg-background hover:bg-primary/30',
-				link: 'text-primary dark:text-white underline-offset-4 hover:underline',
+					'border border-input hover:border-accent bg-background hover:bg-accent/30 hover:text-accent-foreground',
+				link: 'text-primary underline-offset-4 hover:underline',
 				white:
 					'bg-white hover:bg-primary text-primary hover:text-primary-foreground ring-1 border border-primary',
 			},
 			size: {
-				default: 'h-10 px-4 py-2 rounded-md gap-2',
+				default: 'h-10 rounded-md px-4 py-2 gap-2',
 				sm: 'h-9 rounded-md px-3 gap-1',
 				lg: 'rounded-md px-8 py-4 text-xl font-medium rounded-lg gap-3',
 				icon: 'h-10 w-10 rounded-full flex-shrink-0',
 				'icon-sm': 'h-6 w-6 rounded-full flex-shrink-0',
-				badge: 'h-6 rounded-full font-sm px-1 gap-1',
+				badge: 'h-6 rounded-full font-sm px-2 gap-1',
 			},
 		},
 		defaultVariants: {

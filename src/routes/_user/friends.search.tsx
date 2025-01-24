@@ -146,7 +146,8 @@ export default function SearchProfiles() {
 							aria-disabled="true"
 							className={buttonVariants({ size: 'badge', variant: 'outline' })}
 						>
-							<Mail className="h-3 w-3" /> <span className="me-1">Invite</span>
+							<Mail className="h-3 w-3" />
+							<span className="me-1">Invite</span>
 						</Link>
 					</div>
 				</CardTitle>

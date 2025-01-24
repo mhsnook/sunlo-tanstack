@@ -163,8 +163,9 @@ COMPONENTS (ShadCN/Radix)
 1. ✅ Add a Components page to keep track of / showcase all components
 1. ✅ Removing daisyUI
 		1. disable active link (removed class `disabled`)
-		1. ✅ fix color codes (text-base) in SelectOneLanguage
-		1. fix accent color
+		1. ✅ fix color codes (text-base, bg-base-300) in SelectOneLanguage
+		1. ✅ fix accent color
+		1. ✅ remove all the non-variable using color codes from the initial shadcn setup
 	1. find-replace all these colors: text-base text-base-content etc
 1. ✅ turn the contents of card-status-dropdown.tsx into a standard dropdown that works for all card statuses
 		✅ also support no status (add to deck, skip, already learned it)

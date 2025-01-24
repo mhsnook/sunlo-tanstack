@@ -350,7 +350,11 @@ function Index() {
 						<>
 							{footerNavigationItems.map((item, i) => (
 								<NavigationMenuItem key={`nav-link-${i}`}>
-									<Button variant="ghost" className="text-white/80" asChild>
+									<Button
+										variant="ghost"
+										className="text-foreground/80"
+										asChild
+									>
 										{item}
 									</Button>
 								</NavigationMenuItem>

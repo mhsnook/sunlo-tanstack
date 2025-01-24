@@ -46,24 +46,24 @@ export default function Page() {
 						key={key}
 						to="/learn/$lang"
 						params={{ lang: key }}
-						className="block transition-transform rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+						className="block transition-transform rounded-lg focus:outline-blue-500 focus:ring-blue-500 focus:ring-offset-1"
 					>
 						<Card
 							key={deck.language}
 							className="overflow-hidden h-full hover:border-primary"
 						>
-							<CardHeader className="bg-primary text-white">
+							<CardHeader className="bg-primary text-white dark">
 								<CardTitle>
 									{deck.language}{' '}
-									<span className="text-xs text-white/50">{key}</span>
+									<span className="text-xs text-muted-foreground">{key}</span>
 								</CardTitle>
 							</CardHeader>
 							<CardContent className="p-4 space-y-2">
 								<div>
-									<p className="text-sm text-base-content/70">
+									<p className="text-sm text-muted-foreground">
 										{deck.cards_active} active cards
 									</p>
-									<p className="text-sm text-base-content/70">
+									<p className="text-sm text-muted-foreground">
 										Last studied:{' '}
 										{deck.most_recent_review_at ?
 											ago(deck.most_recent_review_at)
