@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
 
-import { NotebookPen, Plus, Search } from 'lucide-react'
+import { NotebookPen, Search } from 'lucide-react'
 import {
 	Card,
 	CardContent,
@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import languages from '@/lib/languages'
 import { uuid } from '@/types/main'
-import { useLanguage, useLanguagePhrasesMap } from '@/lib/use-language'
+import { useLanguage } from '@/lib/use-language'
 import { useMemo } from 'react'
 import { LanguagePhrasesAccordionComponent } from '@/components/language-phrases-accordion'
 
@@ -53,7 +53,7 @@ function SearchTab() {
 				].join(', '),
 			}
 		})
-	}, [phrasesMap])
+	}, [phrasesMap, pids])
 
 	const searchResults = useMemo(() => {
 		if (!filter.trim()) return pids

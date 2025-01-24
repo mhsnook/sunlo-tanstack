@@ -19,7 +19,7 @@ export default function Callout({
 	className,
 	children,
 }: CalloutProps) {
-	let props: HTMLAttributes<any> = {}
+	let props: HTMLAttributes<HTMLDivElement> = {}
 	if (alert) props.role = 'alert'
 	return (
 		<div
