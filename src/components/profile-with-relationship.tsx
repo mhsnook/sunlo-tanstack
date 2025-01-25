@@ -1,10 +1,11 @@
-import { Check, Loader2, Send, ThumbsUp, UserCheck, X } from 'lucide-react'
+import { Check, Send, ThumbsUp, UserCheck, X } from 'lucide-react'
 
 import type { PublicProfile, PublicProfileFull } from '@/types/main'
 import { Button } from '@/components/ui/button'
 import { AvatarIconRow } from '@/components/ui/avatar-icon'
 import { ConfirmDestructiveActionDialog } from './confirm-destructive-action-dialog'
 import { useFriendRequestAction, useOneRelation } from '@/lib/friends'
+import { Loader } from './ui/loader'
 
 export function ProfileWithRelationship({
 	profile,
@@ -19,7 +20,7 @@ export function ProfileWithRelationship({
 			<div className="flex flex-row gap-2">
 				{inviteResponseMutation.isPending ?
 					<span className="h-8 w-8 rounded-full p-1">
-						<Loader2 className="w-6 h-6" />
+						<Loader className="size-6" />
 					</span>
 				: inviteResponseMutation.isSuccess ?
 					<span className="bg-green-600 h-8 w-8 rounded-full p-1">
@@ -64,7 +65,7 @@ export function ProfileWithRelationship({
 								onClick={() => inviteResponseMutation.mutate('decline')}
 							>
 								{inviteResponseMutation.isPending ?
-									<Loader2 />
+									<Loader />
 								: inviteResponseMutation.isSuccess ?
 									<Check className="text-white w-6 h-6" />
 								:	<>Confirm</>}
@@ -90,7 +91,7 @@ export function ProfileWithRelationship({
 							onClick={() => inviteResponseMutation.mutate('cancel')}
 						>
 							{inviteResponseMutation.isPending ?
-								<Loader2 />
+								<Loader />
 							: inviteResponseMutation.isSuccess ?
 								<Check className="text-white w-6 h-6" />
 							:	<>Confirm</>}

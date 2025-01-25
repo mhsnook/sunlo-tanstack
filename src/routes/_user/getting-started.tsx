@@ -2,7 +2,7 @@ import { createFileRoute, Navigate } from '@tanstack/react-router'
 import { useAuth } from '@/lib/hooks'
 import ProfileCreationForm from '@/components/profile-creation-form'
 import { useProfile } from '@/lib/use-profile'
-import { Loader2 } from 'lucide-react'
+import { Loader } from '@/components/ui/loader'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
 
 export const Route = createFileRoute('/_user/getting-started')({
@@ -17,7 +17,7 @@ function GettingStartedPage() {
 		userRole === 'learner' ? '/learn/add-deck' : '/friends/request'
 
 	return (
-		profile === undefined ? <Loader2 className="mx-auto my-10" />
+		profile === undefined ? <Loader />
 		: profile !== null ? <Navigate to={nextPage} />
 		: <main className="w-app py-10 px-[5cqw]">
 				<div className="space-y-4 my-4 text-center">

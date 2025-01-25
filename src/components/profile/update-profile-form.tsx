@@ -6,8 +6,8 @@ import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { toast } from 'react-hot-toast'
-import { Loader2 } from 'lucide-react'
 
+import { Loader } from '../ui/loader'
 import supabase from '@/lib/supabase-client'
 import { useProfile } from '@/lib/use-profile'
 import { ShowError } from '@/components/errors'
@@ -41,7 +41,7 @@ export default function UpdateProfileForm() {
 	return (
 		!data ?
 			data === undefined ?
-				<Loader2 />
+				<Loader />
 			:	<Navigate to={`/getting-started`} />
 		:	<PrefilledForm
 				initialData={{

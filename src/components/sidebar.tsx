@@ -113,7 +113,7 @@ function DeckMenu() {
 	const { data } = useProfile()
 	if (!data) return null
 
-	const menuData = {
+	const menuData: MenuType = {
 		name: 'Learning decks',
 		to: '/learn',
 		links: data.deckLanguages?.map((lang) => {

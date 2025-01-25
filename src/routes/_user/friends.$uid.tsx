@@ -11,7 +11,8 @@ import { useAuth } from '@/lib/hooks'
 import { usePublicProfile } from '@/lib/use-profile'
 import { uuid } from '@/types/main'
 import { createFileRoute } from '@tanstack/react-router'
-import { Loader2, ThumbsUp, User, UserCheck, UserMinus, X } from 'lucide-react'
+import { ThumbsUp, User, UserCheck, UserMinus, X } from 'lucide-react'
+import { Loader } from '@/components/ui/loader'
 
 export const Route = createFileRoute('/_user/friends/$uid')({
 	component: ProfilePage,
@@ -25,7 +26,7 @@ function ProfilePage() {
 	return (
 		<main className="px-2 py-10 max-w-sm mx-auto">
 			{isPending1 || isPending2 ?
-				<Loader2 className="my-10 mx-auto" />
+				<Loader className="my-10 mx-auto" />
 			:	<Card>
 					<CardHeader>
 						<CardTitle className="mx-auto">
@@ -72,7 +73,7 @@ function RelationshipActions({ uid_for }: { uid_for: uuid }) {
 			<Button onClick={() => action.mutate('invite')}>
 				Add friend{' '}
 				{action.isPending ?
-					<Loader2 />
+					<Loader />
 				:	<ThumbsUp />}
 			</Button>
 		: relationship.status === 'friends' ?
@@ -94,7 +95,7 @@ function RelationshipActions({ uid_for }: { uid_for: uuid }) {
 				<Button onClick={() => action.mutate('accept')}>
 					Confirm friends{' '}
 					{action.isPending ?
-						<Loader2 />
+						<Loader />
 					:	<ThumbsUp />}
 				</Button>
 				<ConfirmDestructiveActionDialog

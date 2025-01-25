@@ -166,13 +166,13 @@ COMPONENTS (ShadCN/Radix)
 		1. ✅ fix color codes (text-base, bg-base-300) in SelectOneLanguage
 		1. ✅ fix accent color
 		1. ✅ remove all the non-variable using color codes from the initial shadcn setup
-	1. find-replace all these colors: text-base text-base-content etc
+	1. ✅ find-replace all these colors: text-base text-base-content etc
 1. ✅ turn the contents of card-status-dropdown.tsx into a standard dropdown that works for all card statuses
 		✅ also support no status (add to deck, skip, already learned it)
 		- or no deck (start learning this language)
 		- or not logged in (login)
 1. ✅ use <Loader2 className="animate-spin" /> for main loader spinner
-	- Replace all Loader2 with Loader
+	- ✅ Replace all Loader2 with Loader
 	- Go to all the disabled buttons and add this spinner
 1. Add the "suggest edits to this card"
 1. replace my multi-language select with https://craft.mxkaske.dev/post/fancy-multi-select

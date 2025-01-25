@@ -8,7 +8,8 @@ import { useQuery } from '@tanstack/react-query'
 import { z } from 'zod'
 
 import { useDebounce, usePrevious } from '@uidotdev/usehooks'
-import { Contact, Loader2, Mail, Search } from 'lucide-react'
+import { Contact, Mail, Search } from 'lucide-react'
+import { Loader } from '@/components/ui/loader'
 
 import { Button } from '@/components/ui/button'
 import { buttonVariants } from '@/components/ui/button-variants'
@@ -80,7 +81,7 @@ function PendingInvitationsSection() {
 				</CardHeader>
 				<CardContent className="space-y-4">
 					{isPending ?
-						<Loader2 />
+						<Loader />
 					: error ?
 						<ShowError>{error.message}</ShowError>
 					:	data?.uids.invitations.map((uid) => (
@@ -187,7 +188,7 @@ export default function SearchProfiles() {
 							<ShowError>{error?.message}</ShowError>
 							{showLoader ?
 								<div className="h-20 flex justify-center items-center opacity-50">
-									<Loader2 />
+									<Loader />
 								</div>
 							: !(resultsToShow?.length > 0) ?
 								<Callout variant="ghost">

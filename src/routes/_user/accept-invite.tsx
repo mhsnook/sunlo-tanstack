@@ -17,7 +17,8 @@ import { useProfile, usePublicProfile } from '@/lib/use-profile'
 import { useMutation } from '@tanstack/react-query'
 
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ArrowRightLeft, Loader2 } from 'lucide-react'
+import { ArrowRightLeft } from 'lucide-react'
+import { Loader } from '@/components/ui/loader'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
 

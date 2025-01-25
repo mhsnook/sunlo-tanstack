@@ -12,7 +12,7 @@ import {
 	UpdateProfileForm,
 	UserAuthCard,
 } from '@/components/profile'
-import { Loader2 } from 'lucide-react'
+import { Loader } from '@/components/ui/loader'
 import { useRelations } from '@/lib/friends'
 
 export const Route = createFileRoute('/_user/profile/')({
@@ -57,7 +57,7 @@ function FriendsSection() {
 	const { data, isPending } = useRelations()
 
 	return isPending ?
-			<Loader2 />
+			<Loader />
 		:	<Card>
 				<CardHeader>
 					<CardTitle>Your Friends</CardTitle>

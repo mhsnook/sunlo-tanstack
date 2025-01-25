@@ -2,7 +2,8 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { buttonVariants } from '@/components/ui/button-variants'
-import { HeartHandshake, Loader2, Search } from 'lucide-react'
+import { HeartHandshake, Search } from 'lucide-react'
+import { Loader } from '@/components/ui/loader'
 import { useRelations } from '@/lib/friends'
 import { ShowError } from '@/components/errors'
 import { ProfileWithRelationship } from '@/components/profile-with-relationship'
@@ -30,7 +31,7 @@ function PendingRequestsSection() {
 			</CardHeader>
 			<CardContent className="space-y-4">
 				{isPending ?
-					<Loader2 />
+					<Loader />
 				: error ?
 					<ShowError>{error.message}</ShowError>
 				: !(data?.uids.invited.length > 0) ?
@@ -91,7 +92,7 @@ function FriendProfiles() {
 				<CardContent>
 					<div className="space-y-2">
 						{isPending ?
-							<Loader2 />
+							<Loader />
 						: error ?
 							<></>
 						: !(data?.uids.friends?.length > 0) ?

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { FolderPlus, Home, Loader2, Search, Star, Users } from 'lucide-react'
+import { FolderPlus, Home, Search, Star, Users } from 'lucide-react'
+import { Loader } from '@/components/ui/loader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import type { NavbarData } from '@/types/main'
@@ -40,7 +41,7 @@ export default function Page() {
 	return (
 		<main className="grid gap-4 @lg:grid-cols-2">
 			{isPending ?
-				<Loader2 />
+				<Loader />
 			:	Object.entries(profile?.decksMap).map(([key, deck]) => (
 					<Link
 						key={key}

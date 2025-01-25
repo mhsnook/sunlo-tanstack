@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createRouter } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Loader2 } from 'lucide-react'
+import { Loader } from '@/components/ui/loader'
 
 import { AuthProvider } from '@/components/auth-context'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -26,7 +26,7 @@ const router = createRouter({
 	defaultPreloadStaleTime: 300_000,
 	defaultPendingComponent: () => (
 		<div className="w-full h-full flex justify-center items-center animate-spin opacity-70">
-			<Loader2 className="size-12" />
+			<Loader className="size-12" />
 		</div>
 	),
 	defaultErrorComponent: ({ error }) => (
