@@ -22,7 +22,7 @@ function FriendRequestWithUIDPage() {
 						can send them an invitation to connect.
 					</p>
 					<Callout>
-						<ProfileWithRelationship uid={uid} profile={otherProfile} />
+						<ProfileWithRelationship profile={otherProfile} />
 					</Callout>
 					<p>
 						Or, use this page to search for friends and get started learning

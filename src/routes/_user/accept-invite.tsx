@@ -23,8 +23,8 @@ import toast from 'react-hot-toast'
 import { z } from 'zod'
 
 const SearchSchema = z.object({
-	uid_from: z.string().uuid(),
-	uid_to: z.string().uuid(),
+	uid_by: z.string().uuid(),
+	uid_for: z.string().uuid(),
 	user_deck_id: z.string().uuid(),
 	lang: z.string().length(3),
 })
@@ -33,15 +33,15 @@ type SearchType = z.infer<typeof SearchSchema>
 
 type AcceptInviteFormSubmission = Omit<
 	SearchType & {
-		action_type: 'accepted' | 'rejected'
+		action_type: 'accept' | 'decline'
 	},
 	'lang'
 >
 
 export const Route = createFileRoute('/_user/accept-invite')({
 	validateSearch: (search: Record<string, unknown>): SearchType => ({
-		uid_from: search.uid_from as string,
-		uid_to: search.uid_to as string,
+		uid_by: search.uid_by as string,
+		uid_for: search.uid_for as string,
 		user_deck_id: search.user_deck_id as string,
 		lang: search.lang as string,
 	}),
@@ -50,19 +50,19 @@ export const Route = createFileRoute('/_user/accept-invite')({
 
 function AcceptInvitePage() {
 	const search = Route.useSearch()
-	const { data: learner, isPending } = usePublicProfile(search.uid_from)
+	const { data: learner, isPending } = usePublicProfile(search.uid_by)
 	const { data: friend } = useProfile()
 	const { userId } = useAuth()
-	if (userId !== search.uid_to) console.log(`mismatched logins`)
+	if (userId !== search.uid_for) console.log(`mismatched logins`)
 
-	const acceptOrRejectMutation = useMutation({
-		mutationKey: ['invite', 'accept-or-reject', search.uid_from],
-		mutationFn: async ({ action }: { action: 'rejected' | 'accepted' }) => {
+	const acceptOrDeclineMutation = useMutation({
+		mutationKey: ['invite', 'accept-or-decline', search.uid_by],
+		mutationFn: async ({ action }: { action: 'decline' | 'accept' }) => {
 			const res = await supabase
 				.from('friend_request_action')
 				.insert({
-					uid_from: search.uid_from,
-					uid_to: userId,
+					uid_by: search.uid_by,
+					uid_for: userId,
 					user_deck_id: search.user_deck_id,
 					action_type: action,
 				})
@@ -101,10 +101,8 @@ function AcceptInvitePage() {
 				<div className="flex gap-4 flex-row justify-center">
 					<Button
 						size="lg"
-						onClick={() =>
-							acceptOrRejectMutation.mutate({ action: 'accepted' })
-						}
-						disabled={acceptOrRejectMutation.isPending}
+						onClick={() => acceptOrDeclineMutation.mutate({ action: 'accept' })}
+						disabled={acceptOrDeclineMutation.isPending}
 					>
 						Accept invitation
 					</Button>
@@ -112,9 +110,9 @@ function AcceptInvitePage() {
 						size="lg"
 						variant="secondary"
 						onClick={() =>
-							acceptOrRejectMutation.mutate({ action: 'rejected' })
+							acceptOrDeclineMutation.mutate({ action: 'decline' })
 						}
-						disabled={acceptOrRejectMutation.isPending}
+						disabled={acceptOrDeclineMutation.isPending}
 					>
 						Ignore
 					</Button>
@@ -126,7 +124,7 @@ function AcceptInvitePage() {
 	return (
 		<main className="p-2 w-app flex flex-col justify-center h-screen pb-20">
 			{isPending ?
-				<Loader2 />
+				<Loader />
 			:	<Card>
 					<CardHeader>
 						<CardTitle>Accept invite from {learner.username}?</CardTitle>
@@ -137,18 +135,18 @@ function AcceptInvitePage() {
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-4">
-						{acceptOrRejectMutation.error ?
-							<ShowError show={!!acceptOrRejectMutation.error}>
+						{acceptOrDeclineMutation.error ?
+							<ShowError show={!!acceptOrDeclineMutation.error}>
 								<p className="font-bold text-destructive-foreground h5">
 									Something went wrong...
 								</p>
-								<p>{acceptOrRejectMutation.error?.message}</p>
+								<p>{acceptOrDeclineMutation.error?.message}</p>
 							</ShowError>
-						: !acceptOrRejectMutation.isSuccess ?
+						: !acceptOrDeclineMutation.isSuccess ?
 							<AcceptInviteForm />
-						: acceptOrRejectMutation.variables.action === 'accepted' ?
+						: acceptOrDeclineMutation.variables.action === 'accept' ?
 							<ShowAccepted />
-						:	<ShowRejected />}
+						:	<ShowDeclined />}
 					</CardContent>
 				</Card>
 			}
@@ -170,7 +168,7 @@ const ShowAccepted = () => (
 	</Callout>
 )
 
-const ShowRejected = () => (
+const ShowDeclined = () => (
 	<Callout variant="ghost">
 		<div>
 			<h2 className="h4">Invitation ignored</h2>

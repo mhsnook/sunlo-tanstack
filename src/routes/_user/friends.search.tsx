@@ -87,7 +87,6 @@ function PendingInvitationsSection() {
 					:	data?.uids.invitations.map((uid) => (
 							<ProfileWithRelationship
 								key={uid}
-								uid={uid}
 								profile={data?.relationsMap[uid].profile}
 							/>
 						))
@@ -210,7 +209,6 @@ export default function SearchProfiles() {
 									{resultsToShow.map((profile) => (
 										<ProfileWithRelationship
 											key={profile.uid}
-											uid={profile.uid}
 											profile={profile}
 										/>
 									))}

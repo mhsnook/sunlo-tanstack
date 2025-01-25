@@ -118,7 +118,6 @@ function FriendProfiles() {
 						:	data?.uids.friends.map((uid) => (
 								<ProfileWithRelationship
 									key={uid}
-									uid={uid}
 									profile={data?.relationsMap[uid].profile}
 								/>
 							))

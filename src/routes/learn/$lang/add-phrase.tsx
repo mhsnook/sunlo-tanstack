@@ -24,6 +24,7 @@ import {
 	TranslationTextField,
 } from '@/components/fields'
 import { useRef } from 'react'
+import { PhraseCardInsert } from '@/types/main'
 
 interface SearchParams {
 	text?: string
@@ -69,9 +70,10 @@ function AddPhraseTab() {
 
 	const addPhraseMutation = useMutation({
 		mutationFn: async (variables: AddPhraseFormValues) => {
+			const ins: PhraseCardInsert = { lang, ...variables }
 			const { data, error } = await supabase.rpc(
 				'add_phrase_translation_card',
-				{ ...variables, lang }
+				ins
 			)
 			if (error) throw error
 			return data

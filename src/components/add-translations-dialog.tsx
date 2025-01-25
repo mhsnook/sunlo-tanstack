@@ -16,7 +16,8 @@ import {
 	DialogDescription,
 	DialogFooter,
 } from './ui/dialog'
-import { Button, ButtonProps } from './ui/button'
+import { Button } from './ui/button'
+import { ButtonProps } from './ui/button-variants'
 import { TranslationLanguageField, TranslationTextField } from './fields'
 import { useRef } from 'react'
 

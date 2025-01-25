@@ -61,6 +61,8 @@ export type LanguageLoaded = {
 export type PhraseRow = Tables<'phrase'>
 export type PhraseStub = Tables<'phrase'>
 export type PhraseInsert = TablesInsert<'phrase'>
+export type PhraseCardInsert =
+	Database['public']['Functions']['add_phrase_translation_card']['Args']
 
 export type Translation = Tables<'phrase_translation'>
 export type TranslationRow = Tables<'phrase_translation'>
@@ -151,44 +153,4 @@ export type FriendSummaryRelative = {
 
 export type PublicProfileFull = PublicProfile & {
 	friend_summary?: FriendSummaryRelative
-}
-
-// for legacy hooks and such
-
-export type PhraseCardInsert = {
-	phrase: PhraseInsert
-	translations: Array<TranslationInsert>
-	user_deck_id: uuid
-}
-
-export type Phrase = PhraseStub & {
-	// @TODO retire this
-	see_also_phrases?: PhraseStub[]
-	translations?: Translation[]
-	card?: Tables<'user_card'>
-}
-
-export type PhraseCardRow = PhraseRow & {
-	translations: Array<TranslationRow>
-	card: CardRow
-}
-
-export type PhraseCardFull = {
-	lang: string
-	phrase: PhraseFull
-	card: CardFull
-	user_deck_id: uuid
-}
-
-export type Language = LanguageRow & {
-	phrases: Array<Phrase>
-	deck?: DeckStub
-}
-
-export type Deck = DeckStub & {
-	pids: {
-		active: pids
-		learned: pids
-		skipped: pids
-	}
 }
