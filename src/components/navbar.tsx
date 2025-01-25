@@ -38,7 +38,7 @@ export default function Navbar() {
 				</Button>
 				<div className="flex flex-row items-center gap-[1cqw]">
 					{Icon ?
-						<span className="rounded bg-white/20 p-2">
+						<span className="rounded">
 							<Icon size="24" />
 						</span>
 					:	<>&nbsp;</>}

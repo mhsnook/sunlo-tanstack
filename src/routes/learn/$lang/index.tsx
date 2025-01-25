@@ -34,7 +34,7 @@ function WelcomePage() {
 	const { lang } = Route.useParams()
 	const deckIsNew = false
 	return (
-		<div className="space-y-4 px-2">
+		<div className="space-y-8 px-2">
 			{deckIsNew ?
 				<Empty lang={lang} />
 			:	<>

@@ -82,7 +82,7 @@ export default function Sidebar() {
 				aria-label="Main navigation"
 				className={cn(
 					isOpen ? 'fixed md:sticky flex' : 'hidden',
-					'top-0 z-30 h-screen w-72 flex-col gap-4 overflow-y-auto overflow-x-hidden p-6 bg-muted text-foreground'
+					'top-0 z-30 h-screen w-72 flex-col gap-4 overflow-y-auto overflow-x-hidden p-6 border-e shadow-xl bg-background text-foreground'
 				)}
 			>
 				<div className="flex flex-row justify-between items-center py-4">
