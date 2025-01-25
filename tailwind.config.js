@@ -26,7 +26,6 @@ export default {
 				sm: 'calc(var(--radius) - 4px)',
 			},
 			colors: {
-				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
@@ -45,6 +44,9 @@ export default {
 				'popover-foreground': 'hsl(var(--popover-foreground))',
 				card: 'hsl(var(--card))',
 				'card-foreground': 'hsl(var(--card-foreground))',
+			},
+			borderColor: {
+				DEFAULT: 'hsl(var(--border))', // This is what controls the `border` class
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
