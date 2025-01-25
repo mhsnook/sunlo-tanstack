@@ -21,6 +21,7 @@ import {
 	UsersIcon,
 	WandSparkles,
 } from 'lucide-react'
+import { buttonVariants } from '@/components/ui/button-variants'
 
 export const Route = createLazyFileRoute('/')({
 	component: Index,
@@ -61,12 +62,23 @@ function Index() {
 					</p>
 				</div>
 				<div className="mx-auto flex-none space-y-4 text-center @xl:basis-1/3">
-					<GarlicBroccoli className="mx-auto" />
-					<Button asChild size="lg" variant="white">
-						<Link to="/login" from="/">
-							Log in or sign up &rarr;
+					<GarlicBroccoli />
+					<div className="flex flex-col gap-1 w-60 place-self-center">
+						<Link
+							to="/signup"
+							from="/"
+							className={buttonVariants({ size: 'lg' })}
+						>
+							Sign up
 						</Link>
-					</Button>
+						<Link
+							to="/login"
+							from="/"
+							className={buttonVariants({ size: 'lg', variant: 'outline' })}
+						>
+							Log in
+						</Link>
+					</div>
 				</div>
 			</main>
 
@@ -208,11 +220,10 @@ function Index() {
 			</section>
 			<section className="my-10 pb-16 text-center">
 				<h2 className="h2">Ready to get started?</h2>
-				<Button asChild size="lg" variant="white">
-					<Link to="/login" from="/" className="w-80">
-						Sign up and start learning &rarr;
-					</Link>
-				</Button>
+
+				<Link to="/signup" from="/" className={buttonVariants({ size: 'lg' })}>
+					Sign up and start learning &rarr;
+				</Link>
 			</section>
 
 			<section className="my-16 px-2 pb-16 pt-4 @lg:px-8 @lg:pt-10">

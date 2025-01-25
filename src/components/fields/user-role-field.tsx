@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 
 const outer = 'flex flex-row gap-2 items-center',
 	inner =
-		'transition-colors flex flex-col items-center justify-center h-20 gap-2 rounded-md border-2 border-muted bg-popover p-4 hover:text-accent-foreground w-full'
+		'transition-colors flex flex-col items-center justify-center h-20 gap-2 rounded-md border bg-popover p-4 w-full'
 
 export default function UserRoleField({
 	control,
@@ -35,7 +35,7 @@ export default function UserRoleField({
 							inner,
 							value === 'learner' ?
 								'border-primary bg-primary/20 hover:bg-primary/20'
-							:	'hover:bg-accent'
+							:	'hover:bg-primary/10'
 						)}
 					>
 						<BookOpen size="16" />
@@ -50,7 +50,7 @@ export default function UserRoleField({
 							inner,
 							value === 'helper' ?
 								'border-primary bg-primary/20 hover:bg-primary/20'
-							:	'hover:bg-accent'
+							:	'hover:bg-primary/10'
 						)}
 					>
 						<LifeBuoy size="16" />
@@ -65,7 +65,7 @@ export default function UserRoleField({
 							inner,
 							value === 'both' ?
 								'border-primary bg-primary/20 hover:bg-primary/20'
-							:	'hover:bg-accent'
+							:	'hover:bg-primary/10'
 						)}
 					>
 						<Handshake size="16" />

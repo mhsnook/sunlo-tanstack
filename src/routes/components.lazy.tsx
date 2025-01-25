@@ -133,7 +133,6 @@ function ComponentsPage() {
 							<Button variant="outline">Outline</Button>
 							<Button variant="destructive">Destructive</Button>
 							<Button variant="destructive-outline">Dest Outl</Button>
-							<Button variant="white">White</Button>
 						</div>
 					</CardContent>
 				</Card>

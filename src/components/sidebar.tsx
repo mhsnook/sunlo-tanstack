@@ -177,8 +177,8 @@ function SignOutButton({ shy = false }) {
 
 const SidebarOpener = ({ isOpen = false, toggle = () => {} }) => (
 	<Button
-		className={`fixed bottom-4 left-3 z-50 rounded-full h-10 w-10`}
-		variant="white"
+		className={`fixed bottom-4 left-3 z-50 rounded-full`}
+		variant="outline"
 		size="icon"
 		aria-haspopup={true}
 		aria-label="Toggle main menu"
