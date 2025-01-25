@@ -30,7 +30,7 @@ export default function Navbar() {
 	const onBackClick = data?.onBackClick ?? goBack
 
 	return (
-		<nav className="flex items-center justify-between py-3 px-[1cqw] shadow-xl mb-4 bg-white/10">
+		<nav className="flex items-center justify-between py-3 px-[1cqw] mb-4 border-b">
 			<div className="flex items-center gap-[1cqw]">
 				<Button variant="ghost" size="icon" onClick={onBackClick}>
 					<ChevronLeft />

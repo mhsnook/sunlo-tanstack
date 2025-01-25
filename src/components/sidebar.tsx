@@ -22,12 +22,16 @@ const staticMenu: MenuType = {
 			to: '/',
 		},
 		{
-			name: 'Log in or sign up',
+			name: 'Log in',
 			to: '/login',
 		},
 		{
-			name: 'Browse Languages',
-			to: '/languages',
+			name: 'Sign up',
+			to: '/signup',
+		},
+		{
+			name: 'Privacy Policy',
+			to: '/privacy-policy',
 		},
 	],
 }
@@ -72,7 +76,7 @@ export default function Sidebar() {
 			<SidebarOpener isOpen={isOpen} toggle={toggle} />
 			<div
 				className={cn(
-					'z-20 bg-black bg-opacity-50 pt-10',
+					'z-20 bg-black bg-opacity-60 pt-10',
 					isOpen ? 'fixed' : 'hidden',
 					'bottom-0 left-0 right-0 top-0 md:hidden'
 				)}
