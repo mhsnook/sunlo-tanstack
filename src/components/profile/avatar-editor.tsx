@@ -62,7 +62,7 @@ export default function AvatarEditor({ url, onUpload }: AvatarEditorProps) {
 	})
 
 	return (
-		<div className="relative h-40 flex-shrink border border-dashed p-2">
+		<div className="relative h-40 flex-shrink border border-primary rounded p-2">
 			<Label
 				htmlFor="avatarUploadInput"
 				className="fit-content relative z-10 flex h-full flex-col rounded text-center"

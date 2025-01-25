@@ -15,7 +15,6 @@ export default function UserRoleField({
 	tabIndex,
 }: ControlledFieldProps) {
 	const {
-		// @ts-expect-error: we may have to add a type arg to ControlledFieldProps
 		field: { value, onChange },
 	} = useController({ name: 'user_role', control })
 

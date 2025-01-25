@@ -41,12 +41,12 @@ export function SelectOneLanguage({
 		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger autoFocus={autoFocus} asChild className="w-full">
 				<Button
-					variant="white"
+					variant="outline"
 					tabIndex={tabIndex}
 					role="combobox"
 					aria-expanded={open}
 					className={cn(
-						's-input justify-between',
+						'bg-card placeholder:text-muted-foreground justify-between font-normal',
 						hasError && 'border-destructive'
 					)}
 				>

@@ -66,7 +66,7 @@
 		padding-bottom: env(safe-area-inset-bottom);
 	}
 	main {
-		@apply px-1 pb-10 pt-6;
+		@apply px-1 pb-10 pt-2;
 	}
 }
 
@@ -76,9 +76,6 @@
 	}
 	.s-link {
 		@apply cursor-pointer decoration-primary-foresoft underline-offset-2 hover:underline-offset-1 underline hover:decoration-2 decoration-2 decoration-dashed transition-all;
-	}
-	.s-input {
-		@apply outline outline-1 outline-primary border-primary;
 	}
 	.nav-link {
 		@apply transition-all;

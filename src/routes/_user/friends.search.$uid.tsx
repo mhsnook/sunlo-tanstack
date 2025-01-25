@@ -14,7 +14,7 @@ function FriendRequestWithUIDPage() {
 
 	return !otherProfile || !profile ?
 			null
-		:	<Callout className="dark">
+		:	<Callout>
 				<div className="w-full space-y-4">
 					<p>
 						<strong>Welcome {profile.username}!</strong> You were invited by

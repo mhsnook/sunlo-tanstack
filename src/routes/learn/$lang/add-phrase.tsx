@@ -159,7 +159,7 @@ function AddPhraseTab() {
 								search={(search: SearchParams) => ({ ...search, text })}
 							>
 								<Search />
-								Search for sumilar phrases
+								Search for similar phrases
 							</Link>
 						</Button>
 					</div>
