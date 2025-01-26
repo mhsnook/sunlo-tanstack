@@ -14,6 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as LearnImport } from './routes/learn'
+import { Route as DashboardImport } from './routes/dashboard'
 import { Route as UserImport } from './routes/_user'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as LearnIndexImport } from './routes/learn/index'
@@ -68,6 +69,11 @@ const ComponentsLazyRoute = ComponentsLazyImport.update({
 
 const LearnRoute = LearnImport.update({
   path: '/learn',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardRoute = DashboardImport.update({
+  path: '/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -248,6 +254,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof UserImport
+      parentRoute: typeof rootRoute
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardImport
       parentRoute: typeof rootRoute
     }
     '/learn': {
@@ -491,6 +504,7 @@ export const routeTree = rootRoute.addChildren({
       UserProfileIndexRoute,
     }),
   }),
+  DashboardRoute,
   LearnRoute: LearnRoute.addChildren({
     LearnLangRoute: LearnLangRoute.addChildren({
       LearnLangAddPhraseRoute,
@@ -519,6 +533,7 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/_auth",
         "/_user",
+        "/dashboard",
         "/learn",
         "/components",
         "/privacy-policy"
@@ -545,6 +560,9 @@ export const routeTree = rootRoute.addChildren({
         "/_user/getting-started",
         "/_user/profile"
       ]
+    },
+    "/dashboard": {
+      "filePath": "dashboard.tsx"
     },
     "/learn": {
       "filePath": "learn.tsx",
