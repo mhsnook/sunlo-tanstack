@@ -206,6 +206,7 @@ UI POLISH
 	- ⛔ fuzzy string match that only works well with american names: https://www.postgresql.org/docs/current/fuzzystrmatch.html
 1. Prettier URLs? with hashIDs (can hash the uuid): https://supabase.com/docs/guides/database/extensions/pg_hashids
 1. slide the cards in and out like so https://v0.dev/chat/animated-card-interface-MHacnAB0fOp
+1. give us a completion progress bar in the /review interface
 
 OTHER IDEAS
 1. a app shortcut that opens straight into new-card interface
