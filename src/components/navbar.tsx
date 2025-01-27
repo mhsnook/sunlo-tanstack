@@ -8,6 +8,8 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Link, useMatches, useNavigate } from '@tanstack/react-router'
+import { SidebarTrigger } from '@/components/ui/sidebar'
+import { Separator } from '@/components/ui/separator'
 
 export default function Navbar() {
 	const [isOpen, setIsOpen] = useState(false)
@@ -32,10 +34,12 @@ export default function Navbar() {
 	return (
 		<nav className="flex items-center justify-between py-3 px-[1cqw] mb-4 border-b">
 			<div className="flex items-center gap-[1cqw]">
-				<Button variant="ghost" size="icon" onClick={onBackClick}>
+				<SidebarTrigger />
+				<Button variant="ghost" size="icon-sm" onClick={onBackClick}>
 					<ChevronLeft />
 					<span className="sr-only">Back</span>
 				</Button>
+				<Separator orientation="vertical" className="mx-2 h-6" />
 				<div className="flex flex-row items-center gap-[1cqw]">
 					{Icon ?
 						<span className="rounded">

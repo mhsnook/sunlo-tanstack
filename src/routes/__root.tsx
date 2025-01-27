@@ -45,7 +45,7 @@ function RootComponent() {
 			<div className="flex h-screen overflow-hidden w-full">
 				<AppSidebar />
 				<SidebarInset className="flex-1 w-full">
-					<header className="flex h-16 shrink-0 items-center gap-2 border-b px-6">
+					<header className="hidden h-16 shrink-0 items-center gap-2 border-b px-6">
 						<SidebarTrigger />
 						<Separator orientation="vertical" className="mx-2 h-6" />
 						<Breadcrumb>
