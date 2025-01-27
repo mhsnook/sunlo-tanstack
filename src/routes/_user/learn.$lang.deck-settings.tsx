@@ -27,7 +27,7 @@ import { DeckMeta, DeckRow } from '@/types/main'
 import { LearningGoalField } from '@/components/fields/learning-goal-field'
 import supabase from '@/lib/supabase-client'
 
-export const Route = createFileRoute('/learn/$lang/deck-settings')({
+export const Route = createFileRoute('/_user/learn/$lang/deck-settings')({
 	component: DeckSettingsPage,
 })
 

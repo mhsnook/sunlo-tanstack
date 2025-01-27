@@ -13,7 +13,7 @@ import {
 	Settings,
 } from 'lucide-react'
 
-export const Route = createFileRoute('/learn/$lang')({
+export const Route = createFileRoute('/_user/learn/$lang')({
 	component: LanguageLayout,
 	loader: async ({
 		params: { lang },

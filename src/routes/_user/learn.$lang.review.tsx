@@ -8,7 +8,7 @@ import { deckQueryOptions } from '@/lib/use-deck'
 import { reviewablesQueryOptions } from '@/lib/use-reviewables'
 import { BookHeart, Search, Settings, SquarePlus } from 'lucide-react'
 
-export const Route = createFileRoute('/learn/$lang/review')({
+export const Route = createFileRoute('/_user/learn/$lang/review')({
 	component: ReviewPage,
 	loader: async ({
 		params: { lang },

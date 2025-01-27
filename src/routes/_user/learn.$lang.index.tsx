@@ -26,7 +26,7 @@ import { useDeckMeta } from '@/lib/use-deck'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 
-export const Route = createFileRoute('/learn/$lang/')({
+export const Route = createFileRoute('/_user/learn/$lang/')({
 	component: WelcomePage,
 })
 

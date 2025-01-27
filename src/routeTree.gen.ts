@@ -13,38 +13,37 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as LearnImport } from './routes/learn'
-import { Route as DashboardImport } from './routes/dashboard'
 import { Route as UserImport } from './routes/_user'
 import { Route as AuthImport } from './routes/_auth'
-import { Route as LearnIndexImport } from './routes/learn/index'
-import { Route as LearnQuickSearchImport } from './routes/learn/quick-search'
-import { Route as LearnAddDeckImport } from './routes/learn/add-deck'
-import { Route as LearnLangImport } from './routes/learn/$lang'
 import { Route as UserProfileImport } from './routes/_user/profile'
 import { Route as UserGettingStartedImport } from './routes/_user/getting-started'
 import { Route as UserFriendsImport } from './routes/_user/friends'
 import { Route as UserAcceptInviteImport } from './routes/_user/accept-invite'
 import { Route as AuthLoginImport } from './routes/_auth/login'
 import { Route as AuthFindAFriendImport } from './routes/_auth/find-a-friend'
-import { Route as LearnLangIndexImport } from './routes/learn/$lang/index'
 import { Route as UserProfileIndexImport } from './routes/_user/profile.index'
+import { Route as UserLearnIndexImport } from './routes/_user/learn.index'
 import { Route as UserFriendsIndexImport } from './routes/_user/friends.index'
-import { Route as LearnLangSearchImport } from './routes/learn/$lang/search'
-import { Route as LearnLangReviewImport } from './routes/learn/$lang/review'
-import { Route as LearnLangLibraryImport } from './routes/learn/$lang/library'
-import { Route as LearnLangDeckSettingsImport } from './routes/learn/$lang/deck-settings'
-import { Route as LearnLangAddPhraseImport } from './routes/learn/$lang/add-phrase'
 import { Route as UserProfileChangePasswordImport } from './routes/_user/profile.change-password'
 import { Route as UserProfileChangeEmailImport } from './routes/_user/profile.change-email'
+import { Route as UserLearnQuickSearchImport } from './routes/_user/learn.quick-search'
+import { Route as UserLearnAddDeckImport } from './routes/_user/learn.add-deck'
+import { Route as UserLearnLangImport } from './routes/_user/learn.$lang'
 import { Route as UserFriendsSearchImport } from './routes/_user/friends.search'
 import { Route as UserFriendsInviteImport } from './routes/_user/friends.invite'
 import { Route as UserFriendsUidImport } from './routes/_user/friends.$uid'
+import { Route as UserLearnLangIndexImport } from './routes/_user/learn.$lang.index'
+import { Route as UserLearnLangSearchImport } from './routes/_user/learn.$lang.search'
+import { Route as UserLearnLangReviewImport } from './routes/_user/learn.$lang.review'
+import { Route as UserLearnLangLibraryImport } from './routes/_user/learn.$lang.library'
+import { Route as UserLearnLangDeckSettingsImport } from './routes/_user/learn.$lang.deck-settings'
+import { Route as UserLearnLangAddPhraseImport } from './routes/_user/learn.$lang.add-phrase'
 import { Route as UserFriendsSearchUidImport } from './routes/_user/friends.search.$uid'
 
 // Create Virtual Routes
 
 const PrivacyPolicyLazyImport = createFileRoute('/privacy-policy')()
+const DashboardLazyImport = createFileRoute('/dashboard')()
 const ComponentsLazyImport = createFileRoute('/components')()
 const IndexLazyImport = createFileRoute('/')()
 const AuthSignupLazyImport = createFileRoute('/_auth/signup')()
@@ -62,20 +61,15 @@ const PrivacyPolicyLazyRoute = PrivacyPolicyLazyImport.update({
   import('./routes/privacy-policy.lazy').then((d) => d.Route),
 )
 
+const DashboardLazyRoute = DashboardLazyImport.update({
+  path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/dashboard.lazy').then((d) => d.Route))
+
 const ComponentsLazyRoute = ComponentsLazyImport.update({
   path: '/components',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/components.lazy').then((d) => d.Route))
-
-const LearnRoute = LearnImport.update({
-  path: '/learn',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const DashboardRoute = DashboardImport.update({
-  path: '/dashboard',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const UserRoute = UserImport.update({
   id: '/_user',
@@ -91,11 +85,6 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
-
-const LearnIndexRoute = LearnIndexImport.update({
-  path: '/',
-  getParentRoute: () => LearnRoute,
-} as any)
 
 const AuthSignupLazyRoute = AuthSignupLazyImport.update({
   path: '/signup',
@@ -115,21 +104,6 @@ const AuthForgotPasswordLazyRoute = AuthForgotPasswordLazyImport.update({
 } as any).lazy(() =>
   import('./routes/_auth/forgot-password.lazy').then((d) => d.Route),
 )
-
-const LearnQuickSearchRoute = LearnQuickSearchImport.update({
-  path: '/quick-search',
-  getParentRoute: () => LearnRoute,
-} as any)
-
-const LearnAddDeckRoute = LearnAddDeckImport.update({
-  path: '/add-deck',
-  getParentRoute: () => LearnRoute,
-} as any)
-
-const LearnLangRoute = LearnLangImport.update({
-  path: '/$lang',
-  getParentRoute: () => LearnRoute,
-} as any)
 
 const UserProfileRoute = UserProfileImport.update({
   path: '/profile',
@@ -161,44 +135,19 @@ const AuthFindAFriendRoute = AuthFindAFriendImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
-const LearnLangIndexRoute = LearnLangIndexImport.update({
-  path: '/',
-  getParentRoute: () => LearnLangRoute,
-} as any)
-
 const UserProfileIndexRoute = UserProfileIndexImport.update({
   path: '/',
   getParentRoute: () => UserProfileRoute,
 } as any)
 
+const UserLearnIndexRoute = UserLearnIndexImport.update({
+  path: '/learn/',
+  getParentRoute: () => UserRoute,
+} as any)
+
 const UserFriendsIndexRoute = UserFriendsIndexImport.update({
   path: '/',
   getParentRoute: () => UserFriendsRoute,
-} as any)
-
-const LearnLangSearchRoute = LearnLangSearchImport.update({
-  path: '/search',
-  getParentRoute: () => LearnLangRoute,
-} as any)
-
-const LearnLangReviewRoute = LearnLangReviewImport.update({
-  path: '/review',
-  getParentRoute: () => LearnLangRoute,
-} as any)
-
-const LearnLangLibraryRoute = LearnLangLibraryImport.update({
-  path: '/library',
-  getParentRoute: () => LearnLangRoute,
-} as any)
-
-const LearnLangDeckSettingsRoute = LearnLangDeckSettingsImport.update({
-  path: '/deck-settings',
-  getParentRoute: () => LearnLangRoute,
-} as any)
-
-const LearnLangAddPhraseRoute = LearnLangAddPhraseImport.update({
-  path: '/add-phrase',
-  getParentRoute: () => LearnLangRoute,
 } as any)
 
 const UserProfileChangePasswordRoute = UserProfileChangePasswordImport.update({
@@ -209,6 +158,21 @@ const UserProfileChangePasswordRoute = UserProfileChangePasswordImport.update({
 const UserProfileChangeEmailRoute = UserProfileChangeEmailImport.update({
   path: '/change-email',
   getParentRoute: () => UserProfileRoute,
+} as any)
+
+const UserLearnQuickSearchRoute = UserLearnQuickSearchImport.update({
+  path: '/learn/quick-search',
+  getParentRoute: () => UserRoute,
+} as any)
+
+const UserLearnAddDeckRoute = UserLearnAddDeckImport.update({
+  path: '/learn/add-deck',
+  getParentRoute: () => UserRoute,
+} as any)
+
+const UserLearnLangRoute = UserLearnLangImport.update({
+  path: '/learn/$lang',
+  getParentRoute: () => UserRoute,
 } as any)
 
 const UserFriendsSearchRoute = UserFriendsSearchImport.update({
@@ -224,6 +188,36 @@ const UserFriendsInviteRoute = UserFriendsInviteImport.update({
 const UserFriendsUidRoute = UserFriendsUidImport.update({
   path: '/$uid',
   getParentRoute: () => UserFriendsRoute,
+} as any)
+
+const UserLearnLangIndexRoute = UserLearnLangIndexImport.update({
+  path: '/',
+  getParentRoute: () => UserLearnLangRoute,
+} as any)
+
+const UserLearnLangSearchRoute = UserLearnLangSearchImport.update({
+  path: '/search',
+  getParentRoute: () => UserLearnLangRoute,
+} as any)
+
+const UserLearnLangReviewRoute = UserLearnLangReviewImport.update({
+  path: '/review',
+  getParentRoute: () => UserLearnLangRoute,
+} as any)
+
+const UserLearnLangLibraryRoute = UserLearnLangLibraryImport.update({
+  path: '/library',
+  getParentRoute: () => UserLearnLangRoute,
+} as any)
+
+const UserLearnLangDeckSettingsRoute = UserLearnLangDeckSettingsImport.update({
+  path: '/deck-settings',
+  getParentRoute: () => UserLearnLangRoute,
+} as any)
+
+const UserLearnLangAddPhraseRoute = UserLearnLangAddPhraseImport.update({
+  path: '/add-phrase',
+  getParentRoute: () => UserLearnLangRoute,
 } as any)
 
 const UserFriendsSearchUidRoute = UserFriendsSearchUidImport.update({
@@ -256,25 +250,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserImport
       parentRoute: typeof rootRoute
     }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardImport
-      parentRoute: typeof rootRoute
-    }
-    '/learn': {
-      id: '/learn'
-      path: '/learn'
-      fullPath: '/learn'
-      preLoaderRoute: typeof LearnImport
-      parentRoute: typeof rootRoute
-    }
     '/components': {
       id: '/components'
       path: '/components'
       fullPath: '/components'
       preLoaderRoute: typeof ComponentsLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardLazyImport
       parentRoute: typeof rootRoute
     }
     '/privacy-policy': {
@@ -326,27 +313,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserProfileImport
       parentRoute: typeof UserImport
     }
-    '/learn/$lang': {
-      id: '/learn/$lang'
-      path: '/$lang'
-      fullPath: '/learn/$lang'
-      preLoaderRoute: typeof LearnLangImport
-      parentRoute: typeof LearnImport
-    }
-    '/learn/add-deck': {
-      id: '/learn/add-deck'
-      path: '/add-deck'
-      fullPath: '/learn/add-deck'
-      preLoaderRoute: typeof LearnAddDeckImport
-      parentRoute: typeof LearnImport
-    }
-    '/learn/quick-search': {
-      id: '/learn/quick-search'
-      path: '/quick-search'
-      fullPath: '/learn/quick-search'
-      preLoaderRoute: typeof LearnQuickSearchImport
-      parentRoute: typeof LearnImport
-    }
     '/_auth/forgot-password': {
       id: '/_auth/forgot-password'
       path: '/forgot-password'
@@ -367,13 +333,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/signup'
       preLoaderRoute: typeof AuthSignupLazyImport
       parentRoute: typeof AuthImport
-    }
-    '/learn/': {
-      id: '/learn/'
-      path: '/'
-      fullPath: '/learn/'
-      preLoaderRoute: typeof LearnIndexImport
-      parentRoute: typeof LearnImport
     }
     '/_user/friends/$uid': {
       id: '/_user/friends/$uid'
@@ -396,6 +355,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserFriendsSearchImport
       parentRoute: typeof UserFriendsImport
     }
+    '/_user/learn/$lang': {
+      id: '/_user/learn/$lang'
+      path: '/learn/$lang'
+      fullPath: '/learn/$lang'
+      preLoaderRoute: typeof UserLearnLangImport
+      parentRoute: typeof UserImport
+    }
+    '/_user/learn/add-deck': {
+      id: '/_user/learn/add-deck'
+      path: '/learn/add-deck'
+      fullPath: '/learn/add-deck'
+      preLoaderRoute: typeof UserLearnAddDeckImport
+      parentRoute: typeof UserImport
+    }
+    '/_user/learn/quick-search': {
+      id: '/_user/learn/quick-search'
+      path: '/learn/quick-search'
+      fullPath: '/learn/quick-search'
+      preLoaderRoute: typeof UserLearnQuickSearchImport
+      parentRoute: typeof UserImport
+    }
     '/_user/profile/change-email': {
       id: '/_user/profile/change-email'
       path: '/change-email'
@@ -410,47 +390,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserProfileChangePasswordImport
       parentRoute: typeof UserProfileImport
     }
-    '/learn/$lang/add-phrase': {
-      id: '/learn/$lang/add-phrase'
-      path: '/add-phrase'
-      fullPath: '/learn/$lang/add-phrase'
-      preLoaderRoute: typeof LearnLangAddPhraseImport
-      parentRoute: typeof LearnLangImport
-    }
-    '/learn/$lang/deck-settings': {
-      id: '/learn/$lang/deck-settings'
-      path: '/deck-settings'
-      fullPath: '/learn/$lang/deck-settings'
-      preLoaderRoute: typeof LearnLangDeckSettingsImport
-      parentRoute: typeof LearnLangImport
-    }
-    '/learn/$lang/library': {
-      id: '/learn/$lang/library'
-      path: '/library'
-      fullPath: '/learn/$lang/library'
-      preLoaderRoute: typeof LearnLangLibraryImport
-      parentRoute: typeof LearnLangImport
-    }
-    '/learn/$lang/review': {
-      id: '/learn/$lang/review'
-      path: '/review'
-      fullPath: '/learn/$lang/review'
-      preLoaderRoute: typeof LearnLangReviewImport
-      parentRoute: typeof LearnLangImport
-    }
-    '/learn/$lang/search': {
-      id: '/learn/$lang/search'
-      path: '/search'
-      fullPath: '/learn/$lang/search'
-      preLoaderRoute: typeof LearnLangSearchImport
-      parentRoute: typeof LearnLangImport
-    }
     '/_user/friends/': {
       id: '/_user/friends/'
       path: '/'
       fullPath: '/friends/'
       preLoaderRoute: typeof UserFriendsIndexImport
       parentRoute: typeof UserFriendsImport
+    }
+    '/_user/learn/': {
+      id: '/_user/learn/'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof UserLearnIndexImport
+      parentRoute: typeof UserImport
     }
     '/_user/profile/': {
       id: '/_user/profile/'
@@ -459,19 +411,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserProfileIndexImport
       parentRoute: typeof UserProfileImport
     }
-    '/learn/$lang/': {
-      id: '/learn/$lang/'
-      path: '/'
-      fullPath: '/learn/$lang/'
-      preLoaderRoute: typeof LearnLangIndexImport
-      parentRoute: typeof LearnLangImport
-    }
     '/_user/friends/search/$uid': {
       id: '/_user/friends/search/$uid'
       path: '/$uid'
       fullPath: '/friends/search/$uid'
       preLoaderRoute: typeof UserFriendsSearchUidImport
       parentRoute: typeof UserFriendsSearchImport
+    }
+    '/_user/learn/$lang/add-phrase': {
+      id: '/_user/learn/$lang/add-phrase'
+      path: '/add-phrase'
+      fullPath: '/learn/$lang/add-phrase'
+      preLoaderRoute: typeof UserLearnLangAddPhraseImport
+      parentRoute: typeof UserLearnLangImport
+    }
+    '/_user/learn/$lang/deck-settings': {
+      id: '/_user/learn/$lang/deck-settings'
+      path: '/deck-settings'
+      fullPath: '/learn/$lang/deck-settings'
+      preLoaderRoute: typeof UserLearnLangDeckSettingsImport
+      parentRoute: typeof UserLearnLangImport
+    }
+    '/_user/learn/$lang/library': {
+      id: '/_user/learn/$lang/library'
+      path: '/library'
+      fullPath: '/learn/$lang/library'
+      preLoaderRoute: typeof UserLearnLangLibraryImport
+      parentRoute: typeof UserLearnLangImport
+    }
+    '/_user/learn/$lang/review': {
+      id: '/_user/learn/$lang/review'
+      path: '/review'
+      fullPath: '/learn/$lang/review'
+      preLoaderRoute: typeof UserLearnLangReviewImport
+      parentRoute: typeof UserLearnLangImport
+    }
+    '/_user/learn/$lang/search': {
+      id: '/_user/learn/$lang/search'
+      path: '/search'
+      fullPath: '/learn/$lang/search'
+      preLoaderRoute: typeof UserLearnLangSearchImport
+      parentRoute: typeof UserLearnLangImport
+    }
+    '/_user/learn/$lang/': {
+      id: '/_user/learn/$lang/'
+      path: '/'
+      fullPath: '/learn/$lang/'
+      preLoaderRoute: typeof UserLearnLangIndexImport
+      parentRoute: typeof UserLearnLangImport
     }
   }
 }
@@ -503,22 +490,20 @@ export const routeTree = rootRoute.addChildren({
       UserProfileChangePasswordRoute,
       UserProfileIndexRoute,
     }),
-  }),
-  DashboardRoute,
-  LearnRoute: LearnRoute.addChildren({
-    LearnLangRoute: LearnLangRoute.addChildren({
-      LearnLangAddPhraseRoute,
-      LearnLangDeckSettingsRoute,
-      LearnLangLibraryRoute,
-      LearnLangReviewRoute,
-      LearnLangSearchRoute,
-      LearnLangIndexRoute,
+    UserLearnLangRoute: UserLearnLangRoute.addChildren({
+      UserLearnLangAddPhraseRoute,
+      UserLearnLangDeckSettingsRoute,
+      UserLearnLangLibraryRoute,
+      UserLearnLangReviewRoute,
+      UserLearnLangSearchRoute,
+      UserLearnLangIndexRoute,
     }),
-    LearnAddDeckRoute,
-    LearnQuickSearchRoute,
-    LearnIndexRoute,
+    UserLearnAddDeckRoute,
+    UserLearnQuickSearchRoute,
+    UserLearnIndexRoute,
   }),
   ComponentsLazyRoute,
+  DashboardLazyRoute,
   PrivacyPolicyLazyRoute,
 })
 
@@ -533,9 +518,8 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/_auth",
         "/_user",
-        "/dashboard",
-        "/learn",
         "/components",
+        "/dashboard",
         "/privacy-policy"
       ]
     },
@@ -558,23 +542,18 @@ export const routeTree = rootRoute.addChildren({
         "/_user/accept-invite",
         "/_user/friends",
         "/_user/getting-started",
-        "/_user/profile"
-      ]
-    },
-    "/dashboard": {
-      "filePath": "dashboard.tsx"
-    },
-    "/learn": {
-      "filePath": "learn.tsx",
-      "children": [
-        "/learn/$lang",
-        "/learn/add-deck",
-        "/learn/quick-search",
-        "/learn/"
+        "/_user/profile",
+        "/_user/learn/$lang",
+        "/_user/learn/add-deck",
+        "/_user/learn/quick-search",
+        "/_user/learn/"
       ]
     },
     "/components": {
       "filePath": "components.lazy.tsx"
+    },
+    "/dashboard": {
+      "filePath": "dashboard.lazy.tsx"
     },
     "/privacy-policy": {
       "filePath": "privacy-policy.lazy.tsx"
@@ -614,26 +593,6 @@ export const routeTree = rootRoute.addChildren({
         "/_user/profile/"
       ]
     },
-    "/learn/$lang": {
-      "filePath": "learn/$lang.tsx",
-      "parent": "/learn",
-      "children": [
-        "/learn/$lang/add-phrase",
-        "/learn/$lang/deck-settings",
-        "/learn/$lang/library",
-        "/learn/$lang/review",
-        "/learn/$lang/search",
-        "/learn/$lang/"
-      ]
-    },
-    "/learn/add-deck": {
-      "filePath": "learn/add-deck.tsx",
-      "parent": "/learn"
-    },
-    "/learn/quick-search": {
-      "filePath": "learn/quick-search.tsx",
-      "parent": "/learn"
-    },
     "/_auth/forgot-password": {
       "filePath": "_auth/forgot-password.lazy.tsx",
       "parent": "/_auth"
@@ -645,10 +604,6 @@ export const routeTree = rootRoute.addChildren({
     "/_auth/signup": {
       "filePath": "_auth/signup.lazy.tsx",
       "parent": "/_auth"
-    },
-    "/learn/": {
-      "filePath": "learn/index.tsx",
-      "parent": "/learn"
     },
     "/_user/friends/$uid": {
       "filePath": "_user/friends.$uid.tsx",
@@ -665,6 +620,26 @@ export const routeTree = rootRoute.addChildren({
         "/_user/friends/search/$uid"
       ]
     },
+    "/_user/learn/$lang": {
+      "filePath": "_user/learn.$lang.tsx",
+      "parent": "/_user",
+      "children": [
+        "/_user/learn/$lang/add-phrase",
+        "/_user/learn/$lang/deck-settings",
+        "/_user/learn/$lang/library",
+        "/_user/learn/$lang/review",
+        "/_user/learn/$lang/search",
+        "/_user/learn/$lang/"
+      ]
+    },
+    "/_user/learn/add-deck": {
+      "filePath": "_user/learn.add-deck.tsx",
+      "parent": "/_user"
+    },
+    "/_user/learn/quick-search": {
+      "filePath": "_user/learn.quick-search.tsx",
+      "parent": "/_user"
+    },
     "/_user/profile/change-email": {
       "filePath": "_user/profile.change-email.tsx",
       "parent": "/_user/profile"
@@ -673,41 +648,45 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_user/profile.change-password.tsx",
       "parent": "/_user/profile"
     },
-    "/learn/$lang/add-phrase": {
-      "filePath": "learn/$lang/add-phrase.tsx",
-      "parent": "/learn/$lang"
-    },
-    "/learn/$lang/deck-settings": {
-      "filePath": "learn/$lang/deck-settings.tsx",
-      "parent": "/learn/$lang"
-    },
-    "/learn/$lang/library": {
-      "filePath": "learn/$lang/library.tsx",
-      "parent": "/learn/$lang"
-    },
-    "/learn/$lang/review": {
-      "filePath": "learn/$lang/review.tsx",
-      "parent": "/learn/$lang"
-    },
-    "/learn/$lang/search": {
-      "filePath": "learn/$lang/search.tsx",
-      "parent": "/learn/$lang"
-    },
     "/_user/friends/": {
       "filePath": "_user/friends.index.tsx",
       "parent": "/_user/friends"
+    },
+    "/_user/learn/": {
+      "filePath": "_user/learn.index.tsx",
+      "parent": "/_user"
     },
     "/_user/profile/": {
       "filePath": "_user/profile.index.tsx",
       "parent": "/_user/profile"
     },
-    "/learn/$lang/": {
-      "filePath": "learn/$lang/index.tsx",
-      "parent": "/learn/$lang"
-    },
     "/_user/friends/search/$uid": {
       "filePath": "_user/friends.search.$uid.tsx",
       "parent": "/_user/friends/search"
+    },
+    "/_user/learn/$lang/add-phrase": {
+      "filePath": "_user/learn.$lang.add-phrase.tsx",
+      "parent": "/_user/learn/$lang"
+    },
+    "/_user/learn/$lang/deck-settings": {
+      "filePath": "_user/learn.$lang.deck-settings.tsx",
+      "parent": "/_user/learn/$lang"
+    },
+    "/_user/learn/$lang/library": {
+      "filePath": "_user/learn.$lang.library.tsx",
+      "parent": "/_user/learn/$lang"
+    },
+    "/_user/learn/$lang/review": {
+      "filePath": "_user/learn.$lang.review.tsx",
+      "parent": "/_user/learn/$lang"
+    },
+    "/_user/learn/$lang/search": {
+      "filePath": "_user/learn.$lang.search.tsx",
+      "parent": "/_user/learn/$lang"
+    },
+    "/_user/learn/$lang/": {
+      "filePath": "_user/learn.$lang.index.tsx",
+      "parent": "/_user/learn/$lang"
     }
   }
 }

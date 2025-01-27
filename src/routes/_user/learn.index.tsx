@@ -4,14 +4,11 @@ import { Loader } from '@/components/ui/loader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import type { NavbarData } from '@/types/main'
-import { profileQuery, useProfile } from '@/lib/use-profile'
+import { useProfile } from '@/lib/use-profile'
 import { ago } from '@/lib/dayjs'
 
-export const Route = createFileRoute('/learn/')({
-	loader: async ({ context: { queryClient, auth } }) => {
-		if (auth.userId)
-			// this line is making sure the entire route tree awaits till we have the profile
-			await queryClient.ensureQueryData(profileQuery(auth.userId))
+export const Route = createFileRoute('/_user/learn/')({
+	loader: () => {
 		return {
 			navbar: {
 				title: `Learning Home`,

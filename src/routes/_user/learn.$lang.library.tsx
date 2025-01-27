@@ -15,7 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Brain, Carrot, LucideIcon, Plus, TrendingUp } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button-variants'
 
-export const Route = createFileRoute('/learn/$lang/library')({
+export const Route = createFileRoute('/_user/learn/$lang/library')({
 	component: DeckLibraryPage,
 })
 
