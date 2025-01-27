@@ -7,21 +7,8 @@ import {
 import type { QueryClient } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import { AuthState } from '@/components/auth-context'
-import {
-	SidebarInset,
-	SidebarProvider,
-	SidebarTrigger,
-} from '@/components/ui/sidebar'
-import { AppSidebar } from '@/components/app-sidebar'
-import { Separator } from '@/components/ui/separator'
-import {
-	Breadcrumb,
-	BreadcrumbItem,
-	BreadcrumbLink,
-	BreadcrumbList,
-	BreadcrumbPage,
-	BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
+import { SidebarProvider } from '@/components/ui/sidebar'
+
 import Callout from '@/components/ui/callout'
 import { buttonVariants } from '@/components/ui/button-variants'
 import { OctagonMinus } from 'lucide-react'
