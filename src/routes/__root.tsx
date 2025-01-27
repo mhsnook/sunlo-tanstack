@@ -2,14 +2,32 @@ import {
 	createRootRouteWithContext,
 	Link,
 	Outlet,
+	useNavigate,
 } from '@tanstack/react-router'
 import type { QueryClient } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import { AuthState } from '@/components/auth-context'
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import {
+	SidebarInset,
+	SidebarProvider,
+	SidebarTrigger,
+} from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/app-sidebar'
 import { Separator } from '@/components/ui/separator'
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
+import Callout from '@/components/ui/callout'
+import { buttonVariants } from '@/components/ui/button-variants'
+import { OctagonMinus } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { useCallback } from 'react'
+import { Badge } from '@/components/ui/badge'
 
 interface MyRouterContext {
 	auth: AuthState
@@ -18,14 +36,7 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	component: RootComponent,
-	notFoundComponent: () => {
-		return (
-			<div>
-				<p>This is the notFoundComponent configured on root route</p>
-				<Link to="/">Start Over</Link>
-			</div>
-		)
-	},
+	notFoundComponent: NotFoundComponent,
 })
 
 function RootComponent() {
@@ -58,5 +69,45 @@ function RootComponent() {
 			</div>
 			<Toaster position="bottom-center" />
 		</SidebarProvider>
+	)
+}
+
+function NotFoundComponent() {
+	const navigate = useNavigate()
+	const goBack = useCallback(() => {
+		void navigate({ to: '..' })
+	}, [navigate])
+	return (
+		<div className="flex justify-center items-center w-full h-full py-10">
+			<Callout variant="problem">
+				<Badge variant="destructive" className="p-2">
+					<OctagonMinus />
+				</Badge>
+				<div className="flex flex-col gap-4">
+					<h1 className="text-2xl">404: Page not found</h1>
+					<p>We did not find a page matching that URL</p>
+					<div className="flex flex-row flex-wrap gap-2">
+						<Button onClick={goBack} variant="outline">
+							Go Back
+						</Button>
+						<Link to="/" className={buttonVariants({ variant: 'outline' })}>
+							Go home
+						</Link>
+						<Link
+							to="/learn"
+							className={buttonVariants({ variant: 'outline' })}
+						>
+							Learning dashboard
+						</Link>
+						<Link
+							to="/profile"
+							className={buttonVariants({ variant: 'outline' })}
+						>
+							Your profile
+						</Link>
+					</div>
+				</div>
+			</Callout>
+		</div>
 	)
 }
