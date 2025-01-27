@@ -21,7 +21,7 @@ interface SearchParams {
 	text?: string
 }
 
-export const Route = createFileRoute('/learn/$lang/search')({
+export const Route = createFileRoute('/_user/learn/$lang/search')({
 	validateSearch: (search: Record<string, unknown>): SearchParams => {
 		return {
 			text: (search.text as string) || '',

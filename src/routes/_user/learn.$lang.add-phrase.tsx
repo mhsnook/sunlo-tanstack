@@ -30,7 +30,7 @@ interface SearchParams {
 	text?: string
 }
 
-export const Route = createFileRoute('/learn/$lang/add-phrase')({
+export const Route = createFileRoute('/_user/learn/$lang/add-phrase')({
 	validateSearch: (search: Record<string, unknown>): SearchParams => {
 		return {
 			text: (search?.text as string) ?? '',
