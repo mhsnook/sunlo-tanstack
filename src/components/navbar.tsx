@@ -33,7 +33,7 @@ export default function Navbar() {
 
 	return (
 		<nav className="flex items-center justify-between py-3 px-[1cqw] mb-4 border-b">
-			<div className="flex items-center gap-[1cqw]">
+			<div className="flex items-center gap-[1cqw] h-12">
 				<SidebarTrigger />
 				<Button variant="ghost" size="icon-sm" onClick={onBackClick}>
 					<ChevronLeft />
