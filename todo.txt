@@ -159,6 +159,7 @@ MOCKS / Incompletes
 1. find-a-friend may be accessed without a login, so we should make sure the status buttons
 		can react to that scenario and trigger a signup/login when needed
 
+
 COMPONENTS (ShadCN/Radix)
 1. ✅ Add a Components page to keep track of / showcase all components
 1. ✅ Removing daisyUI
@@ -176,10 +177,14 @@ COMPONENTS (ShadCN/Radix)
 	- Go to all the disabled buttons and add this spinner
 1. Add the "suggest edits to this card"
 1. replace my multi-language select with https://craft.mxkaske.dev/post/fancy-multi-select
+1. Replace the sidebar with sidebar
+1. Replace the navbar with a shadcn navbar with breadcrumbs
+
 
 PRIMARY CARD INTERACTIONS
 1. bring over the new structure for relations
 1. ✅ make the "add to deck" function work
+
 
 AUTH
 1. ✅ add AuthContext -- so far I've just mocked it with useQuery
@@ -196,6 +201,7 @@ NAVIGATION
 1. ✅ probably set it to only active-match exact route matches
 1. ✅ don't forget to add the Navbar
 1. ✅ add context menus (links) to all the pages and scaffold pages
+
 
 UI POLISH
 1. Add activity graph to deck summaries :)) https://app.radicle.xyz/nodes/seed.radicle.xyz/rad:z4V1sjrXqjvFdnCUbxPFqd5p4DtH5/tree/src/components/ActivityDiagram.svelte
