@@ -1,4 +1,3 @@
-import Navbar from '@/components/navbar'
 import { NavbarData } from '@/types/main'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 import { relationsQuery } from '@/lib/friends'
@@ -53,12 +52,5 @@ export const Route = createFileRoute('/_user/friends')({
 })
 
 function FriendsPage() {
-	return (
-		<div className="w-app @container">
-			<Navbar />
-			<div className="px-1 space-y-4 pb-10">
-				<Outlet />
-			</div>
-		</div>
-	)
+	return <Outlet />
 }

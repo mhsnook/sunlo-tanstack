@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createLazyFileRoute } from '@tanstack/react-router'
 import { AppSidebar } from '@/components/app-sidebar'
 import {
 	Breadcrumb,
@@ -22,7 +22,7 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 
-export const Route = createFileRoute('/dashboard')({
+export const Route = createLazyFileRoute('/dashboard')({
 	component: Page,
 })
 

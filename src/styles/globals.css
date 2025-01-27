@@ -80,9 +80,6 @@
 		padding-top: env(safe-area-inset-top);
 		padding-bottom: env(safe-area-inset-bottom);
 	}
-	main {
-		@apply px-1 pb-10 pt-2;
-	}
 }
 
 @layer components {

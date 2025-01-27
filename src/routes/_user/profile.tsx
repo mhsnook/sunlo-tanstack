@@ -1,4 +1,3 @@
-import Navbar from '@/components/navbar'
 import { NavbarData } from '@/types/main'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 import {
@@ -48,12 +47,5 @@ export const Route = createFileRoute('/_user/profile')({
 })
 
 function ProfilePage() {
-	return (
-		<div className="w-app @container">
-			<Navbar />
-			<div className="px-1 space-y-6 pb-10">
-				<Outlet />
-			</div>
-		</div>
-	)
+	return <Outlet />
 }
