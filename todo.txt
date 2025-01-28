@@ -93,7 +93,8 @@ EPIC OF SIGNUPS AND GETTING STARTED AND CONNECTING FRIENDS
 1.	✅ destructive buttons like "unfriend" and "cancel invite" and "decline invitation" should all have dialog confirmations
 
 ISSUES
-1. malformed link like /learn/undefined should 404, or at least say 'do you wanna start learning this?'
+1. malformed link like /learn/undefined should 404, or at least say 'do you wanna start learning this?' 
+		- at least we should validate this parameter has length === 3 to even match it
 1. When you try to sign up using existing creds you get an error and then get logged in. We
 	should handle this. (inspect and special-case the error before throwing, and toast accordingly)
 1. why is class s-link not working correctly in the "find a friend" search empty results section? (have manually added a border-b, like a barbarian)
@@ -132,6 +133,7 @@ MOCKS / Incompletes
 		✅ Friends activity ?? (maybe doesn't belong here)
 			- wire it up
 		- move the Quick Search link into the navbar??
+1. $lang/library needs a search bar added to filter in realtime
 1. ✅ The "new friend signup" screens -- what are we doing here? selecting which deck(s) we're helping with... and then what?
 	1. How does the friend mode sidebar look? is it the same? are some people Learners _and_ Helpers?
 			(ideally, yes?) should we be switching "modes" like one context switcher that has options for
@@ -141,7 +143,6 @@ MOCKS / Incompletes
 	1. ✅ $lang/library needs the "trending/popular" section built
 			- wire it up to real data
 	1. ✅ $lang/library needs some quick filters
-	1. $lang/library needs a search bar added to filter in realtime
 	1. deeper interactions with cards:
 			- when we open these accordion things, should we open a whole dialog? or have a button that opens the whole dialog?
 			- $lang/library/phrase/$pid perhaps should be built which permalinks to the same thing as goes in the dialog
@@ -177,7 +178,7 @@ COMPONENTS (ShadCN/Radix)
 	- Go to all the disabled buttons and add this spinner
 1. Add the "suggest edits to this card"
 1. replace my multi-language select with https://craft.mxkaske.dev/post/fancy-multi-select
-1. Replace the sidebar with sidebar
+1. ✅ Replace the sidebar with sidebar
 1. Replace the navbar with a shadcn navbar with breadcrumbs
 
 
