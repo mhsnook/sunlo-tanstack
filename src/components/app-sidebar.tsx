@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/sidebar'
 import { useParams } from '@tanstack/react-router'
 
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { lang } = useParams({ strict: false })
 	return (

@@ -62,11 +62,10 @@ export default function Navbar() {
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end" className="w-56">
-						{data?.contextMenu.map(({ to, params, name, Icon }, index) => (
+						{data?.contextMenu.map(({ link, name, Icon }, index) => (
 							<DropdownMenuItem key={index}>
 								<Link
-									to={to as string}
-									params={params}
+									{...link}
 									className="w-full flex flex-row gap-2 justify-content-center"
 								>
 									<Icon className="size-[1.25rem]" />

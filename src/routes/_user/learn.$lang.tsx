@@ -37,37 +37,49 @@ export const Route = createFileRoute('/_user/learn/$lang')({
 				contextMenu: [
 					{
 						name: 'Quick search',
-						to: '/learn/$lang/search',
-						params: { lang },
+						link: {
+							to: '/learn/$lang/search',
+							params: { lang },
+						},
 						Icon: Search,
 					},
 					{
 						name: 'Start a review',
-						to: '/learn/$lang/review',
-						params: { lang },
+						link: {
+							to: '/learn/$lang/review',
+							params: { lang },
+						},
 						Icon: Rocket,
 					},
 					{
 						name: `Browse ${languages[lang]} library`,
-						to: '/learn/$lang/library',
-						params: { lang },
+						link: {
+							to: '/learn/$lang/library',
+							params: { lang },
+						},
 						Icon: BookCopy,
 					},
 					{
 						name: 'Add a phrase',
-						to: '/learn/$lang/add-phrase',
-						params: { lang },
+						link: {
+							to: '/learn/$lang/add-phrase',
+							params: { lang },
+						},
 						Icon: NotebookPen,
 					},
 					{
 						name: 'Deck settings',
-						to: '/learn/$lang/deck-settings',
-						params: { lang },
+						link: {
+							to: '/learn/$lang/deck-settings',
+							params: { lang },
+						},
 						Icon: Settings,
 					},
 					{
 						name: 'Friends and contacts',
-						to: '/friends',
+						link: {
+							to: '/friends',
+						},
 						Icon: Contact,
 					},
 				],
@@ -77,9 +89,5 @@ export const Route = createFileRoute('/_user/learn/$lang')({
 })
 
 function LanguageLayout() {
-	return (
-		<main className="mx-auto">
-			<Outlet />
-		</main>
-	)
+	return <Outlet />
 }

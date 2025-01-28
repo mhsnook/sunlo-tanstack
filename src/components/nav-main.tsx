@@ -3,9 +3,7 @@ import {
 	ChevronRight,
 	Contact,
 	FolderPlus,
-	GalleryHorizontal,
 	GalleryHorizontalEnd,
-	Handshake,
 	HeartHandshake,
 	NotebookPen,
 	Rocket,
@@ -14,7 +12,6 @@ import {
 	Send,
 	Settings,
 } from 'lucide-react'
-
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -53,7 +50,7 @@ const menus = (lang: string): Array<MenuType> => {
 					link: {
 						to: '/friends/search',
 					},
-					Icon: Handshake,
+					Icon: Search,
 				},
 				{
 					name: 'Invite to Sunlo',

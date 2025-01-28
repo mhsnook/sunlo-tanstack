@@ -22,28 +22,38 @@ export const Route = createFileRoute('/_user/friends')({
 				contextMenu: [
 					{
 						name: 'Friends and contacts',
-						to: '/friends',
 						Icon: Contact,
+						link: {
+							to: '/friends',
+						},
 					},
 					{
 						name: 'Search profiles',
-						to: '/friends/search',
 						Icon: Handshake,
+						link: {
+							to: '/friends/search',
+						},
 					},
 					{
 						name: 'Invite to Sunlo',
-						to: '/friends/invite',
 						Icon: Send,
+						link: {
+							to: '/friends/invite',
+						},
 					},
 					{
 						name: 'Edit profile',
-						to: '/profile',
 						Icon: NotebookPen,
+						link: {
+							to: '/profile',
+						},
 					},
 					{
 						name: 'Start a new language',
-						to: '/learn/add-deck',
 						Icon: FolderPlus,
+						link: {
+							to: '/learn/add-deck',
+						},
 					},
 				],
 			} as NavbarData,

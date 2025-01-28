@@ -33,7 +33,10 @@ export function AppSidebarLayout({ children }: { children: ReactNode }) {
 						</BreadcrumbList>
 					</Breadcrumb>
 				</header>
-				<div id="app-sidebar-layout-outlet" className="w-app @container">
+				<div
+					id="app-sidebar-layout-outlet"
+					className="w-app @container overflow-y-auto pb-6"
+				>
 					{children}
 				</div>
 			</SidebarInset>

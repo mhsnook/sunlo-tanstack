@@ -36,20 +36,26 @@ export const Route = createFileRoute('/_user/learn/$lang/review')({
 				contextMenu: [
 					{
 						name: `Search ${languages[lang]}`,
-						to: '/learn/$lang/search',
-						params: { lang },
+						link: {
+							to: '/learn/$lang/search',
+							params: { lang },
+						},
 						Icon: Search,
 					},
 					{
 						name: 'Add a phrase',
-						to: '/learn/$lang/add-phrase',
-						params: { lang },
+						link: {
+							to: '/learn/$lang/add-phrase',
+							params: { lang },
+						},
 						Icon: SquarePlus,
 					},
 					{
 						name: 'Deck settings',
-						to: '/learn/$lang/deck-settings',
-						params: { lang },
+						lang: {
+							to: '/learn/$lang/deck-settings',
+							params: { lang },
+						},
 						Icon: Settings,
 					},
 				],
