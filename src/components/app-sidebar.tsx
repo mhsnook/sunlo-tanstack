@@ -163,7 +163,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				<DeckSwitcher lang={lang} />
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain items={data.navMain} />
+				<NavMain lang={lang} />
 				<NavSite />
 			</SidebarContent>
 			<SidebarFooter>

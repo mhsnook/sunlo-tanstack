@@ -1,4 +1,4 @@
-import { ChevronsUpDown, GalleryVerticalEnd, Plus } from 'lucide-react'
+import { ChevronsUpDown, GalleryHorizontalEnd, Plus } from 'lucide-react'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -65,7 +65,7 @@ export function DeckSwitcher({ lang }: { lang: string }) {
 								className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 							>
 								<div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-									<GalleryVerticalEnd />
+									<GalleryHorizontalEnd />
 								</div>
 								<div className="grid flex-1 text-left text-sm leading-tight">
 									<span className="truncate font-semibold">
