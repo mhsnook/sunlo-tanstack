@@ -1,6 +1,4 @@
-import * as React from 'react'
-import { ChevronsUpDown, Plus } from 'lucide-react'
-
+import { ChevronsUpDown, GalleryVerticalEnd, Plus } from 'lucide-react'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -16,18 +14,45 @@ import {
 	SidebarMenuItem,
 	useSidebar,
 } from '@/components/ui/sidebar'
+import { useProfile } from '@/lib/use-profile'
+import languages from '@/lib/languages'
+import Callout from './ui/callout'
+import { Button } from './ui/button'
+import { Link } from '@tanstack/react-router'
 
-export function TeamSwitcher({
-	teams,
-}: {
-	teams: {
-		name: string
-		logo: React.ElementType
-		plan: string
-	}[]
-}) {
+const useDeckMenuData = () => {
+	const { data, isPending, error } = useProfile()
+	if (isPending) return undefined
+	if (error) throw Error(error.message)
+	if (!data?.deckLanguages.length) return null
+	return data.deckLanguages?.map((lang) => ({
+		lang,
+		name: languages[lang],
+		to: `/learn/$lang`,
+		badge: '0' + data.decksMap[lang].cards_active,
+		params: { lang },
+	}))
+}
+
+function NoDecks() {
+	return (
+		<Callout>
+			<div>
+				<p>It seems like you're not learning any languages yet! Get started.</p>
+				<Button className="w-full mt-2" asChild>
+					<Link to="/learn/add-deck">Start Learning</Link>
+				</Button>
+			</div>
+		</Callout>
+	)
+}
+
+export function DeckSwitcher({ lang }: { lang: string }) {
 	const { isMobile } = useSidebar()
-	const [activeTeam, setActiveTeam] = React.useState(teams[0])
+	const deckMenuData = useDeckMenuData()
+
+	if (!lang) return null
+	if (!deckMenuData) return null
 
 	return (
 		<SidebarMenu>
@@ -39,13 +64,12 @@ export function TeamSwitcher({
 							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 						>
 							<div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-								<activeTeam.logo className="size-4" />
+								<GalleryVerticalEnd />
 							</div>
 							<div className="grid flex-1 text-left text-sm leading-tight">
 								<span className="truncate font-semibold">
-									{activeTeam.name}
+									{languages[lang]}
 								</span>
-								<span className="truncate text-xs">{activeTeam.plan}</span>
 							</div>
 							<ChevronsUpDown className="ml-auto" />
 						</SidebarMenuButton>
@@ -57,19 +81,17 @@ export function TeamSwitcher({
 						sideOffset={4}
 					>
 						<DropdownMenuLabel className="text-xs text-muted-foreground">
-							Teams
+							Decks
 						</DropdownMenuLabel>
-						{teams.map((team, index) => (
-							<DropdownMenuItem
-								key={team.name}
-								onClick={() => setActiveTeam(team)}
-								className="gap-2 p-2"
-							>
-								<div className="flex size-6 items-center justify-center rounded-sm border">
-									<team.logo className="size-4 shrink-0" />
-								</div>
-								{team.name}
-								<DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+						{deckMenuData?.map((deck, index) => (
+							<DropdownMenuItem key={deck.name} asChild className="gap-2 p-2">
+								<Link>
+									<div className="flex size-6 items-center justify-center rounded-sm border">
+										{deck.badge}
+									</div>
+									{deck.name}
+									<DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+								</Link>
 							</DropdownMenuItem>
 						))}
 						<DropdownMenuSeparator />
@@ -77,7 +99,7 @@ export function TeamSwitcher({
 							<div className="flex size-6 items-center justify-center rounded-md border bg-background">
 								<Plus className="size-4" />
 							</div>
-							<div className="font-medium text-muted-foreground">Add team</div>
+							<div className="font-medium text-muted-foreground">New deck</div>
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>

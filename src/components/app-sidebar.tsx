@@ -15,7 +15,7 @@ import {
 import { NavMain } from './nav-main'
 import { NavProjects } from './nav-projects'
 import { NavUser } from './nav-user'
-import { TeamSwitcher } from './team-switcher'
+import { DeckSwitcher } from './deck-switcher'
 import {
 	Sidebar,
 	SidebarContent,
@@ -24,11 +24,7 @@ import {
 	SidebarRail,
 } from '@/components/ui/sidebar'
 import { MenuType } from '@/types/main'
-import { useProfile } from '@/lib/use-profile'
-import languages from '@/lib/languages'
-import Callout from './ui/callout'
-import { Button } from './ui/button'
-import { Link } from '@tanstack/react-router'
+import { useParams } from '@tanstack/react-router'
 
 // This is real data:
 const staticMenu: MenuType = {
@@ -184,41 +180,12 @@ const data = {
 	],
 }
 
-const useDeckMenu = () => {
-	const { data } = useProfile()
-	if (!data) return undefined
-	if (!data.deckLanguages.length) return null
-	return {
-		name: 'Learning decks',
-		to: '/learn',
-		links: data.deckLanguages?.map((lang) => {
-			return {
-				name: languages[lang],
-				to: `/learn/$lang`,
-				params: { lang },
-			}
-		}),
-	}
-}
-function NoDecks() {
-	return (
-		<Callout>
-			<div>
-				<p>It seems like you're not learning any languages yet! Get started.</p>
-				<Button className="w-full mt-2" asChild>
-					<Link to="/learn/add-deck">Start Learning</Link>
-				</Button>
-			</div>
-		</Callout>
-	)
-}
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	const deckData = useDeckMenu()
+	const { lang } = useParams({ strict: false })
 	return (
 		<Sidebar collapsible="icon" variant="floating" {...props}>
 			<SidebarHeader>
-				<TeamSwitcher teams={data.teams} />
+				<DeckSwitcher lang={lang} />
 			</SidebarHeader>
 			<SidebarContent>
 				<NavMain items={data.navMain} />

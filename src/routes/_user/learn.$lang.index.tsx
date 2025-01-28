@@ -71,9 +71,9 @@ function FriendsSection({ lang }: LangOnlyComponentProps) {
 			<CardContent>
 				<p>Recent activity in this deck</p>
 				<ul className="list-disc ml-4 mb-4">
-					<li>mahesh (see recent activity or whatever)</li>
+					<li>somefriend (see recent activity or whatever)</li>
 					<li>a-money (you have a new phrase from them)</li>
-					<li>j-bhai (nothing special actually)</li>
+					<li>j-town (nothing special actually)</li>
 				</ul>
 				<div className="flex flex-row gap-2 flex-wrap">
 					<Link
