@@ -31,28 +31,6 @@ export const Route = createFileRoute('/_user')({
 				title: `Learning Home`,
 				subtitle: `Which deck are we studying today?`,
 				Icon: Home,
-				contextMenu: [
-					{
-						name: 'Learning center',
-						to: '/learn',
-						Icon: BookHeart,
-					},
-					{
-						name: 'New Deck',
-						to: '/learn/add-deck',
-						Icon: FolderPlus,
-					},
-					{
-						name: 'Quick search',
-						to: '/learn/quick-search',
-						Icon: Search,
-					},
-					{
-						name: 'Friends',
-						to: '/friends',
-						Icon: Contact,
-					},
-				],
 			} as NavbarData,
 		}
 	},
