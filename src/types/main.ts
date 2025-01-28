@@ -19,13 +19,15 @@ export type SelectOption = { value: string; label: string }
 // Don't keep using these. use the framework's types for links and routes
 export type LinkType = {
 	name: string
-	to: string
-	params?: Route['types']['params']
+	link?: {
+		to: string
+		params?: Route['types']['params']
+	}
 	// TODO enum these for the caller
 	Icon?: LucideIcon
 }
 export type MenuType = LinkType & {
-	links: Array<LinkType>
+	items: Array<LinkType>
 }
 
 export type NavbarData = {

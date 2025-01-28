@@ -12,22 +12,30 @@ import { Link } from '@tanstack/react-router'
 const staticMenu: Array<LinkType> = [
 	{
 		name: 'Home',
-		to: '/',
+		link: {
+			to: '/',
+		},
 		Icon: Home,
 	},
 	{
 		name: 'Log in',
-		to: '/login',
+		link: {
+			to: '/login',
+		},
 		Icon: LogIn,
 	},
 	{
 		name: 'Sign up',
-		to: '/signup',
+		link: {
+			to: '/signup',
+		},
 		Icon: UserPlus,
 	},
 	{
-		name: 'Privacy Policy',
-		to: '/privacy-policy',
+		name: 'Privacy policy',
+		link: {
+			to: '/privacy-policy',
+		},
 		Icon: FileText,
 	},
 ]
@@ -38,9 +46,9 @@ export function NavSite() {
 			<SidebarGroupLabel>Site</SidebarGroupLabel>
 			<SidebarMenu>
 				{staticMenu.map((item) => (
-					<SidebarMenuItem key={item.to}>
+					<SidebarMenuItem key={item.link.to}>
 						<SidebarMenuButton asChild>
-							<Link to={item.to}>
+							<Link to={item.link.to}>
 								<item.Icon />
 								<span>{item.name}</span>
 							</Link>

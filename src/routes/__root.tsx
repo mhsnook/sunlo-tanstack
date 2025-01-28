@@ -29,7 +29,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 function RootComponent() {
 	return (
 		<SidebarProvider>
-			<div className="mx-auto w-full max-w-[960px] @container">
+			<div className="mx-auto w-full max-w-[960px] @container ps-2 pe-2 md:ps-0">
 				<Outlet />
 			</div>
 			<Toaster position="bottom-center" />

@@ -1,4 +1,19 @@
-import { ChevronRight, type LucideIcon } from 'lucide-react'
+import {
+	BookCopy,
+	ChevronRight,
+	Contact,
+	FolderPlus,
+	GalleryHorizontal,
+	GalleryHorizontalEnd,
+	Handshake,
+	HeartHandshake,
+	NotebookPen,
+	Rocket,
+	School,
+	Search,
+	Send,
+	Settings,
+} from 'lucide-react'
 
 import {
 	Collapsible,
@@ -15,48 +30,142 @@ import {
 	SidebarMenuSubButton,
 	SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
+import { MenuType } from '@/types/main'
+import languages from '@/lib/languages'
+import { Link, useRouterState } from '@tanstack/react-router'
 
-export function NavMain({
-	items,
-}: {
-	items: {
-		title: string
-		url: string
-		icon?: LucideIcon
-		isActive?: boolean
-		items?: {
-			title: string
-			url: string
-		}[]
-	}[]
-}) {
+const menus = (lang: string): Array<MenuType> => {
+	let result: Array<MenuType> = [
+		{
+			name: 'Friends',
+			link: { to: '/friends' },
+			Icon: HeartHandshake,
+			items: [
+				{
+					name: 'Friends home',
+					link: {
+						to: '/friends',
+					},
+					Icon: Contact,
+				},
+				{
+					name: 'Search profiles',
+					link: {
+						to: '/friends/search',
+					},
+					Icon: Handshake,
+				},
+				{
+					name: 'Invite to Sunlo',
+					link: {
+						to: '/friends/invite',
+					},
+					Icon: Send,
+				},
+				{
+					name: 'Start a new language',
+					link: {
+						to: '/learn/add-deck',
+					},
+					Icon: FolderPlus,
+				},
+			],
+		},
+	]
+	if (lang)
+		result.unshift({
+			name: 'Deck navigation',
+			link: { to: '/learn' },
+			Icon: GalleryHorizontalEnd,
+			items: [
+				{
+					name: 'Start a review',
+					Icon: Rocket,
+					link: {
+						to: '/learn/$lang/review',
+						params: { lang },
+					},
+				},
+				{
+					name: 'Quick search',
+					Icon: Search,
+					link: {
+						to: '/learn/$lang/search',
+						params: { lang },
+					},
+				},
+				{
+					name: `Browse ${languages[lang]} library`,
+					Icon: BookCopy,
+					link: {
+						to: '/learn/$lang/library',
+						params: { lang },
+					},
+				},
+				{
+					name: 'Add a phrase',
+					Icon: NotebookPen,
+					link: {
+						to: '/learn/$lang/add-phrase',
+						params: { lang },
+					},
+				},
+				{
+					name: 'Deck settings',
+					Icon: Settings,
+					link: {
+						to: '/learn/$lang/deck-settings',
+						params: { lang },
+					},
+				},
+			],
+		})
+	return result
+}
+export function NavMain({ lang }: { lang: string }) {
+	const menusData = menus(lang)
+	const {
+		location: { pathname },
+	} = useRouterState()
+	const routeTreeSegment = pathname.split('/')[1]
+
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel>Platform</SidebarGroupLabel>
+			<SidebarGroupLabel>Menu</SidebarGroupLabel>
 			<SidebarMenu>
-				{items.map((item) => (
+				<SidebarMenuItem>
+					<SidebarMenuButton asChild>
+						<Link to="/learn">
+							<School />
+							<span>Learning center</span>
+						</Link>
+					</SidebarMenuButton>
+				</SidebarMenuItem>
+
+				{menusData.map((item) => (
 					<Collapsible
-						key={item.title}
+						key={item.name}
 						asChild
-						defaultOpen={item.isActive}
+						defaultOpen={routeTreeSegment === item.link.to.split('/')[1]}
 						className="group/collapsible"
 					>
 						<SidebarMenuItem>
 							<CollapsibleTrigger asChild>
-								<SidebarMenuButton tooltip={item.title}>
-									{item.icon && <item.icon />}
-									<span>{item.title}</span>
+								<SidebarMenuButton tooltip={item.name}>
+									{item.Icon && <item.Icon />}
+									<span>{item.name}</span>
 									<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
 								</SidebarMenuButton>
 							</CollapsibleTrigger>
 							<CollapsibleContent>
 								<SidebarMenuSub>
 									{item.items?.map((subItem) => (
-										<SidebarMenuSubItem key={subItem.title}>
+										<SidebarMenuSubItem key={subItem.name}>
 											<SidebarMenuSubButton asChild>
-												<a href={subItem.url}>
-													<span>{subItem.title}</span>
-												</a>
+												<Link {...subItem.link}>
+													<subItem.Icon />
+													<span>{subItem.name}</span>
+												</Link>
 											</SidebarMenuSubButton>
 										</SidebarMenuSubItem>
 									))}
