@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 
 import { NavMain } from './nav-main'
-import { NavProjects } from './nav-projects'
+import { NavSite } from './nav-site'
 import { NavUser } from './nav-user'
 import { DeckSwitcher } from './deck-switcher'
 import {
@@ -23,32 +23,7 @@ import {
 	SidebarHeader,
 	SidebarRail,
 } from '@/components/ui/sidebar'
-import { MenuType } from '@/types/main'
 import { useParams } from '@tanstack/react-router'
-
-// This is real data:
-const staticMenu: MenuType = {
-	name: 'Menu',
-	to: '/',
-	links: [
-		{
-			name: 'Home',
-			to: '/',
-		},
-		{
-			name: 'Log in',
-			to: '/login',
-		},
-		{
-			name: 'Sign up',
-			to: '/signup',
-		},
-		{
-			name: 'Privacy Policy',
-			to: '/privacy-policy',
-		},
-	],
-}
 
 // This is sample data.
 const data = {
@@ -189,7 +164,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 			<SidebarContent>
 				<NavMain items={data.navMain} />
-				<NavProjects projects={data.projects} />
+				<NavSite />
 			</SidebarContent>
 			<SidebarFooter>
 				<NavUser user={data.user} />
