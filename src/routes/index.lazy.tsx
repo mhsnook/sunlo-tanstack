@@ -30,7 +30,7 @@ export const Route = createLazyFileRoute('/')({
 const className = 'mr-2 h-6 w-4'
 
 const footerNavigationItems = [
-	<a href="https://github.com/michaelsnook/sunlo-nextjs">
+	<a href="https://github.com/mhsnook/sunlo-tanstack">
 		<Code className={className} />
 		GitHub
 	</a>,
