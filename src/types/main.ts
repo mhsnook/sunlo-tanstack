@@ -19,6 +19,7 @@ export type SelectOption = { value: string; label: string }
 // Don't keep using these. use the framework's types for links and routes
 export type LinkType = {
 	name: string
+	title?: string
 	link?: {
 		to: string
 		params?: Route['types']['params']

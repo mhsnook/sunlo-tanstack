@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 import { z } from 'zod'
 
 import { useDebounce, usePrevious } from '@uidotdev/usehooks'
-import { Contact, Mail, Search } from 'lucide-react'
+import { Contact, Search } from 'lucide-react'
 import { Loader } from '@/components/ui/loader'
 
 import { Button } from '@/components/ui/button'
@@ -138,19 +138,7 @@ export default function SearchProfiles() {
 	return (
 		<Card className="min-h-[21rem]">
 			<CardHeader>
-				<CardTitle>
-					<div className="flex flex-row justify-between items-center">
-						<span>Search for friends</span>
-						<Link
-							to="/friends/invite"
-							aria-disabled="true"
-							className={buttonVariants({ size: 'badge', variant: 'outline' })}
-						>
-							<Mail className="h-3 w-3" />
-							<span className="me-1">Invite</span>
-						</Link>
-					</div>
-				</CardTitle>
+				<CardTitle>Search for friends</CardTitle>
 				<CardDescription>
 					Search to find friends on Sunlo, and connect.
 				</CardDescription>

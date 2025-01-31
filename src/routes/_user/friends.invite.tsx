@@ -1,6 +1,6 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
-import { Mail, Phone, Search } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button-variants'
 import {
 	Card,
@@ -21,22 +21,7 @@ function InviteFriendPage() {
 		<main className="flex flex-col gap-6">
 			<Card>
 				<CardHeader>
-					<CardTitle>
-						<div className="flex flex-row justify-between items-center">
-							<span>Invite a Friend</span>
-							<Link
-								to="/friends/search"
-								aria-disabled="true"
-								className={buttonVariants({
-									size: 'badge',
-									variant: 'outline',
-								})}
-							>
-								<Search className="h-3 w-3" />
-								<span className="me-1">Search </span>
-							</Link>
-						</div>
-					</CardTitle>
+					<CardTitle>Invite a Friend</CardTitle>
 					<CardDescription>
 						Invite a friend to learn with you or to help you learn.
 					</CardDescription>

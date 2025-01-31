@@ -1,13 +1,6 @@
 import { NavbarData } from '@/types/main'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
-import {
-	Contact,
-	FolderPlus,
-	Lock,
-	Mail,
-	NotebookPen,
-	UserPen,
-} from 'lucide-react'
+import { UserPen } from 'lucide-react'
 
 export const Route = createFileRoute('/_user/profile')({
 	component: ProfilePage,

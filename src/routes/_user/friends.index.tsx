@@ -1,8 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { buttonVariants } from '@/components/ui/button-variants'
-import { HeartHandshake, Search } from 'lucide-react'
 import { Loader } from '@/components/ui/loader'
 import { useRelations } from '@/lib/friends'
 import { ShowError } from '@/components/errors'
@@ -52,42 +50,9 @@ function FriendProfiles() {
 	const { data, isPending, error } = useRelations()
 	return (
 		<>
-			<div className="flex gap-2 flex-row flex-wrap">
-				<Link
-					to="/friends/search"
-					from={Route.fullPath}
-					className={buttonVariants({ variant: 'secondary' })}
-				>
-					<Search /> Find friends
-				</Link>
-				<Link
-					to="/friends/invite"
-					from={Route.fullPath}
-					className={buttonVariants({ variant: 'secondary' })}
-				>
-					<HeartHandshake /> Invite friends
-				</Link>
-			</div>
-
 			<Card>
 				<CardHeader>
-					<CardTitle>
-						<div className="flex flex-row justify-between items-center">
-							<span>Your friends</span>
-							<Link
-								to="/friends/search"
-								search
-								aria-disabled="true"
-								className={buttonVariants({
-									size: 'badge',
-									variant: 'outline',
-								})}
-							>
-								<Search className="h-3 w-3" />{' '}
-								<span className="me-1">Search</span>
-							</Link>
-						</div>
-					</CardTitle>
+					<CardTitle>Your friends</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<div className="space-y-2">

@@ -31,13 +31,6 @@ const SearchSchema = z.object({
 
 type SearchType = z.infer<typeof SearchSchema>
 
-type AcceptInviteFormSubmission = Omit<
-	SearchType & {
-		action_type: 'accept' | 'decline'
-	},
-	'lang'
->
-
 export const Route = createFileRoute('/_user/accept-invite')({
 	validateSearch: (search: Record<string, unknown>): SearchType => ({
 		uid_by: search.uid_by as string,

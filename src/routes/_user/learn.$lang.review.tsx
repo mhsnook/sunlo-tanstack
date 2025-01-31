@@ -52,7 +52,7 @@ export const Route = createFileRoute('/_user/learn/$lang/review')({
 					},
 					{
 						name: 'Deck settings',
-						lang: {
+						link: {
 							to: '/learn/$lang/deck-settings',
 							params: { lang },
 						},

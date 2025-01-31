@@ -3,7 +3,7 @@ import Navbar from '@/components/navbar'
 import { profileQuery } from '@/lib/use-profile'
 import { NavbarData } from '@/types/main'
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import { BookHeart, Contact, FolderPlus, Home, Search } from 'lucide-react'
+import { Home } from 'lucide-react'
 
 export const Route = createFileRoute('/_user')({
 	beforeLoad: ({ context, location }) => {
