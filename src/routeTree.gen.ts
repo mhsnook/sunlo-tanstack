@@ -16,6 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as UserImport } from './routes/_user'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as UserProfileImport } from './routes/_user/profile'
+import { Route as UserLearnImport } from './routes/_user/learn'
 import { Route as UserGettingStartedImport } from './routes/_user/getting-started'
 import { Route as UserFriendsImport } from './routes/_user/friends'
 import { Route as UserAcceptInviteImport } from './routes/_user/accept-invite'
@@ -110,6 +111,11 @@ const UserProfileRoute = UserProfileImport.update({
   getParentRoute: () => UserRoute,
 } as any)
 
+const UserLearnRoute = UserLearnImport.update({
+  path: '/learn',
+  getParentRoute: () => UserRoute,
+} as any)
+
 const UserGettingStartedRoute = UserGettingStartedImport.update({
   path: '/getting-started',
   getParentRoute: () => UserRoute,
@@ -141,8 +147,8 @@ const UserProfileIndexRoute = UserProfileIndexImport.update({
 } as any)
 
 const UserLearnIndexRoute = UserLearnIndexImport.update({
-  path: '/learn/',
-  getParentRoute: () => UserRoute,
+  path: '/',
+  getParentRoute: () => UserLearnRoute,
 } as any)
 
 const UserFriendsIndexRoute = UserFriendsIndexImport.update({
@@ -161,18 +167,18 @@ const UserProfileChangeEmailRoute = UserProfileChangeEmailImport.update({
 } as any)
 
 const UserLearnQuickSearchRoute = UserLearnQuickSearchImport.update({
-  path: '/learn/quick-search',
-  getParentRoute: () => UserRoute,
+  path: '/quick-search',
+  getParentRoute: () => UserLearnRoute,
 } as any)
 
 const UserLearnAddDeckRoute = UserLearnAddDeckImport.update({
-  path: '/learn/add-deck',
-  getParentRoute: () => UserRoute,
+  path: '/add-deck',
+  getParentRoute: () => UserLearnRoute,
 } as any)
 
 const UserLearnLangRoute = UserLearnLangImport.update({
-  path: '/learn/$lang',
-  getParentRoute: () => UserRoute,
+  path: '/$lang',
+  getParentRoute: () => UserLearnRoute,
 } as any)
 
 const UserFriendsSearchRoute = UserFriendsSearchImport.update({
@@ -306,6 +312,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserGettingStartedImport
       parentRoute: typeof UserImport
     }
+    '/_user/learn': {
+      id: '/_user/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof UserLearnImport
+      parentRoute: typeof UserImport
+    }
     '/_user/profile': {
       id: '/_user/profile'
       path: '/profile'
@@ -357,24 +370,24 @@ declare module '@tanstack/react-router' {
     }
     '/_user/learn/$lang': {
       id: '/_user/learn/$lang'
-      path: '/learn/$lang'
+      path: '/$lang'
       fullPath: '/learn/$lang'
       preLoaderRoute: typeof UserLearnLangImport
-      parentRoute: typeof UserImport
+      parentRoute: typeof UserLearnImport
     }
     '/_user/learn/add-deck': {
       id: '/_user/learn/add-deck'
-      path: '/learn/add-deck'
+      path: '/add-deck'
       fullPath: '/learn/add-deck'
       preLoaderRoute: typeof UserLearnAddDeckImport
-      parentRoute: typeof UserImport
+      parentRoute: typeof UserLearnImport
     }
     '/_user/learn/quick-search': {
       id: '/_user/learn/quick-search'
-      path: '/learn/quick-search'
+      path: '/quick-search'
       fullPath: '/learn/quick-search'
       preLoaderRoute: typeof UserLearnQuickSearchImport
-      parentRoute: typeof UserImport
+      parentRoute: typeof UserLearnImport
     }
     '/_user/profile/change-email': {
       id: '/_user/profile/change-email'
@@ -399,10 +412,10 @@ declare module '@tanstack/react-router' {
     }
     '/_user/learn/': {
       id: '/_user/learn/'
-      path: '/learn'
-      fullPath: '/learn'
+      path: '/'
+      fullPath: '/learn/'
       preLoaderRoute: typeof UserLearnIndexImport
-      parentRoute: typeof UserImport
+      parentRoute: typeof UserLearnImport
     }
     '/_user/profile/': {
       id: '/_user/profile/'
@@ -485,22 +498,24 @@ export const routeTree = rootRoute.addChildren({
       UserFriendsIndexRoute,
     }),
     UserGettingStartedRoute,
+    UserLearnRoute: UserLearnRoute.addChildren({
+      UserLearnLangRoute: UserLearnLangRoute.addChildren({
+        UserLearnLangAddPhraseRoute,
+        UserLearnLangDeckSettingsRoute,
+        UserLearnLangLibraryRoute,
+        UserLearnLangReviewRoute,
+        UserLearnLangSearchRoute,
+        UserLearnLangIndexRoute,
+      }),
+      UserLearnAddDeckRoute,
+      UserLearnQuickSearchRoute,
+      UserLearnIndexRoute,
+    }),
     UserProfileRoute: UserProfileRoute.addChildren({
       UserProfileChangeEmailRoute,
       UserProfileChangePasswordRoute,
       UserProfileIndexRoute,
     }),
-    UserLearnLangRoute: UserLearnLangRoute.addChildren({
-      UserLearnLangAddPhraseRoute,
-      UserLearnLangDeckSettingsRoute,
-      UserLearnLangLibraryRoute,
-      UserLearnLangReviewRoute,
-      UserLearnLangSearchRoute,
-      UserLearnLangIndexRoute,
-    }),
-    UserLearnAddDeckRoute,
-    UserLearnQuickSearchRoute,
-    UserLearnIndexRoute,
   }),
   ComponentsLazyRoute,
   DashboardLazyRoute,
@@ -542,11 +557,8 @@ export const routeTree = rootRoute.addChildren({
         "/_user/accept-invite",
         "/_user/friends",
         "/_user/getting-started",
-        "/_user/profile",
-        "/_user/learn/$lang",
-        "/_user/learn/add-deck",
-        "/_user/learn/quick-search",
-        "/_user/learn/"
+        "/_user/learn",
+        "/_user/profile"
       ]
     },
     "/components": {
@@ -583,6 +595,16 @@ export const routeTree = rootRoute.addChildren({
     "/_user/getting-started": {
       "filePath": "_user/getting-started.tsx",
       "parent": "/_user"
+    },
+    "/_user/learn": {
+      "filePath": "_user/learn.tsx",
+      "parent": "/_user",
+      "children": [
+        "/_user/learn/$lang",
+        "/_user/learn/add-deck",
+        "/_user/learn/quick-search",
+        "/_user/learn/"
+      ]
     },
     "/_user/profile": {
       "filePath": "_user/profile.tsx",
@@ -622,7 +644,7 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_user/learn/$lang": {
       "filePath": "_user/learn.$lang.tsx",
-      "parent": "/_user",
+      "parent": "/_user/learn",
       "children": [
         "/_user/learn/$lang/add-phrase",
         "/_user/learn/$lang/deck-settings",
@@ -634,11 +656,11 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_user/learn/add-deck": {
       "filePath": "_user/learn.add-deck.tsx",
-      "parent": "/_user"
+      "parent": "/_user/learn"
     },
     "/_user/learn/quick-search": {
       "filePath": "_user/learn.quick-search.tsx",
-      "parent": "/_user"
+      "parent": "/_user/learn"
     },
     "/_user/profile/change-email": {
       "filePath": "_user/profile.change-email.tsx",
@@ -654,7 +676,7 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_user/learn/": {
       "filePath": "_user/learn.index.tsx",
-      "parent": "/_user"
+      "parent": "/_user/learn"
     },
     "/_user/profile/": {
       "filePath": "_user/profile.index.tsx",

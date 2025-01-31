@@ -2,6 +2,7 @@ import {
 	BookCopy,
 	FolderPlus,
 	HeartHandshake,
+	Home,
 	NotebookPen,
 	Rocket,
 	Search,
@@ -44,6 +45,14 @@ const links = (lang?: string): Record<string, LinkType> => ({
 		Icon: NotebookPen,
 		link: {
 			to: '/profile',
+		},
+	},
+	'/learn': {
+		name: 'Home',
+		title: 'Learning home',
+		Icon: Home,
+		link: {
+			to: '/learn',
 		},
 	},
 	'/learn/add-deck': {
