@@ -1,5 +1,6 @@
 import {
 	BookCopy,
+	BookHeart,
 	FolderPlus,
 	HeartHandshake,
 	Home,
@@ -61,6 +62,15 @@ const links = (lang?: string): Record<string, LinkType> => ({
 		Icon: FolderPlus,
 		link: {
 			to: '/learn/add-deck',
+		},
+	},
+	'/learn/$lang': {
+		name: languages[lang],
+		title: `${languages[lang]} deck`,
+		Icon: BookHeart,
+		link: {
+			to: '/learn/$lang',
+			params: { lang },
 		},
 	},
 	'/learn/$lang/search': {

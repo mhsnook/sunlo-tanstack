@@ -12,6 +12,8 @@ import {
 	Search,
 	Settings,
 } from 'lucide-react'
+import { AppNav } from '@/components/app-nav'
+import { useLinks } from '@/hooks/links'
 
 export const Route = createFileRoute('/_user/learn/$lang')({
 	component: LanguageLayout,
@@ -89,5 +91,18 @@ export const Route = createFileRoute('/_user/learn/$lang')({
 })
 
 function LanguageLayout() {
-	return <Outlet />
+	const navlinks = useLinks([
+		'/learn/$lang/review',
+		'/learn/$lang',
+		'/learn/$lang/library',
+		'/learn/$lang/search',
+		'/learn/$lang/add-phrase',
+	])
+	console.log(navlinks)
+	return (
+		<>
+			<AppNav links={navlinks} />
+			<Outlet />
+		</>
+	)
 }
