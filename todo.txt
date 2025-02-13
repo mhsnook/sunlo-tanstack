@@ -63,6 +63,10 @@ EPIC: User Testability
 	- Highlighting the current page works by comparing the pathname to the link's "to" property so
 		it doesn't match /learn/tam to /learn/$lang ... should find a way around that
 	- Prefer tabs over this kind of nav
+1. Mobile apps:
+	✅ compile to android with tauri
+		Make Tauri work with HMR and Vite setup
+	- compile to ios with tauri
 
 
 EPIC: Convert useQueries to usequery(someOptions) format
@@ -73,7 +77,7 @@ EPIC: Convert useQueries to usequery(someOptions) format
 	between navigations and removing them from
 	- ✅ Completed for useLanguage
 	- ✅ Completed for useDeck
-	- Do the same for useProfile
+	- ✅ Do the same for useProfile
 	- Do the same for useRelations
 
 EPIC OF SIGNUPS AND GETTING STARTED AND CONNECTING FRIENDS
@@ -255,13 +259,8 @@ ROUTER
 		* ✅ suspend /$lang routes until language & deck load
 		* when the router loader is suspending and then stops, transition in
 
-CROSS-PLATFORM
-1. ✅ compile to android with tauri
-		Make Tauri work with HMR and Vite setup
-1. compile to ios with tauri
-
-DATABASE
-1. For the add_phrase_translation_card function we should set some permissions:
+ONGOING DATA-HEALTH PRUNING/CURING
+1. For any of the RPC function we should set some permissions:
 		```sql
 		revoke execute on function public.hello_world from public;
 		revoke execute on function public.hello_world from anon;

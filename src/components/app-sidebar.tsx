@@ -12,6 +12,7 @@ import {
 	SidebarRail,
 } from '@/components/ui/sidebar'
 import { useParams } from '@tanstack/react-router'
+import { ModeToggle } from './mode-toggle'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { lang } = useParams({ strict: false })
@@ -25,6 +26,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				<NavSite />
 			</SidebarContent>
 			<SidebarFooter>
+				<ModeToggle />
 				<NavUser />
 			</SidebarFooter>
 			<SidebarRail />
