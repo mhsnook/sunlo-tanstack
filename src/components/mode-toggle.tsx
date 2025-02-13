@@ -1,4 +1,11 @@
-import { Check, Moon, Sun } from 'lucide-react'
+import {
+	Check,
+	ChevronsUpDown,
+	MonitorCog,
+	Moon,
+	Sun,
+	SunMoon,
+} from 'lucide-react'
 
 import {
 	DropdownMenu,
@@ -33,6 +40,7 @@ export function ModeToggle() {
 							<span>
 								<span className="capitalize">{theme}</span> mode
 							</span>
+							<ChevronsUpDown className="ml-auto size-4" />
 						</SidebarMenuButton>
 					</DropdownMenuTrigger>
 
@@ -42,31 +50,31 @@ export function ModeToggle() {
 						align="end"
 						sideOffset={4}
 					>
-						<DropdownMenuItem onClick={() => setTheme('light')}>
-							<Check
-								className={cn(
-									'mr-2 h-4 w-4',
-									theme === 'light' ? 'opacity-100' : 'opacity-0'
-								)}
-							/>
+						<DropdownMenuItem
+							className={theme === 'light' ? 'bg-primary/10' : ''}
+							onClick={() => setTheme('light')}
+						>
+							{theme === 'light' ?
+								<Check className="mr-2 h-4 w-4" />
+							:	<Sun className="mr-2 h-4 w-4" />}
 							Light
 						</DropdownMenuItem>
-						<DropdownMenuItem onClick={() => setTheme('dark')}>
-							<Check
-								className={cn(
-									'mr-2 h-4 w-4',
-									theme === 'dark' ? 'opacity-100' : 'opacity-0'
-								)}
-							/>
+						<DropdownMenuItem
+							className={theme === 'dark' ? 'bg-primary/10' : ''}
+							onClick={() => setTheme('dark')}
+						>
+							{theme === 'dark' ?
+								<Check className="mr-2 h-4 w-4" />
+							:	<Moon className="mr-2 h-4 w-4" />}
 							Dark
 						</DropdownMenuItem>
-						<DropdownMenuItem onClick={() => setTheme('system')}>
-							<Check
-								className={cn(
-									'mr-2 h-4 w-4',
-									theme === 'system' ? 'opacity-100' : 'opacity-0'
-								)}
-							/>
+						<DropdownMenuItem
+							className={theme === 'system' ? 'bg-primary/10' : ''}
+							onClick={() => setTheme('system')}
+						>
+							{theme === 'system' ?
+								<Check className="mr-2 h-4 w-4" />
+							:	<MonitorCog className="mr-2 h-4 w-4" />}
 							System
 						</DropdownMenuItem>
 					</DropdownMenuContent>
