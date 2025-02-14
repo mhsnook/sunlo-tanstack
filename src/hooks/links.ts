@@ -130,10 +130,11 @@ const links = (lang?: string): Record<string, LinkType> => ({
 
 export function useLinks(paths: Array<string>) {
 	const { lang } = useParams({ strict: false })
-	return useMemo(() => makeLinks(paths, lang), [lang])
+	return useMemo(() => makeLinks(paths, lang), [lang, paths])
 }
 
 export function makeLinks(paths: Array<string>, lang?: string) {
+	if (!paths) return null
 	const l = links(lang)
 	return paths.map((p) => l[p])
 }
