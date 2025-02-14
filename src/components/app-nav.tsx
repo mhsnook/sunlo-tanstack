@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useMatches } from '@tanstack/react-router'
 import {
 	NavigationMenu,
 	NavigationMenuItem,
@@ -8,9 +8,29 @@ import {
 import { LinkType } from '@/types/main'
 import { useLocation } from '@tanstack/react-router'
 import { cn } from '@/lib/utils'
+import { useLinks } from '@/hooks/links'
 
-export function AppNav({ links }: { links: Array<LinkType> }) {
+export function AppNav() {
 	const { pathname } = useLocation()
+	const matches = useMatches()
+	if (!pathname || matches.some((match) => match.status === 'pending'))
+		return null
+	return <Nav pathname={pathname} matches={matches} />
+}
+
+function Nav({
+	pathname,
+	matches,
+}: {
+	pathname: string
+	matches: ReturnType<typeof useMatches>
+}) {
+	const match = matches.findLast(
+		(m) => !!m.loaderData && 'appnav' in m.loaderData
+	)
+	console.log(`This is the match`, match)
+	const links = useLinks(match.loaderData.appnav)
+	if (!links || !links.length) return null
 	return (
 		<NavigationMenu className="mb-4">
 			<NavigationMenuList className="w-full flex flex-row">
