@@ -1,5 +1,6 @@
 import { AppSidebarLayout } from '@/components/app-sidebar-layout'
 import Navbar from '@/components/navbar'
+import { AppNav } from '@/components/app-nav'
 import { profileQuery } from '@/lib/use-profile'
 import { NavbarData } from '@/types/main'
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
@@ -41,6 +42,7 @@ function UserLayout() {
 	return (
 		<AppSidebarLayout>
 			<Navbar />
+			<AppNav />
 			<Outlet />
 		</AppSidebarLayout>
 	)

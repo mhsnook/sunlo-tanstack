@@ -6,14 +6,11 @@ import { deckQueryOptions } from '@/lib/use-deck'
 import {
 	BookCopy,
 	BookHeart,
-	Contact,
 	NotebookPen,
 	Rocket,
 	Search,
 	Settings,
 } from 'lucide-react'
-import { AppNav } from '@/components/app-nav'
-import { useLinks } from '@/hooks/links'
 
 export const Route = createFileRoute('/_user/learn/$lang')({
 	component: LanguageLayout,
@@ -33,6 +30,14 @@ export const Route = createFileRoute('/_user/learn/$lang')({
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const both = { l: await languageLoader, d: await deckLoader }
 		return {
+			appnav: [
+				'/learn/$lang',
+				'/learn/$lang/review',
+				'/learn/$lang/library',
+				'/learn/$lang/search',
+				'/learn/$lang/add-phrase',
+				'/learn/$lang/deck-settings',
+			],
 			navbar: {
 				title: `${languages[lang]} Deck`,
 				Icon: BookHeart,
@@ -77,13 +82,6 @@ export const Route = createFileRoute('/_user/learn/$lang')({
 						},
 						Icon: Settings,
 					},
-					{
-						name: 'Friends and contacts',
-						link: {
-							to: '/friends',
-						},
-						Icon: Contact,
-					},
 				],
 			} as NavbarData,
 		}
@@ -91,18 +89,5 @@ export const Route = createFileRoute('/_user/learn/$lang')({
 })
 
 function LanguageLayout() {
-	const navlinks = useLinks([
-		'/learn/$lang/review',
-		'/learn/$lang',
-		'/learn/$lang/library',
-		'/learn/$lang/search',
-		'/learn/$lang/add-phrase',
-	])
-	console.log(navlinks)
-	return (
-		<>
-			<AppNav links={navlinks} />
-			<Outlet />
-		</>
-	)
+	return <Outlet />
 }

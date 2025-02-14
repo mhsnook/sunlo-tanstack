@@ -30,6 +30,7 @@ export const Route = createFileRoute('/_user/learn/$lang/review')({
 			reviewableCards: data.reviewables.map(
 				(r) => data.deck.cardsMap[r.phrase_id]
 			),
+			appnav: [],
 			navbar: {
 				title: `Review ${languages[lang]} cards`,
 				Icon: BookHeart,
