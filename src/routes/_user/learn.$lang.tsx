@@ -36,53 +36,15 @@ export const Route = createFileRoute('/_user/learn/$lang')({
 				'/learn/$lang/library',
 				'/learn/$lang/search',
 				'/learn/$lang/add-phrase',
+			],
+			contextMenu: [
+				'/learn/$lang/search',
+				'/learn/$lang/add-phrase',
 				'/learn/$lang/deck-settings',
 			],
-			navbar: {
+			titleBar: {
 				title: `${languages[lang]} Deck`,
 				Icon: BookHeart,
-				contextMenu: [
-					{
-						name: 'Quick search',
-						link: {
-							to: '/learn/$lang/search',
-							params: { lang },
-						},
-						Icon: Search,
-					},
-					{
-						name: 'Start a review',
-						link: {
-							to: '/learn/$lang/review',
-							params: { lang },
-						},
-						Icon: Rocket,
-					},
-					{
-						name: `Browse ${languages[lang]} library`,
-						link: {
-							to: '/learn/$lang/library',
-							params: { lang },
-						},
-						Icon: BookCopy,
-					},
-					{
-						name: 'Add a phrase',
-						link: {
-							to: '/learn/$lang/add-phrase',
-							params: { lang },
-						},
-						Icon: NotebookPen,
-					},
-					{
-						name: 'Deck settings',
-						link: {
-							to: '/learn/$lang/deck-settings',
-							params: { lang },
-						},
-						Icon: Settings,
-					},
-				],
 			} as NavbarData,
 		}
 	},

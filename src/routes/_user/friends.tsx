@@ -9,7 +9,7 @@ export const Route = createFileRoute('/_user/friends')({
 		const { queryClient, userId } = context
 		await queryClient.ensureQueryData(relationsQuery(userId))
 		return {
-			navbar: {
+			titleBar: {
 				title: `Manage Friends and Contacts`,
 				Icon: HeartHandshake,
 			} as NavbarData,

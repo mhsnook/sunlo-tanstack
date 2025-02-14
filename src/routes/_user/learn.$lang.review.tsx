@@ -31,35 +31,14 @@ export const Route = createFileRoute('/_user/learn/$lang/review')({
 				(r) => data.deck.cardsMap[r.phrase_id]
 			),
 			appnav: [],
-			navbar: {
+			contextMenu: [
+				'/learn/$lang/search',
+				'/learn/$lang/add-phrase',
+				'/learn/$lang/deck-settings',
+			],
+			titleBar: {
 				title: `Review ${languages[lang]} cards`,
 				Icon: BookHeart,
-				contextMenu: [
-					{
-						name: `Search ${languages[lang]}`,
-						link: {
-							to: '/learn/$lang/search',
-							params: { lang },
-						},
-						Icon: Search,
-					},
-					{
-						name: 'Add a phrase',
-						link: {
-							to: '/learn/$lang/add-phrase',
-							params: { lang },
-						},
-						Icon: SquarePlus,
-					},
-					{
-						name: 'Deck settings',
-						link: {
-							to: '/learn/$lang/deck-settings',
-							params: { lang },
-						},
-						Icon: Settings,
-					},
-				],
 			} as NavbarData,
 		}
 	},
