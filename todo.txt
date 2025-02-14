@@ -1,24 +1,3 @@
-
-EPIC Spaced Repetition API: 
-1. ✅ FSRS helper functions (convert from Rust)
-1. ✅ FSRS scheduler RPC API
-1. ✅ View for fetching today's review
-	1. ✅ View for fetching cards "due" today
-	1. ✅ View for fetching 15 new cards
-1. ✅ Convert the /review page
-	- ✅ implement the Retrievability function in JS
-	- implement the Intervals function in JS
-	- ✅ add a little "details" modal where we can see and tinker with all these variables
-1. ✅ debug debug debug
-1. ✅ rewrite it in plV8
-1. ✅ convert the other views that depend on reviews
-	- ✅ change view `user_deck_plus` to refer to `user_card_scheduled`
-	- ✅ delete view `user_card_review_plus`, replace with `user_card_scheduled`
-	- ✅ delete table `user_card_review`
-	- ⛔ view `user_card_plus` should incorporate data from the FSRS scores
-	- ✅ view `user_card_review_today` is returning duplicate cards
-		- ✅ the weird structure of FlashCardReviewSession is making multiple button-rows show
-
 EPIC: FSRS Followup
 1. Reviewables list should be _fully static_ so we can invalidate the cache and it won't change mid-session
 1. during a review, if you skip cards, they should be mentioned on the final page
@@ -40,7 +19,7 @@ EPIC: Postgres DX / Run Supabase Locally
 1. ✅ connect supabase and vercel env variables
 1. make the email stuff work with the local setup
 1. pgTap set up testing framework / run tests on the RPC functions: https://supabase.com/docs/guides/database/extensions/pgtap
-1. ✅ switch to v8?
+1. ✅ switch to v8
 	- test out pglinter? 
 1. future:
 	- use postmark templates like [this](https://github.com/supabase/auth/issues/304#issuecomment-998029660)
@@ -111,6 +90,7 @@ ISSUES
 1. When you try to sign up using existing creds you get an error and then get logged in. We
 	should handle this. (inspect and special-case the error before throwing, and toast accordingly)
 1. why is class s-link not working correctly in the "find a friend" search empty results section? (have manually added a border-b, like a barbarian)
+
 
 EDGE CASES LEFT BEHIND
 1. When you reach the getting-started page with no "user role" set
@@ -210,11 +190,11 @@ AUTH
 
 NAVIGATION
 1. ✅ get back the "active/inactive" link style in sidebar.tsx
-1. properly use the disabled option on the nav links
 1. add an optional quicksearch component to the navbar, perhaps it immediately opens a search like a dialog and just accepts the component that fills the dialog 🤔
 1. ✅ probably set it to only active-match exact route matches
 1. ✅ don't forget to add the Navbar
 1. ✅ add context menus (links) to all the pages and scaffold pages
+1. Refactor the page nav and context menu and navbar titles to use context like [this breadcrumbs example](https://tanstack.com/router/v1/docs/framework/react/guide/router-context), [example here](https://github.com/TanStack/router/blob/main/examples/react/kitchen-sink-file-based/src/components/Breadcrumbs.tsx)
 
 
 UI POLISH
@@ -246,11 +226,10 @@ ROUTER
 1. ✅ if the navbar is not present, use its parent, somehow
 1. can we aggregate all the context menu items and display them in groups. 
 		(this collation should mean we can set a single page's title without affecting the menus) 
+	- 	yes: https://tanstack.com/router/v1/docs/framework/react/guide/router-context, [example here](https://github.com/TanStack/router/blob/main/examples/react/kitchen-sink-file-based/src/components/Breadcrumbs.tsx)
 1. ✅ What is the best way to get the $lang? is it `const { lang } = Route.useParams()` ? can we not get it in page props, or context?
 		- yes to context: `const data = Route.useRouteContext()` does return the queryClient and the auth object (mixed together actually)
 			- further can we access context from props?
-1. Standardize how we handle: `const { navigate } = useRouter()` -- can we use some props or the `Route.` methods?
-1. can we access the queryClient directly from context without the hook?
 1. if the validateSearch is not present, can we use its parent? or can we just get params from the parent component?
 1. ✅ research loaders, preloading, query client prefetching, etc. patterns so
 		we can get the most out of things. 

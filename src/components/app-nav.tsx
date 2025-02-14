@@ -5,23 +5,29 @@ import {
 	NavigationMenuLink,
 	NavigationMenuList,
 } from './ui/navigation-menu'
-import { buttonVariants } from './ui/button-variants'
 import { LinkType } from '@/types/main'
 import { useLocation } from '@tanstack/react-router'
+import { cn } from '@/lib/utils'
 
 export function AppNav({ links }: { links: Array<LinkType> }) {
 	const { pathname } = useLocation()
 	return (
-		<NavigationMenu className="mb-4 w-full">
-			<NavigationMenuList className="w-full">
+		<NavigationMenu className="mb-4">
+			<NavigationMenuList className="w-full flex flex-row">
 				{links.map((l: LinkType) => (
-					<NavigationMenuItem key={l.link.to}>
-						<NavigationMenuLink key={l.link.to} asChild>
+					<NavigationMenuItem
+						className="px-4 rounded hover:bg-primary/20"
+						key={l.link.to}
+					>
+						<NavigationMenuLink asChild>
 							<Link
 								{...l.link}
-								className={buttonVariants({
-									variant: pathname === l.link.to ? 'default' : 'ghost',
-								})}
+								className={cn(
+									'border-b-2 flex flex-row gap-2 items-center justify-center py-2',
+									pathname === l.link.to ?
+										'border-primary'
+									:	'border-transparent'
+								)}
 							>
 								<l.Icon className="size-4" /> {l.name}
 							</Link>
