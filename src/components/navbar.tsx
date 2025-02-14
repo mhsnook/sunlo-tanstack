@@ -19,6 +19,7 @@ export default function Navbar() {
 		void navigate({ to: '..' })
 	}, [navigate])
 
+	if (matches.some((match) => match.status === 'pending')) return null
 	const matchesArray = matches.filter((m) => m?.loaderData !== undefined)
 	// console.log(`matches`, matchesArray, matches)
 	const lastMatch = matchesArray.at(-1)
