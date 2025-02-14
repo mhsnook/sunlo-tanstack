@@ -28,7 +28,7 @@ export const Route = createFileRoute('/_user')({
 			// this line is making sure the entire route tree awaits till we have the profile
 			await queryClient.ensureQueryData(profileQuery(auth.userId))
 		return {
-			navbar: {
+			titleBar: {
 				title: `Learning Home`,
 				subtitle: `Which deck are we studying today?`,
 				Icon: Home,

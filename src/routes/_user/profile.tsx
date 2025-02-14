@@ -5,7 +5,7 @@ import { UserPen } from 'lucide-react'
 export const Route = createFileRoute('/_user/profile')({
 	component: ProfilePage,
 	loader: () => ({
-		navbar: {
+		titleBar: {
 			title: `Manage your Profile`,
 			Icon: UserPen,
 		} as NavbarData,

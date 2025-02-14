@@ -11,26 +11,11 @@ export const Route = createFileRoute('/_user/learn/')({
 	loader: () => {
 		return {
 			appnav: ['/learn', '/learn/add-deck', '/learn/quick-search'],
-			navbar: {
+			contextMenu: ['/learn/add-deck', '/learn/quick-search'],
+			titleBar: {
 				title: `Learning Home`,
 				subtitle: `Which deck are we studying today?`,
 				Icon: Home,
-				contextMenu: [
-					{
-						name: 'New Deck',
-						link: {
-							to: '/learn/add-deck',
-						},
-						Icon: FolderPlus,
-					},
-					{
-						name: 'Quick search',
-						link: {
-							to: '/learn/quick-search',
-						},
-						Icon: Search,
-					},
-				],
 			} as NavbarData,
 		}
 	},

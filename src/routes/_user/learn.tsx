@@ -7,7 +7,7 @@ export const Route = createFileRoute('/_user/learn')({
 	component: () => <LearnLayout />,
 	loader: () => {
 		return {
-			navbar: {
+			titleBar: {
 				title: `Learning Home`,
 				subtitle: `Which deck are we studying today?`,
 				Icon: Home,

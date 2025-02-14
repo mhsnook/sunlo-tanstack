@@ -17,7 +17,7 @@ import { RouteIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/_user/learn/add-deck')({
 	loader: () => ({
-		navbar: {
+		titleBar: {
 			title: `Start Learning a New Language`,
 			Icon: RouteIcon,
 		} as NavbarData,
