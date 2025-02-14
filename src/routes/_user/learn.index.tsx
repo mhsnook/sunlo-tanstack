@@ -3,7 +3,7 @@ import { FolderPlus, Home, Search, Star, Users } from 'lucide-react'
 import { Loader } from '@/components/ui/loader'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-import type { NavbarData } from '@/types/main'
+import type { TitleBar } from '@/types/main'
 import { useProfile } from '@/lib/use-profile'
 import { ago } from '@/lib/dayjs'
 
@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_user/learn/')({
 				title: `Learning Home`,
 				subtitle: `Which deck are we studying today?`,
 				Icon: Home,
-			} as NavbarData,
+			} as TitleBar,
 		}
 	},
 	component: Page,

@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { buttonVariants } from '@/components/ui/button-variants'
 import { useNewDeckMutation } from '@/lib/mutate-deck'
 import { useProfile } from '@/lib/use-profile'
-import { NavbarData } from '@/types/main'
+import { TitleBar } from '@/types/main'
 import { Badge } from '@/components/ui/badge'
 import languages from '@/lib/languages'
 import Callout from '@/components/ui/callout'
@@ -20,7 +20,7 @@ export const Route = createFileRoute('/_user/learn/add-deck')({
 		titleBar: {
 			title: `Start Learning a New Language`,
 			Icon: RouteIcon,
-		} as NavbarData,
+		} as TitleBar,
 	}),
 	component: NewDeckForm,
 })

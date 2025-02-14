@@ -1,4 +1,4 @@
-import { NavbarData } from '@/types/main'
+import { TitleBar } from '@/types/main'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 import { relationsQuery } from '@/lib/friends'
 import { HeartHandshake } from 'lucide-react'
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_user/friends')({
 			titleBar: {
 				title: `Manage Friends and Contacts`,
 				Icon: HeartHandshake,
-			} as NavbarData,
+			} as TitleBar,
 			appnav: ['/friends', '/friends/invite', '/friends/search'],
 		}
 	},

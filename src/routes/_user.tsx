@@ -2,7 +2,7 @@ import { AppSidebarLayout } from '@/components/app-sidebar-layout'
 import Navbar from '@/components/navbar'
 import { AppNav } from '@/components/app-nav'
 import { profileQuery } from '@/lib/use-profile'
-import { NavbarData } from '@/types/main'
+import { TitleBar } from '@/types/main'
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { Home } from 'lucide-react'
 
@@ -32,7 +32,7 @@ export const Route = createFileRoute('/_user')({
 				title: `Learning Home`,
 				subtitle: `Which deck are we studying today?`,
 				Icon: Home,
-			} as NavbarData,
+			} as TitleBar,
 		}
 	},
 	component: UserLayout,
