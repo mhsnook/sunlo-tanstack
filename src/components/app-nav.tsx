@@ -25,11 +25,9 @@ function Nav({
 	pathname: string
 	matches: ReturnType<typeof useMatches>
 }) {
-	const match = matches.findLast(
-		(m) => !!m.loaderData && 'appnav' in m.loaderData
-	)
+	const match = matches.findLast((m) => !!m?.loaderData?.appnav)
 	console.log(`This is the match`, match)
-	const links = useLinks(match.loaderData.appnav)
+	const links = useLinks(match?.loaderData.appnav)
 	if (!links || !links.length) return null
 	return (
 		<NavigationMenu className="mb-4">

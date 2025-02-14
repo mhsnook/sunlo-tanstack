@@ -1,4 +1,4 @@
-import { NavbarData } from '@/types/main'
+import { TitleBar } from '@/types/main'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 import { Home } from 'lucide-react'
@@ -11,7 +11,7 @@ export const Route = createFileRoute('/_user/learn')({
 				title: `Learning Home`,
 				subtitle: `Which deck are we studying today?`,
 				Icon: Home,
-			} as NavbarData,
+			} as TitleBar,
 		}
 	},
 })

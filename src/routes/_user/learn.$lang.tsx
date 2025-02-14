@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
-import { NavbarData } from '@/types/main'
+import { TitleBar } from '@/types/main'
 import languages from '@/lib/languages'
 import { languageQueryOptions } from '@/lib/use-language'
 import { deckQueryOptions } from '@/lib/use-deck'
@@ -45,7 +45,7 @@ export const Route = createFileRoute('/_user/learn/$lang')({
 			titleBar: {
 				title: `${languages[lang]} Deck`,
 				Icon: BookHeart,
-			} as NavbarData,
+			} as TitleBar,
 		}
 	},
 })

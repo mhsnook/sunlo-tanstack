@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-import { NavbarData } from '@/types/main'
+import { TitleBar } from '@/types/main'
 import { FlashCardReviewSession } from '@/components/flash-card-review-session'
 import languages from '@/lib/languages'
 import { deckQueryOptions } from '@/lib/use-deck'
@@ -39,7 +39,7 @@ export const Route = createFileRoute('/_user/learn/$lang/review')({
 			titleBar: {
 				title: `Review ${languages[lang]} cards`,
 				Icon: BookHeart,
-			} as NavbarData,
+			} as TitleBar,
 		}
 	},
 })

@@ -31,12 +31,11 @@ export type MenuType = LinkType & {
 	items: Array<LinkType>
 }
 
-export type NavbarData = {
+export type TitleBar = {
 	title: string
 	subtitle?: string
 	Icon?: LucideIcon
 	onBackClick?: () => void
-	contextMenu?: Array<LinkType>
 }
 
 export type UseSBQuery<T> = UseQueryResult<T, PostgrestError>
