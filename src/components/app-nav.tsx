@@ -6,29 +6,17 @@ import {
 	NavigationMenuList,
 } from './ui/navigation-menu'
 import { LinkType } from '@/types/main'
-import { useLocation } from '@tanstack/react-router'
-import { cn } from '@/lib/utils'
 import { useLinks } from '@/hooks/links'
 import { ScrollArea, ScrollBar } from './ui/scroll-area'
 
 export function AppNav() {
-	const { pathname } = useLocation()
 	const matches = useMatches()
-	if (!pathname || matches.some((match) => match.status === 'pending'))
-		return null
-	return <Nav pathname={pathname} matches={matches} />
+	if (matches.some((match) => match.status === 'pending')) return null
+	return <Nav matches={matches} />
 }
 
-function Nav({
-	pathname,
-	matches,
-}: {
-	pathname: string
-	matches: ReturnType<typeof useMatches>
-}) {
-	const exactMatch = matches.at(-1)
+function Nav({ matches }: { matches: ReturnType<typeof useMatches> }) {
 	const match = matches.findLast((m) => !!m?.loaderData?.appnav)
-	console.log(`This is the match`, match)
 	const links = useLinks(match?.loaderData.appnav)
 	if (!links || !links.length) return null
 	return (
@@ -43,12 +31,10 @@ function Nav({
 							<NavigationMenuLink asChild>
 								<Link
 									{...l.link}
-									className={cn(
-										'border-b-2 flex flex-row gap-2 items-center justify-center py-2',
-										pathname === l.link.to ?
-											'border-primary'
-										:	'border-transparent'
-									)}
+									className="border-b-2 flex flex-row gap-2 items-center justify-center py-2"
+									activeProps={{ className: 'border-primary' }}
+									activeOptions={{ exact: true }}
+									inactiveProps={{ className: 'border-transparent' }}
 								>
 									<l.Icon className="size-4" /> {l.name}
 								</Link>
