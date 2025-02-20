@@ -15,12 +15,16 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as UserImport } from './routes/_user'
 import { Route as AuthImport } from './routes/_auth'
+import { Route as IndexImport } from './routes/index'
 import { Route as UserProfileImport } from './routes/_user/profile'
 import { Route as UserLearnImport } from './routes/_user/learn'
 import { Route as UserGettingStartedImport } from './routes/_user/getting-started'
 import { Route as UserFriendsImport } from './routes/_user/friends'
 import { Route as UserAcceptInviteImport } from './routes/_user/accept-invite'
+import { Route as AuthSignupImport } from './routes/_auth/signup'
+import { Route as AuthSetNewPasswordImport } from './routes/_auth/set-new-password'
 import { Route as AuthLoginImport } from './routes/_auth/login'
+import { Route as AuthForgotPasswordImport } from './routes/_auth/forgot-password'
 import { Route as AuthFindAFriendImport } from './routes/_auth/find-a-friend'
 import { Route as UserProfileIndexImport } from './routes/_user/profile.index'
 import { Route as UserLearnIndexImport } from './routes/_user/learn.index'
@@ -46,12 +50,6 @@ import { Route as UserFriendsSearchUidImport } from './routes/_user/friends.sear
 const PrivacyPolicyLazyImport = createFileRoute('/privacy-policy')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
 const ComponentsLazyImport = createFileRoute('/components')()
-const IndexLazyImport = createFileRoute('/')()
-const AuthSignupLazyImport = createFileRoute('/_auth/signup')()
-const AuthSetNewPasswordLazyImport = createFileRoute(
-  '/_auth/set-new-password',
-)()
-const AuthForgotPasswordLazyImport = createFileRoute('/_auth/forgot-password')()
 
 // Create/Update Routes
 
@@ -82,29 +80,10 @@ const AuthRoute = AuthImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexLazyRoute = IndexLazyImport.update({
+const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
-
-const AuthSignupLazyRoute = AuthSignupLazyImport.update({
-  path: '/signup',
-  getParentRoute: () => AuthRoute,
-} as any).lazy(() => import('./routes/_auth/signup.lazy').then((d) => d.Route))
-
-const AuthSetNewPasswordLazyRoute = AuthSetNewPasswordLazyImport.update({
-  path: '/set-new-password',
-  getParentRoute: () => AuthRoute,
-} as any).lazy(() =>
-  import('./routes/_auth/set-new-password.lazy').then((d) => d.Route),
-)
-
-const AuthForgotPasswordLazyRoute = AuthForgotPasswordLazyImport.update({
-  path: '/forgot-password',
-  getParentRoute: () => AuthRoute,
-} as any).lazy(() =>
-  import('./routes/_auth/forgot-password.lazy').then((d) => d.Route),
-)
+} as any)
 
 const UserProfileRoute = UserProfileImport.update({
   path: '/profile',
@@ -131,8 +110,23 @@ const UserAcceptInviteRoute = UserAcceptInviteImport.update({
   getParentRoute: () => UserRoute,
 } as any)
 
+const AuthSignupRoute = AuthSignupImport.update({
+  path: '/signup',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthSetNewPasswordRoute = AuthSetNewPasswordImport.update({
+  path: '/set-new-password',
+  getParentRoute: () => AuthRoute,
+} as any)
+
 const AuthLoginRoute = AuthLoginImport.update({
   path: '/login',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
+  path: '/forgot-password',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -239,7 +233,7 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
     '/_auth': {
@@ -284,11 +278,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthFindAFriendImport
       parentRoute: typeof AuthImport
     }
+    '/_auth/forgot-password': {
+      id: '/_auth/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordImport
+      parentRoute: typeof AuthImport
+    }
     '/_auth/login': {
       id: '/_auth/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof AuthLoginImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/set-new-password': {
+      id: '/_auth/set-new-password'
+      path: '/set-new-password'
+      fullPath: '/set-new-password'
+      preLoaderRoute: typeof AuthSetNewPasswordImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/signup': {
+      id: '/_auth/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof AuthSignupImport
       parentRoute: typeof AuthImport
     }
     '/_user/accept-invite': {
@@ -325,27 +340,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/profile'
       preLoaderRoute: typeof UserProfileImport
       parentRoute: typeof UserImport
-    }
-    '/_auth/forgot-password': {
-      id: '/_auth/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof AuthForgotPasswordLazyImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/set-new-password': {
-      id: '/_auth/set-new-password'
-      path: '/set-new-password'
-      fullPath: '/set-new-password'
-      preLoaderRoute: typeof AuthSetNewPasswordLazyImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/signup': {
-      id: '/_auth/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof AuthSignupLazyImport
-      parentRoute: typeof AuthImport
     }
     '/_user/friends/$uid': {
       id: '/_user/friends/$uid'
@@ -479,13 +473,13 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  IndexLazyRoute,
+  IndexRoute,
   AuthRoute: AuthRoute.addChildren({
     AuthFindAFriendRoute,
+    AuthForgotPasswordRoute,
     AuthLoginRoute,
-    AuthForgotPasswordLazyRoute,
-    AuthSetNewPasswordLazyRoute,
-    AuthSignupLazyRoute,
+    AuthSetNewPasswordRoute,
+    AuthSignupRoute,
   }),
   UserRoute: UserRoute.addChildren({
     UserAcceptInviteRoute,
@@ -539,14 +533,14 @@ export const routeTree = rootRoute.addChildren({
       ]
     },
     "/": {
-      "filePath": "index.lazy.tsx"
+      "filePath": "index.tsx"
     },
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
         "/_auth/find-a-friend",
-        "/_auth/login",
         "/_auth/forgot-password",
+        "/_auth/login",
         "/_auth/set-new-password",
         "/_auth/signup"
       ]
@@ -574,8 +568,20 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_auth/find-a-friend.tsx",
       "parent": "/_auth"
     },
+    "/_auth/forgot-password": {
+      "filePath": "_auth/forgot-password.tsx",
+      "parent": "/_auth"
+    },
     "/_auth/login": {
       "filePath": "_auth/login.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/set-new-password": {
+      "filePath": "_auth/set-new-password.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/signup": {
+      "filePath": "_auth/signup.tsx",
       "parent": "/_auth"
     },
     "/_user/accept-invite": {
@@ -614,18 +620,6 @@ export const routeTree = rootRoute.addChildren({
         "/_user/profile/change-password",
         "/_user/profile/"
       ]
-    },
-    "/_auth/forgot-password": {
-      "filePath": "_auth/forgot-password.lazy.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/set-new-password": {
-      "filePath": "_auth/set-new-password.lazy.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/signup": {
-      "filePath": "_auth/signup.lazy.tsx",
-      "parent": "/_auth"
     },
     "/_user/friends/$uid": {
       "filePath": "_user/friends.$uid.tsx",

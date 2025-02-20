@@ -1,4 +1,4 @@
-import { createLazyFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import Callout from '@/components/ui/callout'
 import { GarlicBroccoli } from '@/components/garlic'
 import { Button } from '@/components/ui/button'
@@ -23,7 +23,7 @@ import {
 } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button-variants'
 
-export const Route = createLazyFileRoute('/')({
+export const Route = createFileRoute('/')({
 	component: Index,
 })
 

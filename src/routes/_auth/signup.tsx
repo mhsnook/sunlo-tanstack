@@ -1,4 +1,4 @@
-import { Link, createLazyFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import * as z from 'zod'
@@ -15,7 +15,7 @@ import supabase from '@/lib/supabase-client'
 import { ShowError } from '@/components/errors'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
 
-export const Route = createLazyFileRoute('/_auth/signup')({
+export const Route = createFileRoute('/_auth/signup')({
 	component: SignUp,
 })
 
