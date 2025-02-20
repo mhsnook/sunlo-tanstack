@@ -8,17 +8,6 @@ import { useProfile } from '@/lib/use-profile'
 import { ago } from '@/lib/dayjs'
 
 export const Route = createFileRoute('/_user/learn/')({
-	loader: () => {
-		return {
-			appnav: ['/learn', '/learn/add-deck', '/learn/quick-search'],
-			contextMenu: ['/learn/add-deck', '/learn/quick-search'],
-			titleBar: {
-				title: `Learning Home`,
-				subtitle: `Which deck are we studying today?`,
-				Icon: Home,
-			} as TitleBar,
-		}
-	},
 	component: Page,
 })
 
