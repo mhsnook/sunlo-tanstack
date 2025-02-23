@@ -14,6 +14,7 @@ import { PhraseCard } from '@/components/phrase-card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Brain, Carrot, LucideIcon, Plus, TrendingUp } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button-variants'
+import Flagged from '@/components/flagged'
 
 export const Route = createFileRoute('/_user/learn/$lang/library')({
 	component: DeckLibraryPage,
@@ -23,7 +24,9 @@ function DeckLibraryPage() {
 	const { lang } = Route.useParams()
 	return (
 		<div className="space-y-4 px-2">
-			<PopularPhrases lang={lang} />
+			<Flagged name="smart_recommendations">
+				<PopularPhrases lang={lang} />
+			</Flagged>
 			<DeckContents lang={lang} />
 		</div>
 	)
