@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import languages from '@/lib/languages'
-import type { LangOnlyComponentProps, PhraseFull } from '@/types/main'
+import type { LangOnlyComponentProps, PhraseStub } from '@/types/main'
 import { useDeck } from '@/lib/use-deck'
 import { useLanguage } from '@/lib/use-language'
 import { LanguagePhrasesAccordionComponent } from '@/components/language-phrases-accordion'
@@ -34,7 +34,7 @@ function DeckLibraryPage() {
 
 type PhraseSectionProps = {
 	description: string
-	phrases: PhraseFull[] | undefined
+	phrases: Array<PhraseStub> | undefined
 	isLoading: boolean
 	Icon: LucideIcon
 }
@@ -69,30 +69,32 @@ const PhraseSection = ({
 	</div>
 )
 
-type Phrase = {
-	id: string
-	text: string
-	literal: string
-}
-
-const samplePhrases: Record<string, Phrase[]> = {
+const samplePhrases: Record<string, PhraseStub[]> = {
 	trending: [
-		{ id: '1', text: 'vanakkam', literal: 'Hello' },
-		{ id: '2', text: 'நன்றி', literal: 'Thank you' },
-		{ id: '3', text: 'en peyar?', literal: 'What is your name?' },
+		{ id: '1', text: 'vanakkam', translation: { text: 'Hello', lang: 'eng' } },
+		{ id: '2', text: 'நன்றி', translation: { text: 'Thank you', lang: 'eng' } },
+		{
+			id: '3',
+			text: 'en peyar?',
+			translation: { text: 'What is your name?', lang: 'eng' },
+		},
 	],
 	challenging: [
 		{
 			id: '4',
 			text: 'Tamil teriyum',
-			literal: 'I am learning Tamil',
+			translation: { text: 'I am learning Tamil', lang: 'eng' },
 		},
-		{ id: '5', text: 'Unga peyar enna?', literal: 'What is your name?' },
+		{
+			id: '5',
+			text: 'Unga peyar enna?',
+			translation: { text: 'What is your name?', lang: 'eng' },
+		},
 	],
 	easy: [
-		{ id: '6', text: 'Sari', literal: 'Yes' },
-		{ id: '7', text: 'Illai', literal: 'No' },
-		{ id: '8', text: 'Sari', literal: 'Okay' },
+		{ id: '6', text: 'Sari', translation: { text: 'Yes', lang: 'eng' } },
+		{ id: '7', text: 'Illai', translation: { text: 'No', lang: 'eng' } },
+		{ id: '8', text: 'Sari', translation: { text: 'Okay', lang: 'eng' } },
 	],
 }
 

@@ -1,13 +1,9 @@
 import { cn } from '@/lib/utils'
-import { uuid } from '@/types/main'
+import { PhraseStub } from '@/types/main'
 import { buttonVariants } from '@/components/ui/button-variants'
 
 type PhraseCardProps = {
-	phrase: {
-		id: uuid
-		text: string
-		literal: string
-	}
+	phrase: PhraseStub
 }
 
 export const PhraseCard = ({ phrase }: PhraseCardProps) => (
@@ -19,6 +15,8 @@ export const PhraseCard = ({ phrase }: PhraseCardProps) => (
 		href="google.com?search=id"
 	>
 		<span className="font-semibold">{phrase.text}</span>{' '}
-		<span className="text-sm text-muted-foreground">{phrase.literal}</span>
+		<span className="text-sm text-muted-foreground">
+			{phrase.translation.text}
+		</span>
 	</a>
 )

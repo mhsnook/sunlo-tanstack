@@ -24,24 +24,25 @@ EPIC: Postgres DX / Run Supabase Locally
 1. future:
 	- use postmark templates like [this](https://github.com/supabase/auth/issues/304#issuecomment-998029660)
 
-EPIC: User Testability
+
+POLISH: New User Signup
 1. when you sign in for the first time it redirects you to the home page not a confirmation/getting-started page
+1. when the profile is blank, the sidebar haas an error
 1. when you sign in for the first time, the /learn screen is an error; actually anything accessing the profile
 	seems to be an error -- it should redirect you? we should put profile into context?
 1. when you go to the deck page and it's empty, we should get a prompt for the library, ya?
-1. add a deck -- the "select one language" input should have a better type-to-search
+1. when you go to the deck page and it's empty, we shouldn't prompt you to do a review
+
+
+EPIC: User Testing
+1. on a phone, the success toasts, appearing at the bottom, aren't always visible (if the keyboard is out)
+1. on a submission we should collapse the keyboard automatically
+1. when you navigate it should close the sidebar
+1. when you have a pending friend request it should be visible from the friends home
+1. add a deck -- the "select one language" input should have a better type-to-search which includes the language name as well a the code
 1. when you go to the library and add cards to your deck, and then go to the review page, it's still loaded the empty-set that was returned before
-1. ✅ Remove routes that don't go anywhere? or make them go places. search `@@BLANKROUTE` in code.
-		- Remove links that don't go anywhere: /languages
-1. Few outstanding issues with the new sidebar-and-nav:
-	- If/When we switch to the "breadcrumbs" approach in the shadcn nav, we won't need the base
-		links anymore
-	- Switch context menu to use the same makeLinks() format
-	- The no-language nav isn't in /learn it's in /learn/index so add-deck and quick-search don't
-		get the nav
-	- Highlighting the current page works by comparing the pathname to the link's "to" property so
-		it doesn't match /learn/tam to /learn/$lang ... should find a way around that
-	- Prefer tabs over this kind of nav
+1. Remove routes that don't go anywhere? or make them go places. search `@@BLANKROUTE` in code.
+		- ✅ Remove links that don't go anywhere: /languages
 1. Mobile apps:
 	✅ compile to android with tauri
 		Make Tauri work with HMR and Vite setup
@@ -155,29 +156,15 @@ MOCKS / Incompletes
 
 
 COMPONENTS (ShadCN/Radix)
-1. ✅ Add a Components page to keep track of / showcase all components
-1. ✅ Removing daisyUI
-		1. disable active link (removed class `disabled`)
-		1. ✅ fix color codes (text-base, bg-base-300) in SelectOneLanguage
-		1. ✅ fix accent color
-		1. ✅ remove all the non-variable using color codes from the initial shadcn setup
-	1. ✅ find-replace all these colors: text-base text-base-content etc
-1. ✅ turn the contents of card-status-dropdown.tsx into a standard dropdown that works for all card statuses
-		✅ also support no status (add to deck, skip, already learned it)
-		- or no deck (start learning this language)
-		- or not logged in (login)
-1. ✅ use <Loader2 className="animate-spin" /> for main loader spinner
-	- ✅ Replace all Loader2 with Loader
-	- Go to all the disabled buttons and add this spinner
 1. Add the "suggest edits to this card"
 1. replace my multi-language select with https://craft.mxkaske.dev/post/fancy-multi-select
-1. ✅ Replace the sidebar with sidebar
-1. Replace the navbar with a shadcn navbar with breadcrumbs
 
 
 PRIMARY CARD INTERACTIONS
 1. bring over the new structure for relations
 1. ✅ make the "add to deck" function work
+	- or no deck (start learning this language)
+	- or not logged in (login)
 
 
 AUTH
@@ -185,7 +172,11 @@ AUTH
 1. ✅ add signOut action to AuthContext -- correction: mocked it with its own hook
 1. ✅ figure out "redirect to home screen" on logout 
 1. ✅ auth guard bounce, login, redirect back (only when not logged in)
-1. @TODO in the _auth/login.tsx - why using hooks? we should have this already
+1. forgot-password
+1. set-new-password
+1. change-email
+1. change-password
+
 
 
 NAVIGATION

@@ -49,6 +49,12 @@ export type LanguageMeta = Tables<'language_plus'>
 export type LanguageFetched = LanguageMeta & {
 	phrases: Array<PhraseFull>
 }
+export type PhraseStub = {
+	id: string
+	text: string
+	translation: { text: string; lang: string }
+}
+
 export type PhrasesMap = {
 	[key: uuid]: PhraseFull
 }
@@ -61,7 +67,6 @@ export type LanguageLoaded = {
 }
 
 export type PhraseRow = Tables<'phrase'>
-export type PhraseStub = Tables<'phrase'>
 export type PhraseInsert = TablesInsert<'phrase'>
 export type PhraseCardInsert =
 	Database['public']['Functions']['add_phrase_translation_card']['Args']
