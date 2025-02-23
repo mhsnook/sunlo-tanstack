@@ -1,8 +1,36 @@
+Phase 0: MEP
+1. $lang/library needs the "trending/popular" wired up to real data
+1. forgot-password
+1. set-new-password
+1. change-email
+1. change-password
+
+COMPLETE JOURNEYS
+1. when you sign in for the first time it should redirect you to getting-started page (currently to home)
+1. when the profile is blank, the sidebar haas an error
+1. when you sign in for the first time, the /learn screen is an error; actually anything accessing the profile
+	seems to be an error -- it should redirect you? we should put profile into context?
+1. when you go to the deck page and it's empty, we should get a prompt for the library, ya?
+1. when you go to the deck page and it's empty, we shouldn't prompt you to do a review; we should take you on a little journey to find new ones
+
+USER TESTING FIXES
+1. on a phone, the success toasts, appearing at the bottom, aren't always visible (if the keyboard is out)
+1. on a submission we should collapse the keyboard automatically
+1. when you navigate it should close the sidebar
+1. when you have a pending friend request it should be visible from the friends home
+1. add a deck -- the "select one language" input should have a better type-to-search which includes the language name as well a the code
+1. when you go to the library and add cards to your deck, and then go to the review page, it's still loaded the empty-set that was returned before
+1. malformed link like /learn/undefined should 404, or at least say 'do you wanna start learning this?' 
+		- at least we should validate this parameter has length === 3 to even match it
+1. When you try to sign up using existing creds you get an error and then get logged in. We
+	should handle this. (inspect and special-case the error before throwing, and toast accordingly)
+
+
 EPIC: FSRS Followup
 1. Reviewables list should be _fully static_ so we can invalidate the cache and it won't change mid-session
 1. during a review, if you skip cards, they should be mentioned on the final page
 		(instead of just "congratulations; you're done")
-1. the "Again" option should make the card happen again
+1. the "Again" option should make the card happen again (this session)
 1. should there be a deck setting for "t/f when i've run out of new cards, pick more for me (automated)"
 1. re-implement lost functionality:
 	-	undo and redo a review
@@ -25,72 +53,26 @@ EPIC: Postgres DX / Run Supabase Locally
 	- use postmark templates like [this](https://github.com/supabase/auth/issues/304#issuecomment-998029660)
 
 
-POLISH: New User Signup
-1. when you sign in for the first time it redirects you to the home page not a confirmation/getting-started page
-1. when the profile is blank, the sidebar haas an error
-1. when you sign in for the first time, the /learn screen is an error; actually anything accessing the profile
-	seems to be an error -- it should redirect you? we should put profile into context?
-1. when you go to the deck page and it's empty, we should get a prompt for the library, ya?
-1. when you go to the deck page and it's empty, we shouldn't prompt you to do a review
-
-
-EPIC: User Testing
-1. on a phone, the success toasts, appearing at the bottom, aren't always visible (if the keyboard is out)
-1. on a submission we should collapse the keyboard automatically
-1. when you navigate it should close the sidebar
-1. when you have a pending friend request it should be visible from the friends home
-1. add a deck -- the "select one language" input should have a better type-to-search which includes the language name as well a the code
-1. when you go to the library and add cards to your deck, and then go to the review page, it's still loaded the empty-set that was returned before
-1. Remove routes that don't go anywhere? or make them go places. search `@@BLANKROUTE` in code.
-		- ✅ Remove links that don't go anywhere: /languages
-1. Mobile apps:
-	✅ compile to android with tauri
-		Make Tauri work with HMR and Vite setup
-	- compile to ios with tauri
-
-
 EPIC: Convert useQueries to usequery(someOptions) format
 -	instead of using { data, isPending, error }, we may want to switch to 
-	queryClient.ensureQueryData(queryOptions) higher up in the route tree
--	perhaps just adopt for one query, like the relationships, bc we should get
-	immediate UX/code improvement -- only placing error/pending states
-	between navigations and removing them from
+	queryClient.ensureQueryData(queryOptions) in the route loaader
 	- ✅ Completed for useLanguage
 	- ✅ Completed for useDeck
 	- ✅ Do the same for useProfile
 	- Do the same for useRelations
 
-EPIC OF SIGNUPS AND GETTING STARTED AND CONNECTING FRIENDS
-1.	✅ Got to actually build the signup workflow, for learners and friends
-	1.	✅ add a mock for the form input
-		1.	✅ make the form input look niceeee
-	1.	✅ make the form input work
-	1.	~make the signup email nice~
-	1.	add "copy invitation text" to invite page
-	1.	✅ differentiate the landing page
-		1.	✅ getting-started page just has the username and primary language, creates the profile only.
-		1.	_then_ the differentiated page: 
-			*	✅ learners get the add-first-deck page
-			*	✅ friends get an accept-friendship page
-				*	✅ Build this "accept-one-particular-invite" page
-				*	original invite needs to embed the friend's uid
-				*	grab the url argument and save it when the temp user is created
-				*	detect the friend uid in the user object for the first-redirect after getting-started
-	1. ✅ landing page followup steps (/getting-started, etc.)
-	1.	implications: there should be someplace in /profile to change this? to "open up" the rest of the app?
-		*	so far, no; the user_role is only used for the getting-started page's redirect
-1. ✅ search for friends -- results should include relationship if present
-	* ✅ this may mean actually the search unit should take an ID and we should fetch the relationship from a map
-		(so do like how we have deck.pids and and such, with relationships, refactoring this cache entry)
-1.	✅ use specific mutation keys for invitations/response actions
-1.	✅ destructive buttons like "unfriend" and "cancel invite" and "decline invitation" should all have dialog confirmations
 
-ISSUES
-1. malformed link like /learn/undefined should 404, or at least say 'do you wanna start learning this?' 
-		- at least we should validate this parameter has length === 3 to even match it
-1. When you try to sign up using existing creds you get an error and then get logged in. We
-	should handle this. (inspect and special-case the error before throwing, and toast accordingly)
-1. why is class s-link not working correctly in the "find a friend" search empty results section? (have manually added a border-b, like a barbarian)
+EPIC OF SIGNUPS AND GETTING STARTED AND CONNECTING FRIENDS
+1.	add "copy invitation text" to invite page
+1.	~make the signup email nice~
+1. the getting-started flow:
+	*	✅ learners get the add-first-deck page
+	*	✅ friends get an accept-friendship page
+		*	✅ Build this "accept-one-particular-invite" page
+		*	original invite needs to embed the friend's uid
+		*	grab the url argument and save it when the temp user is created
+		*	detect the friend uid in the user object for the first-redirect after getting-started
+1. the unauthenticated find-a-friend page should prompt you to sign in/sign up if you try to interact
 
 
 EDGE CASES LEFT BEHIND
@@ -102,18 +84,8 @@ EDGE CASES LEFT BEHIND
 		Both of these options seem secure, and they won't conflict.
 	- replace this RLS hack with an RPC
 	- Explore: move some/many tables out of the public schema, keep the RLS but make them accessible only via RPCs
-1. ✅ you can no longer unfriend someone. I would like to build some "info" page/modal or something,
-	just for friends...
-
-JOURNEYS TO MOCK
-1. Invite a friend (for a learner to invite someone by email)
-		* invite email for the friend
-		* ✅ accept invitation page, account signup form
-		* landing page for the friend when they sign up... (what can they see?)
-1. ✅ Find a friend screen (for an anon visitor to find a learner)
-		* friend request dialog w signup
-		* ✅ Friend request sent / pending requests
-		* ✅ Friend request receive, friend request approve, friend request reject
+1. ✅ build some "info" page for public profles/Friends
+	- should be able to unfriend them
 
 
 MOCKS / Incompletes
@@ -129,19 +101,7 @@ MOCKS / Incompletes
 		- move the Quick Search link into the navbar??
 1. $lang/library needs a search bar added to filter in realtime
 1. ✅ The "new friend signup" screens -- what are we doing here? selecting which deck(s) we're helping with... and then what?
-	1. How does the friend mode sidebar look? is it the same? are some people Learners _and_ Helpers?
-			(ideally, yes?) should we be switching "modes" like one context switcher that has options for
-			each deck we're learning and each deck we're helping with...
-1. Public Library is a special browsing experience that needs to be built!
-	1. ✅ $lang/search needs wiring
-	1. ✅ $lang/library needs the "trending/popular" section built
-			- wire it up to real data
-	1. ✅ $lang/library needs some quick filters
-	1. deeper interactions with cards:
-			- when we open these accordion things, should we open a whole dialog? or have a button that opens the whole dialog?
-			- $lang/library/phrase/$pid perhaps should be built which permalinks to the same thing as goes in the dialog
-			- ✅ add translations button must work
-			- add related phrase?
+1. Public Library is a special browsing experience that needs to be built!	
 	1. $lang/library has this "recently reviewed" filter which probably should be a field on the user_card_plus view
 	1. $lang/index needs the review overview graph thing made
 1. ✅ Deck Settings: replace with the nicer radio: https://v0.dev/chat/PNg3tT-DSoC,
@@ -150,84 +110,41 @@ MOCKS / Incompletes
 		✅ add the "archive" form, and field on user_deck
 		✅ wire up the mutation
 		- perhaps add a mode for how aggro to be (10, 15, 20 new cards per review)
-1. ✅ Add-a-card needs form wiring
 1. find-a-friend may be accessed without a login, so we should make sure the status buttons
 		can react to that scenario and trigger a signup/login when needed
 
 
-COMPONENTS (ShadCN/Radix)
-1. Add the "suggest edits to this card"
-1. replace my multi-language select with https://craft.mxkaske.dev/post/fancy-multi-select
-
-
-PRIMARY CARD INTERACTIONS
+CARD INTERACTIONS
 1. bring over the new structure for relations
 1. ✅ make the "add to deck" function work
 	- or no deck (start learning this language)
 	- or not logged in (login)
-
-
-AUTH
-1. ✅ add AuthContext -- so far I've just mocked it with useQuery
-1. ✅ add signOut action to AuthContext -- correction: mocked it with its own hook
-1. ✅ figure out "redirect to home screen" on logout 
-1. ✅ auth guard bounce, login, redirect back (only when not logged in)
-1. forgot-password
-1. set-new-password
-1. change-email
-1. change-password
-
-
-
-NAVIGATION
-1. ✅ get back the "active/inactive" link style in sidebar.tsx
-1. add an optional quicksearch component to the navbar, perhaps it immediately opens a search like a dialog and just accepts the component that fills the dialog 🤔
-1. ✅ probably set it to only active-match exact route matches
-1. ✅ don't forget to add the Navbar
-1. ✅ add context menus (links) to all the pages and scaffold pages
-1. Refactor the page nav and context menu and navbar titles to use context like [this breadcrumbs example](https://tanstack.com/router/v1/docs/framework/react/guide/router-context), [example here](https://github.com/TanStack/router/blob/main/examples/react/kitchen-sink-file-based/src/components/Breadcrumbs.tsx)
+1. deeper interactions with cards:
+	- when we open these accordion things, should we open a whole dialog or a sonner? or have a button that opens the whole dialog?
+	- $lang/library/phrase/$pid perhaps should be built which permalinks to the same thing as goes in the dialog
+	- ✅ add translations button must work
+1. "suggest edits to this card"
 
 
 UI POLISH
 1. Add activity graph to deck summaries :)) https://app.radicle.xyz/nodes/seed.radicle.xyz/rad:z4V1sjrXqjvFdnCUbxPFqd5p4DtH5/tree/src/components/ActivityDiagram.svelte
-1. When a loader awaits, this is a time to show blank shell and transition in
 1. Full multilingual text search:
 	- PGroonga: https://supabase.com/docs/guides/database/extensions/pgroonga
 	- fulltext search without accents: https://www.postgresql.org/docs/current/unaccent.html
 	- ⛔ fuzzy string match that only works well with american names: https://www.postgresql.org/docs/current/fuzzystrmatch.html
-1. Prettier URLs? with hashIDs (can hash the uuid): https://supabase.com/docs/guides/database/extensions/pg_hashids
-1. slide the cards in and out like so https://v0.dev/chat/animated-card-interface-MHacnAB0fOp
-1. give us a completion progress bar in the /review interface
+1. This chat's features: https://v0.dev/chat/animated-card-interface-MHacnAB0fOp
+	1. slide the cards in and out horizontally
+	1. give us a completion progress bar in the /review interface
+1. suspend until profile loads
+1. when the router loader is suspending and then stops, transition in
+1. replace my multi-language select with https://craft.mxkaske.dev/post/fancy-multi-select
+
 
 OTHER IDEAS
 1. a app shortcut that opens straight into new-card interface
 1. take a picture, do OCR on it, let people create a card directly from the real world
+1. Prettier URLs? with hashIDs (can hash the uuid): https://supabase.com/docs/guides/database/extensions/pg_hashids
 
-DATA LOADING
-1. ✅ replace useLang with router feature
-1. ✅ replace the old useProfile and ProfileFull
-1. ✅ refresh all the fetcher hooks w the select-paradigm code
-1. ✅ don't use `enabled` to waterfall useQueries on auth context
-		perhaps this will just be a code convention only render components after auth
-		perhaps there is a better way to use the params / data / keys
-1. Cache structure: we need to be able to retrieve objects by their UUID alone...
-		phrases in particular. now also relationships or public profiles, bc search results
-
-ROUTER
-1. ✅ if the navbar is not present, use its parent, somehow
-1. can we aggregate all the context menu items and display them in groups. 
-		(this collation should mean we can set a single page's title without affecting the menus) 
-	- 	yes: https://tanstack.com/router/v1/docs/framework/react/guide/router-context, [example here](https://github.com/TanStack/router/blob/main/examples/react/kitchen-sink-file-based/src/components/Breadcrumbs.tsx)
-1. ✅ What is the best way to get the $lang? is it `const { lang } = Route.useParams()` ? can we not get it in page props, or context?
-		- yes to context: `const data = Route.useRouteContext()` does return the queryClient and the auth object (mixed together actually)
-			- further can we access context from props?
-1. if the validateSearch is not present, can we use its parent? or can we just get params from the parent component?
-1. ✅ research loaders, preloading, query client prefetching, etc. patterns so
-		we can get the most out of things. 
-		* ✅ access `auth` on first render
-		* suspend until profile loads
-		* ✅ suspend /$lang routes until language & deck load
-		* when the router loader is suspending and then stops, transition in
 
 ONGOING DATA-HEALTH PRUNING/CURING
 1. For any of the RPC function we should set some permissions:
