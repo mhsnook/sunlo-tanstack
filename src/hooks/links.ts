@@ -1,14 +1,17 @@
 import {
 	BookCopy,
 	BookHeart,
+	FileText,
 	FolderPlus,
 	HeartHandshake,
 	Home,
+	LogIn,
 	NotebookPen,
 	Rocket,
 	Search,
 	Send,
 	Settings,
+	UserPlus,
 } from 'lucide-react'
 import languages from '../lib/languages'
 import { useMemo } from 'react'
@@ -16,6 +19,13 @@ import { LinkType } from '@/types/main'
 import { useParams } from '@tanstack/react-router'
 
 const links = (lang?: string): Record<string, LinkType> => ({
+	'/': {
+		name: 'Home',
+		link: {
+			to: '/',
+		},
+		Icon: Home,
+	},
 	'/friends': {
 		name: 'Contacts',
 		title: 'Friends and contacts',
@@ -38,14 +48,6 @@ const links = (lang?: string): Record<string, LinkType> => ({
 		Icon: Send,
 		link: {
 			to: '/friends/invite',
-		},
-	},
-	'/profile': {
-		name: 'Profile',
-		title: 'Edit profile',
-		Icon: NotebookPen,
-		link: {
-			to: '/profile',
 		},
 	},
 	'/learn': {
@@ -125,6 +127,35 @@ const links = (lang?: string): Record<string, LinkType> => ({
 			to: '/learn/quick-search',
 		},
 		Icon: Search,
+	},
+	'/login': {
+		name: 'Log in',
+		link: {
+			to: '/login',
+		},
+		Icon: LogIn,
+	},
+	'/privacy-policy': {
+		name: 'Privacy policy',
+		link: {
+			to: '/privacy-policy',
+		},
+		Icon: FileText,
+	},
+	'/profile': {
+		name: 'Profile',
+		title: 'Edit profile',
+		Icon: NotebookPen,
+		link: {
+			to: '/profile',
+		},
+	},
+	'/signup': {
+		name: 'Sign up',
+		link: {
+			to: '/signup',
+		},
+		Icon: UserPlus,
 	},
 })
 

@@ -1,13 +1,5 @@
-import {
-	SidebarGroup,
-	SidebarGroupLabel,
-	SidebarMenu,
-	SidebarMenuButton,
-	SidebarMenuItem,
-} from '@/components/ui/sidebar'
-import { Link } from '@tanstack/react-router'
 import { makeLinks } from '@/hooks/links'
-import { LinkType } from '@/types/main'
+import OneSidebarMenu from './one-sidebar-menu'
 
 const deckLinks = [
 	'/learn/$lang',
@@ -27,35 +19,19 @@ const learnMenu = makeLinks([
 	'/learn/quick-search',
 	'/learn/add-deck',
 ])
-
-function OneMenu({ menu, title }: { menu: Array<LinkType>; title: string }) {
-	return (
-		<SidebarGroup>
-			<SidebarGroupLabel>{title}</SidebarGroupLabel>
-			<SidebarMenu>
-				{menu.map((item) => (
-					<SidebarMenuItem key={item.name}>
-						<SidebarMenuButton asChild>
-							<Link {...item.link}>
-								<item.Icon />
-								<span>{item.title}</span>
-							</Link>
-						</SidebarMenuButton>
-					</SidebarMenuItem>
-				))}
-			</SidebarMenu>
-		</SidebarGroup>
-	)
-}
+const siteMenu = makeLinks(['/', '/login', '/signup', '/privacy-policy'])
 
 export function NavMain({ lang }: { lang: string }) {
 	const deckMenu = !lang ? null : makeLinks(deckLinks, lang)
 
 	return (
 		<>
-			{!deckMenu ? null : <OneMenu menu={deckMenu} title="Deck options" />}
-			<OneMenu menu={friendsMenu} title="Friends & contacts" />
-			<OneMenu menu={learnMenu} title="Learning center" />
+			{!deckMenu ? null : (
+				<OneSidebarMenu menu={deckMenu} title="Deck options" />
+			)}
+			<OneSidebarMenu menu={learnMenu} title="Learning center" />
+			<OneSidebarMenu menu={friendsMenu} title="Friends & contacts" />
+			<OneSidebarMenu menu={siteMenu} title="Site" />
 		</>
 	)
 }

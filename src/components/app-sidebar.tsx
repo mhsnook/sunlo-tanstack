@@ -1,7 +1,5 @@
-import type * as React from 'react'
-
+import type { ComponentProps } from 'react'
 import { NavMain } from './nav-main'
-import { NavSite } from './nav-site'
 import { NavUser } from './nav-user'
 import { DeckSwitcher } from './deck-switcher'
 import {
@@ -14,7 +12,7 @@ import {
 import { useParams } from '@tanstack/react-router'
 import { ModeToggle } from './mode-toggle'
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 	const { lang } = useParams({ strict: false })
 	return (
 		<Sidebar collapsible="icon" variant="floating" {...props}>
@@ -23,7 +21,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 			<SidebarContent>
 				<NavMain lang={lang} />
-				<NavSite />
 			</SidebarContent>
 			<SidebarFooter>
 				<ModeToggle />
