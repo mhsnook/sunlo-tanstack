@@ -11,4 +11,6 @@ type FlagMap = {
 }
 export const flags: FlagMap = {
 	smart_recommendations: { enabled: false },
+	friends_activity: { enabled: false },
+	learning_goals: { enabled: false },
 }

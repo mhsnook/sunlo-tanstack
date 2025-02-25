@@ -25,6 +25,7 @@ import { ago } from '@/lib/dayjs'
 import { useDeckMeta } from '@/lib/use-deck'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
+import Flagged from '@/components/flagged'
 
 export const Route = createFileRoute('/_user/learn/$lang/')({
 	component: WelcomePage,
@@ -39,7 +40,9 @@ function WelcomePage() {
 				<Empty lang={lang} />
 			:	<>
 					<DeckOverview lang={lang} />
-					<FriendsSection lang={lang} />
+					<Flagged name="friends_activity">
+						<FriendsSection lang={lang} />
+					</Flagged>
 					<DeckSettings lang={lang} />
 				</>
 			}
@@ -198,9 +201,11 @@ function DeckSettings({ lang }: LangOnlyComponentProps) {
 							:	'Living in a new place'}
 						</strong>
 					</li>
-					<li>
-						Your learning goals are: <strong>lorem upside downum</strong>
-					</li>
+					<Flagged name="learning_goals">
+						<li>
+							Your learning goals are: <strong>lorem upside downum</strong>
+						</li>
+					</Flagged>
 				</ul>
 				<Link
 					to="/learn/$lang/deck-settings"
