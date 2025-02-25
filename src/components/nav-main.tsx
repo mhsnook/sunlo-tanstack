@@ -1,177 +1,61 @@
 import {
-	BookCopy,
-	ChevronRight,
-	Contact,
-	FolderPlus,
-	GalleryHorizontalEnd,
-	HeartHandshake,
-	NotebookPen,
-	Rocket,
-	School,
-	Search,
-	Send,
-	Settings,
-} from 'lucide-react'
-import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-} from '@/components/ui/collapsible'
-import {
 	SidebarGroup,
 	SidebarGroupLabel,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-	SidebarMenuSub,
-	SidebarMenuSubButton,
-	SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
-import { MenuType } from '@/types/main'
-import languages from '@/lib/languages'
-import { Link, useRouterState } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router'
+import { makeLinks } from '@/hooks/links'
+import { LinkType } from '@/types/main'
 
-const menus = (lang: string): Array<MenuType> => {
-	let result: Array<MenuType> = [
-		{
-			name: 'Friends',
-			link: { to: '/friends' },
-			Icon: HeartHandshake,
-			items: [
-				{
-					name: 'Friends home',
-					link: {
-						to: '/friends',
-					},
-					Icon: Contact,
-				},
-				{
-					name: 'Search profiles',
-					link: {
-						to: '/friends/search',
-					},
-					Icon: Search,
-				},
-				{
-					name: 'Invite to Sunlo',
-					link: {
-						to: '/friends/invite',
-					},
-					Icon: Send,
-				},
-				{
-					name: 'Start a new language',
-					link: {
-						to: '/learn/add-deck',
-					},
-					Icon: FolderPlus,
-				},
-			],
-		},
-	]
-	if (lang)
-		result.unshift({
-			name: 'Deck navigation',
-			link: { to: '/learn' },
-			Icon: GalleryHorizontalEnd,
-			items: [
-				{
-					name: 'Start a review',
-					Icon: Rocket,
-					link: {
-						to: '/learn/$lang/review',
-						params: { lang },
-					},
-				},
-				{
-					name: 'Quick search',
-					Icon: Search,
-					link: {
-						to: '/learn/$lang/search',
-						params: { lang },
-					},
-				},
-				{
-					name: `Browse ${languages[lang]} library`,
-					Icon: BookCopy,
-					link: {
-						to: '/learn/$lang/library',
-						params: { lang },
-					},
-				},
-				{
-					name: 'Add a phrase',
-					Icon: NotebookPen,
-					link: {
-						to: '/learn/$lang/add-phrase',
-						params: { lang },
-					},
-				},
-				{
-					name: 'Deck settings',
-					Icon: Settings,
-					link: {
-						to: '/learn/$lang/deck-settings',
-						params: { lang },
-					},
-				},
-			],
-		})
-	return result
-}
-export function NavMain({ lang }: { lang: string }) {
-	const menusData = menus(lang)
-	const {
-		location: { pathname },
-	} = useRouterState()
-	const routeTreeSegment = pathname.split('/')[1]
+const deckLinks = [
+	'/learn/$lang',
+	'/learn/$lang/review',
+	'/learn/$lang/search',
+	'/learn/$lang/library',
+	'/learn/$lang/add-phrase',
+	'/learn/$lang/deck-settings',
+]
+const friendsMenu = makeLinks([
+	'/friends',
+	'/friends/search',
+	'/friends/invite',
+])
+const learnMenu = makeLinks([
+	'/learn',
+	'/learn/quick-search',
+	'/learn/add-deck',
+])
 
+function OneMenu({ menu, title }: { menu: Array<LinkType>; title: string }) {
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel>Menu</SidebarGroupLabel>
+			<SidebarGroupLabel>{title}</SidebarGroupLabel>
 			<SidebarMenu>
-				<SidebarMenuItem>
-					<SidebarMenuButton asChild>
-						<Link to="/learn">
-							<School />
-							<span>Learning center</span>
-						</Link>
-					</SidebarMenuButton>
-				</SidebarMenuItem>
-
-				{menusData.map((item) => (
-					<Collapsible
-						key={item.name}
-						asChild
-						defaultOpen={routeTreeSegment === item.link.to.split('/')[1]}
-						className="group/collapsible"
-					>
-						<SidebarMenuItem>
-							<CollapsibleTrigger asChild>
-								<SidebarMenuButton tooltip={item.name}>
-									{item.Icon && <item.Icon />}
-									<span>{item.name}</span>
-									<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-								</SidebarMenuButton>
-							</CollapsibleTrigger>
-							<CollapsibleContent>
-								<SidebarMenuSub>
-									{item.items?.map((subItem) => (
-										<SidebarMenuSubItem key={subItem.name}>
-											<SidebarMenuSubButton asChild>
-												<Link {...subItem.link}>
-													<subItem.Icon />
-													<span>{subItem.name}</span>
-												</Link>
-											</SidebarMenuSubButton>
-										</SidebarMenuSubItem>
-									))}
-								</SidebarMenuSub>
-							</CollapsibleContent>
-						</SidebarMenuItem>
-					</Collapsible>
+				{menu.map((item) => (
+					<SidebarMenuItem key={item.name}>
+						<SidebarMenuButton asChild>
+							<Link {...item.link}>
+								<item.Icon />
+								<span>{item.title}</span>
+							</Link>
+						</SidebarMenuButton>
+					</SidebarMenuItem>
 				))}
 			</SidebarMenu>
 		</SidebarGroup>
+	)
+}
+
+export function NavMain({ lang }: { lang: string }) {
+	const deckMenu = !lang ? null : makeLinks(deckLinks, lang)
+
+	return (
+		<>
+			{!deckMenu ? null : <OneMenu menu={deckMenu} title="Deck options" />}
+			<OneMenu menu={friendsMenu} title="Friends & contacts" />
+			<OneMenu menu={learnMenu} title="Learning center" />
+		</>
 	)
 }

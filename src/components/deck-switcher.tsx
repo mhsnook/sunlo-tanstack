@@ -69,7 +69,7 @@ export function DeckSwitcher({ lang }: { lang: string }) {
 								</div>
 								<div className="grid flex-1 text-left text-sm leading-tight">
 									<span className="truncate font-semibold">
-										{!lang ? 'Your learning decks' : languages[lang]}
+										{!lang ? 'Choose a deck' : languages[lang]}
 									</span>
 								</div>
 								<ChevronsUpDown className="ml-auto" />
