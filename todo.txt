@@ -1,20 +1,4 @@
-Phase 0: MEP
-1. $lang/library needs the "trending/popular" wired up to real data
-1. forgot-password
-1. set-new-password
-1. change-email
-1. change-password
-
-COMPLETE JOURNEYS
-1. when you sign in for the first time it should redirect you to getting-started page (currently to home)
-1. when the profile is blank, the sidebar haas an error
-1. when you sign in for the first time, the /learn screen is an error; actually anything accessing the profile
-	seems to be an error -- it should redirect you? we should put profile into context?
-1. when you go to the deck page and it's empty, we should get a prompt for the library, ya?
-1. when you go to the deck page and it's empty, we shouldn't prompt you to do a review; we should take you on a little journey to find new ones
-
 USER TESTING FIXES
-1. on a phone, the success toasts, appearing at the bottom, aren't always visible (if the keyboard is out)
 1. on a submission we should collapse the keyboard automatically
 1. when you navigate it should close the sidebar
 1. when you have a pending friend request it should be visible from the friends home
@@ -24,6 +8,7 @@ USER TESTING FIXES
 		- at least we should validate this parameter has length === 3 to even match it
 1. When you try to sign up using existing creds you get an error and then get logged in. We
 	should handle this. (inspect and special-case the error before throwing, and toast accordingly)
+1. nav-user line 51 will error because the profile isn't loaded
 
 
 EPIC: FSRS Followup

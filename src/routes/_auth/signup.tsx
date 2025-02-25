@@ -57,10 +57,7 @@ function SignUp() {
 		onSuccess: (data) => {
 			console.log(`Signup form response data`, data)
 			toast.success(
-				`Account created for ${data.user?.email}. Please check your email to confirm.`,
-				{
-					position: 'bottom-center',
-				}
+				`Account created for ${data.user?.email}. Please check your email to confirm.`
 			)
 		},
 	})
