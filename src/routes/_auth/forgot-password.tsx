@@ -1,17 +1,18 @@
-import { ShowError } from '@/components/errors'
-import { EmailField } from '@/components/fields'
-import SuccessCheckmark from '@/components/SuccessCheckmark'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import supabase from '@/lib/supabase-client'
+import { useMutation } from '@tanstack/react-query'
+import { type SubmitHandler, useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import toast from 'react-hot-toast'
+
 import { Button } from '@/components/ui/button'
 import { buttonVariants } from '@/components/ui/button-variants'
 import Callout from '@/components/ui/callout'
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import supabase from '@/lib/supabase-client'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { z } from 'zod'
+import { ShowError } from '@/components/errors'
+import { EmailField } from '@/components/fields'
+import SuccessCheckmark from '@/components/SuccessCheckmark'
 
 export const Route = createFileRoute('/_auth/forgot-password')({
 	component: ForgotPasswordPage,
@@ -51,7 +52,6 @@ function ForgotPasswordPage() {
 	const {
 		handleSubmit,
 		register,
-		control,
 		formState: { errors, isSubmitting },
 	} = useForm<FormInputs>({
 		resolver: zodResolver(FormSchema),
