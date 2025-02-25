@@ -1,14 +1,11 @@
 USER TESTING FIXES
-1. on a submission we should collapse the keyboard automatically
-1. when you navigate it should close the sidebar
 1. when you have a pending friend request it should be visible from the friends home
 1. add a deck -- the "select one language" input should have a better type-to-search which includes the language name as well a the code
 1. when you go to the library and add cards to your deck, and then go to the review page, it's still loaded the empty-set that was returned before
 1. malformed link like /learn/undefined should 404, or at least say 'do you wanna start learning this?' 
-		- at least we should validate this parameter has length === 3 to even match it
+	- at least we should validate this parameter has length === 3 to even match it
 1. When you try to sign up using existing creds you get an error and then get logged in. We
 	should handle this. (inspect and special-case the error before throwing, and toast accordingly)
-1. nav-user line 51 will error because the profile isn't loaded
 
 
 EPIC: FSRS Followup
