@@ -1,10 +1,17 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card'
 import { Loader } from '@/components/ui/loader'
 import { useRelations } from '@/lib/friends'
 import { ShowError } from '@/components/errors'
 import { ProfileWithRelationship } from '@/components/profile-with-relationship'
+import Flagged from '@/components/flagged'
 
 export const Route = createFileRoute('/_user/friends/')({
 	component: FriendListPage,
@@ -14,6 +21,9 @@ function FriendListPage() {
 	return (
 		<main className="flex flex-col gap-6">
 			<FriendProfiles />
+			<Flagged name="friends_activity">
+				<FriendsActivity />
+			</Flagged>
 			<PendingRequestsSection />
 		</main>
 	)
@@ -92,4 +102,43 @@ function FriendProfiles() {
 			</Card>
 		</>
 	)
+}
+
+// TODO the database doesn't have friendships yet so this is all mockup-y
+// and the type is also mocked
+function FriendsActivity() {
+	const { data, isPending } = useRelations()
+
+	return isPending ?
+			<Loader />
+		:	<Card>
+				<CardHeader>
+					<CardTitle>Your Friends</CardTitle>
+					<CardDescription>
+						NB: This is just sample activity; there's no database object yet for
+						friend-viewable user activity
+					</CardDescription>
+				</CardHeader>
+				<CardContent className="space-y-4">
+					<ul className="list-disc ml-4">
+						{data.uids.friends.map((uid) => {
+							const d = data.relationsMap[uid]
+							return !d.profile ? null : (
+									<li key={uid}>
+										<Link
+											to="/friends/$uid"
+											params={{ uid }}
+											className="s-link"
+										>
+											{d.profile.username}
+										</Link>{' '}
+										<Flagged name="friends_activity">
+											<span className="opacity-70">was doing something</span>
+										</Flagged>
+									</li>
+								)
+						})}
+					</ul>
+				</CardContent>
+			</Card>
 }
