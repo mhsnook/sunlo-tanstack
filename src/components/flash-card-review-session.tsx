@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils'
 import { postReview } from '@/lib/use-reviewables'
 import { PostgrestError } from '@supabase/supabase-js'
 import PhraseExtraInfo from './phrase-extra-info'
+import Flagged from './flagged'
 
 interface ComponentProps {
 	cards: Array<CardFull>
@@ -97,14 +98,16 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 								<PhraseExtraInfo lang={phrase.lang} pid={phrase.id} />
 								<div className="flex items-center justify-center mb-4">
 									<div className="text-2xl font-bold mr-2">{phrase.text}</div>
-									<Button
-										size="icon"
-										variant="secondary"
-										onClick={() => playAudio(phrase.text)}
-										aria-label="Play original phrase"
-									>
-										<Play className="h-4 w-4" />
-									</Button>
+									<Flagged name="text_to_speech">
+										<Button
+											size="icon"
+											variant="secondary"
+											onClick={() => playAudio(phrase.text)}
+											aria-label="Play original phrase"
+										>
+											<Play className="h-4 w-4" />
+										</Button>
+									</Flagged>
 								</div>
 								<div>
 									{!showTranslation ? null : (
@@ -114,14 +117,16 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 													{trans.lang}
 												</span>
 												<div className="text-xl me-2">{trans.text}</div>
-												<Button
-													size="icon-sm"
-													variant="secondary"
-													onClick={() => playAudio(trans.text)}
-													aria-label="Play translation"
-												>
-													<Play className="h-4 w-4" />
-												</Button>
+												<Flagged name="text_to_speech">
+													<Button
+														size="icon-sm"
+														variant="secondary"
+														onClick={() => playAudio(trans.text)}
+														aria-label="Play translation"
+													>
+														<Play className="h-4 w-4" />
+													</Button>
+												</Flagged>
 											</div>
 										))
 									)}
