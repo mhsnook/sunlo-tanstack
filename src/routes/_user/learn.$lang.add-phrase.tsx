@@ -78,12 +78,12 @@ function AddPhraseTab() {
 			if (error) throw error
 			return data
 		},
-		onSuccess: (data) => {
+		onSuccess: (data, { translation_lang }) => {
 			toast.success(
 				'New phrase has been added to the public library and will appear in your next review'
 			)
 			console.log(`Success:`, data)
-			reset({ text: '', translation_text: '', translation_lang: '' })
+			reset({ text: '', translation_text: '', translation_lang })
 			refocusRef?.current?.focus()
 		},
 		onError: (error) => {
