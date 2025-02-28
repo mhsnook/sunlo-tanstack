@@ -147,7 +147,7 @@ function AddPhraseTab() {
 						error={errors.translation_text}
 						register={register}
 					/>
-					<div className="flex flex-row gap-2">
+					<div className="flex flex-col @xl:flex-row gap-2">
 						<Button type="submit" disabled={addPhraseMutation.isPending}>
 							{addPhraseMutation.isPending ?
 								<Loader />
