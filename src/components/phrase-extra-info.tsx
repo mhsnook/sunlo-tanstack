@@ -1,12 +1,12 @@
 import { CardFull, uuid } from '@/types/main'
 import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from './ui/alert-dialog'
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from './ui/dialog'
 import { ago } from '@/lib/dayjs'
 import { useLanguagePhrase } from '@/lib/use-language'
 import { Button } from './ui/button'
@@ -27,21 +27,22 @@ export default function PhraseExtraInfo({
 	const card = useDeckCard(pid, lang)
 
 	return (
-		<AlertDialog>
-			<AlertDialogTrigger className={className} asChild>
+		<Dialog>
+			<DialogTrigger className={className} asChild>
 				<Button variant="ghost" size="icon-sm">
 					<Ellipsis className="h-4 w-4" />
 					<span className="sr-only">Show more</span>
 				</Button>
-			</AlertDialogTrigger>
+			</DialogTrigger>
 			{phrase.isPending ? null : (
-				<AlertDialogContent>
-					<AlertDialogHeader>
-						<AlertDialogTitle>User card details</AlertDialogTitle>
-						<AlertDialogDescription>
+				<DialogContent className="max-h-[90vh] max-w-[90vw] overflow-y-auto">
+					<DialogHeader>
+						<DialogTitle>User card details</DialogTitle>
+						<DialogDescription>
 							&ldquo;{phrase.data.text}&rdquo;
-						</AlertDialogDescription>
-					</AlertDialogHeader>
+						</DialogDescription>
+					</DialogHeader>
+
 					<div className="block space-y-4">
 						<div className="flex flex-col">
 							<span className="font-semibold">Phrase ID</span>
@@ -55,9 +56,9 @@ export default function PhraseExtraInfo({
 					{!card.data ?
 						<p>Phrase has no card in your deck</p>
 					:	<CardSection card={card.data} />}
-				</AlertDialogContent>
+				</DialogContent>
 			)}
-		</AlertDialog>
+		</Dialog>
 	)
 }
 
