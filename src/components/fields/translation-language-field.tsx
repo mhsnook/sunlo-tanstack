@@ -1,25 +1,126 @@
-import { SelectOneLanguage } from '@/components/select-one-language'
 import { Label } from '@/components/ui/label'
 import { useController } from 'react-hook-form'
 import { ErrorLabel, type ControlledFieldProps } from '.'
+import { useProfile } from '@/lib/use-profile'
+import { useMemo, useState } from 'react'
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
+import { cn } from '@/lib/utils'
+import languages, { allLanguageOptions } from '@/lib/languages'
+import { Check, ChevronsUpDown } from 'lucide-react'
+import { Button } from '../ui/button'
+import {
+	Command,
+	CommandEmpty,
+	CommandInput,
+	CommandItem,
+	CommandList,
+	CommandSeparator,
+} from '../ui/command'
+import { CommandGroup } from 'cmdk'
 
 export default function TranslationLanguageField({
 	control,
 	error,
 }: ControlledFieldProps) {
+	const { data: profile } = useProfile()
+	const myLanguages = [profile?.language_primary, ...profile?.languages_spoken]
+	const [open, setOpen] = useState(false)
+	const generalLanguageOptions = useMemo(
+		() =>
+			allLanguageOptions.filter(
+				(option) => myLanguages.indexOf(option.value) === -1
+			),
+		[profile]
+	)
+
 	const controller = useController({ name: 'translation_lang', control })
-	// console.log(`Controller is: `, controller)
 
 	return (
 		<div className="flex flex-col gap-1">
 			<Label htmlFor="lang" className={error ? 'text-destructive' : ''}>
 				Translation for
 			</Label>
-			<SelectOneLanguage
-				value={controller.field.value}
-				setValue={controller.field.onChange}
-				hasError={!!error}
-			/>
+			<Popover open={open} onOpenChange={setOpen}>
+				<PopoverTrigger asChild className="w-full">
+					<Button
+						variant="outline"
+						role="combobox"
+						aria-expanded={open}
+						className={cn(
+							'bg-card placeholder:text-muted-foreground justify-between font-normal',
+							!!error && 'border-destructive'
+						)}
+					>
+						{controller.field.value ?
+							allLanguageOptions.find(
+								(language) => language.value === controller.field.value
+							)?.label
+						:	'Select language...'}
+						<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+					</Button>
+				</PopoverTrigger>
+				<PopoverContent className="p-0">
+					<Command>
+						<CommandInput placeholder="Search language..." className="my-1" />
+						<CommandList>
+							<CommandEmpty>No language found.</CommandEmpty>
+							<CommandGroup>
+								{myLanguages.map((lang) => (
+									<CommandItem
+										key={lang}
+										value={lang}
+										onSelect={(currentValue) => {
+											controller.field.onChange(
+												currentValue === controller.field.value ?
+													''
+												:	currentValue
+											)
+											setOpen(false)
+										}}
+									>
+										<Check
+											className={cn(
+												'mr-2 h-4 w-4',
+												controller.field.value === lang ?
+													'opacity-100'
+												:	'opacity-0'
+											)}
+										/>
+										{languages[lang]} ({lang})
+									</CommandItem>
+								))}
+							</CommandGroup>
+							{myLanguages.length === 0 ? null : <CommandSeparator />}
+							<CommandGroup>
+								{generalLanguageOptions.map((language) => (
+									<CommandItem
+										key={language.value}
+										value={language.value}
+										onSelect={(currentValue) => {
+											controller.field.onChange(
+												currentValue === controller.field.value ?
+													''
+												:	currentValue
+											)
+											setOpen(false)
+										}}
+									>
+										<Check
+											className={cn(
+												'mr-2 h-4 w-4',
+												controller.field.value === language.value ?
+													'opacity-100'
+												:	'opacity-0'
+											)}
+										/>
+										{language.label} ({language.value})
+									</CommandItem>
+								))}
+							</CommandGroup>
+						</CommandList>
+					</Command>
+				</PopoverContent>
+			</Popover>
 			<ErrorLabel {...error} />
 		</div>
 	)
