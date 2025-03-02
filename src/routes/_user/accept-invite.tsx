@@ -13,8 +13,8 @@ import {
 import { useAuth } from '@/lib/hooks'
 import languages from '@/lib/languages'
 import supabase from '@/lib/supabase-client'
-import { useProfile, usePublicProfile } from '@/lib/use-profile'
-import { useMutation } from '@tanstack/react-query'
+import { useProfile, publicProfileQuery } from '@/lib/use-profile'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowRightLeft } from 'lucide-react'
@@ -43,7 +43,9 @@ export const Route = createFileRoute('/_user/accept-invite')({
 
 function AcceptInvitePage() {
 	const search = Route.useSearch()
-	const { data: learner, isPending } = usePublicProfile(search.uid_by)
+	const { data: learner, isPending } = useQuery(
+		publicProfileQuery(search.uid_by)
+	)
 	const { data: friend } = useProfile()
 	const { userId } = useAuth()
 	if (userId !== search.uid_for) console.log(`mismatched logins`)

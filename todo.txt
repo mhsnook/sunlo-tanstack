@@ -41,7 +41,7 @@ EPIC: Convert useQueries to usequery(someOptions) format
 	- ✅ Completed for useLanguage
 	- ✅ Completed for useDeck
 	- ✅ Do the same for useProfile
-	- Do the same for useRelations
+	- ✅ Do the same for useRelations
 
 
 EPIC OF SIGNUPS AND GETTING STARTED AND CONNECTING FRIENDS

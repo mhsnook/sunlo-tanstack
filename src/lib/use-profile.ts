@@ -32,8 +32,8 @@ export const useProfile = () => {
 	return useQuery({ ...profileQuery(userId) })
 }
 
-export const usePublicProfile = (uid: uuid) => {
-	return useQuery({
+export const publicProfileQuery = (uid: uuid) =>
+	queryOptions({
 		queryKey: ['public', 'profile', uid],
 		queryFn: async () => {
 			const res = await supabase
@@ -46,4 +46,3 @@ export const usePublicProfile = (uid: uuid) => {
 		},
 		enabled: typeof uid === 'string' && uid?.length > 10,
 	})
-}

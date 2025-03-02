@@ -1,6 +1,7 @@
 import { ProfileWithRelationship } from '@/components/profile-with-relationship'
 import Callout from '@/components/ui/callout'
-import { useProfile, usePublicProfile } from '@/lib/use-profile'
+import { publicProfileQuery, useProfile } from '@/lib/use-profile'
+import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_user/friends/search/$uid')({
@@ -10,7 +11,7 @@ export const Route = createFileRoute('/_user/friends/search/$uid')({
 function FriendRequestWithUIDPage() {
 	const { data: profile } = useProfile()
 	const { uid } = Route.useParams()
-	const { data: otherProfile } = usePublicProfile(uid)
+	const { data: otherProfile } = useQuery(publicProfileQuery(uid))
 
 	return !otherProfile || !profile ?
 			null
