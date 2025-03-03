@@ -32,9 +32,11 @@ function Nav({ matches }: { matches: ReturnType<typeof useMatches> }) {
 								<Link
 									{...l.link}
 									className="border-b-2 flex flex-row gap-2 items-center justify-center py-2"
-									activeProps={{ className: 'border-primary' }}
+									activeProps={{ className: 'border-primary text-foreground' }}
 									activeOptions={{ exact: true }}
-									inactiveProps={{ className: 'border-transparent' }}
+									inactiveProps={{
+										className: 'border-transparent text-muted-foreground',
+									}}
 								>
 									<l.Icon className="size-4" /> {l.name}
 								</Link>
