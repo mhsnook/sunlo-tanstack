@@ -1,5 +1,6 @@
 import { ProfileWithRelationship } from '@/components/profile-with-relationship'
 import Callout from '@/components/ui/callout'
+import { Card } from '@/components/ui/card'
 import { publicProfileQuery, useProfile } from '@/lib/use-profile'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
@@ -22,9 +23,9 @@ function FriendRequestWithUIDPage() {
 						user <em>{otherProfile.username}</em>. Now that you've joined, you
 						can send them an invitation to connect.
 					</p>
-					<Callout>
+					<div className="@lx:px-6 px-4 py-3 rounded-lg border">
 						<ProfileWithRelationship profile={otherProfile} />
-					</Callout>
+					</div>
 					<p>
 						Or, use this page to search for friends and get started learning
 						together.
