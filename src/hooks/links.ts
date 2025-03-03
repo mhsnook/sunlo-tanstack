@@ -1,13 +1,14 @@
 import {
-	BookCopy,
 	BookHeart,
+	ClipboardPlus,
 	FileText,
-	FolderPlus,
 	HeartHandshake,
 	Home,
 	LogIn,
+	MessageSquarePlus,
 	NotebookPen,
 	Rocket,
+	School,
 	Search,
 	Send,
 	Settings,
@@ -61,7 +62,7 @@ const links = (lang?: string): Record<string, LinkType> => ({
 	'/learn/add-deck': {
 		name: 'Deck',
 		title: 'Start a new language',
-		Icon: FolderPlus,
+		Icon: ClipboardPlus,
 		link: {
 			to: '/learn/add-deck',
 		},
@@ -109,7 +110,7 @@ const links = (lang?: string): Record<string, LinkType> => ({
 			to: '/learn/$lang/library',
 			params: { lang },
 		},
-		Icon: BookCopy,
+		Icon: School,
 	},
 	'/learn/$lang/add-phrase': {
 		name: 'Phrase',
@@ -118,7 +119,7 @@ const links = (lang?: string): Record<string, LinkType> => ({
 			to: '/learn/$lang/add-phrase',
 			params: { lang },
 		},
-		Icon: NotebookPen,
+		Icon: MessageSquarePlus,
 	},
 	'/learn/quick-search': {
 		name: 'Search',

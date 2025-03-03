@@ -35,15 +35,6 @@ EPIC: Postgres DX / Run Supabase Locally
 	- use postmark templates like [this](https://github.com/supabase/auth/issues/304#issuecomment-998029660)
 
 
-EPIC: Convert useQueries to usequery(someOptions) format
--	instead of using { data, isPending, error }, we may want to switch to 
-	queryClient.ensureQueryData(queryOptions) in the route loaader
-	- ✅ Completed for useLanguage
-	- ✅ Completed for useDeck
-	- ✅ Do the same for useProfile
-	- ✅ Do the same for useRelations
-
-
 EPIC OF SIGNUPS AND GETTING STARTED AND CONNECTING FRIENDS
 1.	add "copy invitation text" to invite page
 1.	~make the signup email nice~
