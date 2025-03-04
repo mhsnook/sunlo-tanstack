@@ -55,8 +55,8 @@ export function ModeToggle() {
 							onClick={() => setTheme('light')}
 						>
 							{theme === 'light' ?
-								<Check className="mr-2 h-4 w-4" />
-							:	<Sun className="mr-2 h-4 w-4" />}
+								<Check className="mr-2 size-4" />
+							:	<Sun className="mr-2 size-4" />}
 							Light
 						</DropdownMenuItem>
 						<DropdownMenuItem
@@ -64,8 +64,8 @@ export function ModeToggle() {
 							onClick={() => setTheme('dark')}
 						>
 							{theme === 'dark' ?
-								<Check className="mr-2 h-4 w-4" />
-							:	<Moon className="mr-2 h-4 w-4" />}
+								<Check className="mr-2 size-4" />
+							:	<Moon className="mr-2 size-4" />}
 							Dark
 						</DropdownMenuItem>
 						<DropdownMenuItem
@@ -73,8 +73,8 @@ export function ModeToggle() {
 							onClick={() => setTheme('system')}
 						>
 							{theme === 'system' ?
-								<Check className="mr-2 h-4 w-4" />
-							:	<MonitorCog className="mr-2 h-4 w-4" />}
+								<Check className="mr-2 size-4" />
+							:	<MonitorCog className="mr-2 size-4" />}
 							System
 						</DropdownMenuItem>
 					</DropdownMenuContent>

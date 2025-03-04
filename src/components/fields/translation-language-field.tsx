@@ -56,7 +56,7 @@ export default function TranslationLanguageField({
 								(language) => language.value === controller.field.value
 							)?.label
 						:	'Select language...'}
-						<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+						<ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent className="p-0">
@@ -80,7 +80,7 @@ export default function TranslationLanguageField({
 									>
 										<Check
 											className={cn(
-												'mr-2 h-4 w-4',
+												'mr-2 size-4',
 												controller.field.value === lang ?
 													'opacity-100'
 												:	'opacity-0'
@@ -107,7 +107,7 @@ export default function TranslationLanguageField({
 									>
 										<Check
 											className={cn(
-												'mr-2 h-4 w-4',
+												'mr-2 size-4',
 												controller.field.value === language.value ?
 													'opacity-100'
 												:	'opacity-0'

@@ -30,7 +30,7 @@ export default function PhraseExtraInfo({
 		<Dialog>
 			<DialogTrigger className={className} asChild>
 				<Button variant="ghost" size="icon-sm">
-					<Ellipsis className="h-4 w-4" />
+					<Ellipsis className="size-4" />
 					<span className="sr-only">Show more</span>
 				</Button>
 			</DialogTrigger>

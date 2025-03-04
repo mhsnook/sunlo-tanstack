@@ -49,7 +49,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 						onClick={() => navigateCards('back')}
 						className="ps-2 pe-4"
 					>
-						<ChevronLeft className="h-4 w-4 me-1" /> Back to cards
+						<ChevronLeft className="size-4 me-1" /> Back to cards
 					</Button>
 				</div>
 				<Card className={`w-full mx-auto h-[80vh] flex flex-col`}>
@@ -67,7 +67,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 						disabled={currentCardIndex === 0}
 						aria-label="Previous card"
 					>
-						<ChevronLeft className="h-4 w-4" />
+						<ChevronLeft className="size-4" />
 					</Button>
 					<div className="text-sm text-center">
 						Card {currentCardIndex + 1} of {cards.length}
@@ -79,7 +79,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 						disabled={currentCardIndex === cards.length}
 						aria-label="Next card"
 					>
-						<ChevronRight className="h-4 w-4" />
+						<ChevronRight className="size-4" />
 					</Button>
 				</div>
 				{cards.map((card, i) => {
@@ -105,7 +105,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 											onClick={() => playAudio(phrase.text)}
 											aria-label="Play original phrase"
 										>
-											<Play className="h-4 w-4" />
+											<Play className="size-4" />
 										</Button>
 									</Flagged>
 								</div>
@@ -124,7 +124,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 														onClick={() => playAudio(trans.text)}
 														aria-label="Play translation"
 													>
-														<Play className="h-4 w-4" />
+														<Play className="size-4" />
 													</Button>
 												</Flagged>
 											</div>

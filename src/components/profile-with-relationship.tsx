@@ -19,28 +19,28 @@ export function ProfileWithRelationship({
 		<AvatarIconRow {...profile}>
 			<div className="flex flex-row gap-2">
 				{inviteResponseMutation.isPending ?
-					<span className="h-8 w-8 rounded-full p-1">
+					<span className="size-8 rounded-full p-1">
 						<Loader className="size-6" />
 					</span>
 				: inviteResponseMutation.isSuccess ?
-					<span className="bg-green-600 h-8 w-8 rounded-full p-1">
-						<Check className="text-white w-6 h-6" />
+					<span className="bg-green-600 size-8 rounded-full p-1">
+						<Check className="text-white size-6" />
 					</span>
 				: !relationship || relationship.status === 'unconnected' ?
 					<Button
 						variant="default"
-						className="w-8 h-8"
+						className="size-8"
 						size="icon"
 						title="Send friend request"
 						onClick={() => inviteResponseMutation.mutate('invite')}
 					>
-						<Send className="w-6 h-6 mr-[0.1rem] mt-[0.1rem]" />
+						<Send className="size-6 mr-[0.1rem] mt-[0.1rem]" />
 					</Button>
 				: relationship.status === 'pending' && !relationship.isMostRecentByMe ?
 					<>
 						<Button
 							variant="default"
-							className="w-8 h-8"
+							className="size-8"
 							size="icon"
 							title="Accept pending invitation"
 							onClick={() => inviteResponseMutation.mutate('accept')}
@@ -53,11 +53,11 @@ export function ProfileWithRelationship({
 						>
 							<Button
 								variant="secondary"
-								className="w-8 h-8"
+								className="size-8"
 								size="icon"
 								title="Decline pending invitation"
 							>
-								<X className="w-6 h-6 p-0" />
+								<X className="size-6 p-0" />
 							</Button>
 							<Button
 								variant="destructive"
@@ -67,7 +67,7 @@ export function ProfileWithRelationship({
 								{inviteResponseMutation.isPending ?
 									<Loader />
 								: inviteResponseMutation.isSuccess ?
-									<Check className="text-white w-6 h-6" />
+									<Check className="text-white size-6" />
 								:	<>Confirm</>}
 							</Button>
 						</ConfirmDestructiveActionDialog>
@@ -79,11 +79,11 @@ export function ProfileWithRelationship({
 					>
 						<Button
 							variant="secondary"
-							className="w-8 h-8"
+							className="size-8"
 							size="icon"
 							title="Cancel friend request"
 						>
-							<X className="w-6 h-6 p-0" />
+							<X className="size-6 p-0" />
 						</Button>
 						<Button
 							variant="destructive"
@@ -93,12 +93,12 @@ export function ProfileWithRelationship({
 							{inviteResponseMutation.isPending ?
 								<Loader />
 							: inviteResponseMutation.isSuccess ?
-								<Check className="text-white w-6 h-6" />
+								<Check className="text-white size-6" />
 							:	<>Confirm</>}
 						</Button>
 					</ConfirmDestructiveActionDialog>
 				: relationship.status === 'friends' ?
-					<UserCheck className="w-6 h-6 p-0" />
+					<UserCheck className="size-6 p-0" />
 				:	<> status is null for some reason</>}
 			</div>
 		</AvatarIconRow>

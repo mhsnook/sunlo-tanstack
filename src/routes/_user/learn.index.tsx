@@ -48,11 +48,11 @@ export default function Page() {
 								</div>
 								<div className="flex items-center justify-between">
 									<div className="flex items-center space-x-1">
-										<Users className="h-4 w-4 text-info" />
+										<Users className="size-4 text-info" />
 										<span className="text-sm">{0} friends studying</span>
 									</div>
 									<div className="flex items-center space-x-1">
-										<Star className="h-4 w-4 text-warning" />
+										<Star className="size-4 text-warning" />
 										<span className="text-sm">{4.5}</span>
 									</div>
 								</div>

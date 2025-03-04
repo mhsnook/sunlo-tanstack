@@ -118,7 +118,7 @@ function DeckOverview({ lang }: LangOnlyComponentProps) {
 								variant: 'outline',
 							})}
 						>
-							<Search className="h-3 w-3" />
+							<Search className="size-3" />
 							<span className="me-1">quick search</span>
 						</Link>
 					</div>
