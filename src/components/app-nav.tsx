@@ -33,7 +33,7 @@ function Nav({ matches }: { matches: ReturnType<typeof useMatches> }) {
 									{...l.link}
 									className="border-b-2 flex flex-row gap-2 items-center justify-center py-2"
 									activeProps={{ className: 'border-primary text-foreground' }}
-									activeOptions={{ exact: true }}
+									activeOptions={{ exact: true, includeSearch: false }}
 									inactiveProps={{
 										className: 'border-transparent text-muted-foreground',
 									}}
