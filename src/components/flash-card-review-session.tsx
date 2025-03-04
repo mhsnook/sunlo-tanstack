@@ -93,7 +93,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 							)}
 						>
 							<CardContent
-								className={`flex flex-grow flex-col pt-0 px-[10%] items-center justify-center`}
+								className={`flex grow flex-col pt-0 px-[10%] items-center justify-center`}
 							>
 								<PhraseExtraInfo lang={phrase.lang} pid={phrase.id} />
 								<div className="flex items-center justify-center mb-4">
@@ -206,7 +206,7 @@ function UserCardReviewScoreButtonsRow({
 						variant="destructive"
 						onClick={() => mutate({ score: 1 })}
 						disabled={isPending}
-						className={data?.score === 1 ? 'ring ring-offset-1' : ''}
+						className={data?.score === 1 ? 'ring-3 ring-offset-1' : ''}
 					>
 						Again
 					</Button>
@@ -214,7 +214,7 @@ function UserCardReviewScoreButtonsRow({
 						variant="secondary"
 						onClick={() => mutate({ score: 2 })}
 						disabled={isPending}
-						className={data?.score === 2 ? 'ring ring-offset-1' : ''}
+						className={data?.score === 2 ? 'ring-3 ring-offset-1' : ''}
 					>
 						Hard
 					</Button>
@@ -224,7 +224,7 @@ function UserCardReviewScoreButtonsRow({
 						disabled={isPending}
 						className={cn(
 							'bg-green-500 hover:bg-green-600',
-							data?.score === 3 ? 'ring ring-offset-1' : ''
+							data?.score === 3 ? 'ring-3 ring-offset-1' : ''
 						)}
 					>
 						Good
@@ -233,7 +233,7 @@ function UserCardReviewScoreButtonsRow({
 						variant="default"
 						className={cn(
 							'bg-blue-500 hover:bg-blue-600',
-							data?.score === 4 ? 'ring ring-offset-1' : ''
+							data?.score === 4 ? 'ring-3 ring-offset-1' : ''
 						)}
 						onClick={() => mutate({ score: 4 })}
 						disabled={isPending}
@@ -249,7 +249,7 @@ function UserCardReviewScoreButtonsRow({
 function WhenComplete() {
 	return (
 		<>
-			<CardContent className="flex flex-grow flex-col items-center justify-center gap-4 pb-16 pt-0">
+			<CardContent className="flex grow flex-col items-center justify-center gap-4 pb-16 pt-0">
 				<h2 className="text-2xl font-bold">Good work!</h2>
 				<p className="text-lg">You've completed your review for today.</p>
 				<SuccessCheckmark />

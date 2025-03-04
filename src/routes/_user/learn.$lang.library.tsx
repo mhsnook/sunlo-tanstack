@@ -55,7 +55,7 @@ const PhraseSection = ({
 					<Skeleton
 						key={i}
 						style={{ width: 100 + Math.round(Math.random() * 80) }}
-						className={`h-[60px] flex-shrink-0`}
+						className={`h-[60px] shrink-0`}
 					/>
 				))}
 			</div>
@@ -203,7 +203,7 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 					</Badge>
 				</div>
 				{language.pids.length > 0 ?
-					<div className="flex-basis-[20rem] flex flex-shrink flex-row flex-wrap gap-4">
+					<div className="flex-basis-[20rem] flex shrink flex-row flex-wrap gap-4">
 						<LanguagePhrasesAccordionComponent
 							pids={filteredPids}
 							lang={lang}

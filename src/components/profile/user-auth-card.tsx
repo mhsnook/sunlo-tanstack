@@ -12,7 +12,7 @@ export default function UserAuthCard() {
 			<div className="flex flex-row gap-2">
 				<Input
 					type="text"
-					className="flex-grow rounded border p-3"
+					className="grow rounded border p-3"
 					value={userEmail ?? 'loading...'}
 					disabled
 				/>
@@ -27,7 +27,7 @@ export default function UserAuthCard() {
 			<div className="flex flex-row gap-2">
 				<Input
 					type="text"
-					className="flex-grow rounded border p-3"
+					className="grow rounded border p-3"
 					value="***************"
 					disabled
 				/>
