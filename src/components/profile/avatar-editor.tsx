@@ -68,7 +68,7 @@ export default function AvatarEditor({ url, onUpload }: AvatarEditorProps) {
 				className="fit-content relative z-10 flex h-full flex-col rounded text-center"
 			>
 				{url && (
-					<span className="mask mask-circle mx-auto grid h-36 w-36 place-content-center">
+					<span className="mask mask-circle mx-auto grid size-36 place-content-center">
 						<img
 							src={url}
 							width="144"
@@ -91,7 +91,7 @@ export default function AvatarEditor({ url, onUpload }: AvatarEditorProps) {
 						{sendImage.isPending ?
 							<>Uploading ...</>
 						:	<>
-								<UploadIcon className="mx-auto h-6 w-6 mb-2" />
+								<UploadIcon className="mx-auto size-6 mb-2" />
 								<span>
 									drag & drop an image or click here to browse your files
 								</span>

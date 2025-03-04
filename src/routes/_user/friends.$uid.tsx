@@ -45,15 +45,15 @@ function ProfilePage() {
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="space-y-4 text-center">
-					<div className="w-32 h-32 rounded-full bg-muted-foreground/40 mx-auto flex items-center justify-center text-4xl relative">
+					<div className="size-32 rounded-full bg-muted-foreground/40 mx-auto flex items-center justify-center text-4xl relative">
 						{profile?.avatar_url ?
 							<img
 								src={profile.avatar_url}
-								className="rounded-full w-32 h-32 object-cover"
+								className="rounded-full size-32 object-cover"
 							/>
 						:	<>
-								<User className="rounded-full w-32 h-32 p-1 text-muted-foreground/20 blur-xs" />
-								<span className="capitalize font-bold absolute top-0 bottom-0 left-0 right-0 h-32 w-32 flex items-center justify-center">
+								<User className="rounded-full size-32 p-1 text-muted-foreground/20 blur-xs" />
+								<span className="capitalize font-bold absolute top-0 bottom-0 left-0 right-0 size-32 flex items-center justify-center">
 									{profile.username.slice(0, 2)}
 								</span>
 							</>

@@ -20,9 +20,9 @@ export function AvatarIconRow({
 						src={avatar_url}
 						aria-disabled="true"
 						alt={`${username}'s avatar`}
-						className="w-8 h-8 rounded-full object-cover"
+						className="size-8 rounded-full object-cover"
 					/>
-				:	<User className="bg-foreground/20 rounded-full w-8 h-8 p-1" />}
+				:	<User className="bg-foreground/20 rounded-full size-8 p-1" />}
 			</Link>
 			<p className="me-auto">
 				<Link to="/friends/$uid" params={{ uid }}>

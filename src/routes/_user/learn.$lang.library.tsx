@@ -47,7 +47,7 @@ const PhraseSection = ({
 }: PhraseSectionProps) => (
 	<div>
 		<p className="text-sm my-1">
-			<Icon className="w-4 h-4 inline" /> {description}
+			<Icon className="size-4 inline" /> {description}
 		</p>
 		{isLoading ?
 			<div className="flex flex-row gap-2 overflow-x-auto">
@@ -165,7 +165,7 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 								variant: 'outline',
 							})}
 						>
-							<Plus className="h-3 w-3" />
+							<Plus className="size-3" />
 							<span className="me-1">new phrase</span>
 						</Link>
 					</div>

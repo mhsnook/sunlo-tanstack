@@ -73,7 +73,7 @@ function PendingInvitationsSection() {
 									variant: 'outline',
 								})}
 							>
-								<Contact className="h-3 w-3" />{' '}
+								<Contact className="size-3" />{' '}
 								<span className="me-1">Friends list</span>
 							</Link>
 						</div>

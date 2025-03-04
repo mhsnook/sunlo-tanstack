@@ -24,7 +24,7 @@ export function LearningGoalField({ control, error }: ControlledFieldProps) {
 					)}
 				>
 					<GraduationCap
-						className={`h-5 w-5 mr-3 transition-color ${value === 'moving' ? 'text-primary' : ''}`}
+						className={`size-5 mr-3 transition-color ${value === 'moving' ? 'text-primary' : ''}`}
 					/>
 					<div className="space-y-1">
 						<div>Moving or learning for friends</div>
@@ -45,7 +45,7 @@ export function LearningGoalField({ control, error }: ControlledFieldProps) {
 					)}
 				>
 					<Users
-						className={`h-5 w-5 mr-3 transition-color ${value === 'family' ? 'text-primary' : ''}`}
+						className={`size-5 mr-3 transition-color ${value === 'family' ? 'text-primary' : ''}`}
 					/>
 					<div className="space-y-1">
 						<div>Family connection</div>
@@ -67,7 +67,7 @@ export function LearningGoalField({ control, error }: ControlledFieldProps) {
 					)}
 				>
 					<Briefcase
-						className={`h-5 w-5 mr-3 transition-color ${value === 'visiting' ? 'text-primary' : ''}`}
+						className={`size-5 mr-3 transition-color ${value === 'visiting' ? 'text-primary' : ''}`}
 					/>
 					<div className="space-y-1">
 						<div>Just visiting</div>
