@@ -43,7 +43,7 @@ export function AddTranslationsDialog({
 		defaultValues: { translation_text: '', translation_lang: 'eng' },
 		resolver: zodResolver(AddTranslationsInputs),
 	})
-	const closeRef = useRef<HTMLButtonElement>()
+	const closeRef = useRef<HTMLButtonElement>(undefined)
 	const close = () => closeRef.current?.click()
 	const queryClient = useQueryClient()
 

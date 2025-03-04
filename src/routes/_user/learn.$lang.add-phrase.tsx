@@ -54,7 +54,7 @@ function AddPhraseTab() {
 	const { lang } = Route.useParams()
 	const { text } = Route.useSearch()
 
-	const refocusRef = useRef()
+	const refocusRef = useRef(undefined)
 
 	const searchPhrase = text || ''
 	const {
