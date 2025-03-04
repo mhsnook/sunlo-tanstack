@@ -97,7 +97,7 @@ function GoalForm({ meta: { learning_goal, id, lang } }: { meta: DeckMeta }) {
 		<Card>
 			<CardHeader className="pb-0">
 				<CardTitle>
-					<h4 className="h4">Your learning goals</h4>
+					<span className="h4">Your learning goals</span>
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
@@ -167,9 +167,9 @@ function ArchiveForm({ meta: { id, archived, lang } }: { meta: DeckMeta }) {
 		<Card>
 			<CardHeader className="pb-0">
 				<CardTitle>
-					<h4 className="h4">
+					<span className="h4">
 						{archived ? 'Reactivate deck' : 'Archive your deck'}
-					</h4>
+					</span>
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
