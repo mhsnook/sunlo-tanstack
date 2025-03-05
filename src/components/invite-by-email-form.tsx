@@ -52,7 +52,7 @@ export function InviteFriendForm() {
 			)}
 		>
 			<fieldset
-				className="flex flex-row gap-2 items-end"
+				className="flex flex-row items-end gap-2"
 				disabled={invite.isPending}
 			>
 				<div className="w-full">

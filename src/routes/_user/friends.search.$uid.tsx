@@ -23,7 +23,7 @@ function FriendRequestWithUIDPage() {
 						user <em>{otherProfile.username}</em>. Now that you've joined, you
 						can send them an invitation to connect.
 					</p>
-					<div className="@lx:px-6 px-4 py-3 rounded-lg border">
+					<div className="@lx:px-6 rounded-lg border px-4 py-3">
 						<ProfileWithRelationship profile={otherProfile} />
 					</div>
 					<p>

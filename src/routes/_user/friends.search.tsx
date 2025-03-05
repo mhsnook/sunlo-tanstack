@@ -56,14 +56,14 @@ function PendingInvitationsSection() {
 
 	return !(data?.uids.invitations?.length > 0) ?
 			<p
-				className={`mx-2 text-muted-foreground ${isPending ? 'invisible' : ''}`}
+				className={`text-muted-foreground mx-2 ${isPending ? 'invisible' : ''}`}
 			>
 				No friend requests pending for you.
 			</p>
 		:	<Card>
 				<CardHeader>
 					<CardTitle>
-						<div className="flex flex-row justify-between items-center">
+						<div className="flex flex-row items-center justify-between">
 							<span>Invitations to connect</span>
 							<Link
 								to="/friends"
@@ -146,7 +146,7 @@ export default function SearchProfiles() {
 			<CardContent>
 				<div className="space-y-4">
 					<form
-						className="flex flex-row gap-2 items-end"
+						className="flex flex-row items-end gap-2"
 						onSubmit={(e) => {
 							e.preventDefault()
 							e.stopPropagation()
@@ -170,11 +170,11 @@ export default function SearchProfiles() {
 					</form>
 
 					{debouncedQuery === undefined ?
-						<p className="italic opacity-60 py-[1.75rem]">Search results...</p>
+						<p className="py-[1.75rem] italic opacity-60">Search results...</p>
 					:	<div className="space-y-2">
 							<ShowError>{error?.message}</ShowError>
 							{showLoader ?
-								<div className="h-20 flex justify-center items-center opacity-50">
+								<div className="flex h-20 items-center justify-center opacity-50">
 									<Loader />
 								</div>
 							: !(resultsToShow?.length > 0) ?

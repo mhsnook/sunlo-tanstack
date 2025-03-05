@@ -109,7 +109,7 @@ function AddPhraseTab() {
 					onSubmit={handleSubmit(
 						addPhraseMutation.mutate as SubmitHandler<AddPhraseFormValues>
 					)}
-					className="space-y-4 mt-4"
+					className="mt-4 space-y-4"
 				>
 					<div>
 						<Label htmlFor="newPhrase">
@@ -147,7 +147,7 @@ function AddPhraseTab() {
 						error={errors.translation_text}
 						register={register}
 					/>
-					<div className="flex flex-col @xl:flex-row gap-2">
+					<div className="flex flex-col gap-2 @xl:flex-row">
 						<Button type="submit" disabled={addPhraseMutation.isPending}>
 							{addPhraseMutation.isPending ?
 								<Loader />

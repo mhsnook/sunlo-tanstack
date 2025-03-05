@@ -51,7 +51,7 @@ function NewDeckForm() {
 	const showNewUserUI = data !== undefined && deckLanguages.length === 0
 
 	return (
-		<main className="w-app px-3 @sm:px-[6%] space-y-4 py-6">
+		<main className="w-app space-y-4 px-3 py-6 @sm:px-[6%]">
 			<form
 				name="new-deck"
 				noValidate

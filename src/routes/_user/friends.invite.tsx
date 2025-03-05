@@ -43,7 +43,7 @@ function ShareButtons() {
 
 	return (
 		<div>
-			<div className="flex flex-col @md:flex-row gap-2">
+			<div className="flex flex-col gap-2 @md:flex-row">
 				<NativeShareButton shareData={shareData} />
 				<a
 					className={buttonVariants({ size: 'lg', variant: 'secondary' })}
@@ -55,7 +55,7 @@ function ShareButtons() {
 					className={buttonVariants({ size: 'lg', variant: 'secondary' })}
 					href={`whatsapp://send?text=${encodeURIComponent(shareData.text)}`}
 				>
-					WhatsApp <Phone className="outline outline-1 rounded-full p-px" />
+					WhatsApp <Phone className="rounded-full p-px outline outline-1" />
 				</a>
 			</div>
 		</div>

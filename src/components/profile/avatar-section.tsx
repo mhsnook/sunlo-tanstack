@@ -9,7 +9,7 @@ export default function AvatarSection() {
 			<div className="relative">
 				{profile?.avatar_url && (
 					<label
-						className="mb-2 size-36 bg-foreground/20 shadow-lg flex flex-row justify-center mx-auto rounded-full"
+						className="bg-foreground/20 mx-auto mb-2 flex size-36 flex-row justify-center rounded-full shadow-lg"
 						htmlFor="single"
 					>
 						<Avatar size={144} />

@@ -53,7 +53,7 @@ function Index() {
 		<>
 			<main className="mb-8 flex flex-row flex-wrap gap-4 @xl:my-20">
 				<div className="mx-auto flex max-w-[537px] basis-11/12 flex-col justify-center space-y-4 @xl:basis-3/5">
-					<h1 className="d2 mt-12 text-center @xl:mb-4 @xl:mt-8 @xl:text-start @3xl:mb-10">
+					<h1 className="d2 mt-12 text-center @xl:mt-8 @xl:mb-4 @xl:text-start @3xl:mb-10">
 						Sunlo: social language&nbsp;learning
 					</h1>
 					<p className="text-center text-xl @xl:h-[120px] @xl:text-start">
@@ -63,7 +63,7 @@ function Index() {
 				</div>
 				<div className="mx-auto flex-none space-y-4 text-center @xl:basis-1/3">
 					<GarlicBroccoli />
-					<div className="flex flex-col gap-1 w-60 place-self-center">
+					<div className="flex w-60 flex-col gap-1 place-self-center">
 						<Link
 							to="/signup"
 							from="/"
@@ -82,21 +82,21 @@ function Index() {
 				</div>
 			</main>
 
-			<Callout variant="ghost" className="max-w-xl mx-auto">
+			<Callout variant="ghost" className="mx-auto max-w-xl">
 				<WandSparkles size={40} />
 				<p>
 					Sunlo is under development; it is incomplete and some of the screens
 					are just mockups.
 				</p>
 			</Callout>
-			<section className="my-16 px-1 pb-8 pt-4 @lg:px-4 @lg:pb-16 @lg:pt-10">
+			<section className="my-16 px-1 pt-4 pb-8 @lg:px-4 @lg:pt-10 @lg:pb-16">
 				<h2 className="h2 px-4 text-center @lg:mb-6">
 					Our Approach to Language&nbsp;Learning
 				</h2>
-				<div className="flex gap-4 flex-row flex-wrap">
-					<Card className="basis-80 grow">
+				<div className="flex flex-row flex-wrap gap-4">
+					<Card className="grow basis-80">
 						<CardHeader>
-							<CardTitle className="flex-row gap-2 flex">
+							<CardTitle className="flex flex-row gap-2">
 								<MessageSquareText /> Phrase Based
 							</CardTitle>
 						</CardHeader>
@@ -113,9 +113,9 @@ function Index() {
 							</p>
 						</CardContent>
 					</Card>
-					<Card className="basis-80 grow">
+					<Card className="grow basis-80">
 						<CardHeader>
-							<CardTitle className="flex-row gap-2 flex">
+							<CardTitle className="flex flex-row gap-2">
 								<UsersIcon /> Social Learning
 							</CardTitle>
 						</CardHeader>
@@ -133,9 +133,9 @@ function Index() {
 							</p>
 						</CardContent>
 					</Card>
-					<Card className="basis-80 grow">
+					<Card className="grow basis-80">
 						<CardHeader>
-							<CardTitle className="flex-row gap-2 flex">
+							<CardTitle className="flex flex-row gap-2">
 								<Sparkles /> Driven by Curiosity
 							</CardTitle>
 						</CardHeader>
@@ -154,12 +154,12 @@ function Index() {
 					</Card>
 				</div>
 			</section>
-			<section className="my-16 px-1 pb-8 pt-4 @lg:px-4 @lg:pb-16 @lg:pt-10">
+			<section className="my-16 px-1 pt-4 pb-8 @lg:px-4 @lg:pt-10 @lg:pb-16">
 				<h2 className="h2 px-4 text-center @lg:mb-6">Who is Sunlo for?</h2>
-				<div className="flex gap-4 flex-row flex-wrap">
-					<Card className="basis-80 grow">
+				<div className="flex flex-row flex-wrap gap-4">
+					<Card className="grow basis-80">
 						<CardHeader>
-							<CardTitle className="flex-row gap-2 flex">
+							<CardTitle className="flex flex-row gap-2">
 								<PlaneLanding /> Moving To a New Place
 							</CardTitle>
 						</CardHeader>
@@ -175,9 +175,9 @@ function Index() {
 							</p>
 						</CardContent>
 					</Card>
-					<Card className="basis-80 grow">
+					<Card className="grow basis-80">
 						<CardHeader>
-							<CardTitle className="flex-row gap-2 flex">
+							<CardTitle className="flex flex-row gap-2">
 								<Users /> The Friend / Guide
 							</CardTitle>
 						</CardHeader>
@@ -195,9 +195,9 @@ function Index() {
 						</CardContent>
 					</Card>
 
-					<Card className="basis-80 grow">
+					<Card className="grow basis-80">
 						<CardHeader>
-							<CardTitle className="flex-row gap-2 flex">
+							<CardTitle className="flex flex-row gap-2">
 								<Heart /> Extended Family
 							</CardTitle>
 						</CardHeader>
@@ -226,7 +226,7 @@ function Index() {
 				</Link>
 			</section>
 
-			<section className="my-16 px-2 pb-16 pt-4 @lg:px-8 @lg:pt-10">
+			<section className="my-16 px-2 pt-4 pb-16 @lg:px-8 @lg:pt-10">
 				<Card className="p-[4%]">
 					<CardHeader>
 						<CardTitle className="h2 px-4 pb-6 text-center">
@@ -252,24 +252,24 @@ function Index() {
 								helping people learn languages that are{' '}
 								<em>different in structure</em> from the ones they&apos;re
 								raised on. Learning{' '}
-								<span className="underline decoration-accent decoration-[3px]">
+								<span className="decoration-accent underline decoration-[3px]">
 									Spanish
 								</span>{' '}
 								from{' '}
-								<span className="underline decoration-accent decoration-[3px]">
+								<span className="decoration-accent underline decoration-[3px]">
 									English
 								</span>{' '}
 								may be straight-forward with lessons on vocabulary and grammar,
 								but the same approach might not work to learn{' '}
-								<span className="underline decoration-accent decoration-[3px]">
+								<span className="decoration-accent underline decoration-[3px]">
 									Arabic
 								</span>
 								,{' '}
-								<span className="underline decoration-accent decoration-[3px]">
+								<span className="decoration-accent underline decoration-[3px]">
 									Xhosa
 								</span>{' '}
 								or{' '}
-								<span className="underline decoration-accent decoration-[3px]">
+								<span className="decoration-accent underline decoration-[3px]">
 									Mandarin
 								</span>
 								, whose grammars and patterns may be too unfamiliar for me to
@@ -316,7 +316,7 @@ function Index() {
 					</CardContent>
 				</Card>
 			</section>
-			<section className="my-16 pb-16 pt-4 @lg:pt-10">
+			<section className="my-16 pt-4 pb-16 @lg:pt-10">
 				<h2 className="h2 px-4 pb-6 text-center">
 					Sunlo is Free and Open Source
 				</h2>
@@ -357,7 +357,7 @@ function Index() {
 			</section>
 			<footer className="flex justify-center">
 				<NavigationMenu aria-label="Footer Navigation">
-					<NavigationMenuList className="my-16 flex flex-row flex-wrap justify-center gap-8 pb-16 pt-4 @lg:pt-10">
+					<NavigationMenuList className="my-16 flex flex-row flex-wrap justify-center gap-8 pt-4 pb-16 @lg:pt-10">
 						<>
 							{footerNavigationItems.map((item, i) => (
 								<NavigationMenuItem key={`nav-link-${i}`}>

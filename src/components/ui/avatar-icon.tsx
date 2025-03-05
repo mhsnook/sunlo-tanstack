@@ -13,7 +13,7 @@ export function AvatarIconRow({
 	children,
 }: AvatarIconRowProps) {
 	return (
-		<div className="flex flex-row justify-between items-center gap-4 w-full">
+		<div className="flex w-full flex-row items-center justify-between gap-4">
 			<Link to="/friends/$uid" params={{ uid }}>
 				{avatar_url ?
 					<img
@@ -22,7 +22,7 @@ export function AvatarIconRow({
 						alt={`${username}'s avatar`}
 						className="size-8 rounded-full object-cover"
 					/>
-				:	<User className="bg-foreground/20 rounded-full size-8 p-1" />}
+				:	<User className="bg-foreground/20 size-8 rounded-full p-1" />}
 			</Link>
 			<p className="me-auto">
 				<Link to="/friends/$uid" params={{ uid }}>

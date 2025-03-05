@@ -4,9 +4,9 @@ import { AppSidebar } from '@/components/app-sidebar'
 
 export function AppSidebarLayout({ children }: { children: ReactNode }) {
 	return (
-		<div className="flex h-screen overflow-hidden w-full">
+		<div className="flex h-screen w-full overflow-hidden">
 			<AppSidebar />
-			<SidebarInset className="flex-1 w-full">
+			<SidebarInset className="w-full flex-1">
 				<div
 					id="app-sidebar-layout-outlet"
 					className="w-app @container overflow-y-auto pb-6"

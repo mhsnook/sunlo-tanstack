@@ -87,16 +87,16 @@ export function AddTranslationsDialog({
 			<DialogContent className="w-[92%] max-w-[425px]">
 				<DialogHeader className="text-left">
 					<DialogTitle>Add translations</DialogTitle>
-					<DialogDescription className="text-left space-y-2">
+					<DialogDescription className="space-y-2 text-left">
 						For the phrase &ldquo;{phrase.text}&rdquo;
 					</DialogDescription>
 				</DialogHeader>
-				<div className="text-muted-foreground text-sm space-y-2">
+				<div className="text-muted-foreground space-y-2 text-sm">
 					<p>Please check to make sure you're not entering a duplicate.</p>
 					<ol className="space-y-2">
 						{phrase.translations.map((trans) => (
 							<li key={trans.id}>
-								<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
+								<span className="mr-2 rounded-md bg-gray-200 px-2 py-1 text-xs text-gray-700">
 									{trans.lang}
 								</span>
 								<span>{trans.text}</span>
@@ -112,7 +112,7 @@ export function AddTranslationsDialog({
 					noValidate
 				>
 					<fieldset
-						className="flex flex-col gap-4 mb-4"
+						className="mb-4 flex flex-col gap-4"
 						disabled={isSubmitting}
 					>
 						<TranslationLanguageField

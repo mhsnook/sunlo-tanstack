@@ -75,8 +75,8 @@ export const Route = createLazyFileRoute('/components')({
 function ComponentsPage() {
 	return (
 		<div className="container mx-auto p-4">
-			<h1 className="text-3xl font-bold mb-6">ShadCN Component Showcase</h1>
-			<div className="grid grid-cols-1 @3xl:grid-cols-2 @5xl:grid-cols-3 gap-6">
+			<h1 className="mb-6 text-3xl font-bold">ShadCN Component Showcase</h1>
+			<div className="grid grid-cols-1 gap-6 @3xl:grid-cols-2 @5xl:grid-cols-3">
 				{/* Accordion */}
 				<Card>
 					<CardHeader>
@@ -146,16 +146,16 @@ function ComponentsPage() {
 					<CardContent>
 						<p>Card content goes here.</p>
 						<p>Markup structure goes:</p>
-						<ul className="list-disc ml-4">
+						<ul className="ml-4 list-disc">
 							<li>CardHeader</li>
 
-							<ul className="list-disc ml-4">
+							<ul className="ml-4 list-disc">
 								<li>CardTitle</li>
 							</ul>
 
 							<li>CardContent</li>
 
-							<ul className="list-disc ml-4">
+							<ul className="ml-4 list-disc">
 								<li>CardFooter</li>
 							</ul>
 						</ul>
@@ -176,7 +176,7 @@ function ComponentsPage() {
 							<Checkbox id="terms" />
 							<label
 								htmlFor="terms"
-								className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+								className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 							>
 								Accept terms and conditions
 							</label>
@@ -304,8 +304,8 @@ function ComponentsPage() {
 							<PopoverContent className="w-80">
 								<div className="grid gap-4">
 									<div className="space-y-2">
-										<h4 className="font-medium leading-none">Dimensions</h4>
-										<p className="text-sm text-muted-foreground">
+										<h4 className="leading-none font-medium">Dimensions</h4>
+										<p className="text-muted-foreground text-sm">
 											Set the dimensions for the layer.
 										</p>
 									</div>

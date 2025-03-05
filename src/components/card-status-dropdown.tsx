@@ -72,7 +72,7 @@ const statusStrings = {
 
 function StatusSpan({ choice }: { choice: ShowableActions }) {
 	return (
-		<div className="flex flex-row gap-2 items-center pe-2 py-1">
+		<div className="flex flex-row items-center gap-2 py-1 pe-2">
 			{statusStrings[choice].icon()}
 			<div>
 				<p className="font-bold">{statusStrings[choice].action}</p>
@@ -143,7 +143,7 @@ export function CardStatusDropdown({
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className={cn('flex rounded-full', className)}>
-				<Badge variant="outline" className="gap-1 m-0">
+				<Badge variant="outline" className="m-0 gap-1">
 					{cardMutation.isSuccess ?
 						<CheckCircle className="size-4 text-green-500" />
 					:	statusStrings[choice].icon()}{' '}

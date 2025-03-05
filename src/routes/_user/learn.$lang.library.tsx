@@ -46,8 +46,8 @@ const PhraseSection = ({
 	Icon,
 }: PhraseSectionProps) => (
 	<div>
-		<p className="text-sm my-1">
-			<Icon className="size-4 inline" /> {description}
+		<p className="my-1 text-sm">
+			<Icon className="inline size-4" /> {description}
 		</p>
 		{isLoading ?
 			<div className="flex flex-row gap-2 overflow-x-auto">
@@ -65,7 +65,7 @@ const PhraseSection = ({
 					<PhraseCard key={phrase.id} phrase={phrase} />
 				))}
 			</div>
-		:	<p className="text-center text-muted-foreground">No phrases available</p>}
+		:	<p className="text-muted-foreground text-center">No phrases available</p>}
 	</div>
 )
 
@@ -155,7 +155,7 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 		<Card>
 			<CardHeader>
 				<CardTitle>
-					<div className="flex flex-row gap-2 justify-between">
+					<div className="flex flex-row justify-between gap-2">
 						<span>Explore the {languages[lang]} Library</span>
 						<Link
 							to="/learn/$lang/add-phrase"
@@ -172,10 +172,10 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<div className="flex flex-row flex-wrap gap-2 text-muted-foreground mb-4">
-					<span className="text-sm ">Filters:</span>
+				<div className="text-muted-foreground mb-4 flex flex-row flex-wrap gap-2">
+					<span className="text-sm">Filters:</span>
 					<Badge variant="outline">
-						<label className="cursor-pointer flex gap-1">
+						<label className="flex cursor-pointer gap-1">
 							<Checkbox
 								onClick={() => setFilter('all')}
 								checked={filter === 'all'}
@@ -184,7 +184,7 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 						</label>
 					</Badge>
 					<Badge variant="outline">
-						<label className="cursor-pointer flex gap-1">
+						<label className="flex cursor-pointer gap-1">
 							<Checkbox
 								onClick={() => setFilter('inDeck')}
 								checked={filter === 'inDeck'}
@@ -193,7 +193,7 @@ function DeckContents({ lang }: LangOnlyComponentProps) {
 						</label>
 					</Badge>
 					<Badge variant="outline">
-						<label className="cursor-pointer flex gap-1">
+						<label className="flex cursor-pointer gap-1">
 							<Checkbox
 								onClick={() => setFilter('recentlyViewed')}
 								checked={filter === 'recentlyViewed'}

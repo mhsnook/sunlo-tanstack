@@ -31,9 +31,9 @@ function ProfilePage() {
 	const { data: relations } = useRelations()
 	const relationship = !relations || !uid ? null : relations.relationsMap[uid]
 	return (
-		<main className="px-2 py-6 max-w-sm mx-auto">
+		<main className="mx-auto max-w-sm px-2 py-6">
 			{isMine ?
-				<p className="text-muted-foreground text-center italic mb-1">
+				<p className="text-muted-foreground mb-1 text-center italic">
 					This is how your profile appears to others
 				</p>
 			:	null}
@@ -45,15 +45,15 @@ function ProfilePage() {
 					</CardTitle>
 				</CardHeader>
 				<CardContent className="space-y-4 text-center">
-					<div className="size-32 rounded-full bg-muted-foreground/40 mx-auto flex items-center justify-center text-4xl relative">
+					<div className="bg-muted-foreground/40 relative mx-auto flex size-32 items-center justify-center rounded-full text-4xl">
 						{profile?.avatar_url ?
 							<img
 								src={profile.avatar_url}
-								className="rounded-full size-32 object-cover"
+								className="size-32 rounded-full object-cover"
 							/>
 						:	<>
-								<User className="rounded-full size-32 p-1 text-muted-foreground/20 blur-xs" />
-								<span className="capitalize font-bold absolute top-0 bottom-0 left-0 right-0 size-32 flex items-center justify-center">
+								<User className="text-muted-foreground/20 size-32 rounded-full p-1 blur-xs" />
+								<span className="absolute top-0 right-0 bottom-0 left-0 flex size-32 items-center justify-center font-bold capitalize">
 									{profile.username.slice(0, 2)}
 								</span>
 							</>
@@ -61,7 +61,7 @@ function ProfilePage() {
 					</div>
 					<h2 className="text-xl font-semibold">{profile.username}</h2>
 					<div>
-						<p className="capitalize text-muted-foreground text-sm mb-2">
+						<p className="text-muted-foreground mb-2 text-sm capitalize">
 							{relationship?.status ?? 'unconnected'}
 						</p>
 						<RelationshipActions uid_for={uid} />
@@ -100,7 +100,7 @@ function RelationshipActions({ uid_for }: { uid_for: uuid }) {
 				</Button>
 			</ConfirmDestructiveActionDialog>
 		: relationship.status === 'pending' && !relationship.isMostRecentByMe ?
-			<div className="flex flex-row gap-2 items-center justify-center">
+			<div className="flex flex-row items-center justify-center gap-2">
 				<Button onClick={() => action.mutate('accept')}>
 					Confirm friends{' '}
 					{action.isPending ?

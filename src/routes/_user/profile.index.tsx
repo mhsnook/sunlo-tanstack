@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_user/profile/')({
 
 function ProfilePage() {
 	return (
-		<main className="px-px flex flex-col gap-6">
+		<main className="flex flex-col gap-6 px-px">
 			<AvatarSection />
 
 			<Card>

@@ -19,12 +19,12 @@ function GettingStartedPage() {
 	return (
 		profile === undefined ? <Loader />
 		: profile !== null ? <Navigate to={nextPage} />
-		: <main className="w-app py-10 px-[5cqw]">
-				<div className="space-y-4 my-4 text-center">
+		: <main className="w-app px-[5cqw] py-10">
+				<div className="my-4 space-y-4 text-center">
 					<h1 className="d1">Welcome to Sunlo</h1>
-					<div className="max-w-sm flex flex-row gap-4 mx-auto items-center">
+					<div className="mx-auto flex max-w-sm flex-row items-center gap-4">
 						<SuccessCheckmark className="bg-transparent" />
-						<p className="text-2xl font-thin text-muted-foreground">
+						<p className="text-muted-foreground text-2xl font-thin">
 							Thanks&nbsp;for&nbsp;confirming your email &ndash; let&apos;s
 							get&nbsp;you&nbsp;set&nbsp;up.
 						</p>

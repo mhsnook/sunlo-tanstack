@@ -23,8 +23,8 @@ export function ProfileWithRelationship({
 						<Loader className="size-6" />
 					</span>
 				: inviteResponseMutation.isSuccess ?
-					<span className="bg-green-600 size-8 rounded-full p-1">
-						<Check className="text-white size-6" />
+					<span className="size-8 rounded-full bg-green-600 p-1">
+						<Check className="size-6 text-white" />
 					</span>
 				: !relationship || relationship.status === 'unconnected' ?
 					<Button
@@ -34,7 +34,7 @@ export function ProfileWithRelationship({
 						title="Send friend request"
 						onClick={() => inviteResponseMutation.mutate('invite')}
 					>
-						<Send className="size-6 mr-[0.1rem] mt-[0.1rem]" />
+						<Send className="mt-[0.1rem] mr-[0.1rem] size-6" />
 					</Button>
 				: relationship.status === 'pending' && !relationship.isMostRecentByMe ?
 					<>
@@ -67,7 +67,7 @@ export function ProfileWithRelationship({
 								{inviteResponseMutation.isPending ?
 									<Loader />
 								: inviteResponseMutation.isSuccess ?
-									<Check className="text-white size-6" />
+									<Check className="size-6 text-white" />
 								:	<>Confirm</>}
 							</Button>
 						</ConfirmDestructiveActionDialog>
@@ -93,7 +93,7 @@ export function ProfileWithRelationship({
 							{inviteResponseMutation.isPending ?
 								<Loader />
 							: inviteResponseMutation.isSuccess ?
-								<Check className="text-white size-6" />
+								<Check className="size-6 text-white" />
 							:	<>Confirm</>}
 						</Button>
 					</ConfirmDestructiveActionDialog>

@@ -25,7 +25,7 @@ function Page() {
 				<AppSidebar />
 				<SidebarInset className="flex-1">
 					<main className="flex-1 overflow-y-auto p-6">
-						<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
+						<div className="mb-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 							<Card>
 								<CardHeader>
 									<CardTitle className="text-lg">Card 1</CardTitle>

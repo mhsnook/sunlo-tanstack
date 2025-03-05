@@ -120,7 +120,7 @@ function FriendsActivity() {
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					<ul className="list-disc ml-4">
+					<ul className="ml-4 list-disc">
 						{data.uids.friends.map((uid) => {
 							const d = data.relationsMap[uid]
 							return !d.profile ? null : (

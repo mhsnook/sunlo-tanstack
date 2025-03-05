@@ -110,7 +110,7 @@ function CardSection({ card }: { card: CardFull }) {
 			<div className="flex flex-col">
 				<ul className="space-y-2">
 					{reviews.map((r) => (
-						<li key={r.id} className="hover:bg-background/20 p-2 border ">
+						<li key={r.id} className="hover:bg-background/20 border p-2">
 							<p>
 								score: {r.score}, {ago(r.created_at)}, next due{' '}
 								{ago(r.scheduled_for)}

@@ -106,7 +106,7 @@ function SearchTab() {
 
 				{searchResults?.length > 0 ?
 					<LanguagePhrasesAccordionComponent lang={lang} pids={searchResults} />
-				:	<p className="text-center text-muted-foreground mt-4">
+				:	<p className="text-muted-foreground mt-4 text-center">
 						No results found. Try searching for a phrase or add a new one.
 					</p>
 				}

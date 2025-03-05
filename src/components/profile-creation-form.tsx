@@ -55,7 +55,7 @@ export default function ProfileCreationForm({ userId }: { userId: string }) {
 	})
 
 	return (
-		<div className="max-w-sm space-y-8 mx-auto">
+		<div className="mx-auto max-w-sm space-y-8">
 			<form
 				noValidate
 				// eslint-disable-next-line @typescript-eslint/no-misused-promises

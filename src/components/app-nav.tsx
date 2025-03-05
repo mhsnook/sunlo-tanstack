@@ -22,16 +22,16 @@ function Nav({ matches }: { matches: ReturnType<typeof useMatches> }) {
 	return (
 		<ScrollArea>
 			<NavigationMenu className="mb-4">
-				<NavigationMenuList className="w-full flex flex-row">
+				<NavigationMenuList className="flex w-full flex-row">
 					{links.map((l: LinkType) => (
 						<NavigationMenuItem
-							className="px-4 rounded hover:bg-primary/20"
+							className="hover:bg-primary/20 rounded px-4"
 							key={l.link.to}
 						>
 							<NavigationMenuLink asChild>
 								<Link
 									{...l.link}
-									className="border-b-2 flex flex-row gap-2 items-center justify-center py-2"
+									className="flex flex-row items-center justify-center gap-2 border-b-2 py-2"
 									activeProps={{ className: 'border-primary text-foreground' }}
 									activeOptions={{ exact: true, includeSearch: false }}
 									inactiveProps={{

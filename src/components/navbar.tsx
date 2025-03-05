@@ -17,8 +17,8 @@ export default function Navbar() {
 	if (matches.some((match) => match.status === 'pending')) return null
 
 	return (
-		<nav className="flex items-center justify-between py-3 px-[1cqw] mb-4 border-b">
-			<div className="flex items-center gap-[1cqw] h-12">
+		<nav className="mb-4 flex items-center justify-between border-b px-[1cqw] py-3">
+			<div className="flex h-12 items-center gap-[1cqw]">
 				<SidebarTrigger />
 				<Title matches={matches} />
 			</div>
@@ -84,7 +84,7 @@ function ContextMenu({ matches }) {
 					<DropdownMenuItem key={index}>
 						<Link
 							{...link}
-							className="w-full flex flex-row gap-2 justify-content-center"
+							className="justify-content-center flex w-full flex-row gap-2"
 						>
 							<Icon className="size-[1.25rem]" />
 							{name}

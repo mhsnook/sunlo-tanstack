@@ -53,11 +53,11 @@ function ReviewPage() {
 }
 
 const Empty = ({ lang }: { lang: string }) => (
-	<Card className="py-6 px-[5%]">
+	<Card className="px-[5%] py-6">
 		<CardHeader className="my-6 opacity-70">
 			<CardTitle>No cards to review</CardTitle>
 		</CardHeader>
-		<CardContent className="space-y-4 mb-6">
+		<CardContent className="mb-6 space-y-4">
 			<p>
 				This is empty because there are no active cards in your{' '}
 				{languages[lang]} deck.

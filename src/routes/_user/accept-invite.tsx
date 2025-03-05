@@ -74,26 +74,26 @@ function AcceptInvitePage() {
 		return (
 			<>
 				{learner.avatar_url ?
-					<div className="relative flex flex-row h-44 justify-around items-center gap-4 max-w-[400px] mx-auto">
+					<div className="relative mx-auto flex h-44 max-w-[400px] flex-row items-center justify-around gap-4">
 						<img
 							src={learner.avatar_url}
 							width=""
-							className="mx-auto rounded-xl max-w-32 shrink"
+							className="mx-auto max-w-32 shrink rounded-xl"
 							alt={`${learner.username}'s profile picture`}
 						/>
 						{friend.avatar_url ?
 							<>
-								<ArrowRightLeft className="opacity-70 mx-auto" />
+								<ArrowRightLeft className="mx-auto opacity-70" />
 								<img
 									src={learner.avatar_url}
-									className="mx-auto rounded-xl shrink max-w-32"
+									className="mx-auto max-w-32 shrink rounded-xl"
 									alt={`${learner.username}'s profile picture`}
 								/>
 							</>
 						:	null}
 					</div>
 				:	null}
-				<div className="flex gap-4 flex-row justify-center">
+				<div className="flex flex-row justify-center gap-4">
 					<Button
 						size="lg"
 						onClick={() => acceptOrDeclineMutation.mutate({ action: 'accept' })}
@@ -117,7 +117,7 @@ function AcceptInvitePage() {
 	}
 
 	return (
-		<main className="p-2 w-app flex flex-col justify-center h-screen pb-20">
+		<main className="w-app flex h-screen flex-col justify-center p-2 pb-20">
 			{isPending ?
 				<Loader />
 			:	<Card>
@@ -132,7 +132,7 @@ function AcceptInvitePage() {
 					<CardContent className="space-y-4">
 						{acceptOrDeclineMutation.error ?
 							<ShowError show={!!acceptOrDeclineMutation.error}>
-								<p className="font-bold text-destructive-foreground h5">
+								<p className="text-destructive-foreground h5 font-bold">
 									Something went wrong...
 								</p>
 								<p>{acceptOrDeclineMutation.error?.message}</p>

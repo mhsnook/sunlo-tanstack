@@ -62,7 +62,7 @@ export default function AvatarEditor({ url, onUpload }: AvatarEditorProps) {
 	})
 
 	return (
-		<div className="relative h-40 shrink border border-primary rounded p-2">
+		<div className="border-primary relative h-40 shrink rounded border p-2">
 			<Label
 				htmlFor="avatarUploadInput"
 				className="fit-content relative z-10 flex h-full flex-col rounded text-center"
@@ -78,7 +78,7 @@ export default function AvatarEditor({ url, onUpload }: AvatarEditorProps) {
 					</span>
 				)}
 				<Input
-					className="z-90 absolute bottom-0 left-0 right-0 top-0 opacity-0"
+					className="absolute top-0 right-0 bottom-0 left-0 z-90 opacity-0"
 					type="file"
 					id="avatarUploadInput"
 					name="files[]"
@@ -86,12 +86,12 @@ export default function AvatarEditor({ url, onUpload }: AvatarEditorProps) {
 					onChange={sendImage.mutate}
 					disabled={sendImage.isPending}
 				/>
-				<div className="absolute flex h-full flex-col justify-center bg-background/60 opacity-0 backdrop-blur-sm hover:opacity-100">
+				<div className="bg-background/60 absolute flex h-full flex-col justify-center opacity-0 backdrop-blur-sm hover:opacity-100">
 					<p className="place-content-center">
 						{sendImage.isPending ?
 							<>Uploading ...</>
 						:	<>
-								<UploadIcon className="mx-auto size-6 mb-2" />
+								<UploadIcon className="mx-auto mb-2 size-6" />
 								<span>
 									drag & drop an image or click here to browse your files
 								</span>

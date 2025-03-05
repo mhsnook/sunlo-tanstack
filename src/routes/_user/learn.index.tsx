@@ -22,24 +22,24 @@ export default function Page() {
 						key={key}
 						to="/learn/$lang"
 						params={{ lang: key }}
-						className="block transition-transform rounded-lg focus:outline-blue-500 focus:ring-blue-500 focus:ring-offset-1"
+						className="block rounded-lg transition-transform focus:ring-blue-500 focus:ring-offset-1 focus:outline-blue-500"
 					>
 						<Card
 							key={deck.language}
-							className="overflow-hidden h-full hover:border-primary"
+							className="hover:border-primary h-full overflow-hidden"
 						>
-							<CardHeader className="bg-primary text-white dark">
+							<CardHeader className="bg-primary dark text-white">
 								<CardTitle>
 									{deck.language}{' '}
-									<span className="text-xs text-muted-foreground">{key}</span>
+									<span className="text-muted-foreground text-xs">{key}</span>
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="p-4 space-y-2">
+							<CardContent className="space-y-2 p-4">
 								<div>
-									<p className="text-sm text-muted-foreground">
+									<p className="text-muted-foreground text-sm">
 										{deck.cards_active} active cards
 									</p>
-									<p className="text-sm text-muted-foreground">
+									<p className="text-muted-foreground text-sm">
 										Last studied:{' '}
 										{deck.most_recent_review_at ?
 											ago(deck.most_recent_review_at)
@@ -48,11 +48,11 @@ export default function Page() {
 								</div>
 								<div className="flex items-center justify-between">
 									<div className="flex items-center space-x-1">
-										<Users className="size-4 text-info" />
+										<Users className="text-info size-4" />
 										<span className="text-sm">{0} friends studying</span>
 									</div>
 									<div className="flex items-center space-x-1">
-										<Star className="size-4 text-warning" />
+										<Star className="text-warning size-4" />
 										<span className="text-sm">{4.5}</span>
 									</div>
 								</div>

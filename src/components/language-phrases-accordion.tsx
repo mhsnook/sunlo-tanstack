@@ -54,8 +54,8 @@ function PhraseAccordionItem({
 	deckId: uuid
 }) {
 	return (
-		<AccordionItem value={phrase.id} className="border rounded mb-2 px-2">
-			<div className="flex flex-row gap-2 items-center">
+		<AccordionItem value={phrase.id} className="mb-2 rounded border px-2">
+			<div className="flex flex-row items-center gap-2">
 				<CardStatusDropdown
 					lang={phrase.lang}
 					deckId={deckId}
@@ -65,12 +65,12 @@ function PhraseAccordionItem({
 				<AccordionTrigger>{phrase.text}</AccordionTrigger>
 			</div>
 			<AccordionContent>
-				<div className="pl-6 pt-2 space-y-1">
+				<div className="space-y-1 pt-2 pl-6">
 					<p className="text-sm text-gray-500">Translations</p>
 					<ul className="space-y-1">
 						{phrase.translations.map((translation, index) => (
 							<li key={index} className="flex items-center">
-								<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
+								<span className="mr-2 rounded-md bg-gray-200 px-2 py-1 text-xs text-gray-700">
 									{translation.lang}
 								</span>
 								<span className="text-sm">{translation.text}</span>

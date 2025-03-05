@@ -52,7 +52,7 @@ export function SearchProfilesComponent() {
 
 	return (
 		<main className="container mx-auto p-4">
-			<h1 className="text-2xl font-bold mb-4">Search Profiles</h1>
+			<h1 className="mb-4 text-2xl font-bold">Search Profiles</h1>
 			<form
 				noValidate
 				// eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -70,13 +70,13 @@ export function SearchProfilesComponent() {
 					</Button>
 				</div>
 				{errors.query && (
-					<p className="text-red-500 mt-1">{errors.query.message}</p>
+					<p className="mt-1 text-red-500">{errors.query.message}</p>
 				)}
 			</form>
 
 			<div className="flex flex-col gap-4">
 				{searchResults?.map((profile) => (
-					<div key={profile.uid} className="border rounded p-4">
+					<div key={profile.uid} className="rounded border p-4">
 						<ProfileWithRelationship profile={profile} />
 					</div>
 				))}

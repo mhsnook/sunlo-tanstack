@@ -39,9 +39,9 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 	return (
 		<>
 			<div
-				className={`${isComplete ? 'flex' : 'hidden'} flex-col justify-center items-center gap-4`}
+				className={`${isComplete ? 'flex' : 'hidden'} flex-col items-center justify-center gap-4`}
 			>
-				<div className="flex flex-row justify-center items-center min-h-10">
+				<div className="flex min-h-10 flex-row items-center justify-center">
 					<Button
 						size="sm"
 						variant="default"
@@ -49,17 +49,17 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 						onClick={() => navigateCards('back')}
 						className="ps-2 pe-4"
 					>
-						<ChevronLeft className="size-4 me-1" /> Back to cards
+						<ChevronLeft className="me-1 size-4" /> Back to cards
 					</Button>
 				</div>
-				<Card className={`w-full mx-auto h-[80vh] flex flex-col`}>
+				<Card className={`mx-auto flex h-[80vh] w-full flex-col`}>
 					<WhenComplete />
 				</Card>
 			</div>
 			<div
-				className={`${isComplete ? 'hidden' : 'flex'} flex-col justify-center items-center gap-4`}
+				className={`${isComplete ? 'hidden' : 'flex'} flex-col items-center justify-center gap-4`}
 			>
-				<div className="flex flex-row justify-center items-center gap-4 min-h-10">
+				<div className="flex min-h-10 flex-row items-center justify-center gap-4">
 					<Button
 						size="icon-sm"
 						variant="default"
@@ -69,7 +69,7 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 					>
 						<ChevronLeft className="size-4" />
 					</Button>
-					<div className="text-sm text-center">
+					<div className="text-center text-sm">
 						Card {currentCardIndex + 1} of {cards.length}
 					</div>
 					<Button
@@ -88,16 +88,16 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 						<Card
 							key={i}
 							className={cn(
-								`w-full mx-auto h-[80vh] flex-col`,
+								`mx-auto h-[80vh] w-full flex-col`,
 								i === currentCardIndex ? 'flex' : 'hidden'
 							)}
 						>
 							<CardContent
-								className={`flex grow flex-col pt-0 px-[10%] items-center justify-center`}
+								className={`flex grow flex-col items-center justify-center px-[10%] pt-0`}
 							>
 								<PhraseExtraInfo lang={phrase.lang} pid={phrase.id} />
-								<div className="flex items-center justify-center mb-4">
-									<div className="text-2xl font-bold mr-2">{phrase.text}</div>
+								<div className="mb-4 flex items-center justify-center">
+									<div className="mr-2 text-2xl font-bold">{phrase.text}</div>
 									<Flagged name="text_to_speech">
 										<Button
 											size="icon"
@@ -112,11 +112,11 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 								<div>
 									{!showTranslation ? null : (
 										phrase.translations.map((trans) => (
-											<div key={trans.id} className="flex items-center mt-4">
-												<span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md text-xs mr-2">
+											<div key={trans.id} className="mt-4 flex items-center">
+												<span className="mr-2 rounded-md bg-gray-200 px-2 py-1 text-xs text-gray-700">
 													{trans.lang}
 												</span>
-												<div className="text-xl me-2">{trans.text}</div>
+												<div className="me-2 text-xl">{trans.text}</div>
 												<Flagged name="text_to_speech">
 													<Button
 														size="icon-sm"
@@ -198,10 +198,10 @@ function UserCardReviewScoreButtonsRow({
 	return (
 		<CardFooter className="flex flex-col">
 			{!isButtonsShown ?
-				<Button className="w-full mb-3" onClick={showTheButtons}>
+				<Button className="mb-3 w-full" onClick={showTheButtons}>
 					Show Translation
 				</Button>
-			:	<div className="w-full mb-3 grid grid-cols-4 gap-2">
+			:	<div className="mb-3 grid w-full grid-cols-4 gap-2">
 					<Button
 						variant="destructive"
 						onClick={() => mutate({ score: 1 })}
@@ -249,7 +249,7 @@ function UserCardReviewScoreButtonsRow({
 function WhenComplete() {
 	return (
 		<>
-			<CardContent className="flex grow flex-col items-center justify-center gap-4 pb-16 pt-0">
+			<CardContent className="flex grow flex-col items-center justify-center gap-4 pt-0 pb-16">
 				<h2 className="text-2xl font-bold">Good work!</h2>
 				<p className="text-lg">You've completed your review for today.</p>
 				<SuccessCheckmark />

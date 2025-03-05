@@ -73,12 +73,12 @@ function FriendsSection({ lang }: LangOnlyComponentProps) {
 			</CardHeader>
 			<CardContent>
 				<p>Recent activity in this deck</p>
-				<ul className="list-disc ml-4 mb-4">
+				<ul className="mb-4 ml-4 list-disc">
 					<li>somefriend (see recent activity or whatever)</li>
 					<li>a-money (you have a new phrase from them)</li>
 					<li>j-town (nothing special actually)</li>
 				</ul>
-				<div className="flex flex-row gap-2 flex-wrap">
+				<div className="flex flex-row flex-wrap gap-2">
 					<Link
 						to="/friends/search"
 						search={{ lang }}
@@ -107,7 +107,7 @@ function DeckOverview({ lang }: LangOnlyComponentProps) {
 		<Card>
 			<CardHeader>
 				<CardTitle>
-					<div className="flex flex-row justify-between items-center">
+					<div className="flex flex-row items-center justify-between">
 						<span>Deck Overview</span>
 						<Link
 							to="/learn/$lang/search"
@@ -186,7 +186,7 @@ function DeckSettings({ lang }: LangOnlyComponentProps) {
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="space-y-4">
-				<ul className="list-disc ms-4">
+				<ul className="ms-4 list-disc">
 					<li>
 						Your deck is currently:{' '}
 						<strong>{data?.archived ? 'Inactive' : 'Active'}</strong>
@@ -225,7 +225,7 @@ function Empty({ lang }: LangOnlyComponentProps) {
 		<Card className="py-10">
 			<CardHeader>
 				<CardTitle>
-					<h1 className="text-3xl font-bold mb-6">
+					<h1 className="mb-6 text-3xl font-bold">
 						Welcome to Your New Language Journey!
 					</h1>
 				</CardTitle>

@@ -29,7 +29,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 function RootComponent() {
 	return (
 		<SidebarProvider>
-			<div className="mx-auto w-full max-w-[960px] @container ps-2 pe-2 md:ps-0">
+			<div className="@container mx-auto w-full max-w-[960px] ps-2 pe-2 md:ps-0">
 				<Outlet />
 			</div>
 			<Toaster position="top-center" />
@@ -43,7 +43,7 @@ function NotFoundComponent() {
 		void navigate({ to: '..' })
 	}, [navigate])
 	return (
-		<div className="flex justify-center items-center w-full h-full py-10">
+		<div className="flex h-full w-full items-center justify-center py-10">
 			<Callout variant="problem">
 				<Badge variant="destructive" className="p-2">
 					<OctagonMinus />

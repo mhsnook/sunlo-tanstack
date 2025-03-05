@@ -25,7 +25,7 @@ const router = createRouter({
 	defaultPreload: 'intent',
 	defaultPreloadStaleTime: 300_000,
 	defaultPendingComponent: () => (
-		<div className="w-full h-full flex justify-center items-center animate-spin opacity-70">
+		<div className="flex h-full w-full animate-spin items-center justify-center opacity-70">
 			<Loader className="size-12" />
 		</div>
 	),

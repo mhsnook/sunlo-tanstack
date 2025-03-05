@@ -40,7 +40,7 @@ function NoDecks() {
 		<Callout>
 			<div>
 				<p>It seems like you're not learning any languages yet! Get started.</p>
-				<Button className="w-full mt-2" asChild>
+				<Button className="mt-2 w-full" asChild>
 					<Link to="/learn/add-deck">Start Learning</Link>
 				</Button>
 			</div>
@@ -64,7 +64,7 @@ export function DeckSwitcher({ lang }: { lang: string }) {
 								size="lg"
 								className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 							>
-								<div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+								<div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
 									<GalleryHorizontalEnd />
 								</div>
 								<div className="grid flex-1 text-left text-sm leading-tight">
@@ -81,14 +81,14 @@ export function DeckSwitcher({ lang }: { lang: string }) {
 							side={isMobile ? 'bottom' : 'right'}
 							sideOffset={4}
 						>
-							<DropdownMenuLabel className="text-xs text-muted-foreground">
+							<DropdownMenuLabel className="text-muted-foreground text-xs">
 								Decks
 							</DropdownMenuLabel>
 							{deckMenuData?.map((deck) => (
 								<DropdownMenuItem
 									key={deck.name}
 									asChild
-									className="gap-2 p-2 justify-between cursor-pointer"
+									className="cursor-pointer justify-between gap-2 p-2"
 								>
 									<Link to="/learn/$lang" params={{ lang: deck.lang }}>
 										{deck.name}
@@ -98,12 +98,12 @@ export function DeckSwitcher({ lang }: { lang: string }) {
 								</DropdownMenuItem>
 							))}
 							<DropdownMenuSeparator />
-							<DropdownMenuItem asChild className="gap-2 p-2 cursor-pointer">
+							<DropdownMenuItem asChild className="cursor-pointer gap-2 p-2">
 								<Link to="/learn/add-deck">
-									<div className="flex size-6 items-center justify-center rounded border bg-background">
+									<div className="bg-background flex size-6 items-center justify-center rounded border">
 										<Plus className="size-4" />
 									</div>
-									<div className="font-medium text-muted-foreground">
+									<div className="text-muted-foreground font-medium">
 										New deck
 									</div>
 								</Link>

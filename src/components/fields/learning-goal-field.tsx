@@ -17,18 +17,18 @@ export function LearningGoalField({ control, error }: ControlledFieldProps) {
 				<Label
 					htmlFor="moving"
 					className={cn(
-						`flex items-center cursor-pointer w-full p-4 transition-colors rounded border border-transparent`,
+						`flex w-full cursor-pointer items-center rounded border border-transparent p-4 transition-colors`,
 						value === 'moving' ? 'bg-primary/20' : (
 							'hover:bg-primary/10 hover:border-input'
 						)
 					)}
 				>
 					<GraduationCap
-						className={`size-5 mr-3 transition-color ${value === 'moving' ? 'text-primary' : ''}`}
+						className={`transition-color mr-3 size-5 ${value === 'moving' ? 'text-primary' : ''}`}
 					/>
 					<div className="space-y-1">
 						<div>Moving or learning for friends</div>
-						<div className="font-medium text-sm opacity-60">
+						<div className="text-sm font-medium opacity-60">
 							I'll be getting help from friends or colleagues
 						</div>
 					</div>
@@ -38,18 +38,18 @@ export function LearningGoalField({ control, error }: ControlledFieldProps) {
 				<Label
 					htmlFor="family"
 					className={cn(
-						`flex items-center cursor-pointer w-full p-4 transition-colors rounded border border-transparent`,
+						`flex w-full cursor-pointer items-center rounded border border-transparent p-4 transition-colors`,
 						value === 'family' ? 'bg-primary/20' : (
 							'hover:bg-primary/10 hover:border-input'
 						)
 					)}
 				>
 					<Users
-						className={`size-5 mr-3 transition-color ${value === 'family' ? 'text-primary' : ''}`}
+						className={`transition-color mr-3 size-5 ${value === 'family' ? 'text-primary' : ''}`}
 					/>
 					<div className="space-y-1">
 						<div>Family connection</div>
-						<div className="font-medium text-sm opacity-60">
+						<div className="text-sm font-medium opacity-60">
 							I want to connect with relatives by learning a family or ancestral
 							language
 						</div>
@@ -60,18 +60,18 @@ export function LearningGoalField({ control, error }: ControlledFieldProps) {
 				<Label
 					htmlFor="visiting"
 					className={cn(
-						`flex items-center cursor-pointer w-full p-4 transition-colors rounded border border-transparent`,
+						`flex w-full cursor-pointer items-center rounded border border-transparent p-4 transition-colors`,
 						value === 'visiting' ? 'bg-primary/20' : (
 							'hover:bg-primary/10 hover:border-input'
 						)
 					)}
 				>
 					<Briefcase
-						className={`size-5 mr-3 transition-color ${value === 'visiting' ? 'text-primary' : ''}`}
+						className={`transition-color mr-3 size-5 ${value === 'visiting' ? 'text-primary' : ''}`}
 					/>
 					<div className="space-y-1">
 						<div>Just visiting</div>
-						<div className="font-medium text-sm opacity-60">
+						<div className="text-sm font-medium opacity-60">
 							I'm learning the basics for an upcoming trip
 						</div>
 					</div>

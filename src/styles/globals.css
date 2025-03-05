@@ -148,7 +148,7 @@
 }
 
 @utility s-link {
-	@apply cursor-pointer decoration-primary-foresoft underline-offset-2 hover:underline-offset-1 underline hover:decoration-2 decoration-2 decoration-dashed transition-all;
+	@apply decoration-primary-foresoft cursor-pointer underline decoration-dashed decoration-2 underline-offset-2 transition-all hover:decoration-2 hover:underline-offset-1;
 }
 
 /* @utility h1 {
@@ -163,7 +163,7 @@
   }
 } */
 @utility d1 {
-	@apply my-4 text-4xl @xl:text-5xl @3xl:text-6xl @5xl:text-8xl tracking-tight; /* font-display;*/
+	@apply my-4 text-4xl tracking-tight @xl:text-5xl @3xl:text-6xl @5xl:text-8xl; /* font-display;*/
 }
 @utility h2 {
 	@apply my-4 text-2xl @3xl:text-3xl @5xl:text-4xl; /* font-display;*/
@@ -172,7 +172,7 @@
 	@apply text-3xl @xl:text-4xl @3xl:text-5xl @5xl:text-6xl; /* font-display;*/
 }
 @utility h3 {
-	@apply mb-3 mt-1 text-xl @3xl:text-2xl; /* font-display;*/
+	@apply mt-1 mb-3 text-xl @3xl:text-2xl; /* font-display;*/
 	& > p {
 		@apply text-sm opacity-80 @3xl:text-base;
 	}
