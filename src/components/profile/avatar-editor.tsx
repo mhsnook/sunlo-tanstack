@@ -6,6 +6,7 @@ import { ShowError } from '@/components/errors'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { UploadIcon } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 const avatarFullUrl = (fullPath: string): string =>
 	`https://hepudeougzlgnuqvybrj.supabase.co/storage/v1/object/public/${fullPath}`
@@ -86,7 +87,12 @@ export default function AvatarEditor({ url, onUpload }: AvatarEditorProps) {
 					onChange={sendImage.mutate}
 					disabled={sendImage.isPending}
 				/>
-				<div className="bg-background/60 absolute flex h-full flex-col justify-center opacity-0 backdrop-blur-sm hover:opacity-100">
+				<div
+					className={cn(
+						!url ? 'opacity-100' : '',
+						'bg-background/60 absolute flex h-full flex-col justify-center opacity-0 backdrop-blur-sm hover:opacity-100'
+					)}
+				>
 					<p className="place-content-center">
 						{sendImage.isPending ?
 							<>Uploading ...</>
