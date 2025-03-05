@@ -63,14 +63,14 @@ const Empty = ({ lang }: { lang: string }) => (
 				{languages[lang]} deck.
 			</p>
 			<p>
-				You can go to the{' '}
+				You can{' '}
 				<Link
 					className="s-link"
-					to="/learn/$lang/search"
+					to="/learn/$lang/library"
 					params={{ lang }}
 					from={Route.fullPath}
 				>
-					search page
+					browse the library
 				</Link>{' '}
 				to find new phrases to learn, or{' '}
 				<Link
