@@ -63,23 +63,22 @@ export default function AvatarEditor({ url, onUpload }: AvatarEditorProps) {
 	})
 
 	return (
-		<div className="border-primary relative h-40 shrink rounded border p-2">
+		<div className="flex flex-col gap-2">
 			<Label
 				htmlFor="avatarUploadInput"
-				className="fit-content relative z-10 flex h-full flex-col rounded text-center"
+				className="group border-primary hover:bg-primary/10 relative isolate flex h-40 flex-col items-center rounded border text-center"
 			>
-				{url && (
-					<span className="mask mask-circle mx-auto grid size-36 place-content-center">
+				{!url ? null : (
+					<div className="z-10 mx-auto my-2 grid aspect-square size-36">
 						<img
 							src={url}
-							width="144"
-							height="144"
-							alt={`Your profile image`}
+							alt="Your profile image"
+							className="h-36 rounded-full object-cover"
 						/>
-					</span>
+					</div>
 				)}
 				<Input
-					className="absolute top-0 right-0 bottom-0 left-0 z-90 opacity-0"
+					className="absolute z-50 h-full place-items-stretch justify-center opacity-0"
 					type="file"
 					id="avatarUploadInput"
 					name="files[]"
@@ -90,22 +89,22 @@ export default function AvatarEditor({ url, onUpload }: AvatarEditorProps) {
 				<div
 					className={cn(
 						!url ? 'opacity-100' : '',
-						'bg-background/60 absolute flex h-full flex-col justify-center opacity-0 backdrop-blur-sm hover:opacity-100'
+						'absolute inset-0 z-30 flex flex-col justify-center opacity-0 backdrop-blur-sm group-hover:opacity-100'
 					)}
 				>
-					<p className="place-content-center">
-						{sendImage.isPending ?
-							<>Uploading ...</>
-						:	<>
-								<UploadIcon className="mx-auto mb-2 size-6" />
-								<span>
-									drag & drop an image or click here to browse your files
-								</span>
-							</>
-						}
-					</p>
+					{sendImage.isPending ?
+						<>Uploading ...</>
+					:	<>
+							<UploadIcon className="mx-auto mb-2 size-6" />
+							<span>
+								drag & drop an image or click&nbsp;here to browse
+								your&nbsp;files
+							</span>
+						</>
+					}
 				</div>
 			</Label>
+
 			<ShowError show={!!sendImage.error}>
 				Error uploading image: {sendImage.error?.message}
 			</ShowError>
