@@ -52,6 +52,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 				}
 				setSessionState(session)
 				setLoaded()
+				console.log(`The Session`, session)
 			}
 		)
 

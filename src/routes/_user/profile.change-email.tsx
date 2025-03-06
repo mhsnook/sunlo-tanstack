@@ -31,17 +31,20 @@ function ChangeEmailPage() {
 	const changeMutation = useMutation({
 		mutationKey: ['forgot-password'],
 		mutationFn: async ({ email }: FormInputs) => {
-			const { data, error } = await supabase.auth.updateUser({ email })
+			const { error } = await supabase.auth.updateUser(
+				{ email },
+				{ emailRedirectTo: `https://sunlo.app/profile/change-email-confirm` }
+			)
 			if (error) {
 				console.log(`Error`, error)
 				throw error
 			}
-			return data
-			// console.log(`form data`, email, user_role)
-			// return { user: { email: '@fake email@' } }
+			return { email }
 		},
-		onSuccess: (data) => {
-			toast.success(`Successfully updated your email to ${data?.user?.email}.`)
+		onSuccess: () => {
+			toast.success(
+				`Request submitted. Please find the confirmation in your email.`
+			)
 		},
 	})
 
@@ -66,15 +69,14 @@ function ChangeEmailPage() {
 					<Callout>
 						<SuccessCheckmark className="bg-transparent" />
 						<div className="space-y-2">
-							<p>Success!</p>
+							<p>Step 1 complete:</p>
 							<p>
-								You've changed your email to{' '}
-								<strong>{changeMutation.data?.user?.email}</strong>.
+								You've requested to change your email to{' '}
+								<strong>{changeMutation.data?.email}</strong>.
 							</p>
 							<p>
-								<Link to="/profile" from={Route.fullPath} className="s-link">
-									Return to your profile page.
-								</Link>
+								Please check your new email for a confirmation link to confirm
+								the change.
 							</p>
 						</div>
 					</Callout>

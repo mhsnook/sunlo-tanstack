@@ -30,6 +30,7 @@ import { Route as UserProfileIndexImport } from './routes/_user/profile.index'
 import { Route as UserLearnIndexImport } from './routes/_user/learn.index'
 import { Route as UserFriendsIndexImport } from './routes/_user/friends.index'
 import { Route as UserProfileChangePasswordImport } from './routes/_user/profile.change-password'
+import { Route as UserProfileChangeEmailConfirmImport } from './routes/_user/profile.change-email-confirm'
 import { Route as UserProfileChangeEmailImport } from './routes/_user/profile.change-email'
 import { Route as UserLearnQuickSearchImport } from './routes/_user/learn.quick-search'
 import { Route as UserLearnAddDeckImport } from './routes/_user/learn.add-deck'
@@ -154,6 +155,12 @@ const UserProfileChangePasswordRoute = UserProfileChangePasswordImport.update({
   path: '/change-password',
   getParentRoute: () => UserProfileRoute,
 } as any)
+
+const UserProfileChangeEmailConfirmRoute =
+  UserProfileChangeEmailConfirmImport.update({
+    path: '/change-email-confirm',
+    getParentRoute: () => UserProfileRoute,
+  } as any)
 
 const UserProfileChangeEmailRoute = UserProfileChangeEmailImport.update({
   path: '/change-email',
@@ -390,6 +397,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserProfileChangeEmailImport
       parentRoute: typeof UserProfileImport
     }
+    '/_user/profile/change-email-confirm': {
+      id: '/_user/profile/change-email-confirm'
+      path: '/change-email-confirm'
+      fullPath: '/profile/change-email-confirm'
+      preLoaderRoute: typeof UserProfileChangeEmailConfirmImport
+      parentRoute: typeof UserProfileImport
+    }
     '/_user/profile/change-password': {
       id: '/_user/profile/change-password'
       path: '/change-password'
@@ -507,6 +521,7 @@ export const routeTree = rootRoute.addChildren({
     }),
     UserProfileRoute: UserProfileRoute.addChildren({
       UserProfileChangeEmailRoute,
+      UserProfileChangeEmailConfirmRoute,
       UserProfileChangePasswordRoute,
       UserProfileIndexRoute,
     }),
@@ -617,6 +632,7 @@ export const routeTree = rootRoute.addChildren({
       "parent": "/_user",
       "children": [
         "/_user/profile/change-email",
+        "/_user/profile/change-email-confirm",
         "/_user/profile/change-password",
         "/_user/profile/"
       ]
@@ -658,6 +674,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_user/profile/change-email": {
       "filePath": "_user/profile.change-email.tsx",
+      "parent": "/_user/profile"
+    },
+    "/_user/profile/change-email-confirm": {
+      "filePath": "_user/profile.change-email-confirm.tsx",
       "parent": "/_user/profile"
     },
     "/_user/profile/change-password": {
