@@ -14,20 +14,20 @@ export const Route = createLazyFileRoute('/privacy-policy')({
 
 function Page() {
 	return (
-		<main className="light px-2 py-6 @md:px-[5%]">
-			<Card>
+		<main className="bg-background text-foreground px-2 py-6 @md:px-[5%]">
+			<Card className="prose dark:prose-invert">
 				<CardHeader>
 					<CardTitle>Privacy Policy</CardTitle>
 					<CardDescription>Last updated: June 24, 2024</CardDescription>
 				</CardHeader>
-				<CardContent className="prose">
-					<Callout>
+				<CardContent>
+					<Callout className="py-1">
 						<div>
 							<p>
-								<strong className="text-muted-foreground">tl;dr:</strong> In
-								order to create an account you need to enter an email address,
-								and logging in leaves a cookie on your device. But other than
-								this we are not collecting or tracking any other personal
+								<strong className="text-foreground">tl;dr:</strong> In order to
+								create an account you need to enter an email address, and
+								logging in leaves a cookie on your device. But other than this
+								we are not collecting or tracking any other personal
 								information; we aren&apos;t selling or providing your data to
 								anyone else, and we reserve zero rights to do so in the future.
 							</p>
