@@ -59,7 +59,7 @@
 		"@tanstack/react-query-devtools": "^5.51.23",
 		"@tanstack/router-devtools": "^1.47.1",
 		"@tanstack/router-plugin": "^1.47.0",
-		"@tauri-apps/cli": "2.0.0-rc.13",
+		"@tauri-apps/cli": "2.3.1",
 		"@types/node": "^22.5.5",
 		"@types/react": "^19.0.10",
 		"@types/react-dom": "^19.0.4",
