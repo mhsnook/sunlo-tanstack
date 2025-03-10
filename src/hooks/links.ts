@@ -4,7 +4,9 @@ import {
 	FileText,
 	HeartHandshake,
 	Home,
+	Lock,
 	LogIn,
+	Mail,
 	MessageSquarePlus,
 	NotebookPen,
 	Rocket,
@@ -12,6 +14,7 @@ import {
 	Search,
 	Send,
 	Settings,
+	UserPen,
 	UserPlus,
 } from 'lucide-react'
 import languages from '../lib/languages'
@@ -145,10 +148,26 @@ const links = (lang?: string): Record<string, LinkType> => ({
 	},
 	'/profile': {
 		name: 'Profile',
-		title: 'Edit profile',
-		Icon: NotebookPen,
+		title: 'View profile',
+		Icon: UserPen,
 		link: {
 			to: '/profile',
+		},
+	},
+	'/profile/change-email': {
+		name: 'Update email',
+		title: 'Update account email',
+		Icon: Mail,
+		link: {
+			to: '/profile/change-email',
+		},
+	},
+	'/profile/change-password': {
+		name: `Update password`,
+		title: 'Update password',
+		Icon: Lock,
+		link: {
+			to: '/profile/change-password',
 		},
 	},
 	'/signup': {

@@ -19,30 +19,13 @@ import {
 import { useAuth, useSignOut } from '@/lib/hooks'
 import { useProfile } from '@/lib/use-profile'
 import { Link } from '@tanstack/react-router'
+import { makeLinks } from '@/hooks/links'
 
-const data = [
-	{
-		name: 'Update profile',
-		link: {
-			to: '/profile',
-		},
-		Icon: UserPen,
-	},
-	{
-		name: 'Update email',
-		link: {
-			to: '/profile/change-email',
-		},
-		Icon: Mail,
-	},
-	{
-		name: `Update password`,
-		link: {
-			to: '/profile/change-password',
-		},
-		Icon: Lock,
-	},
-]
+const data = makeLinks([
+	'/profile',
+	'/profile/change-email',
+	'/profile/change-password',
+])
 
 export function NavUser() {
 	const { isMobile } = useSidebar()
@@ -95,7 +78,7 @@ export function NavUser() {
 								<DropdownMenuItem key={item.link.to} asChild>
 									<Link to={item.link.to}>
 										<item.Icon />
-										{item.name}
+										{item.title ?? item.name}
 									</Link>
 								</DropdownMenuItem>
 							))}
