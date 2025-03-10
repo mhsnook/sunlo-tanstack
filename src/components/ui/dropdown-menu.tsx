@@ -85,7 +85,7 @@ const DropdownMenuItem = ({
 	<DropdownMenuPrimitive.Item
 		data-slot="dropdown-menu-item"
 		className={cn(
-			'focus:bg-primary/20 relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+			'focus:bg-primary/20 relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors select-none focus:ring data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
 			inset && 'pl-8',
 			className
 		)}

@@ -142,8 +142,11 @@ export function CardStatusDropdown({
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className={cn('flex rounded-full', className)}>
-				<Badge variant="outline" className="m-0 gap-1">
+			<DropdownMenuTrigger className={cn('group flex rounded-full', className)}>
+				<Badge
+					variant="outline"
+					className="group-data-[state=open]:bg-primary m-0 gap-1 group-data-[state=open]:text-white"
+				>
 					{cardMutation.isSuccess ?
 						<CheckCircle className="size-4 text-green-500" />
 					:	statusStrings[choice].icon()}{' '}
