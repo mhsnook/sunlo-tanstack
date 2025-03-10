@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import supabase from '@/lib/supabase-client'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
@@ -25,4 +25,22 @@ export const useSignOut = () => {
 			void navigate({ to: '/' })
 		},
 	})
+}
+
+export function useActiveElement() {
+	const [activeElement, setActiveElement] = useState(
+		() => window.document.activeElement
+	)
+	useEffect(() => {
+		const onFocus = () => setActiveElement(window.document.activeElement)
+		const onBlur = () => setActiveElement(null)
+		window.addEventListener('focus', onFocus)
+		window.addEventListener('blur', onBlur)
+		return () => {
+			window.removeEventListener('focus', onFocus)
+			window.removeEventListener('blur', onBlur)
+		}
+	}, [window])
+
+	return activeElement
 }

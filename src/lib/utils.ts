@@ -56,3 +56,9 @@ export function retrievability(
 export function intervals() {
 	return [1, 2, 3, 4]
 }
+
+export function removeFocus() {
+	if (document.activeElement instanceof HTMLElement) {
+		document.activeElement.blur()
+	}
+}
