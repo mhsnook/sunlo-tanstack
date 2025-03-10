@@ -2,30 +2,44 @@
 
 ## A react SPA and a Supabase project
 
-## Running the SPA
+## Local Setup
 
-- `pnpm install`
-- `cp .env.example .env.local` and then enter database supabase URL and public key
-- `pnpm dev`
-
-## Running the back-end
-
-Usually in development we are developing the UI against the production database.
-But when the current work requires breaking changes and we need to modify the database in tandem with the code branch,
-we'll run Supabase locally with Docker, sync our local copy using the Supabase CLI, and use migrations for any changes.
+### Supabase back-end
 
 - Install [Docker Desktop](https://docs.docker.com/desktop/)
+- Install [Supabase cli](https://supabase.com/docs/guides/local-development/cli/getting-started)
 - `supabase start`
-- `supabase db reset` to run migrations and seeds
+- `supabase db reset`
 
-The first time you run this it will download and build all the docker images for postgres, the postgrest server, the auth server, storage server, etc. After that, it will just start.
+### React front-end
 
-When you make changes to your local database and want to commit changes:
+- `pnpm install`
+- `cp .env.example .env.local`
+- populate the environment variables in .env.local with the outputs from `supabase start`
+- `pnpm dev`
 
-- `pnpm run migrate` to create migrations
+### Mobile Apps with Tauri
+
+    - install Tauri [pre-requisites](https://v2.tauri.app/start/prerequisites/)
+    - `pnpm tauri android init` && `pnpm tauri android dev`
+    - `pnpm tauri ios init` && `pnpm tauri ios dev`
+
+To make the Android app work, you will probably have to run:
+
+    - `adb reverse tcp:5173 tcp:5173`
+    - `adb reverse tcp:54321 tcp:54321`
+
+## Database management
+
+### Migrations
+
+- Use the local admin at [http://localhost://54323](http://localhost://54323) to make changes to the DB
+- `pnpm run migrate` to create migrations from your local changes
 - `pnpm run types` to regenerate typescript types
 
 The migrations should run when the main branch deploys. Or you can `supabase db push` to make it so.
+
+[Read more about working with Supabase migrations.](https://supabase.com/docs/guides/local-development/cli/getting-started)
 
 ### Working on the Seeds
 
