@@ -32,7 +32,16 @@
 			"icons/Square310x310Logo.png",
 			"icons/icon.icns",
 			"icons/icon.ico"
-		]
+		],
+		"createUpdaterArtifacts": true
 	},
-	"$schema": "../node_modules/@tauri-apps/cli/config.schema.json"
+	"$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+	"plugins": {
+		"updater": {
+			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IERFNkNDMEMwQjAyM0U5QzIKUldUQzZTT3d3TUJzM3V3Z3FXdjlBMkF1YVJ1TnFndnVmRTluYUllbWNqUGNybGFlc3dGd3VGZVIK",
+			"endpoints": [
+				"https://cdn.crabnebula.app/update/sunlo/sunlo-tanstack/{{target}}-{{arch}}/{{current_version}}"
+			]
+		}
+	}
 }
