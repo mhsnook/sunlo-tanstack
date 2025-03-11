@@ -38,6 +38,7 @@
 		"@supabase/supabase-js": "^2.45.1",
 		"@tanstack/react-query": "^5.67.1",
 		"@tanstack/react-router": "^1.112.8",
+		"@tauri-apps/plugin-updater": "~2",
 		"@uidotdev/usehooks": "^2.4.1",
 		"class-variance-authority": "^0.7.0",
 		"cmdk": "1.0.0",
