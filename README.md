@@ -1,6 +1,6 @@
 # Sunlo.app
 
-## A react SPA and a Supabase project
+A react SPA and a Supabase project
 
 ## Local Setup
 
@@ -62,7 +62,8 @@ of this writing.)
 - Write migrations by hand: `supabase migration new some_migration_name_here`
 - Generate a migration from the local database: `supabase db diff -f some_migration_name_here`
 
-When your local supabase starts up it will spit out the environment variables you need for your environment file. You can either change your values in `.env.local` or add another file `.env.development.local` which overrides its values.
+When your local supabase starts up it will spit out the environment variables you need for your environment file.
+You can either change your values in `.env.local` or add another file `.env.development.local` which overrides its values.
 
 ### Using Tauri for Native Apps
 
@@ -71,3 +72,11 @@ with the Tauri system for compiling to WASM/Rust. e.g. `pnpm tauri dev`,
 `pnpm tauri android dev`, `pnpm tauri ios dev`, and so on.
 
 Remember to start the Android Studio and activate a Virtual Device from the Device Manager. Check `adb devices` to make sure something is connected.
+
+## Crab Nebula deploys
+
+Execute a release manually using [these instructions](https://web.crabnebula.cloud/crabnebula/cn-cli/releases).
+
+- `cn release draft sunlo/sunlo-tanstack --framework tauri`
+- `cn release upload sunlo/sunlo-tanstack --framework tauri`
+- `cn release publish sunlo/sunlo-tanstack --framework tauri`
