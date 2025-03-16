@@ -4,7 +4,7 @@
 	"identifier": "app.sunlo.dev",
 	"build": {
 		"frontendDist": "../dist",
-		"devUrl": "http://localhost:5173",
+		"devUrl": "http://10.0.0.17:5173",
 		"beforeDevCommand": "pnpm dev",
 		"beforeBuildCommand": "pnpm build"
 	},
@@ -12,8 +12,8 @@
 		"windows": [
 			{
 				"title": "Sunlo: Social Language Learning",
-				"width": 800,
-				"height": 600,
+				"width": 400,
+				"height": 900,
 				"resizable": true,
 				"fullscreen": false
 			}
