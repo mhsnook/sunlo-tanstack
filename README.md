@@ -14,8 +14,8 @@ A react SPA and a Supabase project
 ### React front-end
 
 - `pnpm install`
-- `cp .env.example .env.local`
-- populate the environment variables in .env.local with the outputs from `supabase start`
+- `cp .env.example .env`
+- populate the environment variables in .env with the outputs from `supabase start`
 - `pnpm dev`
 
 ### Mobile Apps with Tauri
