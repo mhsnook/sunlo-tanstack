@@ -18,6 +18,9 @@ A react SPA and a Supabase project
 - populate the environment variables in .env with the outputs from `supabase start`
 - `pnpm dev`
 
+Access the in the browser at `127.0.0.1:5173`. (The Vite server should respond to any requests on port 5173,
+but not `localhost`.)
+
 ### Mobile Apps with Tauri
 
     - install Tauri [pre-requisites](https://v2.tauri.app/start/prerequisites/)
@@ -28,6 +31,12 @@ To make the Android app work, you will probably have to run:
 
     - `adb reverse tcp:5173 tcp:5173`
     - `adb reverse tcp:54321 tcp:54321`
+
+## Configurations / URLs
+
+- `VITE_BASE_URL` – host for the React (Vite) app. the local-machine addressable host, e.g. `http://127.0.0.1:5173`, or check and use your local-network IP address to test in Android, e.g. `http://10.0.0.17:5173`
+- `VITE_SUPABASE_URL` -- host for the Supabase API (Docker container). to work in the browser this can be `127.0.0.1:54321`, but when testing android locally, use a local-network addressable IP, e.g. `10.0.0.17:54321`
+- Tauri `build.devUrl` -- should be the network-addressable host for the vite/react app, e.g. `http://10.0.0.17:5173`. Found in tauri.conf.
 
 ## Database management
 
@@ -70,6 +79,8 @@ You can either change your values in `.env.local` or add another file `.env.deve
 The app is set to deploy as static HTML outputs, so it should generally work
 with the Tauri system for compiling to WASM/Rust. e.g. `pnpm tauri dev`,
 `pnpm tauri android dev`, `pnpm tauri ios dev`, and so on.
+
+To test the Android app with local supabase connection, you'll need to enter your IP address as `VITE_SUPABASE_URL`, e.g. `http://10.0.0.17:54321`.
 
 Remember to start the Android Studio and activate a Virtual Device from the Device Manager. Check `adb devices` to make sure something is connected.
 
