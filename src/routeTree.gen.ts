@@ -48,11 +48,19 @@ import { Route as UserFriendsSearchUidImport } from './routes/_user/friends.sear
 
 // Create Virtual Routes
 
+const RequestRemovalLazyImport = createFileRoute('/request-removal')()
 const PrivacyPolicyLazyImport = createFileRoute('/privacy-policy')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
 const ComponentsLazyImport = createFileRoute('/components')()
 
 // Create/Update Routes
+
+const RequestRemovalLazyRoute = RequestRemovalLazyImport.update({
+  path: '/request-removal',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/request-removal.lazy').then((d) => d.Route),
+)
 
 const PrivacyPolicyLazyRoute = PrivacyPolicyLazyImport.update({
   path: '/privacy-policy',
@@ -276,6 +284,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/request-removal': {
+      id: '/request-removal'
+      path: '/request-removal'
+      fullPath: '/request-removal'
+      preLoaderRoute: typeof RequestRemovalLazyImport
       parentRoute: typeof rootRoute
     }
     '/_auth/find-a-friend': {
@@ -529,6 +544,7 @@ export const routeTree = rootRoute.addChildren({
   ComponentsLazyRoute,
   DashboardLazyRoute,
   PrivacyPolicyLazyRoute,
+  RequestRemovalLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -544,7 +560,8 @@ export const routeTree = rootRoute.addChildren({
         "/_user",
         "/components",
         "/dashboard",
-        "/privacy-policy"
+        "/privacy-policy",
+        "/request-removal"
       ]
     },
     "/": {
@@ -578,6 +595,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/privacy-policy": {
       "filePath": "privacy-policy.lazy.tsx"
+    },
+    "/request-removal": {
+      "filePath": "request-removal.lazy.tsx"
     },
     "/_auth/find-a-friend": {
       "filePath": "_auth/find-a-friend.tsx",
