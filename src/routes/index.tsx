@@ -8,6 +8,7 @@ import {
 	NavigationMenuItem,
 	NavigationMenuList,
 } from '@/components/ui/navigation-menu'
+import BlueskyLogo from '@/components/svg/bluesky-logo'
 import {
 	Code,
 	FileText,
@@ -34,6 +35,10 @@ const footerNavigationItems = [
 		<Code className={className} />
 		GitHub
 	</a>,
+	<a href="https://bsky.app/profile/sunlo.app">
+		<BlueskyLogo className={className} />
+		BlueSky
+	</a>,
 	<Link to="/privacy-policy" from="/">
 		<FileText className={className} />
 		Privacy Policy
@@ -54,7 +59,7 @@ function Index() {
 			<main className="mb-8 flex flex-row flex-wrap gap-4 @xl:my-20">
 				<div className="mx-auto flex max-w-[537px] basis-11/12 flex-col justify-center space-y-4 @xl:basis-3/5">
 					<h1 className="d2 mt-12 text-center @xl:mt-8 @xl:mb-4 @xl:text-start @3xl:mb-10">
-						Sunlo: social language&nbsp;learning
+						Sunlo: Social language&nbsp;learning
 					</h1>
 					<p className="text-center text-xl @xl:h-[120px] @xl:text-start">
 						Create your own flash cards, pick from a crowd-sourced pool, or send
@@ -85,8 +90,13 @@ function Index() {
 			<Callout variant="ghost" className="mx-auto max-w-xl">
 				<WandSparkles size={40} />
 				<p>
-					Sunlo is under development; it is incomplete and some of the screens
-					are just mockups.
+					Sunlo is under development; some of the features you would expect may
+					not have been built yet, but what is here should be working. Please
+					get in touch on bluesky at{' '}
+					<a className="s-link" href="https://bsky.app/profile/sunlo.app">
+						@sunlo.app
+					</a>{' '}
+					to let us know of any feedback.
 				</p>
 			</Callout>
 			<section className="my-16 px-1 pt-4 pb-8 @lg:px-4 @lg:pt-10 @lg:pb-16">
