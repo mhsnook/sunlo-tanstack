@@ -3,7 +3,6 @@ import type { uuid } from '@/types/main'
 import { Share2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Button } from './ui/button'
-import { cn } from '@/lib/utils'
 import { useLanguagePhrase } from '@/lib/use-language'
 import languages from '@/lib/languages'
 
@@ -11,7 +10,8 @@ export default function SharePhraseButton({
 	lang,
 	pid,
 	text = 'Share phrase',
-	variant = 'outline',
+	variant = 'ghost',
+	size = 'badge',
 	className = '',
 	...props
 }: {
@@ -19,6 +19,7 @@ export default function SharePhraseButton({
 	pid: uuid
 	text?: string
 	variant?: string
+	size?: string
 	className?: string
 } & ButtonProps) {
 	const { data: phrase, isPending } = useLanguagePhrase(pid, lang)
@@ -39,11 +40,12 @@ export default function SharePhraseButton({
 		<Button
 			onClick={sharePhrase}
 			variant={variant}
-			className={cn('flex items-center gap-2', className)}
+			size={size}
+			className={className}
 			{...props}
 		>
 			<Share2 className="h-4 w-4" />
-			{text}
+			<span className="hidden @xl:block">{text}</span>
 		</Button>
 	)
 }

@@ -94,20 +94,12 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 								i === currentCardIndex ? 'flex' : 'hidden'
 							)}
 						>
-							<CardHeader className="flex flex-row justify-end gap-2">
+							<CardHeader className="flex flex-row items-center justify-end gap-2">
 								<PermalinkButton
-									variant="ghost"
-									size="icon-sm"
-									text=""
-									url={`${window.location.origin}/learn/${phrase.lang}/${phrase.id}`}
+									to={'/learn/$lang/$id'}
+									params={{ lang: phrase.lang, id: phrase.id }}
 								/>
-								<SharePhraseButton
-									lang={phrase.lang}
-									pid={phrase.id}
-									variant="ghost"
-									size="icon-sm"
-									text=""
-								/>
+								<SharePhraseButton lang={phrase.lang} pid={phrase.id} />
 								<PhraseExtraInfo lang={phrase.lang} pid={phrase.id} />
 							</CardHeader>
 							<CardContent
