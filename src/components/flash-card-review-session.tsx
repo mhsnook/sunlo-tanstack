@@ -13,6 +13,7 @@ import { PostgrestError } from '@supabase/supabase-js'
 import PhraseExtraInfo from './phrase-extra-info'
 import Flagged from './flagged'
 import PermalinkButton from './permalink-button'
+import SharePhraseButton from './share-phrase-button'
 
 interface ComponentProps {
 	cards: Array<CardFull>
@@ -99,6 +100,13 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 									size="icon-sm"
 									text=""
 									url={`${window.location.origin}/learn/${phrase.lang}/${phrase.id}`}
+								/>
+								<SharePhraseButton
+									lang={phrase.lang}
+									pid={phrase.id}
+									variant="ghost"
+									size="icon-sm"
+									text=""
 								/>
 								<PhraseExtraInfo lang={phrase.lang} pid={phrase.id} />
 							</CardHeader>

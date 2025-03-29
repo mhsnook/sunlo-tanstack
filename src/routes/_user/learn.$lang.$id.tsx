@@ -1,6 +1,7 @@
 import { AddTranslationsDialog } from '@/components/add-translations-dialog'
 import { CardStatusDropdown } from '@/components/card-status-dropdown'
 import PermalinkButton from '@/components/permalink-button'
+import SharePhraseButton from '@/components/share-phrase-button'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Callout from '@/components/ui/callout'
@@ -17,8 +18,7 @@ import { deckQueryOptions } from '@/lib/use-deck'
 import { languageQueryOptions } from '@/lib/use-language'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Calendar, Copy, OctagonMinus, Plus, Share2 } from 'lucide-react'
-import toast from 'react-hot-toast'
+import { Calendar, OctagonMinus } from 'lucide-react'
 
 export const Route = createFileRoute('/_user/learn/$lang/$id')({
 	component: RouteComponent,
@@ -47,22 +47,6 @@ function RouteComponent() {
 	if (phrase === null) return <PhraseNotFound />
 
 	const card = deck.cardsMap[id] ?? null
-
-	const sharePhrase = () => {
-		if (navigator.share) {
-			navigator
-				.share({
-					title: `Sunlo: ${phrase.text}`,
-					text: `Check out this phrase in ${languages[phrase.lang]}: ${phrase.text}`,
-					url: window.location.href,
-				})
-				.catch(() => {
-					toast.error('Failed to share')
-				})
-		} else {
-			copyLink()
-		}
-	}
 
 	return (
 		<Card>
@@ -123,14 +107,7 @@ function RouteComponent() {
 
 					<div className="flex flex-wrap gap-2">
 						<PermalinkButton />
-						<Button
-							onClick={sharePhrase}
-							variant="outline"
-							className="flex items-center gap-2"
-						>
-							<Share2 className="h-4 w-4" />
-							Share phrase
-						</Button>
+						<SharePhraseButton pid={phrase.id} lang={phrase.lang} />
 						<div className="flex-grow"></div>
 						<Link to={`/learn/${lang}/library`}>
 							<Button variant="ghost">Back to library</Button>
