@@ -1,7 +1,7 @@
 import { AddTranslationsDialog } from '@/components/add-translations-dialog'
 import { CardStatusDropdown } from '@/components/card-status-dropdown'
 import Flagged from '@/components/flagged'
-import PermalinkButton from '@/components/permalink-button'
+import CopyLinkButton from '@/components/copy-link-button'
 import SharePhraseButton from '@/components/share-phrase-button'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -110,8 +110,13 @@ function RouteComponent() {
 					<Separator />
 
 					<div className="flex flex-wrap gap-2">
-						<PermalinkButton />
-						<SharePhraseButton pid={phrase.id} lang={phrase.lang} />
+						<CopyLinkButton variant="outline" size="default" />
+						<SharePhraseButton
+							pid={phrase.id}
+							lang={phrase.lang}
+							variant="outline"
+							size="default"
+						/>
 						<div className="flex-grow"></div>
 						<Link to={`/learn/${lang}/library`}>
 							<Button variant="ghost">Back to library</Button>
