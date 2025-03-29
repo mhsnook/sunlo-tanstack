@@ -23,7 +23,7 @@ const buttonVariants = cva(
 				lg: 'rounded-md px-8 py-4 text-xl font-medium rounded-lg gap-3',
 				icon: 'size-10 rounded-full shrink-0',
 				'icon-sm': 'size-6 rounded-full shrink-0',
-				badge: 'h-6 rounded-full font-sm px-2 gap-1',
+				badge: 'h-6 rounded-full font-sm px-2 gap-1 my-0',
 			},
 		},
 		defaultVariants: {

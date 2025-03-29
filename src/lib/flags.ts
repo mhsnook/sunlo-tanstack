@@ -14,4 +14,5 @@ export const flags: FlagMap = {
 	friends_activity: { enabled: false },
 	learning_goals: { enabled: false },
 	text_to_speech: { enabled: false },
+	cards_schedule_metadata: { enabled: false },
 }

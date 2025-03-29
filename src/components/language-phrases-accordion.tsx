@@ -10,6 +10,8 @@ import { AddTranslationsDialog } from './add-translations-dialog'
 import { useLanguage } from '@/lib/use-language'
 import { useDeck } from '@/lib/use-deck'
 import PhraseExtraInfo from './phrase-extra-info'
+import PermalinkButton from './permalink-button'
+import SharePhraseButton from './share-phrase-button'
 
 interface PhrasesWithOptionalOrder {
 	lang: string
@@ -77,17 +79,31 @@ function PhraseAccordionItem({
 							</li>
 						))}
 					</ul>
-					<AddTranslationsDialog
-						phrase={phrase}
-						size="badge"
-						variant="link"
-						className="text-xs"
-					/>
-					<PhraseExtraInfo
-						lang={phrase.lang}
-						pid={phrase.id}
-						className="ms-auto"
-					/>
+					<div className="my-4 flex flex-row gap-2">
+						<AddTranslationsDialog
+							phrase={phrase}
+							size="badge"
+							variant="link"
+							className="text-xs"
+						/>
+						<PermalinkButton
+							to="/learn/$lang/$id"
+							params={{ lang: phrase.lang, id: phrase.id }}
+							variant="link"
+							className="text-xs"
+						/>
+						<SharePhraseButton
+							pid={phrase.id}
+							lang={phrase.lang}
+							variant="link"
+							className="text-xs"
+						/>
+						<PhraseExtraInfo
+							lang={phrase.lang}
+							pid={phrase.id}
+							className="ms-auto"
+						/>
+					</div>
 				</div>
 			</AccordionContent>
 		</AccordionItem>
