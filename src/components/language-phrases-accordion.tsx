@@ -11,6 +11,7 @@ import { useLanguage } from '@/lib/use-language'
 import { useDeck } from '@/lib/use-deck'
 import PhraseExtraInfo from './phrase-extra-info'
 import PermalinkButton from './permalink-button'
+import SharePhraseButton from './share-phrase-button'
 
 interface PhrasesWithOptionalOrder {
 	lang: string
@@ -88,6 +89,14 @@ function PhraseAccordionItem({
 						<PermalinkButton
 							url={`/learn/${phrase.lang}/${phrase.id}`}
 							text="Permalink"
+							variant="link"
+							size="badge"
+							className="text-xs"
+						/>
+						<SharePhraseButton
+							pid={phrase.id}
+							lang={phrase.lang}
+							text="Share"
 							variant="link"
 							size="badge"
 							className="text-xs"
