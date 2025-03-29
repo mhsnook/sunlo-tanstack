@@ -1,5 +1,6 @@
 import { AddTranslationsDialog } from '@/components/add-translations-dialog'
 import { CardStatusDropdown } from '@/components/card-status-dropdown'
+import Flagged from '@/components/flagged'
 import PermalinkButton from '@/components/permalink-button'
 import SharePhraseButton from '@/components/share-phrase-button'
 import { Badge } from '@/components/ui/badge'
@@ -68,7 +69,10 @@ function RouteComponent() {
 				<CardDescription className="mt-2 flex items-center gap-2">
 					{!card ?
 						<p>This card is not in your deck</p>
-					:	<>
+					:	<Flagged
+							className="flex flex-row items-center gap-1"
+							name="cards_schedule_metadata"
+						>
 							<span>Difficulty score {card?.difficultyScore ?? '7'}/10</span>
 							<span className="mx-2">•</span>
 							<Calendar className="h-4 w-4" />
@@ -76,7 +80,7 @@ function RouteComponent() {
 								Next review scheduled for {card?.nextReview?.day ?? 'Tuesday'}{' '}
 								(in {card?.nextReview?.daysFromNow ?? '4'} days)
 							</span>
-						</>
+						</Flagged>
 					}
 				</CardDescription>
 			</CardHeader>
