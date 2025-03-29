@@ -1,39 +1,27 @@
-import { Copy } from 'lucide-react'
-import { Button } from './ui/button'
-import toast from 'react-hot-toast'
-import { ButtonProps } from './ui/button-variants'
+import { LinkIcon } from 'lucide-react'
+import { ButtonProps, buttonVariants } from './ui/button-variants'
 import { cn } from '@/lib/utils'
+import { Link, LinkProps } from '@tanstack/react-router'
 
 export default function PermalinkButton({
-	url = '',
-	text = 'Copy link',
-	variant = 'outline',
+	to,
+	params,
+	text = 'Permalink',
+	variant = 'ghost',
+	size = 'badge',
 	className = '',
 	...props
-}: {
-	url?: string
-	text?: string
-} & ButtonProps) {
-	const copyLink = () => {
-		url = url || window.location.href
-		navigator.clipboard
-			.writeText(url)
-			.then(() => {
-				toast.success('Link copied to clipboard')
-			})
-			.catch(() => {
-				toast.error('Failed to copy link')
-			})
-	}
-	return (
-		<Button
-			onClick={copyLink}
-			variant={variant}
-			{...props}
-			className={cn('flex items-center gap-2', className)}
-		>
-			<Copy className="h-4 w-4" />
-			{text}
-		</Button>
-	)
+}: { text: string } & LinkProps & ButtonProps) {
+	return !to ? null : (
+			<Link
+				to={to}
+				params={params}
+				className={cn(buttonVariants({ variant, size }), className)}
+				preload="intent"
+				{...props}
+			>
+				<LinkIcon className="h-4 w-4" />
+				<span className="hidden @xl:block">{text}</span>
+			</Link>
+		)
 }

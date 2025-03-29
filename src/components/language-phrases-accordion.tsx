@@ -87,18 +87,15 @@ function PhraseAccordionItem({
 							className="text-xs"
 						/>
 						<PermalinkButton
-							url={`/learn/${phrase.lang}/${phrase.id}`}
-							text="Permalink"
+							to="/learn/$lang/$id"
+							params={{ lang: phrase.lang, id: phrase.id }}
 							variant="link"
-							size="badge"
 							className="text-xs"
 						/>
 						<SharePhraseButton
 							pid={phrase.id}
 							lang={phrase.lang}
-							text="Share"
 							variant="link"
-							size="badge"
 							className="text-xs"
 						/>
 						<PhraseExtraInfo
