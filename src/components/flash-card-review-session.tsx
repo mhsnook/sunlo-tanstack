@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Play, ChevronLeft, ChevronRight } from 'lucide-react'
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
 import { CardFull, ReviewScheduled, uuid } from '@/types/main'
@@ -12,6 +12,7 @@ import { postReview } from '@/lib/use-reviewables'
 import { PostgrestError } from '@supabase/supabase-js'
 import PhraseExtraInfo from './phrase-extra-info'
 import Flagged from './flagged'
+import PermalinkButton from './permalink-button'
 
 interface ComponentProps {
 	cards: Array<CardFull>
@@ -92,10 +93,18 @@ export function FlashCardReviewSession({ lang, cards }: ComponentProps) {
 								i === currentCardIndex ? 'flex' : 'hidden'
 							)}
 						>
+							<CardHeader className="flex flex-row justify-end gap-2">
+								<PermalinkButton
+									variant="ghost"
+									size="icon-sm"
+									text=""
+									url={`${window.location.origin}/learn/${phrase.lang}/${phrase.id}`}
+								/>
+								<PhraseExtraInfo lang={phrase.lang} pid={phrase.id} />
+							</CardHeader>
 							<CardContent
 								className={`flex grow flex-col items-center justify-center px-[10%] pt-0`}
 							>
-								<PhraseExtraInfo lang={phrase.lang} pid={phrase.id} />
 								<div className="mb-4 flex items-center justify-center">
 									<div className="mr-2 text-2xl font-bold">{phrase.text}</div>
 									<Flagged name="text_to_speech">
