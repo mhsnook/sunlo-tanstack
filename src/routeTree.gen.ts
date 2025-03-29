@@ -44,6 +44,7 @@ import { Route as UserLearnLangReviewImport } from './routes/_user/learn.$lang.r
 import { Route as UserLearnLangLibraryImport } from './routes/_user/learn.$lang.library'
 import { Route as UserLearnLangDeckSettingsImport } from './routes/_user/learn.$lang.deck-settings'
 import { Route as UserLearnLangAddPhraseImport } from './routes/_user/learn.$lang.add-phrase'
+import { Route as UserLearnLangIdImport } from './routes/_user/learn.$lang.$id'
 import { Route as UserFriendsSearchUidImport } from './routes/_user/friends.search.$uid'
 
 // Create Virtual Routes
@@ -268,6 +269,12 @@ const UserLearnLangAddPhraseRoute = UserLearnLangAddPhraseImport.update({
   getParentRoute: () => UserLearnLangRoute,
 } as any)
 
+const UserLearnLangIdRoute = UserLearnLangIdImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => UserLearnLangRoute,
+} as any)
+
 const UserFriendsSearchUidRoute = UserFriendsSearchUidImport.update({
   id: '/$uid',
   path: '/$uid',
@@ -488,6 +495,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserFriendsSearchUidImport
       parentRoute: typeof UserFriendsSearchImport
     }
+    '/_user/learn/$lang/$id': {
+      id: '/_user/learn/$lang/$id'
+      path: '/$id'
+      fullPath: '/learn/$lang/$id'
+      preLoaderRoute: typeof UserLearnLangIdImport
+      parentRoute: typeof UserLearnLangImport
+    }
     '/_user/learn/$lang/add-phrase': {
       id: '/_user/learn/$lang/add-phrase'
       path: '/add-phrase'
@@ -583,6 +597,7 @@ const UserFriendsRouteWithChildren = UserFriendsRoute._addFileChildren(
 )
 
 interface UserLearnLangRouteChildren {
+  UserLearnLangIdRoute: typeof UserLearnLangIdRoute
   UserLearnLangAddPhraseRoute: typeof UserLearnLangAddPhraseRoute
   UserLearnLangDeckSettingsRoute: typeof UserLearnLangDeckSettingsRoute
   UserLearnLangLibraryRoute: typeof UserLearnLangLibraryRoute
@@ -592,6 +607,7 @@ interface UserLearnLangRouteChildren {
 }
 
 const UserLearnLangRouteChildren: UserLearnLangRouteChildren = {
+  UserLearnLangIdRoute: UserLearnLangIdRoute,
   UserLearnLangAddPhraseRoute: UserLearnLangAddPhraseRoute,
   UserLearnLangDeckSettingsRoute: UserLearnLangDeckSettingsRoute,
   UserLearnLangLibraryRoute: UserLearnLangLibraryRoute,
@@ -688,6 +704,7 @@ export interface FileRoutesByFullPath {
   '/learn/': typeof UserLearnIndexRoute
   '/profile/': typeof UserProfileIndexRoute
   '/friends/search/$uid': typeof UserFriendsSearchUidRoute
+  '/learn/$lang/$id': typeof UserLearnLangIdRoute
   '/learn/$lang/add-phrase': typeof UserLearnLangAddPhraseRoute
   '/learn/$lang/deck-settings': typeof UserLearnLangDeckSettingsRoute
   '/learn/$lang/library': typeof UserLearnLangLibraryRoute
@@ -722,6 +739,7 @@ export interface FileRoutesByTo {
   '/learn': typeof UserLearnIndexRoute
   '/profile': typeof UserProfileIndexRoute
   '/friends/search/$uid': typeof UserFriendsSearchUidRoute
+  '/learn/$lang/$id': typeof UserLearnLangIdRoute
   '/learn/$lang/add-phrase': typeof UserLearnLangAddPhraseRoute
   '/learn/$lang/deck-settings': typeof UserLearnLangDeckSettingsRoute
   '/learn/$lang/library': typeof UserLearnLangLibraryRoute
@@ -762,6 +780,7 @@ export interface FileRoutesById {
   '/_user/learn/': typeof UserLearnIndexRoute
   '/_user/profile/': typeof UserProfileIndexRoute
   '/_user/friends/search/$uid': typeof UserFriendsSearchUidRoute
+  '/_user/learn/$lang/$id': typeof UserLearnLangIdRoute
   '/_user/learn/$lang/add-phrase': typeof UserLearnLangAddPhraseRoute
   '/_user/learn/$lang/deck-settings': typeof UserLearnLangDeckSettingsRoute
   '/_user/learn/$lang/library': typeof UserLearnLangLibraryRoute
@@ -802,6 +821,7 @@ export interface FileRouteTypes {
     | '/learn/'
     | '/profile/'
     | '/friends/search/$uid'
+    | '/learn/$lang/$id'
     | '/learn/$lang/add-phrase'
     | '/learn/$lang/deck-settings'
     | '/learn/$lang/library'
@@ -835,6 +855,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/profile'
     | '/friends/search/$uid'
+    | '/learn/$lang/$id'
     | '/learn/$lang/add-phrase'
     | '/learn/$lang/deck-settings'
     | '/learn/$lang/library'
@@ -873,6 +894,7 @@ export interface FileRouteTypes {
     | '/_user/learn/'
     | '/_user/profile/'
     | '/_user/friends/search/$uid'
+    | '/_user/learn/$lang/$id'
     | '/_user/learn/$lang/add-phrase'
     | '/_user/learn/$lang/deck-settings'
     | '/_user/learn/$lang/library'
@@ -1033,6 +1055,7 @@ export const routeTree = rootRoute
       "filePath": "_user/learn.$lang.tsx",
       "parent": "/_user/learn",
       "children": [
+        "/_user/learn/$lang/$id",
         "/_user/learn/$lang/add-phrase",
         "/_user/learn/$lang/deck-settings",
         "/_user/learn/$lang/library",
@@ -1076,6 +1099,10 @@ export const routeTree = rootRoute
     "/_user/friends/search/$uid": {
       "filePath": "_user/friends.search.$uid.tsx",
       "parent": "/_user/friends/search"
+    },
+    "/_user/learn/$lang/$id": {
+      "filePath": "_user/learn.$lang.$id.tsx",
+      "parent": "/_user/learn/$lang"
     },
     "/_user/learn/$lang/add-phrase": {
       "filePath": "_user/learn.$lang.add-phrase.tsx",
