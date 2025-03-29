@@ -1,5 +1,6 @@
 import { AddTranslationsDialog } from '@/components/add-translations-dialog'
 import { CardStatusDropdown } from '@/components/card-status-dropdown'
+import PermalinkButton from '@/components/permalink-button'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Callout from '@/components/ui/callout'
@@ -46,17 +47,7 @@ function RouteComponent() {
 	if (phrase === null) return <PhraseNotFound />
 
 	const card = deck.cardsMap[id] ?? null
-	const copyLink = () => {
-		const url = window.location.href
-		navigator.clipboard
-			.writeText(url)
-			.then(() => {
-				toast.success('Link copied to clipboard')
-			})
-			.catch(() => {
-				toast.error('Failed to copy link')
-			})
-	}
+
 	const sharePhrase = () => {
 		if (navigator.share) {
 			navigator
@@ -131,14 +122,7 @@ function RouteComponent() {
 					<Separator />
 
 					<div className="flex flex-wrap gap-2">
-						<Button
-							onClick={copyLink}
-							variant="outline"
-							className="flex items-center gap-2"
-						>
-							<Copy className="h-4 w-4" />
-							Copy link
-						</Button>
+						<PermalinkButton />
 						<Button
 							onClick={sharePhrase}
 							variant="outline"
