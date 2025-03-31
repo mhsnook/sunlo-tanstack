@@ -27,7 +27,9 @@ export function NavMain({ lang }: { lang: string }) {
 	return (
 		<>
 			{!deckMenu ? null : (
-				<OneSidebarMenu menu={deckMenu} title="Deck options" />
+				<div className="bg-muted-foreground/10 pb-2">
+					<OneSidebarMenu menu={deckMenu} title="Deck options" />
+				</div>
 			)}
 			<OneSidebarMenu menu={learnMenu} title="Learning center" />
 			<OneSidebarMenu menu={friendsMenu} title="Friends & contacts" />
