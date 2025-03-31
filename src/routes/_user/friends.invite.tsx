@@ -55,7 +55,7 @@ function ShareButtons() {
 					className={buttonVariants({ size: 'lg', variant: 'secondary' })}
 					href={`whatsapp://send?text=${encodeURIComponent(shareData.text)}`}
 				>
-					WhatsApp <Phone className="rounded-full p-px outline outline-1" />
+					WhatsApp <Phone className="rounded-full p-px outline" />
 				</a>
 			</div>
 		</div>

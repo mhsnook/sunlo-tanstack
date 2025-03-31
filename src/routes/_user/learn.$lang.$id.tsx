@@ -68,7 +68,7 @@ function RouteComponent() {
 				</div>
 				<CardDescription className="mt-2 flex items-center gap-2">
 					{!card ?
-						<p>This card is not in your deck</p>
+						<span>This card is not in your deck</span>
 					:	<Flagged
 							className="flex flex-row items-center gap-1"
 							name="cards_schedule_metadata"
