@@ -12,8 +12,19 @@ import { useRelations } from '@/lib/friends'
 import { ShowError } from '@/components/errors'
 import { ProfileWithRelationship } from '@/components/profile-with-relationship'
 import Flagged from '@/components/flagged'
+import { uuid } from '@/types/main'
+import Callout from '@/components/ui/callout'
+
+type FriendsIndexProps = {
+	request_uid: uuid
+}
 
 export const Route = createFileRoute('/_user/friends/')({
+	validateSearch: (search: Record<string, unknown>): FriendsIndexProps => {
+		return {
+			request_uid: (search.request_uid as string) || '',
+		}
+	},
 	component: FriendListPage,
 })
 
@@ -30,6 +41,7 @@ function FriendListPage() {
 }
 
 function PendingRequestsSection() {
+	const { request_uid }: FriendsIndexProps = Route.useSearch()
 	const { data, isPending, error } = useRelations()
 
 	return (
@@ -42,14 +54,24 @@ function PendingRequestsSection() {
 					<Loader />
 				: error ?
 					<ShowError>{error.message}</ShowError>
-				: !(data?.uids.invited.length > 0) ?
-					<p>You don't have any requests pending at this time.</p>
-				:	data.uids.invited.map((uid) => (
-						<ProfileWithRelationship
-							key={uid}
-							profile={data?.relationsMap[uid].profile}
-						/>
-					))
+				:	<>
+						<Callout>
+							<ProfileWithRelationship
+								profile={data?.relationsMap[request_uid].profile}
+							/>
+						</Callout>
+						{!(data?.uids.invited.length > 0) ?
+							<p>You don't have any requests pending at this time.</p>
+						:	data.uids.invited
+								.filter((uid) => uid !== request_uid)
+								.map((uid) => (
+									<ProfileWithRelationship
+										key={uid}
+										profile={data?.relationsMap[uid].profile}
+									/>
+								))
+						}
+					</>
 				}
 			</CardContent>
 		</Card>

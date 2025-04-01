@@ -4,17 +4,30 @@ import ProfileCreationForm from '@/components/profile-creation-form'
 import { useProfile } from '@/lib/use-profile'
 import { Loader } from '@/components/ui/loader'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
+import { uuid } from '@/types/main'
+
+type GettingStartedProps = {
+	referrer: uuid
+}
 
 export const Route = createFileRoute('/_user/getting-started')({
+	validateSearch: (search: Record<string, unknown>): GettingStartedProps => {
+		return {
+			referrer: (search.referrer as string) || '',
+		}
+	},
 	component: GettingStartedPage,
 })
 
 function GettingStartedPage() {
+	const { referrer }: GettingStartedProps = Route.useSearch()
 	const { userId, userRole } = useAuth()
 	const { data: profile } = useProfile()
 
 	const nextPage =
-		userRole === 'learner' ? '/learn/add-deck' : '/friends/request'
+		referrer ? `/friends?request_uid=${referrer}`
+		: userRole === 'learner' ? '/learn/add-deck'
+		: '/friends'
 
 	return (
 		profile === undefined ? <Loader />

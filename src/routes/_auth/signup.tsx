@@ -14,8 +14,18 @@ import { EmailField, PasswordField, UserRoleField } from '@/components/fields'
 import supabase from '@/lib/supabase-client'
 import { ShowError } from '@/components/errors'
 import SuccessCheckmark from '@/components/SuccessCheckmark'
+import { uuid } from '@/types/main'
+
+type SignUpProps = {
+	referrer: uuid
+}
 
 export const Route = createFileRoute('/_auth/signup')({
+	validateSearch: (search: Record<string, unknown>): SignUpProps => {
+		return {
+			referrer: (search.referrer as string) || '',
+		}
+	},
 	component: SignUp,
 })
 
@@ -33,6 +43,7 @@ const FormSchema = z.object({
 type FormInputs = z.infer<typeof FormSchema>
 
 function SignUp() {
+	const { referrer }: SignUpProps = Route.useSearch()
 	const signupMutation = useMutation({
 		mutationKey: ['signup'],
 		mutationFn: async ({ email, password, user_role }: FormInputs) => {
@@ -40,7 +51,7 @@ function SignUp() {
 				email,
 				password,
 				options: {
-					emailRedirectTo: `${import.meta.env.VITE_BASE_URL}/getting-started`,
+					emailRedirectTo: `${import.meta.env.VITE_BASE_URL}/getting-started${referrer ? `?referrer=${referrer}` : ''}`,
 					data: {
 						role: user_role || 'learner',
 					},
