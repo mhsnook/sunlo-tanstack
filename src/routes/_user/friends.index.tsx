@@ -43,6 +43,7 @@ function FriendListPage() {
 function PendingRequestsSection() {
 	const { request_uid }: FriendsIndexProps = Route.useSearch()
 	const { data, isPending, error } = useRelations()
+	const highlighted = data?.relationsMap[request_uid]?.profile
 
 	return (
 		<Card>
@@ -55,11 +56,11 @@ function PendingRequestsSection() {
 				: error ?
 					<ShowError>{error.message}</ShowError>
 				:	<>
-						<Callout>
-							<ProfileWithRelationship
-								profile={data?.relationsMap[request_uid].profile}
-							/>
-						</Callout>
+						{highlighted ?
+							<Callout>
+								<ProfileWithRelationship profile={highlighted} />
+							</Callout>
+						:	null}
 						{!(data?.uids.invited.length > 0) ?
 							<p>You don't have any requests pending at this time.</p>
 						:	data.uids.invited
