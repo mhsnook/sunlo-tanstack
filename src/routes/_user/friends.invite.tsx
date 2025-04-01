@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/card'
 import { useProfile } from '@/lib/use-profile'
 import { NativeShareButton } from '@/components/native-share-button'
+import CopyLinkButton from '@/components/copy-link-button'
 
 export const Route = createFileRoute('/_user/friends/invite')({
 	component: InviteFriendPage,
@@ -36,8 +37,9 @@ function InviteFriendPage() {
 
 function ShareButtons() {
 	const { data: profile } = useProfile()
+	const signupUrl = `https://sunlo.app/signup?referrer=${profile?.uid}`
 	const shareData = {
-		text: `Hello friend, I'm learning a language with Sunlo, a social language learning app. Will you join me? https://sunlo.app/signup?referrer=${profile.uid}`,
+		text: `Hello friend, I'm learning a language with Sunlo, a social language learning app. Will you join me? ${signupUrl}`,
 		title: `Invitation! Join ${profile?.username || 'your friend'} on Sunlo.app`,
 	}
 
@@ -45,6 +47,12 @@ function ShareButtons() {
 		<div>
 			<div className="flex flex-col gap-2 @md:flex-row">
 				<NativeShareButton shareData={shareData} />
+				<CopyLinkButton
+					url={signupUrl}
+					text="Copy link"
+					variant="secondary"
+					size="lg"
+				/>
 				<a
 					className={buttonVariants({ size: 'lg', variant: 'secondary' })}
 					href={`mailto:?subject=${encodeURIComponent(shareData.title)}&body=${encodeURIComponent(shareData.text)}`}
