@@ -51,7 +51,7 @@ function SignUp() {
 				email,
 				password,
 				options: {
-					emailRedirectTo: `${import.meta.env.VITE_BASE_URL}/getting-started${referrer ? `?referrer=${referrer}` : ''}`,
+					emailRedirectTo: `${window.location.origin}/getting-started${referrer ? `?referrer=${referrer}` : ''}`,
 					data: {
 						role: user_role || 'learner',
 					},

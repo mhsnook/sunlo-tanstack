@@ -33,7 +33,9 @@ function ChangeEmailPage() {
 		mutationFn: async ({ email }: FormInputs) => {
 			const { error } = await supabase.auth.updateUser(
 				{ email },
-				{ emailRedirectTo: `https://sunlo.app/profile/change-email-confirm` }
+				{
+					emailRedirectTo: `${window.location.origin}/profile/change-email-confirm`,
+				}
 			)
 			if (error) {
 				console.log(`Error`, error)

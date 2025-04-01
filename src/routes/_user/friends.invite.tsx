@@ -37,7 +37,7 @@ function InviteFriendPage() {
 
 function ShareButtons() {
 	const { data: profile } = useProfile()
-	const signupUrl = `https://sunlo.app/signup?referrer=${profile?.uid}`
+	const signupUrl = `${window.location.origin}/signup?referrer=${profile?.uid}`
 	const shareData = {
 		text: `Hello friend, I'm learning a language with Sunlo, a social language learning app. Will you join me? ${signupUrl}`,
 		title: `Invitation! Join ${profile?.username || 'your friend'} on Sunlo.app`,
