@@ -34,7 +34,6 @@ To make the Android app work, you will probably have to run:
 
 ## Configurations / URLs
 
-- `VITE_BASE_URL` – host for the React (Vite) app. the local-machine addressable host, e.g. `http://127.0.0.1:5173`, or check and use your local-network IP address to test in Android, e.g. `http://10.0.0.17:5173`
 - `VITE_SUPABASE_URL` -- host for the Supabase API (Docker container). to work in the browser this can be `127.0.0.1:54321`, but when testing android locally, use a local-network addressable IP, e.g. `10.0.0.17:54321`
 - Tauri `build.devUrl` -- should be the network-addressable host for the vite/react app, e.g. `http://10.0.0.17:5173`. Found in tauri.conf.
 

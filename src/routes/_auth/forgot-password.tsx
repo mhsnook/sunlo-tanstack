@@ -32,7 +32,7 @@ function ForgotPasswordPage() {
 		mutationKey: ['forgot-password'],
 		mutationFn: async ({ email }: FormInputs) => {
 			const { error } = await supabase.auth.resetPasswordForEmail(email, {
-				redirectTo: `${import.meta.env.VITE_BASE_URL}/set-new-password`,
+				redirectTo: `${window.location.origin}/set-new-password`,
 			})
 			if (error) {
 				console.log(`Error`, error)
