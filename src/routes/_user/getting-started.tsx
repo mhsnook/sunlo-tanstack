@@ -25,7 +25,7 @@ function GettingStartedPage() {
 	const { data: profile } = useProfile()
 
 	const nextPage =
-		referrer ? `/friends?request_uid=${referrer}`
+		referrer ? `/friends/search/${referrer}`
 		: userRole === 'learner' ? '/learn/add-deck'
 		: '/friends'
 
